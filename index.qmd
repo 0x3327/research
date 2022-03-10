@@ -1,0 +1,36 @@
+---
+pagetitle: "3327 Research"
+description: |
+  Crazy. Bold. Forward.
+page-layout: custom
+section-divs: false
+toc: false
+css: index.css
+editor: source
+---
+
+::: {.hero-banner}
+
+::: {.hero-image .hero-image-left}
+![](images/hero_left.png)
+:::
+
+::: {.content-block}
+
+# Welcome to 3327
+
+### Crazy. Bold. Forward.
+
+::: {.hero-buttons}
+[Research](docs/research/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
+:::
+
+:::
+
+::: {.hero-image .hero-image-right}
+![](images/hero_right.png)
+:::
+
+:::
+
+

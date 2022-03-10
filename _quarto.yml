@@ -1,0 +1,72 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "3327 Research"
+  image: "logo.png"
+#  favicon: "favicon.png"
+#  google-analytics: ""
+  open-graph: true
+  twitter-card: true
+  site-url: https://3327.io
+  repo-url: https://github.com/0x3327/research
+  repo-actions: [edit, issue]
+  page-navigation: true
+  page-footer:
+    left: |
+      Proudly supported by
+      [![](https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png){width=65px}](https://mvpworkshop.co)
+    center:
+      - text: "About"
+        href: about.qmd
+#      - text: "License"
+#        href: license.qmd
+#      - text: "Trademark"
+#        href: trademark.qmd
+    right:
+      - icon: twitter
+        href: https://twitter.com/3327_io
+      - icon: github
+        href: https://github.com/0x3327/research
+  navbar:
+    background: light
+    logo: logo.png
+    title: false
+    collapse-below: lg
+    left:
+      - text: "Overview"
+        href: index.qmd
+      - text: "Research"
+        href: docs/research/index.md
+#      - text: "Presentations"
+#        href: docs/guide/index.qmd
+#      - text: "3327.fm"
+#        href: docs/reference/index.qmd
+#      - text: "Help"
+        menu:
+          - text: "Report an Issue"
+            icon: "bug"
+            href: "https://github.com/0x3327/research/issues"
+          - text: "3327 Research Discussions"
+            icon: "chat-right-text"
+            href: "https://github.com/0x3327/research/discussions"
+    right:
+      - icon: twitter
+        href: https://twitter.com/3327_io
+      - icon: github
+        href: https://github.com/0x3327/research
+
+format:
+  html:
+    toc: true
+    theme:
+      light: [cosmo, theme.scss]
+    code-copy: false
+    code-overflow: wrap
+    css: styles.css
+    include-after-body: js.html
+
+#freeze: true
+
+editor: visual

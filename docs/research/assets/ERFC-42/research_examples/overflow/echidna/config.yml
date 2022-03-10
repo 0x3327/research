@@ -1,0 +1,3 @@
+test-mode: overflow
+corpusDir: corpus
+coverage: true

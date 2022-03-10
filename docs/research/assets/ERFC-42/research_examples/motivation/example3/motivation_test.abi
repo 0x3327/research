@@ -1,0 +1,1 @@
+[{"constant":true,"inputs":[{"name":"a","type":"int256"},{"name":"b","type":"int256"},{"name":"c","type":"int256"}],"name":"f","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"pure","type":"function"}]

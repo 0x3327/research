@@ -1,0 +1,47 @@
+/Users/marija/Documents/echidna/exercises/research_presentation/assert/example1.sol
+    | // SPDX-License-Identifier: GNU Affero
+    | pragma solidity ^0.8.9;
+    | 
+    | contract Example1 {
+**  |     bool public condition;
+    | 
+**  |     function f(uint8 value) public returns(bool){
+**  |         if(value == 50) {
+*   |             condition = true;
+    |         }
+**  |         return condition;
+    |     }
+    | }
+    | 
+
+/Users/marija/Documents/echidna/exercises/research_presentation/assert/test.sol
+    | // SPDX-License-Identifier: GNU Affero
+    | pragma solidity ^0.8.9;
+    | 
+    | import "./example1.sol";
+***r| 
+    | contract Test is Example1 {
+    |     uint MIN_BALANCE = 20;
+    |     uint MAX_BALANCE = 60;
+    |     event AssertionFailed(uint counter);
+    | 
+*r  |     function condition_always_false() public view returns(bool) {    
+*r  |         assert (condition == false);
+    |     }
+    | 
+    | 
+*r  |     function condition_assert(uint256 value) public returns(uint256) {
+*r  |         value = MIN_BALANCE + value % (MAX_BALANCE - MIN_BALANCE);
+*r  |         assert (condition == false );
+*   |         return value;
+    |     }
+    | 
+*   |     function condition_emit_assert(uint256 value) public returns(uint256) {
+*   |         value = MIN_BALANCE + value % (MAX_BALANCE - MIN_BALANCE);
+*   |         if(condition){
+*   |             emit AssertionFailed(value);
+    |         }
+*   |         return value;
+    |     }
+    | }
+    | 

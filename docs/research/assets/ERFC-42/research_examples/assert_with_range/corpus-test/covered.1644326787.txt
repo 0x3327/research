@@ -1,0 +1,36 @@
+/Users/marija/Documents/echidna/exercises/research_presentation/example1.sol
+    | // SPDX-License-Identifier: GNU Affero
+    | pragma solidity ^0.8.9;
+    | 
+    | contract Example1 {
+*   |     bool public condition;
+*   |     uint public increment;
+    | 
+    |     function g() internal {
+    |         increment = 8;
+    |     }
+    | 
+**r |     function f(uint8 value) public returns(bool){
+**r |         if(value == 50) {
+*   |             condition = true;
+    |         }
+**r |         return condition;
+    |     }
+    | }
+    | 
+
+/Users/marija/Documents/echidna/exercises/research_presentation/test.sol
+    | // SPDX-License-Identifier: GNU Affero
+    | pragma solidity ^0.8.9;
+    | 
+    | import "./example1.sol";
+**r | 
+    | contract Test is Example1 {
+    | 
+*r  |     function condition_always_false(uint8 value) public returns(bool cond) {
+*r  |         uint8 inputvalue = 2 + value % (20 - 2);
+*r  |         cond = f(inputvalue);
+*r  |         assert (cond == false);
+    |     }
+    | }
+    | 

@@ -1,0 +1,29 @@
+/home/motivation/example2/motivation_test.sol
+    | // SPDX-License-Identifier: GNU Affero
+    | pragma solidity >=0.4.25;
+*r  | 
+    | contract MotivationTest {
+    |     uint private stateA;
+    |     uint private stateB;
+    |     uint CONST = 32;
+    | 
+*   |     function f(uint x) public {
+*   |       stateA = x;
+    |     }
+    | 
+*r  |     function g(uint y) public{
+*r  |       if (stateA % CONST == 1) {
+*r  |         stateB = y - 10;
+    |       }
+    |     }
+    | 
+*   |     function h() public view {
+*   |       if (stateB == 62) { 
+    |         bug(); 
+    |       }
+    |     }
+    | 
+    |     function bug() private pure {
+    |       assert(false);
+    |     }
+    | }

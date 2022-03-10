@@ -1,0 +1,3 @@
+test-mode: assertion
+corpusDir: corpus
+coverage: true

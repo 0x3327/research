@@ -22,7 +22,7 @@ editor: source
 ### Crazy. Bold. Forward.
 
 ::: {.hero-buttons}
-[Research](docs/research/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
+[Research](documents/research/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
 :::
 
 :::

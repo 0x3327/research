@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: _site
+  output-dir: docs
 
 website:
   title: "3327 Research"
@@ -38,11 +38,11 @@ website:
       - text: "Overview"
         href: index.qmd
       - text: "Research"
-        href: docs/research/index.md
+        href: documents/research/index.md
 #      - text: "Presentations"
-#        href: docs/guide/index.qmd
+#        href: documents/guide/index.qmd
 #      - text: "3327.fm"
-#        href: docs/reference/index.qmd
+#        href: documents/reference/index.qmd
 #      - text: "Help"
         menu:
           - text: "Report an Issue"

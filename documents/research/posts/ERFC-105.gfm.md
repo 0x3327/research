@@ -92,7 +92,7 @@ depends on the implementation of the smart contract.
 `receive()` is called if `msg.data` is empty, otherwise `fallback()` is
 called.
 
-``` solidity
+```solidity
     /**
     Which function is called, fallback() or receive()?
 

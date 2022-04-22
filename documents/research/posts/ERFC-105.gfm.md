@@ -147,7 +147,7 @@ one percent.
 
 Possible implementation:
 
-``` solidity
+```solidity
     function calculateFee(uint256 _amount) public pure returns(uint256) {
         // for example 1.85% is fee
 

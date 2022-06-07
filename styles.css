@@ -226,6 +226,6 @@ img {
 #quarto-document-content code {
   overflow-wrap: break-word;
   display: inline-block;
-  white-space: normal;
+  /*white-space: normal;*/
   max-width: 100%;
 }

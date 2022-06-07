@@ -17,7 +17,825 @@
 <width>144</width>
 </image>
 <generator>quarto-0.9.64</generator>
-<lastBuildDate>Sun, 13 Mar 2022 23:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 11 May 2022 22:00:00 GMT</lastBuildDate>
+<item>
+  <title>Royalty Contract Standardization - RCS</title>
+  <dc:creator>Aleksandar Damjanovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-171.gfm.html</link>
+  <description><![CDATA[ 
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>This research examines the possibility of hardcoding the royalty logic for the NFT royalty payments. It also explores how are royalties for NFT creators/artists taken care of by two largest NFT marketplaces OpenSea and LooksRare. It examines the EIP-2981 which aims to solve the royalty implementation problem. Small experiment is conducted with a goal to modify the transfer function from the ERC-721 standard.</p>
+<p>After explorative research and a short experiment we have come to these conclusions:</p>
+<ol type="1">
+<li>The Marketplaces prefer handling the royalties themselves and only for the trades on their platform</li>
+<li>ERC-2981 contains the optional royalty implementation logic. It’s on the platforms to decide whether they will utilize this standard.</li>
+<li>Hardcoding royalties without making “a mess” of the NFT smart-contract is currently way too complex and would require altering the ERC-721 heavily.</li>
+</ol>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Current marketplaces and NFTs have fragmented royalty payment implementations. This leaves the nft artist/creator with the issue of unpredictable royalty payments for his art. Each marketplace has different solutions for this problem. EIP-2981 has basic royalty implementation. Which doesn’t enforce actual payments. Royalty Contract Standardization (RCS) could in theory be done by modifying the transfer functions to enable the transfer of royalties to the creator during trading of the NFT via transaction splitting.</p>
+<p><strong>This research is the aftermath of a brainstorming session and has some brave assumptions initially, which is why this short research is conducted to further validate those assumptions.</strong></p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The goal of this research is to explore how royalties are taken care of currently and the way EIP-2981 works and the possibility of further improvement.</p>
+<p>This will done by doing an explorative research of current royalty implementations on OpenSea and LooksRare as they are the biggest players.</p>
+<p>Another examination will be done, maimly of the EIP-2981 standard to explore the solution it proposes.</p>
+<p>Afterwards we will examine the possibility of hardcoding royalty in the NFT contract itself.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<section id="opensea" class="level2">
+<h2 class="anchored" data-anchor-id="opensea">OpenSea</h2>
+<p>OpenSea offers royalties for Artists and Creator which are usually around 10%. They are also applied to secondary sales and the proceeds after fees go to the seller of the NFT.</p>
+<p>Users can check the royalty fees with 3 methods:</p>
+<ol type="1">
+<li>Attempting to buy an NFT which will then open up a checkout window where the royalty amount is listed under the name of the NFT.</li>
+<li>Installing the Flava Chrome extension which shows the royalty next to the NFT without needing to open the checkout menu.</li>
+<li>Using the NFT analytics tools - There are numerous NFT analytics tools that include creator royalties in their stats.<sup>1</sup></li>
+</ol>
+<p>As we can see royalties are very important part of NFT space and they are of great importance for both traders and creators.</p>
+<section id="how-do-creators-earn-their-royaties" class="level3">
+<h3 class="anchored" data-anchor-id="how-do-creators-earn-their-royaties">How do creators earn their royaties</h3>
+<p>On OpenSea proceeds from the primary sales of the NFT are immediately forwarded to the creators address. Royalties are usually held by OpenSea for 2-4 weeks before paid out to the creator, this includes <strong>both primary sales and secondary sales</strong>.</p>
+<p>Royalties are not automatically set on OpenSea and the creator of the collection must set the royalty percentage and the payout address on the collection level.</p>
+</section>
+<section id="opensea-royalty-on-other-marketplaces" class="level3">
+<h3 class="anchored" data-anchor-id="opensea-royalty-on-other-marketplaces">OpenSea royalty on other marketplaces</h3>
+<p>OpenSea royalties are enforced on many other platforms. This is a result of various legal agreements between platforms.</p>
+<p>If we are talking about ERC-721 and ERC-1155 standard tokens there is no royalty support on token or smart contract level. That is why previosly mentioned legal agreements are needed to enforce royalty payments.<sup>2</sup></p>
+</section>
+</section>
+<section id="looksrare" class="level2">
+<h2 class="anchored" data-anchor-id="looksrare">LooksRare</h2>
+<p>LooksRare is a decentralized NFT marketplace which rewards traders, token stakers, creators and collectors for participating on the platform.</p>
+<p>It was launched in January 22 with an aim to dethrone Opensea from it’s spot as a leader in the NFT market.</p>
+<p>As a community-first platform all the revenue generated is distributed to the stakers of LOOKS token.</p>
+<section id="token" class="level3">
+<h3 class="anchored" data-anchor-id="token">Token</h3>
+<p>LOOKS is the native token that powers the LooksRare marketplace, its price is $0.5908 at the time of this writing. It is used for staking and various rewards.</p>
+</section>
+<section id="royalties" class="level3">
+<h3 class="anchored" data-anchor-id="royalties">Royalties</h3>
+<p>Whenever the NFT is traded on LooksRare there are 2 types of fee the seller is charged:</p>
+<ul>
+<li>Platform fee (2%)</li>
+<li>Creator royalties</li>
+</ul>
+<p>“Creator royalties are fees that are decided by the collection creator. Collection owners can specify a percentage of royalties they wish to recieve on their collection management page.”</p>
+<p>Royalties are on-chain. Whenever a sale is made through the platform the royalties are paid in the same transaction as the sale and the creators instantly recieve their royalty. This is one of the ways LooksRare is different from OpenSea.</p>
+<p>LooksRare also supports EIP-2981 royalty standard which takes precedent over any royalties specified directly on LooksRare.</p>
+</section>
+</section>
+<section id="eip-2981" class="level2">
+<h2 class="anchored" data-anchor-id="eip-2981">EIP-2981</h2>
+<p>This standard provides a way to retrieve royalty payment information for NFTs with a goal to enable universal support for royalty payments across all NFT marketplaces and ecosystem participants.</p>
+<p>This standard enables all marketplaces to retrieve royalty payment information for a given NFT. This enables accurate royalty payments regardless of which marketplace the NFT is sold or re-sold at.</p>
+<p>This standard only provides a mechanism to fetch the royalty amount and recipients. The actual funds transfer is something the marketplace needs to do.</p>
+<p>“Royalty amounts are always a percentage of the sale price. If a marketplace chooses not to implement this EIP, then no funds will be paid for secondary sales.”</p>
+<p><strong>That is one of the reasons hardcoding royalties idea was proposed.</strong></p>
+<p>EIP-2981 can also be integrated with other contracts to return royalty payment information. <strong>ERC-2981</strong> is a royalty standard for many asset types.</p>
+<p>It is recomended to read the full specification of the proposal in order to better understand the issue at hand and the way it is handled in the <a href="https://eips.ethereum.org/EIPS/eip-2981">EIP-2981</a>.</p>
+<p>In the proposal the writers have come to these conclusions:</p>
+<ul>
+<li><p>“It is impossible to know which NFT transfers are the result of sales, and which are merely wallets moving or consolidating their NFTs. Therefore, we cannot force every transfer function, such as transferFrom() in ERC-721, to involve a royalty payment as not every transfer is a sale that would require such payment.”</p></li>
+<li><p>“It is impossible to fully know and efficiently implement all possible types of royalty payments logic. With that said, it is on the royalty payment receiver to implement all additional complexity and logic for fee splitting, multiple receivers, taxes, accounting, etc. in their own receiving contract or off-chain processes. Attempting to do this as part of this standard, it would dramatically increase the implementation complexity, increase gas costs, and could not possibly cover every potential use-case.”</p></li>
+<li><p>“This EIP mandates a percentage-based royalty fee model. It is likely that the most common case of percentage calculation will be where the royaltyAmount is always calculated from the _salePrice using a fixed percent i.e.&nbsp;if the royalty fee is 10%, then a 10% royalty fee must apply whether _salePrice is 10, 10000 or 1234567890.”</p></li>
+<li><p>“This EIP does not specify a currency or token used for sales and royalty payments. The same percentage-based royalty fee must be paid regardless of what currency, or token was used in the sale, paid in the same currency or token. This applies to sales in any location including on-chain sales, over-the-counter (OTC) sales, and off-chain sales using fiat currency such as at auction houses. As royalty payments are voluntary, entities that respect this EIP must pay no matter where the sale occurred - a sale outside of the blockchain is still a sale.”</p></li>
+</ul>
+<p>They also plan on taking on the mechanism for paying and notifying the recepient in the future EIPs.<sup>3</sup></p>
+<section id="our-experiment" class="level3">
+<h3 class="anchored" data-anchor-id="our-experiment">Our experiment</h3>
+<p>After trying to implement hardcoding the royalties the same issue with the transfer function occured.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><span class="co" style="color: #5E5E5E;">// </span><span class="an" style="color: #5E5E5E;">SPDX-License-Identifier:</span><span class="co" style="color: #5E5E5E;"> MIT</span></span>
+<span id="cb1-2">pragma solidity <span class="op" style="color: #5E5E5E;">^</span><span class="fl" style="color: #AD0000;">0.8.13</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-3"></span>
+<span id="cb1-4"><span class="im" style="color: null;">import</span> <span class="st" style="color: #20794D;">"@openzeppelin/contracts@4.5.0/token/ERC721/ERC721.sol"</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-5"><span class="im" style="color: null;">import</span> <span class="st" style="color: #20794D;">"@openzeppelin/contracts@4.5.0/token/ERC721/extensions/ERC721Enumerable.sol"</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-6"><span class="im" style="color: null;">import</span> <span class="st" style="color: #20794D;">"@openzeppelin/contracts@4.5.0/access/Ownable.sol"</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-7"><span class="im" style="color: null;">import</span> <span class="st" style="color: #20794D;">"@openzeppelin/contracts@4.5.0/utils/Counters.sol"</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-8"><span class="im" style="color: null;">import</span> <span class="st" style="color: #20794D;">"@openzeppelin/contracts@4.5.0/interfaces/IERC2981.sol"</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-9"></span>
+<span id="cb1-10">contract InstantRoyaltyToken is ERC721<span class="op" style="color: #5E5E5E;">,</span> ERC721Enumerable<span class="op" style="color: #5E5E5E;">,</span> Ownable<span class="op" style="color: #5E5E5E;">,</span> IERC2981 {</span>
+<span id="cb1-11">    using Counters <span class="cf" style="color: #00769E;">for</span> Counters<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">Counter</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-12"></span>
+<span id="cb1-13">    Counters<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">Counter</span> <span class="kw" style="color: #00769E;">private</span> _tokenIdCounter<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-14"></span>
+<span id="cb1-15">    address royaltyAddress<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-16">    uint256 royalty <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">10_000</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-17"></span>
+<span id="cb1-18">    <span class="fu" style="color: #4758AB;">constructor</span>(address _royaltyAddress ) <span class="fu" style="color: #4758AB;">ERC721</span>(<span class="st" style="color: #20794D;">"InstantRoyaltyToken"</span><span class="op" style="color: #5E5E5E;">,</span> <span class="st" style="color: #20794D;">"IRT"</span>) {</span>
+<span id="cb1-19">            royaltyAddress <span class="op" style="color: #5E5E5E;">=</span> _royaltyAddress<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-20">    }</span>
+<span id="cb1-21"></span>
+<span id="cb1-22">    <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">safeMint</span>(address to) <span class="kw" style="color: #00769E;">public</span> onlyOwner {</span>
+<span id="cb1-23">        uint256 tokenId <span class="op" style="color: #5E5E5E;">=</span> _tokenIdCounter<span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">current</span>()<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-24">        _tokenIdCounter<span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">increment</span>()<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-25">        <span class="fu" style="color: #4758AB;">_safeMint</span>(to<span class="op" style="color: #5E5E5E;">,</span> tokenId)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-26">    }</span>
+<span id="cb1-27"></span>
+<span id="cb1-28">    <span class="co" style="color: #5E5E5E;">// The following functions are overrides required by Solidity.</span></span>
+<span id="cb1-29"></span>
+<span id="cb1-30">    <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">_beforeTokenTransfer</span>(address <span class="im" style="color: null;">from</span><span class="op" style="color: #5E5E5E;">,</span> address to<span class="op" style="color: #5E5E5E;">,</span> uint256 tokenId)</span>
+<span id="cb1-31">        internal</span>
+<span id="cb1-32">        <span class="fu" style="color: #4758AB;">override</span>(ERC721<span class="op" style="color: #5E5E5E;">,</span> ERC721Enumerable)</span>
+<span id="cb1-33">    {</span>
+<span id="cb1-34">        <span class="kw" style="color: #00769E;">super</span><span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">_beforeTokenTransfer</span>(<span class="im" style="color: null;">from</span><span class="op" style="color: #5E5E5E;">,</span> to<span class="op" style="color: #5E5E5E;">,</span> tokenId)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-35">    }</span>
+<span id="cb1-36"></span>
+<span id="cb1-37">    <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">supportsInterface</span>(bytes4 interfaceId)</span>
+<span id="cb1-38">        <span class="kw" style="color: #00769E;">public</span></span>
+<span id="cb1-39">        view</span>
+<span id="cb1-40">        <span class="fu" style="color: #4758AB;">override</span>(ERC721<span class="op" style="color: #5E5E5E;">,</span> ERC721Enumerable<span class="op" style="color: #5E5E5E;">,</span> IERC165)</span>
+<span id="cb1-41">        <span class="fu" style="color: #4758AB;">returns</span> (bool)</span>
+<span id="cb1-42">    {</span>
+<span id="cb1-43">        <span class="cf" style="color: #00769E;">return</span> interfaceId <span class="op" style="color: #5E5E5E;">==</span> <span class="fu" style="color: #4758AB;">type</span>(IERC2981)<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">interfaceId</span> <span class="op" style="color: #5E5E5E;">||</span> <span class="kw" style="color: #00769E;">super</span><span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">supportsInterface</span>(interfaceId)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-44">    }</span>
+<span id="cb1-45"></span>
+<span id="cb1-46">    <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">royaltyInfo</span>(uint256 tokenId<span class="op" style="color: #5E5E5E;">,</span> uint256 salePrice) <span class="kw" style="color: #00769E;">public</span> view override <span class="fu" style="color: #4758AB;">returns</span>(address receiver<span class="op" style="color: #5E5E5E;">,</span> uint256 royaltyAmount) {</span>
+<span id="cb1-47">        <span class="cf" style="color: #00769E;">return</span> (royaltyAddress<span class="op" style="color: #5E5E5E;">,</span> royalty)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-48">    }</span>
+<span id="cb1-49">    <span class="co" style="color: #5E5E5E;">/* </span></span>
+<span id="cb1-50"></span>
+<span id="cb1-51"><span class="co" style="color: #5E5E5E;">        * The function below from ERC721 is the main issue. Making this a</span></span>
+<span id="cb1-52"><span class="co" style="color: #5E5E5E;">        * payable function would add unecessary complexity to the standard</span></span>
+<span id="cb1-53"><span class="co" style="color: #5E5E5E;">        * and would make the function payable, thus requiring payment </span></span>
+<span id="cb1-54"><span class="co" style="color: #5E5E5E;">        * even when sales are not ocurring.</span></span>
+<span id="cb1-55"></span>
+<span id="cb1-56"><span class="co" style="color: #5E5E5E;">    */</span></span>
+<span id="cb1-57">    <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">transferFrom</span>(</span>
+<span id="cb1-58">        address <span class="im" style="color: null;">from</span><span class="op" style="color: #5E5E5E;">,</span></span>
+<span id="cb1-59">        address to<span class="op" style="color: #5E5E5E;">,</span></span>
+<span id="cb1-60">        uint256 tokenId</span>
+<span id="cb1-61">    ) <span class="kw" style="color: #00769E;">public</span> virtual <span class="fu" style="color: #4758AB;">override</span>(ERC721<span class="op" style="color: #5E5E5E;">,</span>IERC721) {</span>
+<span id="cb1-62">            <span class="pp" style="color: #AD0000;">require</span>(<span class="fu" style="color: #4758AB;">_isApprovedOrOwner</span>(<span class="fu" style="color: #4758AB;">_msgSender</span>()<span class="op" style="color: #5E5E5E;">,</span> tokenId)<span class="op" style="color: #5E5E5E;">,</span> <span class="st" style="color: #20794D;">"ERC721: transfer caller is not owner nor approved"</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-63">            <span class="co" style="color: #5E5E5E;">//royaltyInfo and pay royalty for transfer part would go here</span></span>
+<span id="cb1-64">            <span class="co" style="color: #5E5E5E;">//implementing this would make the function payable</span></span>
+<span id="cb1-65">            <span class="fu" style="color: #4758AB;">_transfer</span>(<span class="im" style="color: null;">from</span><span class="op" style="color: #5E5E5E;">,</span> to<span class="op" style="color: #5E5E5E;">,</span> tokenId)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-66">    }</span>
+<span id="cb1-67"></span>
+<span id="cb1-68">}</span></code></pre></div>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>After researching how the royalties are taken care of so far by the leading NFT marketplaces we have come to these conclusions:</p>
+<ol type="1">
+<li>The Marketplaces prefer handling the royalties themselves and only for the trades on their platform</li>
+<li>ERC-2981 contains the optional royalty implementation logic. It’s on the platforms to decide whether they will utilize this standard.</li>
+<li>Hardcoding royalties without making a mess of the NFT smart-contract is currently way to complex and would require altering the ERC-721 heavily.</li>
+</ol>
+<p>The above reasons are the reason for not going further with this initiative, however this gave us a better insight of how the NFT marketplaces operate in terms of royalties and how are the new standards for NFTs proposed, and what are the limitations.</p>
+<p><em>Special thanks to Stevan Bogosavljevic for his opinions on this research and expertize in NFT royalties. Thank you for showing the fallacies in the logic of this research proposal</em></p>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><strong>NFTAnalyticsTools2022?</strong>↩︎</p></li>
+<li id="fn2"><p><strong>10SettingFees?</strong>↩︎</p></li>
+<li id="fn3"><p><strong>EIP2981NFTRoyalty?</strong>↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <guid>https://3327.io/documents/research/posts/ERFC-171.gfm.html</guid>
+  <pubDate>Wed, 11 May 2022 22:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Developing with Ape</title>
+  <dc:creator>Aleksandar Damjanovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-172.gfm.html</link>
+  <description><![CDATA[ 
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>This research examines Ape The Ethereum Development Framework For Python Developers. It examines its plugin system and ease of use. As a conclusion Web3 Tech Radar location is suggested.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Ape is a new tool for creating and exploring on Ethereum and other blockchains. This framework is written in python with a goal of onboarding more python developers to Web3 thus providing much needed inclusivity in the space.</p>
+<p>Their goal is to make development smoother with their modular approach. Ape is centered around their open-source plugins written in python; some of them are:</p>
+<ol type="1">
+<li>Ape-hardhat - Hardhat network provider for Ape</li>
+<li>Ape-infura - Infura provider plugins for Ethereum-based networks</li>
+<li>Ape-solidity - Support for Solidity smart contracts</li>
+<li>Ape-ledger - Ledger Nano S and X plugin for Ape</li>
+<li>Ape-alchemy - Alchemy Provider plugins for Ethereum-based networks</li>
+</ol>
+<p><em>There are over 20 plugins Ape offers. Considering the open-source nature of the project a lot of new plugins are on the way.</em></p>
+<p>Current version of Ape is <strong>v0.2.1</strong> and some of the new interesting features offered are:</p>
+<ol type="1">
+<li>Polygon, Binance Smart Chain, and Fantom support. Developers can build multi-chain applications with ape’s network switching feature.</li>
+<li>Impersonated account. This let’s the developers test their project and interact with the contract on a fork network pretending to be any account. If you want to impersonate Vitalik, Ape makes that possible.</li>
+</ol>
+<p>They are also working on Ape Project Templates which should increase productivity and enhance developers’ experience when using this framework. Some of the templates Ape is currently developing are:</p>
+<ol type="1">
+<li>NFT template</li>
+<li>Token template</li>
+<li>Various other templates for airdrops,minting</li>
+<li>Templates for different ERC standards</li>
+</ol>
+<p>Ape is also set out to be the “first professional-grade smart contract development framework to support multi-chain application development, including non-EVM chains like StarkWare” .[^1]</p>
+<p>Another sign that Ape is growing is that a Yearn.Finance repo has <a href="https://github.com/yearn/veYFI/pull/98?utm_campaign=Updates%20from%20ApeWorX&amp;utm_medium=email&amp;utm_source=Revue%20newsletter">officially migrated</a> over from Brownie to Ape.</p>
+<p>As previosly mentioned, this is a new framework and we are expecting more adoption and improvements in the coming months, especially as more developers “take it for a spin”.</p>
+<p>Another interesting thing is that there is a possibility of developers switching to Ape from Brownie framework, as Brownie updates <a href="https://github.com/eth-brownie/brownie/issues/1515">have slowed down</a>.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The goal of this research paper is to explore this new player in the smart contract frameworks market, this is an opportunity to explore a new framework that is python oriented.</p>
+<p>This will be done by writing a simple smart contract, deployment script for rinkeby and a couple tests for said contract and examining the documentation and tutorials present. That way we can research the ease of use for both beginners and experienced developers, and see what is the approach to development process this open-source framework is taking.</p>
+<p>As a result Web3 Tech Radar location for this framework will be suggested.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p><strong>Beginner friendly?</strong></p>
+<p>After initial testing of this framework and considering the state of the documentation at this stage I would recommend this framework to experienced python developers venturing into Web3. Documentation is well written, still in the works and continuously updated with contributions from the community around this framework. Apeworx Team and Apeworx community is currently working on workshops to get developers up to speed and tutorials are in the works.</p>
+<p>Currently, there is little materials for newcomers. Considering this is a new open-source project this is understandable. However, for absolute beginners, going through the Brownie framework first is recommended at this stage of Ape’s development. The reason for that is abundance of tutorials, workshops and well written documentation. After Brownie, switch to Ape and its plugin system is smooth.</p>
+<p><strong>Performance:</strong></p>
+<p>Ape framework performs well. Smart contract was developed and deployed to Rinkeby test network using a python script without any problems. Verification of the contract on Etherscan via a python script is not yet possible but is in the works in the Etherscan plugin.</p>
+<p>Testing works well both locally and when using network forks, which makes exhaustive testing possible. Currently Ape doesn’t include built-in smart contract fuzz-testing tool.</p>
+<p>Currently the speed of the framework is satisfactory and more improvements are on the way.</p>
+<p><strong>Plugins:</strong></p>
+<p>Open-source modular plugins are definitely the highlight of this framework. It allows developers to easily install and remove the functionality they need in their development process and I could see this being a way to onboard new developers from the python world and a way to incentivize developers to develop their own plugins. Some of the interesting Ape plugins are:</p>
+<p><strong>ape-tokens</strong> is an interesting plugin which allows developers to get token contracts without putting in the addresses themselves.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: null;">from</span> ape_tokens <span class="im" style="color: null;">import</span> tokens</span>
+<span id="cb1-2"></span>
+<span id="cb1-3">link <span class="op" style="color: #5E5E5E;">=</span> tokens[<span class="st" style="color: #20794D;">"LINK"</span>]</span>
+<span id="cb1-4"></span>
+<span id="cb1-5"><span class="bu" style="color: null;">print</span>(link.address)</span></code></pre></div>
+<p>This will print out the eth adress of the LINK token. “link” can now be used in various python scripts, be it testing or development.</p>
+<p><strong>ape-ledger</strong> is a plugin for Ape Framework which integrates with Ledger devices to load and create accounts, sign messages, and sign transactions.</p>
+<p>Requirements</p>
+<ul>
+<li>have the Ledger USB device connected</li>
+<li>have the Ledger USB device unlocked (by entering the passcode)</li>
+<li>have the Ethereum app open.</li>
+</ul>
+<p>Ledger accounts have the following capabilities in ape:</p>
+<ul>
+<li>Can sign transactions</li>
+<li>Can sign messages using the default EIP-191 specification</li>
+<li>Can sign messages using the EIP-712 specification</li>
+</ul>
+<p><strong>ape-trezor</strong> is a plugin for Ape Framework which integrates Trezorlib ethereum.py to load and create accounts, sign messages, and sign transactions.</p>
+<p>You can load the account like any other account in Ape console and then use it to sign transactions like this:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1">ape trezor sign<span class="op" style="color: #5E5E5E;">-</span>message [YOUR TREZOR ALIAS] <span class="st" style="color: #20794D;">"hello world"</span></span>
+<span id="cb2-2">ape trezor verify <span class="st" style="color: #20794D;">"hello world</span></span></code></pre></div>
+<p>The output of verify should be the same address as the account $account_name.</p>
+<p><strong>Ape Polygon Ecosystem Plugin</strong> - Ecosystem Plugin for Polygon support in Ape</p>
+<p><strong>Ape Fantom Ecosystem Plugin - Ecosystem Plugin for Fantom support in Ape</strong></p>
+<p><strong>ape-addressbook</strong> is plugin that allows tracking addresses and contracts in projects and globally. This is an interesting way to improve developers user experience and is currently in development.</p>
+<p><em>…And many more.</em></p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p><strong>Tech Radar Proposal:</strong></p>
+<p>Recommended location is the Assess ring at this stage. The reason for that is the sheer novelty of this framework. However, the development team is great, community is growing, and we are seeing new projects emerging using Ape. This framework is with its simplicity aiming to become the industry standard in Ethereum development for python developers and is on a great way to do so.</p>
+
+
+</section>
+ ]]></description>
+  <guid>https://3327.io/documents/research/posts/ERFC-172.gfm.html</guid>
+  <pubDate>Fri, 29 Apr 2022 22:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>OWT - Omni Web Token</title>
+  <dc:creator>Aleksandar Veljković</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-147.gfm.html</link>
+  <description><![CDATA[ 
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>JSON Web Tokens, or JWT, are standard for authorizing clients on the Web. Some JWT payloads have a specific structure, such as OAuth(2) tokens. Others, however, are designed specifically for particular apps. Authorization on the Blockchain is done mainly through explicitly whitelisting addresses that are allowed to perform specific actions. Whitelisting introduces high costs when the number of whitelisted addresses is large. A good example is ICO whitelisting, where hundreds or even thousands of participants need to get whitelisted. This research aims to find an efficient, more cost-effective solution for authorizing users on the Blockchain using a system of authorization tokens issued and received off-chain, without the Blockchain transaction fees, and valid on-chain and off-chain. In addition, the token structure should be transferrable off-chain as a JWT token, compatible with the OAuth2 standard, and reusable in both Web 2.0 and Web 3.0 worlds.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Ethereum Blockhain gas prices are following the price of Ether, resulting in higher transaction fees. The cost of 1 ETH on January 1st, 2019, was $140.82 [1]. On the same day in 2022, the price for 1 ETH was $3,769.70 [2]. That means that the same transaction from 2019 became just three years later became more than 30 times more expensive.</p>
+<p>Executing transactions on Blockchain, in general, doesn’t require any specific authorization. The transactions are signed using the private key and paid using ETH from the signer’s wallet. However, some transactions, such are token purchases during ICOs, require explicit approval by the smart contract owner. The approval on the Blockchain is done by whitelisting wallet addresses that are allowed to perform specific actions, submitting the list of the whitelisted wallets, and storing them on the Blockchain. The price of each transaction for storing whitelisted wallets linearly grows by the number of the wallets. In a more concrete example, storing one 20 byte address on Blockchain, having ETH at the January 1st, 2022 price, costs approximately 20000 GAS or around $5.6, having an average gas price of 74 Gwei. With those prices, storing a hundred whitelisted addresses would cost about $565, with base transaction cost included. It is challenging for technology to expand with such high prices for such basic requirements. Before introducing the solution this research is proposing, it is essential first to briefly introduce some basic concepts regarding the existing methods for authorization on the Web.</p>
+<section id="oauth-standard" class="level2">
+<h2 class="anchored" data-anchor-id="oauth-standard">OAuth standard</h2>
+<p>Open Authorization, or OAuth for short, is an authorization standard followed by many APIs worldwide. The standard specifies the protocol between client and authorization server and data transferred in protocol messages. There are two versions of OAuth standard, 1 and 2.</p>
+<p>OAuth standard doesn’t specify the transfer method for sending messages, but one widely adopted standard is using JWT tokens as the authorization data container.</p>
+</section>
+<section id="jwt-tokens" class="level2">
+<h2 class="anchored" data-anchor-id="jwt-tokens">JWT Tokens</h2>
+<p>In 2015, Michael Jones, John Bradley and Nat Sakimura introduced JSON Web Tokens (JWT) through RFC-7519 as a compact structure for representing claims transferred between two parties [3]. Since then, JWTs have been used for client authentication on the Web. Initially, the authentication was performed between APIs but quickly found use in client authentication following the growth of client-heavy applications.</p>
+<p>JWT has a general structure, made of a header, body, and signature segments. The header segment includes the token type and a label of the algorithm used for creating signatures.</p>
+<p>Example JWT header</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1">    <span class="fu" style="color: #4758AB;">{</span></span>
+<span id="cb1-2">        <span class="dt" style="color: #AD0000;">"type"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"JWT"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb1-3">        <span class="dt" style="color: #AD0000;">"alg"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"ES256"</span></span>
+<span id="cb1-4">    <span class="fu" style="color: #4758AB;">}</span></span></code></pre></div>
+<p>The body segment is a container segment used for storing protocol-specific information. OAuth 2.0 standard, introduced with RFC-6749 [4], specifies several fields required for authorization that are members of the body of a JWT token. Some of those fields are:</p>
+<ul>
+<li><code>aud</code> (Audience) - Identifier of the user to whom the client will present the token for executing an action</li>
+<li><code>exp</code> (Expiration) - Token expiration timestamp</li>
+<li><code>iss</code> (Issuer) - Identifier of the token issuer, authorization service provider</li>
+<li><code>scope</code> (Action scope) - List of actions for which the token owner would be authorized to perform</li>
+<li><code>sub</code> (Subject) - Identifier of the token owner</li>
+<li><code>iat</code> (Issued at) - Isusing timestamp</li>
+</ul>
+<p>Example JWT Body</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1">    <span class="fu" style="color: #4758AB;">{</span></span>
+<span id="cb2-2">      <span class="dt" style="color: #AD0000;">"sub"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"user1"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb2-3">      <span class="dt" style="color: #AD0000;">"name"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"John Doe"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb2-4">      <span class="dt" style="color: #AD0000;">"iat"</span><span class="fu" style="color: #4758AB;">:</span> <span class="dv" style="color: #AD0000;">1516239022</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb2-5">      <span class="dt" style="color: #AD0000;">"aud"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"server1"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb2-6">      <span class="dt" style="color: #AD0000;">"scope"</span><span class="fu" style="color: #4758AB;">:</span> <span class="ot" style="color: #00769E;">[</span><span class="st" style="color: #20794D;">"data.fetching"</span><span class="ot" style="color: #00769E;">]</span></span>
+<span id="cb2-7">    <span class="fu" style="color: #4758AB;">}</span></span></code></pre></div>
+<p>Field <code>name</code> in the JWT body example represents a custom, application-specific data field.</p>
+<p>The signature part of the JWT token contains the hash or signature of the token provided by the token issuer.</p>
+<p>The three token parts are put together into one base64 encoded string (without trailint <code>=</code> symbols), having the tree parts separated by the dot <code>.</code> symbol.</p>
+<p>Example of a complete JWT string</p>
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code></pre>
+</section>
+<section id="general-authorization-protocol" class="level2">
+<h2 class="anchored" data-anchor-id="general-authorization-protocol">General Authorization Protocol</h2>
+<p>A general protocol for client authorization on the Web using JWT tokens consists of two steps: - Requesting token from the authorization server for executing some action - Presenting the authorization token received from the authorization server to the server which would perform the requested action</p>
+</section>
+<section id="existing-approaches" class="level2">
+<h2 class="anchored" data-anchor-id="existing-approaches">Existing Approaches</h2>
+<p>There are existing approaches for combining the Blockchain and OAuth tokens. In one research [5], the authors used NFTs as authorization tokens generated on-chain that would be verifiable using the OAuth 2.0 protocol. That approach is inverse to this research: it doesn’t reduce costs but puts authorization tokens on the chain.</p>
+</section>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The main goal of this research was to find a way to make authorization on the Web cheaper than the existing whitelisting method with the general idea to build a solution analogous to the current, proven methods for authorization on the Web. The key motivation for using tokens as an authorization method is an authorization protocol that shifts significant transaction fees from one authorization entity to many clients that pay only a small additional fee on top of the price they pay for executing the authorized action.</p>
+<p>Reducing the price paid by the authorization entity by 100% can be achieved by issuing authorization tokens off-chain. This protocol specification introduces challenges regarding the design of the token, as the token should include all the information that the authorization entity would provide with the Blockchain transaction in the first place.</p>
+<p>Reducing the costs of additional fees that clients would now pay for the authorization requires the overhead authorization data submitted on the Blockchain to be as small as possible. This requirement poses the main challenge for token design. Additionally, the Blockchain should not explicitly store authorization data, except as transaction arguments.</p>
+<p>Combining these requirements, a perfect authorization schema represents a two-step protocol where the client first acquires the authorization token from the authorization server, off-chain. Second, the client submits the data required for performing the action to the Blockchain with a minor (ideally none) overhead the smart contract would use to confirm the client’s authorization.</p>
+<section id="chain-token-ct-representation" class="level2">
+<h2 class="anchored" data-anchor-id="chain-token-ct-representation">Chain token (CT) representation</h2>
+<p>The essential requirements for the token that would be used on the chain are:</p>
+<ul>
+<li>Efficient verifiability; token should be efficiently verifiable on the chain</li>
+<li>Authenticity; the probability of token forgery should be negligible</li>
+<li>Succinctness; token should be small in byte size</li>
+<li>Non-transferability; token should be used only by the user who received the token</li>
+</ul>
+<p>As an example throughout this research, we will use the money checkout allowance problem, where a client needs to be authorized to payout a certain amount of money from the account of the authorizing entity. An existing approach for solving this problem is calling the approval method on the smart contract or whitelisting clients and explicitly approving the total allowed amount for each client. Method signature without a token argument would look like this:</p>
+<pre><code>payout(address account, address receiver, uint256 amount)</code></pre>
+<p>A naive approach for constructing a token that would follow JWT logic would be providing all the values bound by the token. In our example, the values that are required for money checkout from the account are: - account owner identifier; 20 bytes address value - authorized client identifier; 20 bytes address value - allowed amount; 32 bytes value</p>
+<p>Next, the apparent problem is a forgery. Everyone can create a token with listed values and submit it on the Blockchain. The solution for this problem is to provide a signature made by the authorization entity, which confirms the provided values. Ethereum signatures contain three segments, v, r, and s, 65 bytes long. All summed up to 137 bytes of memory. Even if this doesn’t look like a significant sum, the main issue is that the token size asymptotically grows by <img src="https://latex.codecogs.com/png.latex?O(n)">, linearly with the number of arguments n.&nbsp;In other words, it would become costly, or even unusable, for methods with more arguments. It is not very efficient, but it is a start.</p>
+<section id="token-size-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="token-size-optimization">Token size optimization</h3>
+<p>The problem with the naive approach is linear growth with the number of arguments. Solving this problem requires looking closely at the method that is being called. The method <code>payout</code> already contains the token values as a method argument, and it would be redundant to provide them again in the token. The same pattern is visible with different use-cases. This observation suggests that we can avoid providing the values within the token but use only a hash of the approved values and check if the hash of the provided input values matches the token hash. Using the hashing method clears the linear growth of the token as the size of the keccak256 hash is fixed to 32 bytes in length, achieving a constant <img src="https://latex.codecogs.com/png.latex?O(1)"> size of the token. The hash can also cover other values that could be hard-coded into the smart contract without a token size increase, which will become an essential feature in later sections.</p>
+</section>
+<section id="signature-size-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="signature-size-optimization">Signature size optimization</h3>
+<p>The Ethereum signature size is fixed to 65 bytes. That means that it passes the size of 2 memory words (32 bytes in size) and requires three blocks of memory. The solution for this problem comes with EIP-2098 [6], which proposes a simple technique for compact signature representation, reducing its size by 1 byte and allowing it to fit into two memory blocks.</p>
+<p>The total token size is now fixed to 32 bytes of token hash plus another 64 bytes of signature data totaling 96 bytes or three blocks of memory.</p>
+</section>
+<section id="mapping-oauth2.0-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-oauth2.0-parameters">Mapping OAuth2.0 parameters</h3>
+<p>Now that we have a token structure, we need to figure out how to standardize token parameters to comply with the OAuth2.0 standard.</p>
+<p>The audience parameter refers to the smart contract containing the payout method. It doesn’t need to be provided explicitly as a method argument as it is already encoded in the smart contract.</p>
+<p>The token issuer can be deduced from the signature and doesn’t need to be explicitly provided.</p>
+<p>The subject parameter is provided both as the input argument of the <code>payout</code> method. It doesn’t have to be provided explicitly. It should not be provided even as the argument, as it is already given as the message sender value.</p>
+<p>The scope parameter describes the action that should be executed. It should not be explicitly provided as it should be hardcoded in the method.</p>
+<p>The token expiration time is a tricky one. It doesn’t naturally belong to method arguments, so it should be provided explicitly. To prevent the token size increase, we can do a simple modification of the token hash. The value of the timestamp can be stored in 8 bytes. A straightforward solution is to provide another method argument with an 8-byte value. A more elegant solution is to transform the keccak256 value into “pseudo-keccak224” (SHA224 [7] value, with unchanged initialization value) by truncating the hash size to its 224 bytes prefix and appending 8 bytes extension with expiration timestamp as the last 8 bytes of the token hash. This transformation returns us to the previously proposed token size without extra arguments.</p>
+<p>As we can see, all the crucial parameters of the OAuth2.0 protocol can be successfully mapped to the Blockchain transactions and the chain token.</p>
+</section>
+</section>
+<section id="token-reusability" class="level2">
+<h2 class="anchored" data-anchor-id="token-reusability">Token reusability</h2>
+<p>Some authorization tokens are reusable many times until the expiration date. However, some use-cases require that the tokens may be used only once. An example of such a use case is exactly the example we have used so far. Once the payout method has been executed, the user should not be able to perform double-payout transactions. This problem can be solved the same way as in Web 2.0 - by introducing a payment identifier. The payment identifier should be included as an extra method argument and included in the token hash. This solution also solves the issue of the lost token, as the token can be reissued with the same payment identifier and used for the same payment only once. Specific use cases may require the existence of only one token. In that case, the token (and method arguments) may include <code>jti</code> parameter or JWT token ID as a token identifier or use the token hash as an identifier. The smart contract should implement mechanisms for preventing double payments and a potential blacklisting of tokens.</p>
+</section>
+<section id="action-scope-schemas" class="level2">
+<h2 class="anchored" data-anchor-id="action-scope-schemas">Action scope schemas</h2>
+<p>OAuth2.0 proposes a parameter that includes the action scope or label of the action for which the client can use the token. Action scopes are not specified as they can be represented using any string value. The problem here is the cost of using string data types in smart contracts. This research proposes restriction for action type values to numerical data types of 4 bytes. This restriction allows <img src="https://latex.codecogs.com/png.latex?2%5E32"> possible scope values that could represent many use cases.</p>
+<p>A library of token schemas can help developers properly format their tokens based on scope number schemas. Furthermore, enumeration of action types can introduce standardization for tokens where a smart contract may require, for example, “scope 42” tokens for executing a method. We present the first two token scopes that would be used in the following use-cases:</p>
+<section id="scope-1-generic-identity" class="level3">
+<h3 class="anchored" data-anchor-id="scope-1-generic-identity">Scope 1: Generic Identity</h3>
+<p>Generic identity scope should be used for verification of the client’s identity. The verification is based on the client’s wallet address and unique identifier in the issuer’s database. The hash for “scope 1” tokens be made by hashing the following array of values in their respective order:</p>
+<ul>
+<li><code>address iss</code>; token issuer <code>address aud</code>; smart contract address or 0 address for general identification</li>
+<li><code>address sub</code>; client’s wallet address</li>
+<li><code>uint4 scope</code>; action scope with value <code>1</code> for generic identification</li>
+<li><code>bytes32 uuid</code>; unique identifier of the client in the issuer’s</li>
+<li><code>uint8 exp</code>; token expiration timestamp in UNIX timestamp format database</li>
+</ul>
+</section>
+<section id="scope-2-allowance" class="level3">
+<h3 class="anchored" data-anchor-id="scope-2-allowance">Scope 2: Allowance</h3>
+<p>Allowance tokens, used for crypto cheques, should have hashes made by hashing the following array of values in their respective order:</p>
+<ul>
+<li><code>address iss</code>; token issuer</li>
+<li><code>address aud</code>; smart contract address</li>
+<li><code>address sub</code>; money receiver</li>
+<li><code>uint4 scope</code>; action scope with value <code>2</code> for allowance</li>
+<li><code>bytes32 paymentId</code>; payment identifier (NOTE: token hash may be used as payment ID but it can introduce new problems)</li>
+<li><code>uint256 amount</code>; amount to transfer</li>
+<li><code>uint8 exp</code>; token expiration timestamp in UNIX timestamp format</li>
+</ul>
+<p>The reader may notice that in both cases, there are two logical groups of parameters: - general parameters; <code>iss</code>, <code>aud</code>, sub<code>,</code>scope<code>and</code>exp<code>- application-specific parameters;</code>userId<code>,</code>paymentId<code>,</code>amount`</p>
+<p>The general parameters are the same for all tokens, and application-specific parameters are different for each scope.</p>
+</section>
+</section>
+<section id="from-chain-token-ct-to-omni-web-token-owt" class="level2">
+<h2 class="anchored" data-anchor-id="from-chain-token-ct-to-omni-web-token-owt">From Chain Token (CT) to Omni Web Token (OWT)</h2>
+<p>Now that we have the complete definition of the chain token, we can go one more step and make it usable and transferrable in the Web 2.0 world. We can do this by packing chain token data as part of theJWT token, following the OAuth 2.0 schema.</p>
+<section id="owt-body" class="level3">
+<h3 class="anchored" data-anchor-id="owt-body">OWT Body</h3>
+<p>The token scopes define OAuth 2.0 parameters, so the only remaining thing is appropriately packing the chain token into the JWT body and creating a proper JWT signature. The verifier needs to know the CT hash value and the parameters used in the construction of the token.</p>
+<p>The proposed OWT body schema is:</p>
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1">    <span class="fu" style="color: #4758AB;">{</span></span>
+<span id="cb5-2">   <span class="dt" style="color: #AD0000;">"aud"</span><span class="fu" style="color: #4758AB;">:</span><span class="st" style="color: #20794D;">"&lt;smart contract address&gt;"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb5-3">   <span class="dt" style="color: #AD0000;">"iss"</span><span class="fu" style="color: #4758AB;">:</span><span class="st" style="color: #20794D;">"&lt;issuer's wallet address&gt;"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb5-4">        <span class="dt" style="color: #AD0000;">"scope"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"&lt;readable name of the '&lt;scope&gt;'"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb5-5">        <span class="dt" style="color: #AD0000;">"exp"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"&lt;token expiration timestamp&gt;"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb5-6">        <span class="dt" style="color: #AD0000;">"chain_token"</span><span class="fu" style="color: #4758AB;">:</span> <span class="fu" style="color: #4758AB;">{</span></span>
+<span id="cb5-7">            <span class="dt" style="color: #AD0000;">"token_hash"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"&lt;CT hash with expiration timestamp&gt;"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb5-8">        <span class="dt" style="color: #AD0000;">"r"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"&lt;signature r value&gt;"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb5-9">        <span class="dt" style="color: #AD0000;">"sv"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"&lt;compact representation of s and v signature values&gt;"</span><span class="fu" style="color: #4758AB;">,</span></span>
+<span id="cb5-10">            <span class="dt" style="color: #AD0000;">"params"</span><span class="fu" style="color: #4758AB;">:</span> <span class="st" style="color: #20794D;">"[&lt;ordered list of token parameters in form of:</span></span>
+<span id="cb5-11"><span class="st" style="color: #20794D;">                     {</span></span>
+<span id="cb5-12"><span class="st" style="color: #20794D;">                        param: &lt;parameter name&gt;,</span></span>
+<span id="cb5-13"><span class="st" style="color: #20794D;">                        value: &lt;parameter value&gt;,</span></span>
+<span id="cb5-14"><span class="st" style="color: #20794D;">                        type: &lt;parameter data type&gt;,</span></span>
+<span id="cb5-15"><span class="st" style="color: #20794D;">                     }</span></span>
+<span id="cb5-16"><span class="st" style="color: #20794D;">                &gt;]"</span></span>
+<span id="cb5-17">        <span class="fu" style="color: #4758AB;">}</span></span></code></pre></div>
+</section>
+<section id="owt-signature" class="level3">
+<h3 class="anchored" data-anchor-id="owt-signature">OWT Signature</h3>
+<p>The JWT standard allows using the Ethereum secp256k1 signatures by providing the <code>EC256</code> algorithm type value in the token header. The signature of the OWT token is created using the issuer’s private key. To verify the signature, the verifier needs access to the issuer’s public key, which should be available from the issuer’s <code>/.well-known/jwks.json</code> route of the authorization API.</p>
+</section>
+</section>
+<section id="owt-issuing" class="level2">
+<h2 class="anchored" data-anchor-id="owt-issuing">OWT Issuing</h2>
+<p>The OAuth 2.0 protocol allows using <code>client id</code> and <code>client secret</code> parameters when requesting the authorization tokens. OWT requests can be made using wallet address as client’s identity and signature of the clients wallet address as the <code>client secret</code> parameter</p>
+</section>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>To test our hypothesis and estimate the costs of working with OWTs, a simple NodeJS library for generating and verifying OWTs was implemented together with testing REST API for issuing OWTs following the OAuth 2.0 protocol. An example smart contract for testing the usability of the chain token was also implemented.</p>
+<p>The smart contract used for testing included four methods:</p>
+<ul>
+<li><code>whitelist(address client, uint256 amount)</code> method for whitelisting the user for a given amount of money - <code>payoutOld(uint256 amount)</code> method for performing payout in the old fashioned way by checking the whitelisted amount</li>
+<li><code>payoutNew(address sender, uint256 amount, bytes32 paymentId, bytes32[3] calldata token)</code> method for performing payout using the chain token following “scope 2” schema</li>
+<li><code>payoutNewShort(address sender, uint256 amount, bytes32[3] calldata token)</code> method for performing payout using the chain token but without payment identifier, having token hash as a payment identifier</li>
+<li><code>verifyIdentity(address issuer, bytes32 userId, bytes32[3] calldata token)</code> method for simple verification of the client’s identity following “scope 1” schema</li>
+</ul>
+<section id="allowance-use-case" class="level2">
+<h2 class="anchored" data-anchor-id="allowance-use-case">Allowance Use Case</h2>
+<p>The allowance use case tested the token issuing protocol for payout allowances, evaluated the costs of performing payouts using the token, and compared the results with the basic whitelisting protocol.</p>
+<section id="test-setup" class="level3">
+<h3 class="anchored" data-anchor-id="test-setup">Test setup</h3>
+<p>Authorization entity submitted allowance amount for the client using the <code>whitelist</code> smart contract method. The cost of the whitelisting transaction was 44,484 gas.</p>
+</section>
+<section id="test-1-payout-by-whitelisting" class="level3">
+<h3 class="anchored" data-anchor-id="test-1-payout-by-whitelisting">Test 1: Payout by Whitelisting</h3>
+<p>The client executed the <code>payoutOld</code> method of the smart contract with a propper allowance amount. The cost of the payout transaction was 22,389 + T gas.</p>
+</section>
+<section id="test-2-payout-with-token" class="level3">
+<h3 class="anchored" data-anchor-id="test-2-payout-with-token">Test 2: Payout with Token</h3>
+<p>The client requested an OWT from the authorization server using OAuth 2.0 request schema. The authorization server verified the client’s credentials and issued a “scope 2” token to the client with a specified allowance amount. The client verified the OWT data and extracted the chain token and its parameters from the OWT. After the OWT verification step, the client submitted them to the smart contract using the <code>payoutNew</code> method. The payout was successful, and the execution cost was 59,935 + T gas.</p>
+</section>
+<section id="test-3-payout-with-token-using-token-hash-as-payment-identifier" class="level3">
+<h3 class="anchored" data-anchor-id="test-3-payout-with-token-using-token-hash-as-payment-identifier">Test 3: Payout with Token using Token Hash as Payment Identifier</h3>
+<p>The protocol for issuing and verifying the OWT was done the same way as in the previous test. The only difference was that the token did not follow the “scope 2” schema but left out the payment identifier. The client performed a payout using the <code>payoutNewShort</code> method. Again, the payout was successful, and the execution cost was 59,189 + T gas.</p>
+</section>
+<section id="cost-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="cost-analysis">Cost Analysis</h3>
+<p>The test results show that the cost of the payout protocol using whitelisting was 44,484 gas for the issuer and 22,389 gas for the client, resulting in 66,873 gas for the entire protocol. Test 2 showed that using the token has reduced the issuer’s costs to 0, but the client’s cost was increased to 59,935 gas which is 37,546 gas more than in test 1. Interestingly, the overhead cost for the client is lower than the costs of the issuer’s whitelisting, which indicates that using the token reduces the issuer’s fees, compared to whitelisting, even if the issuer compensates the overhead client’s costs by increasing the allowance amount. Test 3 showed that using token hash as payment identifier reduces the costs for extra 746 gas. However, this introduces problems with token reissuing. The exact token needs to be reissued every time the original one gets lost, requiring the expiration timestamp to be the same as the original one for the hashes to match and thus have the same payment identifier. This situation can cause the issuer to be unable to reissue the token as its timestamp has already expired. The results of the cost analysis are presented in Table 1. <br><br></p>
+<table>
+<tbody><tr>
+<th>
+Method
+</th>
+<th>
+Issuer’s costs (gas)
+</th>
+<th>
+Client’s costs (gas)
+</th>
+<th>
+Total protocol costs (gas)
+</th>
+</tr>
+<tr>
+<th>
+Whitelisting
+</th>
+<th>
+44,484
+</th>
+<th>
+22,389
+</th>
+<th>
+66,873
+</th>
+</tr>
+<tr>
+<th>
+OWT allowance
+</th>
+<th>
+0
+</th>
+<th>
+59,935
+</th>
+<th>
+59,935
+</th>
+</tr>
+<tr>
+<th>
+Short OWT allowance
+</th>
+<th>
+0
+</th>
+<th>
+59,189
+</th>
+<th>
+59,189
+</th>
+</tr>
+</tbody></table>
+<center>
+Table 1. Cost anlysis of the allowance use case methods
+</center>
+<p><br><br></p>
+</section>
+</section>
+<section id="generic-identity-use-case" class="level2">
+<h2 class="anchored" data-anchor-id="generic-identity-use-case">Generic Identity Use Case</h2>
+<p>The generic identity use case tested the issuing and verification of the “scope 1” tokens and assessed the costs of using identification tokens on the chain.</p>
+<p>The client acquired OWT from the authorization server and submitted the token with the received user id from the issuer’s database. The client submitted the token to the <code>verifyIdentity</code> method of the smart contract and successfully verified the identity token. The cost of the verification was 36,816 gas, which suggests that the verification proces cost was 15,817 gas, leaving out the base transaction cost.</p>
+<section id="use-case-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="use-case-analysis">Use case analysis</h3>
+<p>The test showed that the costs for verifying the identity tokens are low and open a new path for the identity representations valid on multiple chains. Additional use cases may specify scope schemas for more specific identity tokens and introduce low-cost decentralized identities to a multi-chain environment.</p>
+</section>
+</section>
+<section id="general-purpose-token-verification-service-gptvs" class="level2">
+<h2 class="anchored" data-anchor-id="general-purpose-token-verification-service-gptvs">General Purpose Token Verification Service (GPTVS)</h2>
+<p>The entire verification protocol can be summed up into a token verification smart contract that can be deployed and used by multiple users to verify the authorization tokens for their smart contracts. Blacklisting can be introduced for tokens or clients. This service should allow listing approved issuers and smart contract addresses from which the requests may come. Also, the service can be monetized by requiring a certain amount of Ethers or ERC-20 tokens to be submitted monthly by the users to the verification smart contract, or the service will become unavailable for the requests coming from the user’s smart contracts.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>The test results show that the OWTs and the chain tokens can cover a variety of use cases while introducing standardization in token construction, issuing, and verification. Operating with OWTs reduces costs for the services requiring whitelisting while enabling new multi-chain use cases thanks to a succinct yet general token structure and easy verification. The following steps would include defining more token schemas covering miscellaneous use cases and implementing the General Purpose Token Verification Service.</p>
+</section>
+<section id="appendices" class="level1">
+<h1>Appendices</h1>
+<section id="appendix-1-chain-token-verification-smart-contract" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-1-chain-token-verification-smart-contract">Appendix 1: Chain token verification smart contract</h2>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"></span>
+<span id="cb6-2"><span class="co" style="color: #5E5E5E;">// </span><span class="an" style="color: #5E5E5E;">SPDX-License-Identifier:</span><span class="co" style="color: #5E5E5E;"> GPL-3.0</span></span>
+<span id="cb6-3">pragma solidity <span class="op" style="color: #5E5E5E;">&gt;=</span><span class="fl" style="color: #AD0000;">0.7.0</span> <span class="op" style="color: #5E5E5E;">&lt;</span><span class="fl" style="color: #AD0000;">0.9.0</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-4"></span>
+<span id="cb6-5">contract VerifierContract {</span>
+<span id="cb6-6">        <span class="fu" style="color: #4758AB;">mapping</span>(address <span class="kw" style="color: #00769E;">=&gt;</span> uint256) whitelisted<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-7">        <span class="fu" style="color: #4758AB;">mapping</span>(bytes32 <span class="kw" style="color: #00769E;">=&gt;</span> bool ) usedPaymentIds<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-8">        bytes prefix <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"</span><span class="sc" style="color: #5E5E5E;">\x19</span><span class="st" style="color: #20794D;">Ethereum Signed Message:</span><span class="sc" style="color: #5E5E5E;">\n</span><span class="st" style="color: #20794D;">32"</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-9">        uint32 genericIdentityScope <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">1</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-10">        uint32 payoutScope <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">2</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-11"></span>
+<span id="cb6-12">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">checkSignature</span>(bytes32[<span class="dv" style="color: #AD0000;">3</span>] calldata token<span class="op" style="color: #5E5E5E;">,</span> address signer) <span class="kw" style="color: #00769E;">public</span> <span class="fu" style="color: #4758AB;">returns</span> (bool) {</span>
+<span id="cb6-13">                <span class="co" style="color: #5E5E5E;">// Decode r, s, v values</span></span>
+<span id="cb6-14">                bytes32 hash <span class="op" style="color: #5E5E5E;">=</span> token[<span class="dv" style="color: #AD0000;">0</span>]<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-15">                bytes32 sv <span class="op" style="color: #5E5E5E;">=</span> token[<span class="dv" style="color: #AD0000;">2</span>]<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-16">                bytes32 r <span class="op" style="color: #5E5E5E;">=</span> token[<span class="dv" style="color: #AD0000;">1</span>]<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-17">                bytes32 s <span class="op" style="color: #5E5E5E;">=</span> sv <span class="op" style="color: #5E5E5E;">&amp;</span> <span class="fu" style="color: #4758AB;">bytes32</span>((<span class="fu" style="color: #4758AB;">uint</span>((<span class="dv" style="color: #AD0000;">1</span> <span class="op" style="color: #5E5E5E;">&lt;&lt;</span> <span class="dv" style="color: #AD0000;">255</span>) <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span>)))<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-18">                uint8 v <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;">uint8</span>(<span class="fu" style="color: #4758AB;">uint</span>(sv <span class="op" style="color: #5E5E5E;">&gt;&gt;</span> <span class="dv" style="color: #AD0000;">255</span>) <span class="op" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">27</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-19"></span>
+<span id="cb6-20">                <span class="co" style="color: #5E5E5E;">// Create signature hash</span></span>
+<span id="cb6-21">                bytes32 prefixedProof <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;">keccak256</span>(abi<span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">encodePacked</span>(prefix<span class="op" style="color: #5E5E5E;">,</span> hash))<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-22"></span>
+<span id="cb6-23">                <span class="co" style="color: #5E5E5E;">// Verify signer</span></span>
+<span id="cb6-24">                address recovered <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;">ecrecover</span>(prefixedProof<span class="op" style="color: #5E5E5E;">,</span> v<span class="op" style="color: #5E5E5E;">,</span> r<span class="op" style="color: #5E5E5E;">,</span> s)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-25">                <span class="cf" style="color: #00769E;">return</span> recovered <span class="op" style="color: #5E5E5E;">==</span> signer<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-26">        }</span>
+<span id="cb6-27"></span>
+<span id="cb6-28">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">whitelist</span>(address client<span class="op" style="color: #5E5E5E;">,</span> uint256 amount) <span class="kw" style="color: #00769E;">public</span> {</span>
+<span id="cb6-29">                whitelisted[client] <span class="op" style="color: #5E5E5E;">=</span> amount<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-30">        }</span>
+<span id="cb6-31"></span>
+<span id="cb6-32">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">payoutOld</span>(uint256 amount) <span class="kw" style="color: #00769E;">public</span> {</span>
+<span id="cb6-33">                <span class="pp" style="color: #AD0000;">require</span>(amount <span class="op" style="color: #5E5E5E;">&lt;=</span> (whitelisted[msg<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">sender</span>]))<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-34">                whitelisted[msg<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">sender</span>] <span class="op" style="color: #5E5E5E;">-=</span> amount<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-35">        }</span>
+<span id="cb6-36"></span>
+<span id="cb6-37">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">payoutNew</span>(address sender<span class="op" style="color: #5E5E5E;">,</span> uint256 amount<span class="op" style="color: #5E5E5E;">,</span> bytes32 paymentId<span class="op" style="color: #5E5E5E;">,</span> bytes32[<span class="dv" style="color: #AD0000;">3</span>] calldata token) <span class="kw" style="color: #00769E;">public</span>{</span>
+<span id="cb6-38">                <span class="co" style="color: #5E5E5E;">// Check if token has already been used</span></span>
+<span id="cb6-39">                <span class="pp" style="color: #AD0000;">require</span>(usedPaymentIds[paymentId] <span class="op" style="color: #5E5E5E;">==</span> <span class="kw" style="color: #00769E;">false</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-40"></span>
+<span id="cb6-41">                <span class="co" style="color: #5E5E5E;">// Check token expiration</span></span>
+<span id="cb6-42">                uint32 exp <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;">uint32</span>(<span class="fu" style="color: #4758AB;">uint256</span>(token[<span class="dv" style="color: #AD0000;">0</span>]))<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-43">                <span class="pp" style="color: #AD0000;">require</span>(exp <span class="op" style="color: #5E5E5E;">&gt;</span> block<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">timestamp</span><span class="op" style="color: #5E5E5E;">,</span> <span class="st" style="color: #20794D;">"Token expired"</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-44"></span>
+<span id="cb6-45">                <span class="co" style="color: #5E5E5E;">// Check token signature</span></span>
+<span id="cb6-46">                <span class="pp" style="color: #AD0000;">require</span>(<span class="kw" style="color: #00769E;">this</span><span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">checkSignature</span>(token<span class="op" style="color: #5E5E5E;">,</span> sender) <span class="op" style="color: #5E5E5E;">==</span> <span class="kw" style="color: #00769E;">true</span><span class="op" style="color: #5E5E5E;">,</span> <span class="st" style="color: #20794D;">"Invalid signature"</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-47"></span>
+<span id="cb6-48">                <span class="co" style="color: #5E5E5E;">// Check token values</span></span>
+<span id="cb6-49">                bytes32 prefixedProof <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;">keccak256</span>(abi<span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">encodePacked</span>(sender<span class="op" style="color: #5E5E5E;">,</span> <span class="fu" style="color: #4758AB;">address</span>(<span class="kw" style="color: #00769E;">this</span>)<span class="op" style="color: #5E5E5E;">,</span> msg<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">sender</span><span class="op" style="color: #5E5E5E;">,</span> payoutScope<span class="op" style="color: #5E5E5E;">,</span> exp<span class="op" style="color: #5E5E5E;">,</span> paymentId<span class="op" style="color: #5E5E5E;">,</span> amount))<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-50">                <span class="pp" style="color: #AD0000;">require</span> (<span class="fu" style="color: #4758AB;">bytes32</span>((<span class="fu" style="color: #4758AB;">uint256</span>(prefixedProof <span class="op" style="color: #5E5E5E;">&gt;&gt;</span> <span class="dv" style="color: #AD0000;">32</span> <span class="op" style="color: #5E5E5E;">&lt;&lt;</span> <span class="dv" style="color: #AD0000;">32</span>) <span class="op" style="color: #5E5E5E;">|</span> <span class="fu" style="color: #4758AB;">uint256</span>(exp))) <span class="op" style="color: #5E5E5E;">==</span> token[<span class="dv" style="color: #AD0000;">0</span>])<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-51"></span>
+<span id="cb6-52">                usedPaymentIds[paymentId] <span class="op" style="color: #5E5E5E;">=</span> <span class="kw" style="color: #00769E;">true</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-53">        }</span>
+<span id="cb6-54"></span>
+<span id="cb6-55">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">payoutNewShort</span>(address sender<span class="op" style="color: #5E5E5E;">,</span> uint256 amount<span class="op" style="color: #5E5E5E;">,</span> bytes32[<span class="dv" style="color: #AD0000;">3</span>] calldata token) <span class="kw" style="color: #00769E;">public</span>{</span>
+<span id="cb6-56">                <span class="co" style="color: #5E5E5E;">// Check if token has already been used</span></span>
+<span id="cb6-57">                <span class="pp" style="color: #AD0000;">require</span>(usedPaymentIds[token[<span class="dv" style="color: #AD0000;">0</span>]] <span class="op" style="color: #5E5E5E;">==</span> <span class="kw" style="color: #00769E;">false</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-58"></span>
+<span id="cb6-59">                <span class="co" style="color: #5E5E5E;">// Check token expiration</span></span>
+<span id="cb6-60">                uint32 exp <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;">uint32</span>(<span class="fu" style="color: #4758AB;">uint256</span>(token[<span class="dv" style="color: #AD0000;">0</span>]))<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-61">                <span class="pp" style="color: #AD0000;">require</span>(exp <span class="op" style="color: #5E5E5E;">&gt;</span> block<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">timestamp</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-62"></span>
+<span id="cb6-63">                <span class="co" style="color: #5E5E5E;">// Check token signature</span></span>
+<span id="cb6-64">                <span class="pp" style="color: #AD0000;">require</span>(<span class="kw" style="color: #00769E;">this</span><span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">checkSignature</span>(token<span class="op" style="color: #5E5E5E;">,</span> sender) <span class="op" style="color: #5E5E5E;">==</span> <span class="kw" style="color: #00769E;">true</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-65"></span>
+<span id="cb6-66">                <span class="co" style="color: #5E5E5E;">// Check token values</span></span>
+<span id="cb6-67">                bytes32 prefixedProof <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;">keccak256</span>(abi<span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">encodePacked</span>(sender<span class="op" style="color: #5E5E5E;">,</span> <span class="fu" style="color: #4758AB;">address</span>(<span class="kw" style="color: #00769E;">this</span>)<span class="op" style="color: #5E5E5E;">,</span> msg<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">sender</span><span class="op" style="color: #5E5E5E;">,</span> payoutScope<span class="op" style="color: #5E5E5E;">,</span> exp<span class="op" style="color: #5E5E5E;">,</span> amount))<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-68">                <span class="pp" style="color: #AD0000;">require</span> (<span class="fu" style="color: #4758AB;">bytes32</span>((<span class="fu" style="color: #4758AB;">uint256</span>(prefixedProof <span class="op" style="color: #5E5E5E;">&gt;&gt;</span> <span class="dv" style="color: #AD0000;">32</span> <span class="op" style="color: #5E5E5E;">&lt;&lt;</span> <span class="dv" style="color: #AD0000;">32</span>) <span class="op" style="color: #5E5E5E;">|</span> <span class="fu" style="color: #4758AB;">uint256</span>(exp))) <span class="op" style="color: #5E5E5E;">==</span> token[<span class="dv" style="color: #AD0000;">0</span>])<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-69"></span>
+<span id="cb6-70">                usedPaymentIds[token[<span class="dv" style="color: #AD0000;">0</span>]] <span class="op" style="color: #5E5E5E;">=</span> <span class="kw" style="color: #00769E;">true</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-71">        }</span>
+<span id="cb6-72"></span>
+<span id="cb6-73">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">verifyIdentity</span>(address issuer<span class="op" style="color: #5E5E5E;">,</span> bytes32 userId<span class="op" style="color: #5E5E5E;">,</span> bytes32[<span class="dv" style="color: #AD0000;">3</span>] calldata token) <span class="kw" style="color: #00769E;">public</span> {</span>
+<span id="cb6-74">                <span class="co" style="color: #5E5E5E;">// Check token expiration</span></span>
+<span id="cb6-75">                uint32 exp <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;">uint32</span>(<span class="fu" style="color: #4758AB;">uint256</span>(token[<span class="dv" style="color: #AD0000;">0</span>]))<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-76">                <span class="pp" style="color: #AD0000;">require</span>(exp <span class="op" style="color: #5E5E5E;">&gt;</span> block<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">timestamp</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-77"></span>
+<span id="cb6-78">                <span class="co" style="color: #5E5E5E;">// Check token signature</span></span>
+<span id="cb6-79">                <span class="pp" style="color: #AD0000;">require</span>(<span class="kw" style="color: #00769E;">this</span><span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">checkSignature</span>(token<span class="op" style="color: #5E5E5E;">,</span> issuer) <span class="op" style="color: #5E5E5E;">==</span> <span class="kw" style="color: #00769E;">true</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-80"></span>
+<span id="cb6-81">                <span class="co" style="color: #5E5E5E;">// Check token values</span></span>
+<span id="cb6-82">                bytes32 prefixedProof <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;">keccak256</span>(abi<span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">encodePacked</span>(issuer<span class="op" style="color: #5E5E5E;">,</span> <span class="fu" style="color: #4758AB;">address</span>(<span class="kw" style="color: #00769E;">this</span>)<span class="op" style="color: #5E5E5E;">,</span> msg<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">sender</span><span class="op" style="color: #5E5E5E;">,</span> genericIdentityScope<span class="op" style="color: #5E5E5E;">,</span> exp<span class="op" style="color: #5E5E5E;">,</span> userId))<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-83">                <span class="pp" style="color: #AD0000;">require</span> (<span class="fu" style="color: #4758AB;">bytes32</span>((<span class="fu" style="color: #4758AB;">uint256</span>(prefixedProof <span class="op" style="color: #5E5E5E;">&gt;&gt;</span> <span class="dv" style="color: #AD0000;">32</span> <span class="op" style="color: #5E5E5E;">&lt;&lt;</span> <span class="dv" style="color: #AD0000;">32</span>) <span class="op" style="color: #5E5E5E;">|</span> <span class="fu" style="color: #4758AB;">uint256</span>(exp))) <span class="op" style="color: #5E5E5E;">==</span> token[<span class="dv" style="color: #AD0000;">0</span>])<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb6-84">        }</span>
+<span id="cb6-85">}</span></code></pre></div>
+</section>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+
+<ol type="1">
+<li><p>Coinmarketcap, Historical snapshot from 2019/01/01, https://coinmarketcap.com/historical/20190101/</p></li>
+<li><p>Coinmarketcap, Historical snapshot from 2022/01/01, https://coinmarketcap.com/historical/20220101/</p></li>
+<li><p>M. Jones, J. Bradley, N. Sakimura, RFC-7519: JSON Web Token (JWT), https://datatracker.ietf.org/doc/html/rfc7519</p></li>
+<li><p>D. Hardt, Ed., RFC-6749: The OAuth 2.0 Authorization Framework, https://datatracker.ietf.org/doc/html/rfc6749</p></li>
+<li><p>N. Fotiou, I. Pittaras, V. A. Siris, S. Voulgaris, G. C. Polyzosar, OAuth 2.0 authorization using blockchain-based tokens, arXiv:2001.10461v1, 28 Jan 2020, https://arxiv.org/pdf/2001.10461.pdf</p></li>
+<li><p>R Moore, N Johnson, EIP-2098: Compact Signature Representation, https://eips.ethereum.org/EIPS/eip-2098</p></li>
+<li><p>R. Housley, RFC-3874: A 224-bit One-way Hash Function: SHA-224, https://datatracker.ietf.org/doc/html/rfc3874</p></li>
+</ol>
+
+
+</section>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs">
+
+</div></section></div> ]]></description>
+  <guid>https://3327.io/documents/research/posts/ERFC-147.gfm.html</guid>
+  <pubDate>Tue, 05 Apr 2022 22:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Blacklisting Platform based on untransferable NFTs</title>
+  <dc:creator>Aleksandar Damjanovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-154.gfm.html</link>
+  <description><![CDATA[ 
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>The main topic of this research is exploring the possibility and the need to create the “Authority” protocol that would handle blacklisting based on community voting and assessment. This protocol would mint the untransferable NFT to the blacklisted address. Creating this solutions (both the platform and the NFT) would not be challenging but the need for these solutions is questionable to the author. This paper explored the current blacklist cases and the possibility of creating the said NFTs. The Tether case is in the main focus since the solutions are similar and simple. The main takeaway is that creating this solution is not necessary per se, but the issue is open for discussion.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>When it comes to Web3, security breaches, hacks and malicious behaviour are a big issue. That is why some protocols resort to blacklisting the addressses they deem malicious. Blacklisting is essentially putting the addresses that have engaged in unethical or unacceptable activities on a list which in turn would limit their usage of said protocols.<sup>1</sup></p>
+<p>Initial idea for this research is to explore the possibility of creating a platform that would blacklist addresses and send them an untransferable NFT. This platform would take it upon itself to take care of blacklisting for other protocols and users. The cases would be reported and voted on i.e Nexus Mutual model (for more info on their voting model check ERFC-91). When it comes to problems that this solution would solve the main problem is taking care of blacklisting for other protocols, this in turn makes our solution (even with voting) a point of centralization but more on that in later paragraphs.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The goal of this research is to explore how was blacklisting taken care of so far and to explore the possibility and need of creating a protocol that would do this with utilizing untransferable NFTs. Untransferable NFTs have been a topic of interest in the field for a while, otherwise there is no explicit point of including them except for “flagging” the addresses for the world to see.</p>
+<p>This will be done by examining the source code of protocols that have done blacklisting in the past. After the examination we will draw some conclusions.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<section id="blacklisting" class="level2">
+<h2 class="anchored" data-anchor-id="blacklisting">Blacklisting</h2>
+<p>As we pointed above we did a deep-dive into contracts that utilize blacklisting. In the beginning of the research we have searched for contracts that previously used blacklisting and we have come across the Tether case as it is the biggest one. There are various contracts that use the blacklist contracts but it is the exact same approach. When it comes to individual sites and addresses MetaMask already blocks sites that are known to steal funds.<sup>2</sup></p>
+<p>Stablecoin issuer Tether froze the ethereum <a href="https://etherscan.io/tx/0x60891b856cdae4fd0878d45d2768e640be2dc2a50876d20138797a09877a7cd6#eventlog">address</a> holding over $715,000 worth of USDT. This address is the address of hackers who stole $3 million on the Multichain bridge. This means that they cannot move the funds.</p>
+<ul>
+<li>The question here is how did Tether manage to do that?</li>
+</ul>
+<p>They managed that by importing the Blacklist contract in their main contract. We will try to explain the contract in the code-box comments below:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1">    contract BlackList is Ownable<span class="op" style="color: #5E5E5E;">,</span> BasicToken {</span>
+<span id="cb1-2"></span>
+<span id="cb1-3">        <span class="co" style="color: #5E5E5E;">// Getters to allow the same blacklist to be used also by other contracts.(including upgraded Tether) </span></span>
+<span id="cb1-4">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">getBlackListStatus</span>(address _maker) external constant <span class="fu" style="color: #4758AB;">returns</span> (bool) {</span>
+<span id="cb1-5">            <span class="cf" style="color: #00769E;">return</span> isBlackListed[_maker]<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-6">        }</span>
+<span id="cb1-7"></span>
+<span id="cb1-8">        <span class="co" style="color: #5E5E5E;">// Returns the owner of the contract address.</span></span>
+<span id="cb1-9">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">getOwner</span>() external constant <span class="fu" style="color: #4758AB;">returns</span> (address) {</span>
+<span id="cb1-10">            <span class="cf" style="color: #00769E;">return</span> owner<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-11">        }</span>
+<span id="cb1-12"></span>
+<span id="cb1-13">        <span class="co" style="color: #5E5E5E;">// Puts the blacklisted addresses in the mapping for checking and later use.</span></span>
+<span id="cb1-14">        <span class="fu" style="color: #4758AB;">mapping</span> (address <span class="kw" style="color: #00769E;">=&gt;</span> bool) <span class="kw" style="color: #00769E;">public</span> isBlackListed<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-15"></span>
+<span id="cb1-16">        <span class="co" style="color: #5E5E5E;">// Self explanatory, adds the address to the isBlacklisted mapping. Only owner of the contract can call the function</span></span>
+<span id="cb1-17">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">addBlackList</span> (address _evilUser) <span class="kw" style="color: #00769E;">public</span> onlyOwner {</span>
+<span id="cb1-18">            isBlackListed[_evilUser] <span class="op" style="color: #5E5E5E;">=</span> <span class="kw" style="color: #00769E;">true</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-19">            <span class="fu" style="color: #4758AB;">AddedBlackList</span>(_evilUser)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-20">        }</span>
+<span id="cb1-21"></span>
+<span id="cb1-22">        <span class="co" style="color: #5E5E5E;">// Removes the address from the blacklist and "unfreezes the assets". Only owner of the contract can call the function.</span></span>
+<span id="cb1-23">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">removeBlackList</span> (address _clearedUser) <span class="kw" style="color: #00769E;">public</span> onlyOwner {</span>
+<span id="cb1-24">            isBlackListed[_clearedUser] <span class="op" style="color: #5E5E5E;">=</span> <span class="kw" style="color: #00769E;">false</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-25">            <span class="fu" style="color: #4758AB;">RemovedBlackList</span>(_clearedUser)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-26">        }</span>
+<span id="cb1-27"></span>
+<span id="cb1-28">        <span class="co" style="color: #5E5E5E;">// Destroys the funds of the blacklisted address and reduces the total suply by the same amount. Only owner of the contract can call this function.</span></span>
+<span id="cb1-29">        <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">destroyBlackFunds</span> (address _blackListedUser) <span class="kw" style="color: #00769E;">public</span> onlyOwner {</span>
+<span id="cb1-30">            <span class="pp" style="color: #AD0000;">require</span>(isBlackListed[_blackListedUser])<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-31">            uint dirtyFunds <span class="op" style="color: #5E5E5E;">=</span> <span class="fu" style="color: #4758AB;">balanceOf</span>(_blackListedUser)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-32">            balances[_blackListedUser] <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">0</span><span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-33">            _totalSupply <span class="op" style="color: #5E5E5E;">-=</span> dirtyFunds<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-34">            <span class="fu" style="color: #4758AB;">DestroyedBlackFunds</span>(_blackListedUser<span class="op" style="color: #5E5E5E;">,</span> dirtyFunds)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-35">        }</span>
+<span id="cb1-36">        <span class="co" style="color: #5E5E5E;">// Simple events for transaction logs.</span></span>
+<span id="cb1-37">        <span class="bu" style="color: null;">event</span> <span class="fu" style="color: #4758AB;">DestroyedBlackFunds</span>(address _blackListedUser<span class="op" style="color: #5E5E5E;">,</span> uint _balance)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-38"></span>
+<span id="cb1-39">        <span class="bu" style="color: null;">event</span> <span class="fu" style="color: #4758AB;">AddedBlackList</span>(address _user)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-40"></span>
+<span id="cb1-41">        <span class="bu" style="color: null;">event</span> <span class="fu" style="color: #4758AB;">RemovedBlackList</span>(address _user)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb1-42"></span>
+<span id="cb1-43">    }</span></code></pre></div>
+<p>Then they simply put the require statement in all their main contract functions(except for the ones with the “Only Owner modifier”) for example:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1">    <span class="co" style="color: #5E5E5E;">// Require statement above makes sure the blacklisted address can't access the function.</span></span>
+<span id="cb2-2">    <span class="kw" style="color: #00769E;">function</span> <span class="fu" style="color: #4758AB;">transferFrom</span>(address _from<span class="op" style="color: #5E5E5E;">,</span> address _to<span class="op" style="color: #5E5E5E;">,</span> uint _value) <span class="kw" style="color: #00769E;">public</span> whenNotPaused {</span>
+<span id="cb2-3">            <span class="pp" style="color: #AD0000;">require</span>(<span class="op" style="color: #5E5E5E;">!</span>isBlackListed[_from])<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb2-4">            <span class="cf" style="color: #00769E;">if</span> (deprecated) {</span>
+<span id="cb2-5">                <span class="cf" style="color: #00769E;">return</span> <span class="fu" style="color: #4758AB;">UpgradedStandardToken</span>(upgradedAddress)<span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">transferFromByLegacy</span>(msg<span class="op" style="color: #5E5E5E;">.</span><span class="at" style="color: #677623;">sender</span><span class="op" style="color: #5E5E5E;">,</span> _from<span class="op" style="color: #5E5E5E;">,</span> _to<span class="op" style="color: #5E5E5E;">,</span> _value)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb2-6">            } <span class="cf" style="color: #00769E;">else</span> {</span>
+<span id="cb2-7">                <span class="cf" style="color: #00769E;">return</span> <span class="kw" style="color: #00769E;">super</span><span class="op" style="color: #5E5E5E;">.</span><span class="fu" style="color: #4758AB;">transferFrom</span>(_from<span class="op" style="color: #5E5E5E;">,</span> _to<span class="op" style="color: #5E5E5E;">,</span> _value)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb2-8">            }</span>
+<span id="cb2-9">        }</span></code></pre></div>
+<p>This approach to blacklisting gives the Tether the absolute control in what addresses it blacklists and for how long.</p>
+<p>As we can see in the getBlacklistStatus the other contracts can use the same Blacklist to limit their usage as Tether thus leaning on their decision making.</p>
+<p>In theory a blacklist protocol can be created where the voting what address to blacklist could be done by the community. The said addresses would be stored in the contract and those addresses could be whitelisted by voting again. Then, other contracts could lean on the “list” and block the addresses from using their functions. This would also make our solution the major point of centralization and considering how easy it is to set up blacklisting individually this proposes a question is the such solution needed?</p>
+<p>Implementing a separate blacklist functions is not challenging and any contract can include them and have the complete control in what addresses it freezes and for how long.</p>
+</section>
+<section id="untransferable-nfts" class="level2">
+<h2 class="anchored" data-anchor-id="untransferable-nfts">Untransferable NFTs</h2>
+<p>Untrasferable NFTs have been a topic of interest for a while in Web3 and there are various use cases that have been explored. Such as:</p>
+<ul>
+<li>identity</li>
+<li>badges</li>
+<li>achievements, etc</li>
+</ul>
+<p>Vitalik Buterin in his blog post showed his interest in “soulbound NFTs”. If we want these NFTs to be truly soulbound (untrasferable) we would need to block transferability thus limiting them to only one address. When it comes to badges and achievements there are already POAPs. POAP has made the decision not to block transferability of POAPs themselves since the owners might want to change addresses and migrate assets for various reasons. There are various cases where they have been sold or even given out for free and after that sold for the highest bidder.<sup>3</sup></p>
+<p>When it comes to creating a “soulbound NFT” we think that it is possible and that it can be done by modifying the transfer function from the ERC-721 standard.</p>
+<p>The main issue here is utilizing them in the Blacklisting sense, the mint function from the ERC-721 interface can be included in the addBlacklist() function which would mint the said token to the said address. But so far we haven’t come to the use-case except for “flagging” the addresses for the world to see, so it seems unnecessary at the moment.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>When exploring blacklisting we have come to conclusion that it is already implemented in some contracts and that creating a protocol that marks the “malicious” addresses is possible. The untransferable NFTs are possible to create also. The main question here is are those solutions needed? Creating a protocol that others can lean on can be useful but it would also be a major point of centralization and a lot of effort for a feature that simple. Not to mention including untransferable NFTs in the process which at this stage of the research seem unnecessary. What if the address is removed from the blacklist for various reasons does the NFT stay?</p>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Soulbound" class="csl-entry">
+‘Soulbound’ &lt;<a href="https://vitalik.ca/general/2022/01/26/soulbound.html" class="uri">https://vitalik.ca/general/2022/01/26/soulbound.html</a>&gt; [accessed 12 April 2022]
+</div>
+<div id="ref-WhatBlacklist" class="csl-entry">
+‘What Is a Blacklist?’, <em>Investopedia</em> &lt;<a href="https://www.investopedia.com/terms/b/blacklist.asp" class="uri">https://www.investopedia.com/terms/b/blacklist.asp</a>&gt; [accessed 12 April 2022]
+</div>
+</div></section><section class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>‘What Is a Blacklist?’, <em>Investopedia</em> &lt;&lt;https://www.investopedia.com/terms/b/blacklist.asp&gt;&gt; [accessed 12 April 2022].↩︎</p></li>
+<li id="fn2"><p><strong>metamaskmetamaskMetaMaskAutomaticallyBlocks2018?</strong>↩︎</p></li>
+<li id="fn3"><p>‘Soulbound’ &lt;&lt;https://vitalik.ca/general/2022/01/26/soulbound.html&gt;&gt; [accessed 12 April 2022].↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <guid>https://3327.io/documents/research/posts/ERFC-154.gfm.html</guid>
+  <pubDate>Wed, 30 Mar 2022 22:00:00 GMT</pubDate>
+</item>
 <item>
   <title>NFT that is bound by time</title>
   <dc:creator>Marija Mijailovic</dc:creator>

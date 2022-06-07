@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.64">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Aleksandar Veljković">
+  <title>3327 Research - OWT - Omni Web Token</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+
+  <script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="../../../">
+  <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+  <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+  <script src="../../../site_libs/quarto-html/quarto.js"></script>
+  <script src="../../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+  <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "navbar",
+    "copy-button": false,
+    "collapse-after": 2,
+    "panel-placement": "end",
+    "type": "overlay",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - OWT - Omni Web Token">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - OWT - Omni Web Token">
+<meta name="twitter:card" content="summary">
+</head>
+<body>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../logo.png" alt="">
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+<li><a href="#introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+<ul class="collapse">
+<li><a href="#oauth-standard" class="nav-link" data-scroll-target="#oauth-standard">OAuth standard</a></li>
+<li><a href="#jwt-tokens" class="nav-link" data-scroll-target="#jwt-tokens">JWT Tokens</a></li>
+<li><a href="#general-authorization-protocol" class="nav-link" data-scroll-target="#general-authorization-protocol">General Authorization Protocol</a></li>
+<li><a href="#existing-approaches" class="nav-link" data-scroll-target="#existing-approaches">Existing Approaches</a></li>
+</ul></li>
+<li><a href="#goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a>
+<ul class="collapse">
+<li><a href="#chain-token-ct-representation" class="nav-link" data-scroll-target="#chain-token-ct-representation">Chain token (CT) representation</a>
+<ul class="collapse">
+<li><a href="#token-size-optimization" class="nav-link" data-scroll-target="#token-size-optimization">Token size optimization</a></li>
+<li><a href="#signature-size-optimization" class="nav-link" data-scroll-target="#signature-size-optimization">Signature size optimization</a></li>
+<li><a href="#mapping-oauth2.0-parameters" class="nav-link" data-scroll-target="#mapping-oauth2.0-parameters">Mapping OAuth2.0 parameters</a></li>
+</ul></li>
+<li><a href="#token-reusability" class="nav-link" data-scroll-target="#token-reusability">Token reusability</a></li>
+<li><a href="#action-scope-schemas" class="nav-link" data-scroll-target="#action-scope-schemas">Action scope schemas</a>
+<ul class="collapse">
+<li><a href="#scope-1-generic-identity" class="nav-link" data-scroll-target="#scope-1-generic-identity">Scope 1: Generic Identity</a></li>
+<li><a href="#scope-2-allowance" class="nav-link" data-scroll-target="#scope-2-allowance">Scope 2: Allowance</a></li>
+</ul></li>
+<li><a href="#from-chain-token-ct-to-omni-web-token-owt" class="nav-link" data-scroll-target="#from-chain-token-ct-to-omni-web-token-owt">From Chain Token (CT) to Omni Web Token (OWT)</a>
+<ul class="collapse">
+<li><a href="#owt-body" class="nav-link" data-scroll-target="#owt-body">OWT Body</a></li>
+<li><a href="#owt-signature" class="nav-link" data-scroll-target="#owt-signature">OWT Signature</a></li>
+</ul></li>
+<li><a href="#owt-issuing" class="nav-link" data-scroll-target="#owt-issuing">OWT Issuing</a></li>
+</ul></li>
+<li><a href="#results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+<ul class="collapse">
+<li><a href="#allowance-use-case" class="nav-link" data-scroll-target="#allowance-use-case">Allowance Use Case</a>
+<ul class="collapse">
+<li><a href="#test-setup" class="nav-link" data-scroll-target="#test-setup">Test setup</a></li>
+<li><a href="#test-1-payout-by-whitelisting" class="nav-link" data-scroll-target="#test-1-payout-by-whitelisting">Test 1: Payout by Whitelisting</a></li>
+<li><a href="#test-2-payout-with-token" class="nav-link" data-scroll-target="#test-2-payout-with-token">Test 2: Payout with Token</a></li>
+<li><a href="#test-3-payout-with-token-using-token-hash-as-payment-identifier" class="nav-link" data-scroll-target="#test-3-payout-with-token-using-token-hash-as-payment-identifier">Test 3: Payout with Token using Token Hash as Payment Identifier</a></li>
+<li><a href="#cost-analysis" class="nav-link" data-scroll-target="#cost-analysis">Cost Analysis</a></li>
+</ul></li>
+<li><a href="#generic-identity-use-case" class="nav-link" data-scroll-target="#generic-identity-use-case">Generic Identity Use Case</a>
+<ul class="collapse">
+<li><a href="#use-case-analysis" class="nav-link" data-scroll-target="#use-case-analysis">Use case analysis</a></li>
+</ul></li>
+<li><a href="#general-purpose-token-verification-service-gptvs" class="nav-link" data-scroll-target="#general-purpose-token-verification-service-gptvs">General Purpose Token Verification Service (GPTVS)</a></li>
+</ul></li>
+<li><a href="#conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+<li><a href="#appendices" class="nav-link" data-scroll-target="#appendices">Appendices</a>
+<ul class="collapse">
+<li><a href="#appendix-1-chain-token-verification-smart-contract" class="nav-link" data-scroll-target="#appendix-1-chain-token-verification-smart-contract">Appendix 1: Chain token verification smart contract</a></li>
+</ul></li>
+<li><a href="#bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+</ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-147.gfm.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
+
+
+
+
+<div class="quarto-title"><h1 class="title display-7">OWT - Omni Web Token</h1><p class="subtitle lead">ERFC - 147</p></div><div class="quarto-title-meta"><div><div class="quarto-title-meta-heading">Author</div><div class="quarto-title-meta-contents"><div class="quarto-title-authors"><p>Aleksandar Veljković</p></div></div></div><div><div class="quarto-title-meta-heading">Published</div><div class="quarto-title-meta-contents"><p class="date">4/6/2022</p></div></div></div></header>
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>JSON Web Tokens, or JWT, are standard for authorizing clients on the Web. Some JWT payloads have a specific structure, such as OAuth(2) tokens. Others, however, are designed specifically for particular apps. Authorization on the Blockchain is done mainly through explicitly whitelisting addresses that are allowed to perform specific actions. Whitelisting introduces high costs when the number of whitelisted addresses is large. A good example is ICO whitelisting, where hundreds or even thousands of participants need to get whitelisted. This research aims to find an efficient, more cost-effective solution for authorizing users on the Blockchain using a system of authorization tokens issued and received off-chain, without the Blockchain transaction fees, and valid on-chain and off-chain. In addition, the token structure should be transferrable off-chain as a JWT token, compatible with the OAuth2 standard, and reusable in both Web 2.0 and Web 3.0 worlds.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Ethereum Blockhain gas prices are following the price of Ether, resulting in higher transaction fees. The cost of 1 ETH on January 1st, 2019, was $140.82 [1]. On the same day in 2022, the price for 1 ETH was $3,769.70 [2]. That means that the same transaction from 2019 became just three years later became more than 30 times more expensive.</p>
+<p>Executing transactions on Blockchain, in general, doesn’t require any specific authorization. The transactions are signed using the private key and paid using ETH from the signer’s wallet. However, some transactions, such are token purchases during ICOs, require explicit approval by the smart contract owner. The approval on the Blockchain is done by whitelisting wallet addresses that are allowed to perform specific actions, submitting the list of the whitelisted wallets, and storing them on the Blockchain. The price of each transaction for storing whitelisted wallets linearly grows by the number of the wallets. In a more concrete example, storing one 20 byte address on Blockchain, having ETH at the January 1st, 2022 price, costs approximately 20000 GAS or around $5.6, having an average gas price of 74 Gwei. With those prices, storing a hundred whitelisted addresses would cost about $565, with base transaction cost included. It is challenging for technology to expand with such high prices for such basic requirements. Before introducing the solution this research is proposing, it is essential first to briefly introduce some basic concepts regarding the existing methods for authorization on the Web.</p>
+<section id="oauth-standard" class="level2">
+<h2 class="anchored" data-anchor-id="oauth-standard">OAuth standard</h2>
+<p>Open Authorization, or OAuth for short, is an authorization standard followed by many APIs worldwide. The standard specifies the protocol between client and authorization server and data transferred in protocol messages. There are two versions of OAuth standard, 1 and 2.</p>
+<p>OAuth standard doesn’t specify the transfer method for sending messages, but one widely adopted standard is using JWT tokens as the authorization data container.</p>
+</section>
+<section id="jwt-tokens" class="level2">
+<h2 class="anchored" data-anchor-id="jwt-tokens">JWT Tokens</h2>
+<p>In 2015, Michael Jones, John Bradley and Nat Sakimura introduced JSON Web Tokens (JWT) through RFC-7519 as a compact structure for representing claims transferred between two parties [3]. Since then, JWTs have been used for client authentication on the Web. Initially, the authentication was performed between APIs but quickly found use in client authentication following the growth of client-heavy applications.</p>
+<p>JWT has a general structure, made of a header, body, and signature segments. The header segment includes the token type and a label of the algorithm used for creating signatures.</p>
+<p>Example JWT header</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"JWT"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"alg"</span><span class="fu">:</span> <span class="st">"ES256"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span></code></pre></div>
+<p>The body segment is a container segment used for storing protocol-specific information. OAuth 2.0 standard, introduced with RFC-6749 [4], specifies several fields required for authorization that are members of the body of a JWT token. Some of those fields are:</p>
+<ul>
+<li><code>aud</code> (Audience) - Identifier of the user to whom the client will present the token for executing an action</li>
+<li><code>exp</code> (Expiration) - Token expiration timestamp</li>
+<li><code>iss</code> (Issuer) - Identifier of the token issuer, authorization service provider</li>
+<li><code>scope</code> (Action scope) - List of actions for which the token owner would be authorized to perform</li>
+<li><code>sub</code> (Subject) - Identifier of the token owner</li>
+<li><code>iat</code> (Issued at) - Isusing timestamp</li>
+</ul>
+<p>Example JWT Body</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"sub"</span><span class="fu">:</span> <span class="st">"user1"</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"John Doe"</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"iat"</span><span class="fu">:</span> <span class="dv">1516239022</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"aud"</span><span class="fu">:</span> <span class="st">"server1"</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"scope"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"data.fetching"</span><span class="ot">]</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span></code></pre></div>
+<p>Field <code>name</code> in the JWT body example represents a custom, application-specific data field.</p>
+<p>The signature part of the JWT token contains the hash or signature of the token provided by the token issuer.</p>
+<p>The three token parts are put together into one base64 encoded string (without trailint <code>=</code> symbols), having the tree parts separated by the dot <code>.</code> symbol.</p>
+<p>Example of a complete JWT string</p>
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code></pre>
+</section>
+<section id="general-authorization-protocol" class="level2">
+<h2 class="anchored" data-anchor-id="general-authorization-protocol">General Authorization Protocol</h2>
+<p>A general protocol for client authorization on the Web using JWT tokens consists of two steps: - Requesting token from the authorization server for executing some action - Presenting the authorization token received from the authorization server to the server which would perform the requested action</p>
+</section>
+<section id="existing-approaches" class="level2">
+<h2 class="anchored" data-anchor-id="existing-approaches">Existing Approaches</h2>
+<p>There are existing approaches for combining the Blockchain and OAuth tokens. In one research [5], the authors used NFTs as authorization tokens generated on-chain that would be verifiable using the OAuth 2.0 protocol. That approach is inverse to this research: it doesn’t reduce costs but puts authorization tokens on the chain.</p>
+</section>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The main goal of this research was to find a way to make authorization on the Web cheaper than the existing whitelisting method with the general idea to build a solution analogous to the current, proven methods for authorization on the Web. The key motivation for using tokens as an authorization method is an authorization protocol that shifts significant transaction fees from one authorization entity to many clients that pay only a small additional fee on top of the price they pay for executing the authorized action.</p>
+<p>Reducing the price paid by the authorization entity by 100% can be achieved by issuing authorization tokens off-chain. This protocol specification introduces challenges regarding the design of the token, as the token should include all the information that the authorization entity would provide with the Blockchain transaction in the first place.</p>
+<p>Reducing the costs of additional fees that clients would now pay for the authorization requires the overhead authorization data submitted on the Blockchain to be as small as possible. This requirement poses the main challenge for token design. Additionally, the Blockchain should not explicitly store authorization data, except as transaction arguments.</p>
+<p>Combining these requirements, a perfect authorization schema represents a two-step protocol where the client first acquires the authorization token from the authorization server, off-chain. Second, the client submits the data required for performing the action to the Blockchain with a minor (ideally none) overhead the smart contract would use to confirm the client’s authorization.</p>
+<section id="chain-token-ct-representation" class="level2">
+<h2 class="anchored" data-anchor-id="chain-token-ct-representation">Chain token (CT) representation</h2>
+<p>The essential requirements for the token that would be used on the chain are:</p>
+<ul>
+<li>Efficient verifiability; token should be efficiently verifiable on the chain</li>
+<li>Authenticity; the probability of token forgery should be negligible</li>
+<li>Succinctness; token should be small in byte size</li>
+<li>Non-transferability; token should be used only by the user who received the token</li>
+</ul>
+<p>As an example throughout this research, we will use the money checkout allowance problem, where a client needs to be authorized to payout a certain amount of money from the account of the authorizing entity. An existing approach for solving this problem is calling the approval method on the smart contract or whitelisting clients and explicitly approving the total allowed amount for each client. Method signature without a token argument would look like this:</p>
+<pre><code>payout(address account, address receiver, uint256 amount)</code></pre>
+<p>A naive approach for constructing a token that would follow JWT logic would be providing all the values bound by the token. In our example, the values that are required for money checkout from the account are: - account owner identifier; 20 bytes address value - authorized client identifier; 20 bytes address value - allowed amount; 32 bytes value</p>
+<p>Next, the apparent problem is a forgery. Everyone can create a token with listed values and submit it on the Blockchain. The solution for this problem is to provide a signature made by the authorization entity, which confirms the provided values. Ethereum signatures contain three segments, v, r, and s, 65 bytes long. All summed up to 137 bytes of memory. Even if this doesn’t look like a significant sum, the main issue is that the token size asymptotically grows by <span class="math inline">\(O(n)\)</span>, linearly with the number of arguments n.&nbsp;In other words, it would become costly, or even unusable, for methods with more arguments. It is not very efficient, but it is a start.</p>
+<section id="token-size-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="token-size-optimization">Token size optimization</h3>
+<p>The problem with the naive approach is linear growth with the number of arguments. Solving this problem requires looking closely at the method that is being called. The method <code>payout</code> already contains the token values as a method argument, and it would be redundant to provide them again in the token. The same pattern is visible with different use-cases. This observation suggests that we can avoid providing the values within the token but use only a hash of the approved values and check if the hash of the provided input values matches the token hash. Using the hashing method clears the linear growth of the token as the size of the keccak256 hash is fixed to 32 bytes in length, achieving a constant <span class="math inline">\(O(1)\)</span> size of the token. The hash can also cover other values that could be hard-coded into the smart contract without a token size increase, which will become an essential feature in later sections.</p>
+</section>
+<section id="signature-size-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="signature-size-optimization">Signature size optimization</h3>
+<p>The Ethereum signature size is fixed to 65 bytes. That means that it passes the size of 2 memory words (32 bytes in size) and requires three blocks of memory. The solution for this problem comes with EIP-2098 [6], which proposes a simple technique for compact signature representation, reducing its size by 1 byte and allowing it to fit into two memory blocks.</p>
+<p>The total token size is now fixed to 32 bytes of token hash plus another 64 bytes of signature data totaling 96 bytes or three blocks of memory.</p>
+</section>
+<section id="mapping-oauth2.0-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-oauth2.0-parameters">Mapping OAuth2.0 parameters</h3>
+<p>Now that we have a token structure, we need to figure out how to standardize token parameters to comply with the OAuth2.0 standard.</p>
+<p>The audience parameter refers to the smart contract containing the payout method. It doesn’t need to be provided explicitly as a method argument as it is already encoded in the smart contract.</p>
+<p>The token issuer can be deduced from the signature and doesn’t need to be explicitly provided.</p>
+<p>The subject parameter is provided both as the input argument of the <code>payout</code> method. It doesn’t have to be provided explicitly. It should not be provided even as the argument, as it is already given as the message sender value.</p>
+<p>The scope parameter describes the action that should be executed. It should not be explicitly provided as it should be hardcoded in the method.</p>
+<p>The token expiration time is a tricky one. It doesn’t naturally belong to method arguments, so it should be provided explicitly. To prevent the token size increase, we can do a simple modification of the token hash. The value of the timestamp can be stored in 8 bytes. A straightforward solution is to provide another method argument with an 8-byte value. A more elegant solution is to transform the keccak256 value into “pseudo-keccak224” (SHA224 [7] value, with unchanged initialization value) by truncating the hash size to its 224 bytes prefix and appending 8 bytes extension with expiration timestamp as the last 8 bytes of the token hash. This transformation returns us to the previously proposed token size without extra arguments.</p>
+<p>As we can see, all the crucial parameters of the OAuth2.0 protocol can be successfully mapped to the Blockchain transactions and the chain token.</p>
+</section>
+</section>
+<section id="token-reusability" class="level2">
+<h2 class="anchored" data-anchor-id="token-reusability">Token reusability</h2>
+<p>Some authorization tokens are reusable many times until the expiration date. However, some use-cases require that the tokens may be used only once. An example of such a use case is exactly the example we have used so far. Once the payout method has been executed, the user should not be able to perform double-payout transactions. This problem can be solved the same way as in Web 2.0 - by introducing a payment identifier. The payment identifier should be included as an extra method argument and included in the token hash. This solution also solves the issue of the lost token, as the token can be reissued with the same payment identifier and used for the same payment only once. Specific use cases may require the existence of only one token. In that case, the token (and method arguments) may include <code>jti</code> parameter or JWT token ID as a token identifier or use the token hash as an identifier. The smart contract should implement mechanisms for preventing double payments and a potential blacklisting of tokens.</p>
+</section>
+<section id="action-scope-schemas" class="level2">
+<h2 class="anchored" data-anchor-id="action-scope-schemas">Action scope schemas</h2>
+<p>OAuth2.0 proposes a parameter that includes the action scope or label of the action for which the client can use the token. Action scopes are not specified as they can be represented using any string value. The problem here is the cost of using string data types in smart contracts. This research proposes restriction for action type values to numerical data types of 4 bytes. This restriction allows <span class="math inline">\(2^32\)</span> possible scope values that could represent many use cases.</p>
+<p>A library of token schemas can help developers properly format their tokens based on scope number schemas. Furthermore, enumeration of action types can introduce standardization for tokens where a smart contract may require, for example, “scope 42” tokens for executing a method. We present the first two token scopes that would be used in the following use-cases:</p>
+<section id="scope-1-generic-identity" class="level3">
+<h3 class="anchored" data-anchor-id="scope-1-generic-identity">Scope 1: Generic Identity</h3>
+<p>Generic identity scope should be used for verification of the client’s identity. The verification is based on the client’s wallet address and unique identifier in the issuer’s database. The hash for “scope 1” tokens be made by hashing the following array of values in their respective order:</p>
+<ul>
+<li><code>address iss</code>; token issuer <code>address aud</code>; smart contract address or 0 address for general identification</li>
+<li><code>address sub</code>; client’s wallet address</li>
+<li><code>uint4 scope</code>; action scope with value <code>1</code> for generic identification</li>
+<li><code>bytes32 uuid</code>; unique identifier of the client in the issuer’s</li>
+<li><code>uint8 exp</code>; token expiration timestamp in UNIX timestamp format database</li>
+</ul>
+</section>
+<section id="scope-2-allowance" class="level3">
+<h3 class="anchored" data-anchor-id="scope-2-allowance">Scope 2: Allowance</h3>
+<p>Allowance tokens, used for crypto cheques, should have hashes made by hashing the following array of values in their respective order:</p>
+<ul>
+<li><code>address iss</code>; token issuer</li>
+<li><code>address aud</code>; smart contract address</li>
+<li><code>address sub</code>; money receiver</li>
+<li><code>uint4 scope</code>; action scope with value <code>2</code> for allowance</li>
+<li><code>bytes32 paymentId</code>; payment identifier (NOTE: token hash may be used as payment ID but it can introduce new problems)</li>
+<li><code>uint256 amount</code>; amount to transfer</li>
+<li><code>uint8 exp</code>; token expiration timestamp in UNIX timestamp format</li>
+</ul>
+<p>The reader may notice that in both cases, there are two logical groups of parameters: - general parameters; <code>iss</code>, <code>aud</code>, sub<code>,</code>scope<code>and</code>exp<code>- application-specific parameters;</code>userId<code>,</code>paymentId<code>,</code>amount`</p>
+<p>The general parameters are the same for all tokens, and application-specific parameters are different for each scope.</p>
+</section>
+</section>
+<section id="from-chain-token-ct-to-omni-web-token-owt" class="level2">
+<h2 class="anchored" data-anchor-id="from-chain-token-ct-to-omni-web-token-owt">From Chain Token (CT) to Omni Web Token (OWT)</h2>
+<p>Now that we have the complete definition of the chain token, we can go one more step and make it usable and transferrable in the Web 2.0 world. We can do this by packing chain token data as part of theJWT token, following the OAuth 2.0 schema.</p>
+<section id="owt-body" class="level3">
+<h3 class="anchored" data-anchor-id="owt-body">OWT Body</h3>
+<p>The token scopes define OAuth 2.0 parameters, so the only remaining thing is appropriately packing the chain token into the JWT body and creating a proper JWT signature. The verifier needs to know the CT hash value and the parameters used in the construction of the token.</p>
+<p>The proposed OWT body schema is:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>   <span class="dt">"aud"</span><span class="fu">:</span><span class="st">"&lt;smart contract address&gt;"</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>   <span class="dt">"iss"</span><span class="fu">:</span><span class="st">"&lt;issuer's wallet address&gt;"</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"scope"</span><span class="fu">:</span> <span class="st">"&lt;readable name of the '&lt;scope&gt;'"</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"exp"</span><span class="fu">:</span> <span class="st">"&lt;token expiration timestamp&gt;"</span><span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"chain_token"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"token_hash"</span><span class="fu">:</span> <span class="st">"&lt;CT hash with expiration timestamp&gt;"</span><span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"r"</span><span class="fu">:</span> <span class="st">"&lt;signature r value&gt;"</span><span class="fu">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"sv"</span><span class="fu">:</span> <span class="st">"&lt;compact representation of s and v signature values&gt;"</span><span class="fu">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"params"</span><span class="fu">:</span> <span class="st">"[&lt;ordered list of token parameters in form of:</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">                     {</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">                        param: &lt;parameter name&gt;,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">                        value: &lt;parameter value&gt;,</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">                        type: &lt;parameter data type&gt;,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">                     }</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="st">                &gt;]"</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span></code></pre></div>
+</section>
+<section id="owt-signature" class="level3">
+<h3 class="anchored" data-anchor-id="owt-signature">OWT Signature</h3>
+<p>The JWT standard allows using the Ethereum secp256k1 signatures by providing the <code>EC256</code> algorithm type value in the token header. The signature of the OWT token is created using the issuer’s private key. To verify the signature, the verifier needs access to the issuer’s public key, which should be available from the issuer’s <code>/.well-known/jwks.json</code> route of the authorization API.</p>
+</section>
+</section>
+<section id="owt-issuing" class="level2">
+<h2 class="anchored" data-anchor-id="owt-issuing">OWT Issuing</h2>
+<p>The OAuth 2.0 protocol allows using <code>client id</code> and <code>client secret</code> parameters when requesting the authorization tokens. OWT requests can be made using wallet address as client’s identity and signature of the clients wallet address as the <code>client secret</code> parameter</p>
+</section>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>To test our hypothesis and estimate the costs of working with OWTs, a simple NodeJS library for generating and verifying OWTs was implemented together with testing REST API for issuing OWTs following the OAuth 2.0 protocol. An example smart contract for testing the usability of the chain token was also implemented.</p>
+<p>The smart contract used for testing included four methods:</p>
+<ul>
+<li><code>whitelist(address client, uint256 amount)</code> method for whitelisting the user for a given amount of money - <code>payoutOld(uint256 amount)</code> method for performing payout in the old fashioned way by checking the whitelisted amount</li>
+<li><code>payoutNew(address sender, uint256 amount, bytes32 paymentId, bytes32[3] calldata token)</code> method for performing payout using the chain token following “scope 2” schema</li>
+<li><code>payoutNewShort(address sender, uint256 amount, bytes32[3] calldata token)</code> method for performing payout using the chain token but without payment identifier, having token hash as a payment identifier</li>
+<li><code>verifyIdentity(address issuer, bytes32 userId, bytes32[3] calldata token)</code> method for simple verification of the client’s identity following “scope 1” schema</li>
+</ul>
+<section id="allowance-use-case" class="level2">
+<h2 class="anchored" data-anchor-id="allowance-use-case">Allowance Use Case</h2>
+<p>The allowance use case tested the token issuing protocol for payout allowances, evaluated the costs of performing payouts using the token, and compared the results with the basic whitelisting protocol.</p>
+<section id="test-setup" class="level3">
+<h3 class="anchored" data-anchor-id="test-setup">Test setup</h3>
+<p>Authorization entity submitted allowance amount for the client using the <code>whitelist</code> smart contract method. The cost of the whitelisting transaction was 44,484 gas.</p>
+</section>
+<section id="test-1-payout-by-whitelisting" class="level3">
+<h3 class="anchored" data-anchor-id="test-1-payout-by-whitelisting">Test 1: Payout by Whitelisting</h3>
+<p>The client executed the <code>payoutOld</code> method of the smart contract with a propper allowance amount. The cost of the payout transaction was 22,389 + T gas.</p>
+</section>
+<section id="test-2-payout-with-token" class="level3">
+<h3 class="anchored" data-anchor-id="test-2-payout-with-token">Test 2: Payout with Token</h3>
+<p>The client requested an OWT from the authorization server using OAuth 2.0 request schema. The authorization server verified the client’s credentials and issued a “scope 2” token to the client with a specified allowance amount. The client verified the OWT data and extracted the chain token and its parameters from the OWT. After the OWT verification step, the client submitted them to the smart contract using the <code>payoutNew</code> method. The payout was successful, and the execution cost was 59,935 + T gas.</p>
+</section>
+<section id="test-3-payout-with-token-using-token-hash-as-payment-identifier" class="level3">
+<h3 class="anchored" data-anchor-id="test-3-payout-with-token-using-token-hash-as-payment-identifier">Test 3: Payout with Token using Token Hash as Payment Identifier</h3>
+<p>The protocol for issuing and verifying the OWT was done the same way as in the previous test. The only difference was that the token did not follow the “scope 2” schema but left out the payment identifier. The client performed a payout using the <code>payoutNewShort</code> method. Again, the payout was successful, and the execution cost was 59,189 + T gas.</p>
+</section>
+<section id="cost-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="cost-analysis">Cost Analysis</h3>
+<p>The test results show that the cost of the payout protocol using whitelisting was 44,484 gas for the issuer and 22,389 gas for the client, resulting in 66,873 gas for the entire protocol. Test 2 showed that using the token has reduced the issuer’s costs to 0, but the client’s cost was increased to 59,935 gas which is 37,546 gas more than in test 1. Interestingly, the overhead cost for the client is lower than the costs of the issuer’s whitelisting, which indicates that using the token reduces the issuer’s fees, compared to whitelisting, even if the issuer compensates the overhead client’s costs by increasing the allowance amount. Test 3 showed that using token hash as payment identifier reduces the costs for extra 746 gas. However, this introduces problems with token reissuing. The exact token needs to be reissued every time the original one gets lost, requiring the expiration timestamp to be the same as the original one for the hashes to match and thus have the same payment identifier. This situation can cause the issuer to be unable to reissue the token as its timestamp has already expired. The results of the cost analysis are presented in Table 1. <br><br></p>
+<table>
+<tbody><tr>
+<th>
+Method
+</th>
+<th>
+Issuer’s costs (gas)
+</th>
+<th>
+Client’s costs (gas)
+</th>
+<th>
+Total protocol costs (gas)
+</th>
+</tr>
+<tr>
+<th>
+Whitelisting
+</th>
+<th>
+44,484
+</th>
+<th>
+22,389
+</th>
+<th>
+66,873
+</th>
+</tr>
+<tr>
+<th>
+OWT allowance
+</th>
+<th>
+0
+</th>
+<th>
+59,935
+</th>
+<th>
+59,935
+</th>
+</tr>
+<tr>
+<th>
+Short OWT allowance
+</th>
+<th>
+0
+</th>
+<th>
+59,189
+</th>
+<th>
+59,189
+</th>
+</tr>
+</tbody></table>
+<center>
+Table 1. Cost anlysis of the allowance use case methods
+</center>
+<p><br><br></p>
+</section>
+</section>
+<section id="generic-identity-use-case" class="level2">
+<h2 class="anchored" data-anchor-id="generic-identity-use-case">Generic Identity Use Case</h2>
+<p>The generic identity use case tested the issuing and verification of the “scope 1” tokens and assessed the costs of using identification tokens on the chain.</p>
+<p>The client acquired OWT from the authorization server and submitted the token with the received user id from the issuer’s database. The client submitted the token to the <code>verifyIdentity</code> method of the smart contract and successfully verified the identity token. The cost of the verification was 36,816 gas, which suggests that the verification proces cost was 15,817 gas, leaving out the base transaction cost.</p>
+<section id="use-case-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="use-case-analysis">Use case analysis</h3>
+<p>The test showed that the costs for verifying the identity tokens are low and open a new path for the identity representations valid on multiple chains. Additional use cases may specify scope schemas for more specific identity tokens and introduce low-cost decentralized identities to a multi-chain environment.</p>
+</section>
+</section>
+<section id="general-purpose-token-verification-service-gptvs" class="level2">
+<h2 class="anchored" data-anchor-id="general-purpose-token-verification-service-gptvs">General Purpose Token Verification Service (GPTVS)</h2>
+<p>The entire verification protocol can be summed up into a token verification smart contract that can be deployed and used by multiple users to verify the authorization tokens for their smart contracts. Blacklisting can be introduced for tokens or clients. This service should allow listing approved issuers and smart contract addresses from which the requests may come. Also, the service can be monetized by requiring a certain amount of Ethers or ERC-20 tokens to be submitted monthly by the users to the verification smart contract, or the service will become unavailable for the requests coming from the user’s smart contracts.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>The test results show that the OWTs and the chain tokens can cover a variety of use cases while introducing standardization in token construction, issuing, and verification. Operating with OWTs reduces costs for the services requiring whitelisting while enabling new multi-chain use cases thanks to a succinct yet general token structure and easy verification. The following steps would include defining more token schemas covering miscellaneous use cases and implementing the General Purpose Token Verification Service.</p>
+</section>
+<section id="appendices" class="level1">
+<h1>Appendices</h1>
+<section id="appendix-1-chain-token-verification-smart-contract" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-1-chain-token-verification-smart-contract">Appendix 1: Chain token verification smart contract</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">// </span><span class="an">SPDX-License-Identifier:</span><span class="co"> GPL-3.0</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>pragma solidity <span class="op">&gt;=</span><span class="fl">0.7.0</span> <span class="op">&lt;</span><span class="fl">0.9.0</span><span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>contract VerifierContract {</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mapping</span>(address <span class="kw">=&gt;</span> uint256) whitelisted<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mapping</span>(bytes32 <span class="kw">=&gt;</span> bool ) usedPaymentIds<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        bytes prefix <span class="op">=</span> <span class="st">"</span><span class="sc">\x19</span><span class="st">Ethereum Signed Message:</span><span class="sc">\n</span><span class="st">32"</span><span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        uint32 genericIdentityScope <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        uint32 payoutScope <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">checkSignature</span>(bytes32[<span class="dv">3</span>] calldata token<span class="op">,</span> address signer) <span class="kw">public</span> <span class="fu">returns</span> (bool) {</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Decode r, s, v values</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                bytes32 hash <span class="op">=</span> token[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                bytes32 sv <span class="op">=</span> token[<span class="dv">2</span>]<span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                bytes32 r <span class="op">=</span> token[<span class="dv">1</span>]<span class="op">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                bytes32 s <span class="op">=</span> sv <span class="op">&amp;</span> <span class="fu">bytes32</span>((<span class="fu">uint</span>((<span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">255</span>) <span class="op">-</span> <span class="dv">1</span>)))<span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                uint8 v <span class="op">=</span> <span class="fu">uint8</span>(<span class="fu">uint</span>(sv <span class="op">&gt;&gt;</span> <span class="dv">255</span>) <span class="op">+</span> <span class="dv">27</span>)<span class="op">;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Create signature hash</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                bytes32 prefixedProof <span class="op">=</span> <span class="fu">keccak256</span>(abi<span class="op">.</span><span class="fu">encodePacked</span>(prefix<span class="op">,</span> hash))<span class="op">;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Verify signer</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>                address recovered <span class="op">=</span> <span class="fu">ecrecover</span>(prefixedProof<span class="op">,</span> v<span class="op">,</span> r<span class="op">,</span> s)<span class="op">;</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> recovered <span class="op">==</span> signer<span class="op">;</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">whitelist</span>(address client<span class="op">,</span> uint256 amount) <span class="kw">public</span> {</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>                whitelisted[client] <span class="op">=</span> amount<span class="op">;</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">payoutOld</span>(uint256 amount) <span class="kw">public</span> {</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span>(amount <span class="op">&lt;=</span> (whitelisted[msg<span class="op">.</span><span class="at">sender</span>]))<span class="op">;</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>                whitelisted[msg<span class="op">.</span><span class="at">sender</span>] <span class="op">-=</span> amount<span class="op">;</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">payoutNew</span>(address sender<span class="op">,</span> uint256 amount<span class="op">,</span> bytes32 paymentId<span class="op">,</span> bytes32[<span class="dv">3</span>] calldata token) <span class="kw">public</span>{</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check if token has already been used</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span>(usedPaymentIds[paymentId] <span class="op">==</span> <span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check token expiration</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>                uint32 exp <span class="op">=</span> <span class="fu">uint32</span>(<span class="fu">uint256</span>(token[<span class="dv">0</span>]))<span class="op">;</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span>(exp <span class="op">&gt;</span> block<span class="op">.</span><span class="at">timestamp</span><span class="op">,</span> <span class="st">"Token expired"</span>)<span class="op">;</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check token signature</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span>(<span class="kw">this</span><span class="op">.</span><span class="fu">checkSignature</span>(token<span class="op">,</span> sender) <span class="op">==</span> <span class="kw">true</span><span class="op">,</span> <span class="st">"Invalid signature"</span>)<span class="op">;</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check token values</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>                bytes32 prefixedProof <span class="op">=</span> <span class="fu">keccak256</span>(abi<span class="op">.</span><span class="fu">encodePacked</span>(sender<span class="op">,</span> <span class="fu">address</span>(<span class="kw">this</span>)<span class="op">,</span> msg<span class="op">.</span><span class="at">sender</span><span class="op">,</span> payoutScope<span class="op">,</span> exp<span class="op">,</span> paymentId<span class="op">,</span> amount))<span class="op">;</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span> (<span class="fu">bytes32</span>((<span class="fu">uint256</span>(prefixedProof <span class="op">&gt;&gt;</span> <span class="dv">32</span> <span class="op">&lt;&lt;</span> <span class="dv">32</span>) <span class="op">|</span> <span class="fu">uint256</span>(exp))) <span class="op">==</span> token[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>                usedPaymentIds[paymentId] <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">payoutNewShort</span>(address sender<span class="op">,</span> uint256 amount<span class="op">,</span> bytes32[<span class="dv">3</span>] calldata token) <span class="kw">public</span>{</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check if token has already been used</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span>(usedPaymentIds[token[<span class="dv">0</span>]] <span class="op">==</span> <span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check token expiration</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>                uint32 exp <span class="op">=</span> <span class="fu">uint32</span>(<span class="fu">uint256</span>(token[<span class="dv">0</span>]))<span class="op">;</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span>(exp <span class="op">&gt;</span> block<span class="op">.</span><span class="at">timestamp</span>)<span class="op">;</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check token signature</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span>(<span class="kw">this</span><span class="op">.</span><span class="fu">checkSignature</span>(token<span class="op">,</span> sender) <span class="op">==</span> <span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check token values</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>                bytes32 prefixedProof <span class="op">=</span> <span class="fu">keccak256</span>(abi<span class="op">.</span><span class="fu">encodePacked</span>(sender<span class="op">,</span> <span class="fu">address</span>(<span class="kw">this</span>)<span class="op">,</span> msg<span class="op">.</span><span class="at">sender</span><span class="op">,</span> payoutScope<span class="op">,</span> exp<span class="op">,</span> amount))<span class="op">;</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span> (<span class="fu">bytes32</span>((<span class="fu">uint256</span>(prefixedProof <span class="op">&gt;&gt;</span> <span class="dv">32</span> <span class="op">&lt;&lt;</span> <span class="dv">32</span>) <span class="op">|</span> <span class="fu">uint256</span>(exp))) <span class="op">==</span> token[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>                usedPaymentIds[token[<span class="dv">0</span>]] <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">verifyIdentity</span>(address issuer<span class="op">,</span> bytes32 userId<span class="op">,</span> bytes32[<span class="dv">3</span>] calldata token) <span class="kw">public</span> {</span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check token expiration</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>                uint32 exp <span class="op">=</span> <span class="fu">uint32</span>(<span class="fu">uint256</span>(token[<span class="dv">0</span>]))<span class="op">;</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span>(exp <span class="op">&gt;</span> block<span class="op">.</span><span class="at">timestamp</span>)<span class="op">;</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check token signature</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span>(<span class="kw">this</span><span class="op">.</span><span class="fu">checkSignature</span>(token<span class="op">,</span> issuer) <span class="op">==</span> <span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Check token values</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>                bytes32 prefixedProof <span class="op">=</span> <span class="fu">keccak256</span>(abi<span class="op">.</span><span class="fu">encodePacked</span>(issuer<span class="op">,</span> <span class="fu">address</span>(<span class="kw">this</span>)<span class="op">,</span> msg<span class="op">.</span><span class="at">sender</span><span class="op">,</span> genericIdentityScope<span class="op">,</span> exp<span class="op">,</span> userId))<span class="op">;</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>                <span class="pp">require</span> (<span class="fu">bytes32</span>((<span class="fu">uint256</span>(prefixedProof <span class="op">&gt;&gt;</span> <span class="dv">32</span> <span class="op">&lt;&lt;</span> <span class="dv">32</span>) <span class="op">|</span> <span class="fu">uint256</span>(exp))) <span class="op">==</span> token[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</section>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+
+<ol type="1">
+<li><p>Coinmarketcap, Historical snapshot from 2019/01/01, https://coinmarketcap.com/historical/20190101/</p></li>
+<li><p>Coinmarketcap, Historical snapshot from 2022/01/01, https://coinmarketcap.com/historical/20220101/</p></li>
+<li><p>M. Jones, J. Bradley, N. Sakimura, RFC-7519: JSON Web Token (JWT), https://datatracker.ietf.org/doc/html/rfc7519</p></li>
+<li><p>D. Hardt, Ed., RFC-6749: The OAuth 2.0 Authorization Framework, https://datatracker.ietf.org/doc/html/rfc6749</p></li>
+<li><p>N. Fotiou, I. Pittaras, V. A. Siris, S. Voulgaris, G. C. Polyzosar, OAuth 2.0 authorization using blockchain-based tokens, arXiv:2001.10461v1, 28 Jan 2020, https://arxiv.org/pdf/2001.10461.pdf</p></li>
+<li><p>R Moore, N Johnson, EIP-2098: Compact Signature Representation, https://eips.ethereum.org/EIPS/eip-2098</p></li>
+<li><p>R. Housley, RFC-3874: A 224-bit One-way Hash Function: SHA-224, https://datatracker.ietf.org/doc/html/rfc3874</p></li>
+</ol>
+
+
+</section>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" role="doc-bibliography">
+
+</div></section></div></main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

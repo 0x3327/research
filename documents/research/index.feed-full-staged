@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>3327 Research</title>
+<link>https://3327.io/documents/research/index.html</link>
+<atom:link href="https://3327.io/documents/research/index.xml" rel="self" type="application/rss+xml"/>
+<description></description>
+<image>
+<url>https://3327.io/logo.png</url>
+<title>3327 Research</title>
+<link>https://3327.io/documents/research/index.html</link>
+<height>38</height>
+<width>144</width>
+</image>
+<generator>quarto-0.9.64</generator>
+<lastBuildDate>Wed, 11 May 2022 22:00:00 GMT</lastBuildDate>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-171.gfm.html}</title>
+  <dc:creator>Aleksandar Damjanovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-171.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-171.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-171.gfm.html</guid>
+  <pubDate>Wed, 11 May 2022 22:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-172.gfm.html}</title>
+  <dc:creator>Aleksandar Damjanovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-172.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-172.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-172.gfm.html</guid>
+  <pubDate>Fri, 29 Apr 2022 22:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-147.gfm.html}</title>
+  <dc:creator>Aleksandar Veljković</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-147.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-147.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-147.gfm.html</guid>
+  <pubDate>Tue, 05 Apr 2022 22:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-154.gfm.html}</title>
+  <dc:creator>Aleksandar Damjanovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-154.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-154.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-154.gfm.html</guid>
+  <pubDate>Wed, 30 Mar 2022 22:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-101.gfm.html}</title>
+  <dc:creator>Marija Mijailovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-101.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-101.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-101.gfm.html</guid>
+  <pubDate>Sun, 13 Mar 2022 23:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-90.gfm.html}</title>
+  <dc:creator>Milos Bojinovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-90.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-90.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-90.gfm.html</guid>
+  <pubDate>Fri, 11 Mar 2022 23:00:00 GMT</pubDate>
+  <media:content url="https://3327.io//documents/research/assets/ERFC-90/images/meta-patterns.png" medium="image" type="image/png" height="35" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-91.gfm.html}</title>
+  <dc:creator>Aleksandar Damjanovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-91.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-91.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-91.gfm.html</guid>
+  <pubDate>Tue, 08 Mar 2022 23:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-105.gfm.html}</title>
+  <dc:creator>Andrej Rakic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-105.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-105.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-105.gfm.html</guid>
+  <pubDate>Mon, 07 Mar 2022 23:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-39.gfm.html}</title>
+  <dc:creator>Andrej Rakic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-39.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-39.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-39.gfm.html</guid>
+  <pubDate>Thu, 03 Mar 2022 23:00:00 GMT</pubDate>
+  <media:content url="https://github.com/ethereumbook/ethereumbook/raw/develop/images/simple_elliptic_curve.png" medium="image" type="image/png"/>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-103.gfm.html}</title>
+  <dc:creator>Aleksandar Veljković</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-103.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-103.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-103.gfm.html</guid>
+  <pubDate>Wed, 02 Mar 2022 23:00:00 GMT</pubDate>
+  <media:content url="https://latex.codecogs.com/svg.latex?k " medium="image"/>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-38.gfm.html}</title>
+  <dc:creator>Aleksandar Damjanovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-38.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-38.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-38.gfm.html</guid>
+  <pubDate>Thu, 24 Feb 2022 23:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-57.gfm.html}</title>
+  <dc:creator>Aleksandar Veljković</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-57.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-57.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-57.gfm.html</guid>
+  <pubDate>Wed, 23 Feb 2022 23:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-37.gfm.html}</title>
+  <dc:creator>Milos Bojinovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-37.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-37.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-37.gfm.html</guid>
+  <pubDate>Wed, 23 Feb 2022 23:00:00 GMT</pubDate>
+  <media:content url="https://3327.io//documents/research/assets/ERFC-37/AxieMatch.png" medium="image" type="image/png" height="90" width="144"/>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-40.gfm.html}</title>
+  <dc:creator>Milos Novitovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-40.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-40.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-40.gfm.html</guid>
+  <pubDate>Sun, 20 Feb 2022 23:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>{B4F502887207:/documents/research/posts/ERFC-42.gfm.html}</title>
+  <dc:creator>Marija Mijailovic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-42.gfm.html</link>
+  <description>{B4F502887207:/documents/research/posts/ERFC-42.gfm.html}</description>
+  <guid>https://3327.io/documents/research/posts/ERFC-42.gfm.html</guid>
+  <pubDate>Wed, 16 Feb 2022 23:00:00 GMT</pubDate>
+  <media:content url="https://latex.codecogs.com/svg.latex?%5Ccdot " medium="image"/>
+</item>
+</channel>
+</rss>

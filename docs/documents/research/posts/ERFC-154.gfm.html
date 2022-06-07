@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.64">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Aleksandar Damjanovic">
+  <title>3327 Research - Blacklisting Platform based on untransferable NFTs</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+
+  <script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="../../../">
+  <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+  <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+  <script src="../../../site_libs/quarto-html/quarto.js"></script>
+  <script src="../../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+  <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "navbar",
+    "copy-button": false,
+    "collapse-after": 2,
+    "panel-placement": "end",
+    "type": "overlay",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - Blacklisting Platform based on untransferable NFTs">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - Blacklisting Platform based on untransferable NFTs">
+<meta name="twitter:card" content="summary">
+</head>
+<body>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../logo.png" alt="">
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+<li><a href="#introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+<li><a href="#goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a></li>
+<li><a href="#results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+<ul class="collapse">
+<li><a href="#blacklisting" class="nav-link" data-scroll-target="#blacklisting">Blacklisting</a></li>
+<li><a href="#untransferable-nfts" class="nav-link" data-scroll-target="#untransferable-nfts">Untransferable NFTs</a></li>
+</ul></li>
+<li><a href="#conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+<li><a href="#bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+</ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-154.gfm.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
+
+
+
+
+<div class="quarto-title"><h1 class="title display-7">Blacklisting Platform based on untransferable NFTs</h1><p class="subtitle lead">ERFC - 154</p></div><div class="quarto-title-meta"><div><div class="quarto-title-meta-heading">Author</div><div class="quarto-title-meta-contents"><div class="quarto-title-authors"><p>Aleksandar Damjanovic</p></div></div></div><div><div class="quarto-title-meta-heading">Published</div><div class="quarto-title-meta-contents"><p class="date">3/31/2022</p></div></div></div></header>
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>The main topic of this research is exploring the possibility and the need to create the “Authority” protocol that would handle blacklisting based on community voting and assessment. This protocol would mint the untransferable NFT to the blacklisted address. Creating this solutions (both the platform and the NFT) would not be challenging but the need for these solutions is questionable to the author. This paper explored the current blacklist cases and the possibility of creating the said NFTs. The Tether case is in the main focus since the solutions are similar and simple. The main takeaway is that creating this solution is not necessary per se, but the issue is open for discussion.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>When it comes to Web3, security breaches, hacks and malicious behaviour are a big issue. That is why some protocols resort to blacklisting the addressses they deem malicious. Blacklisting is essentially putting the addresses that have engaged in unethical or unacceptable activities on a list which in turn would limit their usage of said protocols.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Initial idea for this research is to explore the possibility of creating a platform that would blacklist addresses and send them an untransferable NFT. This platform would take it upon itself to take care of blacklisting for other protocols and users. The cases would be reported and voted on i.e Nexus Mutual model (for more info on their voting model check ERFC-91). When it comes to problems that this solution would solve the main problem is taking care of blacklisting for other protocols, this in turn makes our solution (even with voting) a point of centralization but more on that in later paragraphs.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The goal of this research is to explore how was blacklisting taken care of so far and to explore the possibility and need of creating a protocol that would do this with utilizing untransferable NFTs. Untransferable NFTs have been a topic of interest in the field for a while, otherwise there is no explicit point of including them except for “flagging” the addresses for the world to see.</p>
+<p>This will be done by examining the source code of protocols that have done blacklisting in the past. After the examination we will draw some conclusions.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<section id="blacklisting" class="level2">
+<h2 class="anchored" data-anchor-id="blacklisting">Blacklisting</h2>
+<p>As we pointed above we did a deep-dive into contracts that utilize blacklisting. In the beginning of the research we have searched for contracts that previously used blacklisting and we have come across the Tether case as it is the biggest one. There are various contracts that use the blacklist contracts but it is the exact same approach. When it comes to individual sites and addresses MetaMask already blocks sites that are known to steal funds.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Stablecoin issuer Tether froze the ethereum <a href="https://etherscan.io/tx/0x60891b856cdae4fd0878d45d2768e640be2dc2a50876d20138797a09877a7cd6#eventlog">address</a> holding over $715,000 worth of USDT. This address is the address of hackers who stole $3 million on the Multichain bridge. This means that they cannot move the funds.</p>
+<ul>
+<li>The question here is how did Tether manage to do that?</li>
+</ul>
+<p>They managed that by importing the Blacklist contract in their main contract. We will try to explain the contract in the code-box comments below:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    contract BlackList is Ownable<span class="op">,</span> BasicToken {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Getters to allow the same blacklist to be used also by other contracts.(including upgraded Tether) </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">getBlackListStatus</span>(address _maker) external constant <span class="fu">returns</span> (bool) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> isBlackListed[_maker]<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Returns the owner of the contract address.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">getOwner</span>() external constant <span class="fu">returns</span> (address) {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> owner<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Puts the blacklisted addresses in the mapping for checking and later use.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mapping</span> (address <span class="kw">=&gt;</span> bool) <span class="kw">public</span> isBlackListed<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Self explanatory, adds the address to the isBlacklisted mapping. Only owner of the contract can call the function</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">addBlackList</span> (address _evilUser) <span class="kw">public</span> onlyOwner {</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            isBlackListed[_evilUser] <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">AddedBlackList</span>(_evilUser)<span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Removes the address from the blacklist and "unfreezes the assets". Only owner of the contract can call the function.</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">removeBlackList</span> (address _clearedUser) <span class="kw">public</span> onlyOwner {</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            isBlackListed[_clearedUser] <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">RemovedBlackList</span>(_clearedUser)<span class="op">;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Destroys the funds of the blacklisted address and reduces the total suply by the same amount. Only owner of the contract can call this function.</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">function</span> <span class="fu">destroyBlackFunds</span> (address _blackListedUser) <span class="kw">public</span> onlyOwner {</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>            <span class="pp">require</span>(isBlackListed[_blackListedUser])<span class="op">;</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>            uint dirtyFunds <span class="op">=</span> <span class="fu">balanceOf</span>(_blackListedUser)<span class="op">;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            balances[_blackListedUser] <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>            _totalSupply <span class="op">-=</span> dirtyFunds<span class="op">;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>            <span class="fu">DestroyedBlackFunds</span>(_blackListedUser<span class="op">,</span> dirtyFunds)<span class="op">;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Simple events for transaction logs.</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="bu">event</span> <span class="fu">DestroyedBlackFunds</span>(address _blackListedUser<span class="op">,</span> uint _balance)<span class="op">;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="bu">event</span> <span class="fu">AddedBlackList</span>(address _user)<span class="op">;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        <span class="bu">event</span> <span class="fu">RemovedBlackList</span>(address _user)<span class="op">;</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<p>Then they simply put the require statement in all their main contract functions(except for the ones with the “Only Owner modifier”) for example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Require statement above makes sure the blacklisted address can't access the function.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">transferFrom</span>(address _from<span class="op">,</span> address _to<span class="op">,</span> uint _value) <span class="kw">public</span> whenNotPaused {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            <span class="pp">require</span>(<span class="op">!</span>isBlackListed[_from])<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (deprecated) {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="fu">UpgradedStandardToken</span>(upgradedAddress)<span class="op">.</span><span class="fu">transferFromByLegacy</span>(msg<span class="op">.</span><span class="at">sender</span><span class="op">,</span> _from<span class="op">,</span> _to<span class="op">,</span> _value)<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            } <span class="cf">else</span> {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="kw">super</span><span class="op">.</span><span class="fu">transferFrom</span>(_from<span class="op">,</span> _to<span class="op">,</span> _value)<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        }</span></code></pre></div>
+<p>This approach to blacklisting gives the Tether the absolute control in what addresses it blacklists and for how long.</p>
+<p>As we can see in the getBlacklistStatus the other contracts can use the same Blacklist to limit their usage as Tether thus leaning on their decision making.</p>
+<p>In theory a blacklist protocol can be created where the voting what address to blacklist could be done by the community. The said addresses would be stored in the contract and those addresses could be whitelisted by voting again. Then, other contracts could lean on the “list” and block the addresses from using their functions. This would also make our solution the major point of centralization and considering how easy it is to set up blacklisting individually this proposes a question is the such solution needed?</p>
+<p>Implementing a separate blacklist functions is not challenging and any contract can include them and have the complete control in what addresses it freezes and for how long.</p>
+</section>
+<section id="untransferable-nfts" class="level2">
+<h2 class="anchored" data-anchor-id="untransferable-nfts">Untransferable NFTs</h2>
+<p>Untrasferable NFTs have been a topic of interest for a while in Web3 and there are various use cases that have been explored. Such as:</p>
+<ul>
+<li>identity</li>
+<li>badges</li>
+<li>achievements, etc</li>
+</ul>
+<p>Vitalik Buterin in his blog post showed his interest in “soulbound NFTs”. If we want these NFTs to be truly soulbound (untrasferable) we would need to block transferability thus limiting them to only one address. When it comes to badges and achievements there are already POAPs. POAP has made the decision not to block transferability of POAPs themselves since the owners might want to change addresses and migrate assets for various reasons. There are various cases where they have been sold or even given out for free and after that sold for the highest bidder.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>When it comes to creating a “soulbound NFT” we think that it is possible and that it can be done by modifying the transfer function from the ERC-721 standard.</p>
+<p>The main issue here is utilizing them in the Blacklisting sense, the mint function from the ERC-721 interface can be included in the addBlacklist() function which would mint the said token to the said address. But so far we haven’t come to the use-case except for “flagging” the addresses for the world to see, so it seems unnecessary at the moment.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>When exploring blacklisting we have come to conclusion that it is already implemented in some contracts and that creating a protocol that marks the “malicious” addresses is possible. The untransferable NFTs are possible to create also. The main question here is are those solutions needed? Creating a protocol that others can lean on can be useful but it would also be a major point of centralization and a lot of effort for a feature that simple. Not to mention including untransferable NFTs in the process which at this stage of the research seem unnecessary. What if the address is removed from the blacklist for various reasons does the NFT stay?</p>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Soulbound" class="csl-entry" role="doc-biblioentry">
+‘Soulbound’ &lt;<a href="https://vitalik.ca/general/2022/01/26/soulbound.html" class="uri">https://vitalik.ca/general/2022/01/26/soulbound.html</a>&gt; [accessed 12 April 2022]
+</div>
+<div id="ref-WhatBlacklist" class="csl-entry" role="doc-biblioentry">
+‘What Is a Blacklist?’, <em>Investopedia</em> &lt;<a href="https://www.investopedia.com/terms/b/blacklist.asp" class="uri">https://www.investopedia.com/terms/b/blacklist.asp</a>&gt; [accessed 12 April 2022]
+</div>
+</div></section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p><a href="#ref-WhatBlacklist">‘What Is a Blacklist?’, <em>Investopedia</em> &lt;&lt;https://www.investopedia.com/terms/b/blacklist.asp&gt;&gt; [accessed 12 April 2022]</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><a href="#ref-metamaskmetamaskMetaMaskAutomaticallyBlocks2018"><strong>metamaskmetamaskMetaMaskAutomaticallyBlocks2018?</strong></a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p><a href="#ref-Soulbound">‘Soulbound’ &lt;&lt;https://vitalik.ca/general/2022/01/26/soulbound.html&gt;&gt; [accessed 12 April 2022]</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

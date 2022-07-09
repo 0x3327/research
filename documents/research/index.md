@@ -2,13 +2,14 @@
 title: Research
 css: index.css
 listing:
+  max-items: 3
   sort: "date desc"
   contents: "posts"
   sort-ui: true
   filter-ui: true
   categories: false
   feed: true
-  type: default
+  type: grid
   fields:
     [
       title,

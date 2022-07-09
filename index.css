@@ -64,7 +64,6 @@ body {
 }
 .learn-more-btn-containter {
   margin: 20px auto;
-
   width: 300px;
 }
 .text-green {
@@ -97,14 +96,22 @@ body {
 
 .research-btn-containter {
   margin: 0 auto;
-  width: 190px;
+  width: 300px;
 }
 .research-btn {
   background-color: white;
   color: black;
   margin: 0 auto;
   padding: 10px 20px;
+  border: 1px solid transparent;
 }
+.research-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  cursor: pointer;
+  border: 1px solid white;
+}
+
 .content-block {
   padding-top: 20px;
   padding-bottom: 10px;

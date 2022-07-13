@@ -5,8 +5,8 @@ project:
 website:
   title: "3327 Research"
   image: "logo.png"
-  favicon: "/images/favicon.ico"
-  #  google-analytics: ""
+#  favicon: "favicon.png"
+#  google-analytics: ""
   open-graph: true
   twitter-card: true
   site-url: https://3327.io
@@ -20,10 +20,10 @@ website:
     center:
       - text: "About"
         href: about.qmd
-    #      - text: "License"
-    #        href: license.qmd
-    #      - text: "Trademark"
-    #        href: trademark.qmd
+#      - text: "License"
+#        href: license.qmd
+#      - text: "Trademark"
+#        href: trademark.qmd
     right:
       - icon: twitter
         href: https://twitter.com/3327_io
@@ -39,11 +39,11 @@ website:
         href: index.qmd
       - text: "Research"
         href: documents/research/index.md
-        #      - text: "Presentations"
-        #        href: documents/guide/index.qmd
-        #      - text: "3327.fm"
-        #        href: documents/reference/index.qmd
-        #      - text: "Help"
+#      - text: "Presentations"
+#        href: documents/guide/index.qmd
+#      - text: "3327.fm"
+#        href: documents/reference/index.qmd
+#      - text: "Help"
         menu:
           - text: "Report an Issue"
             icon: "bug"

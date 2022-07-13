@@ -1,14 +1,12 @@
-
 @media (min-width: 991.98px) {
-#quarto-header {
-  border-bottom: 1px solid #dee2e6;
-}
+  #quarto-header {
+    border-bottom: 1px solid #dee2e6;
+  }
 }
 
 .navbar-brand > img {
   max-height: 36px;
 }
-
 
 .platform-table td {
   vertical-align: middle;
@@ -18,7 +16,6 @@
   margin-top: 0.3rem;
   margin-bottom: 0.3rem;
 }
-
 
 .document-example {
   opacity: 0.9;
@@ -30,7 +27,6 @@
 .document-example div {
   padding: 5px;
 }
-
 
 .document-example .citation {
   color: blue;
@@ -62,19 +58,19 @@
 
 #download-table .checksum {
   color: var(--bs-primary);
-  font-size: .775em;
+  font-size: 0.775em;
   cursor: pointer;
   padding-top: 4px;
 }
 
 #download-button {
-  display:flex;
+  display: flex;
   padding-bottom: 10px;
   padding-top: 10px;
 }
 
 #download-button .secondary {
-  font-size: .775em;
+  font-size: 0.775em;
   margin-bottom: 0;
 }
 
@@ -96,7 +92,6 @@ iframe.reveal-demo {
   outline: none;
 }
 
-
 .slide-deck {
   border: 3px solid #dee2e6;
   width: 100%;
@@ -104,36 +99,30 @@ iframe.reveal-demo {
 }
 
 @media only screen and (max-width: 600px) {
- .slide-deck {
+  .slide-deck {
     height: 400px;
   }
 }
 
-
 @media (max-width: 575px) {
-
-.link-cards .card {
-  margin-bottom: 20px;
-  margin-right: 35px;
-}
-
+  .link-cards .card {
+    margin-bottom: 20px;
+    margin-right: 35px;
+  }
 }
 
 @media (min-width: 576px) {
-.link-cards {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  .link-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .link-cards .card {
+    width: 190px;
+    margin: 0 20px 12px 0;
+  }
 }
-
-.link-cards .card {
-  width: 190px;
-  margin: 0 20px 12px 0;
-}
-
-
-}
-
 
 .link-cards .card {
   border: none;
@@ -171,7 +160,6 @@ iframe.reveal-demo {
   padding-bottom: 0.2rem;
 }
 
-
 .card .source-code {
   margin-top: 3px;
 }
@@ -195,18 +183,17 @@ iframe.reveal-demo {
   margin-bottom: 110px;
 }
 
-
 .gallery-category {
   column-gap: 10px;
 }
 
 .btn-action-primary {
-  color: white;
-  background-color: rgb(105,177,233) !important;
+  color: black;
+  background-color: rgb(247, 247, 247) !important;
 }
 
 .btn-action-primary:hover {
-  color: white;
+  color: darkgray;
 }
 
 .btn-action {

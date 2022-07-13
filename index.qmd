@@ -9,6 +9,60 @@ css: index.css
 editor: source
 ---
 
+
+::: {.welcome-banner}
+
+::: {.row-oriented}
+
+::: {.intro-text}
+
+::: {.text-header}
+# Welcome to our Research page
+:::
+
+### Crazy. Bold. Forward.
+
+::: {.text-header}
+## BADASS PEOPLE INSPIRED BY A BADASS SCIENTIST
+:::
+
+::: {.text-green}
+
+R&D digital collective working on cutting edge web3 technologies
+
+::: 
+
+3327 is an open, distributed, and autonomous collective. Some may call it a DAO, but we tend to say we are already past that point.
+:::
+
+::: {.column-oriented}
+
+::: {.row-oriented}
+
+::: {.welcome-text}
+
+3327 is a celebration of the greatest geek who ever lived. Our collective is named after the NYC hotel room where Nikola Tesla spent his last decade, working on his crazy, bold, and progressive innovations.
+
+:::
+
+::: {.learn-more-section}
+
+::: {.learn-more-btn-containter}
+
+[Visit 3327 Website](https://3327.io){.learn-more-btn role="button"}
+
+:::
+:::
+:::
+
+::: {.welcome-image}
+![](images/tesla-img.jpeg)
+:::
+
+:::
+
+:::
+
 ::: {.hero-banner}
 
 ::: {.hero-image .hero-image-left}
@@ -17,12 +71,19 @@ editor: source
 
 ::: {.content-block}
 
-# Welcome to 3327
-
-### Crazy. Bold. Forward.
-
 ::: {.hero-buttons}
-[Research](documents/research/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
+
+::: {.footer}
+
+::: {.column-oriented} 
+## Let's Nerd Out Together {.text-header}
+:::
+
+:::
+::: {.research-btn-containter}
+
+[See our Research](documents/research/){.research-btn role="button"}
+:::
 :::
 
 :::
@@ -33,4 +94,5 @@ editor: source
 
 :::
 
+:::
 

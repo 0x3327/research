@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.64">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Milos Bojinovic">
+  <title>3327 Research - Approaches to Testing Of Smart Contracts</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+
+  <script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="../../../">
+  <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+  <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+  <link href="../../..//images/favicon.ico" rel="icon">
+  <script src="../../../site_libs/quarto-html/quarto.js"></script>
+  <script src="../../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+  <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "navbar",
+    "copy-button": false,
+    "collapse-after": 2,
+    "panel-placement": "end",
+    "type": "overlay",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - Approaches to Testing Of Smart Contracts">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - Approaches to Testing Of Smart Contracts">
+<meta name="twitter:card" content="summary">
+</head>
+<body>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../logo.png" alt="">
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+<li><a href="#introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+<li><a href="#goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a></li>
+<li><a href="#results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+<ul class="collapse">
+<li><a href="#contract-example" class="nav-link" data-scroll-target="#contract-example">Contract example</a>
+<ul class="collapse">
+<li><a href="#specification-of-the-transfer-function" class="nav-link" data-scroll-target="#specification-of-the-transfer-function">Specification of the <code>transfer</code> function</a></li>
+</ul></li>
+<li><a href="#forms-of-testing" class="nav-link" data-scroll-target="#forms-of-testing">Forms of testing</a>
+<ul class="collapse">
+<li><a href="#unit-testing" class="nav-link" data-scroll-target="#unit-testing">Unit Testing</a></li>
+<li><a href="#integration-testing" class="nav-link" data-scroll-target="#integration-testing">Integration Testing</a></li>
+<li><a href="#static-code-analysis" class="nav-link" data-scroll-target="#static-code-analysis">Static (code) analysis</a></li>
+<li><a href="#general-considerations" class="nav-link" data-scroll-target="#general-considerations">General Considerations</a></li>
+</ul></li>
+<li><a href="#evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a>
+<ul class="collapse">
+<li><a href="#code-coverage" class="nav-link" data-scroll-target="#code-coverage">Code Coverage</a></li>
+<li><a href="#mutation-testing-mutation-analysis" class="nav-link" data-scroll-target="#mutation-testing-mutation-analysis">Mutation Testing (Mutation analysis)</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+</ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-259.gfm.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
+
+
+
+
+<div class="quarto-title"><h1 class="title display-7">Approaches to Testing Of Smart Contracts</h1><p class="subtitle lead">ERFC - 259</p></div><div class="quarto-title-meta"><div><div class="quarto-title-meta-heading">Author</div><div class="quarto-title-meta-contents"><div class="quarto-title-authors"><p>Milos Bojinovic</p></div></div></div><div><div class="quarto-title-meta-heading">Published</div><div class="quarto-title-meta-contents"><p class="date">6/4/2022</p></div></div></div></header>
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p><strong>Smart Contracts</strong> are applications built on blockchain that, once deployed, cannot be altered or updated. With that in mind, their testing is crucial, even more so than in traditional software development.</p>
+<p>Several different techniques exist in the testing of Smart Contracts, and it is up to the developers to choose when a technique should be used with the goal of creating tests that will perform sufficient validation. This is a non-standardized, individualistic approach as there is no established methodology for doing this, and the developers’ skill plays an essential part in it.</p>
+<p>This research focuses on testing techniques that are most widely used and showcases them in order to give a sense of what kind of testing is possible and where it makes sense.</p>
+<p>In testing, there is always the question of whether the collection of tests (test suite) covers all of the cases - “Who will guard the guards themselves?”*.</p>
+<p>To answer this question, to a certain degree, the paper elaborates on evaluation tools that indicate whether or not more tests should be written or if there’s a case that is overlooked.</p>
+<p>As the techniques and tools mature and increase in complexity, we may see the introduction of standardized methodologies that provide a thinking framework on how code should be written and/or tested, as well as a separation of roles between developers and testers.</p>
+<p>*Quis custodiet ipsos custodes? - a Latin phrase found in the work of the Roman poet Juvenal (Satire VI, lines 347–348)</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Testing involves thinking about how code sections should behave in the wanted (ideal) case, but also what consequences might occur if some unintended actions are performed by unaware or even malevolent actors.</p>
+<p>The logical question occurs of “what needs to get tested … and how ?”. This is an extremely hard question, and the answer to it lies in the considerations that the developers consciously/unconsciously make. It is important that they keep up to date with the latest techniques, now more than ever, as the past experiences of others can help in establishing best practices and be used in solving similar or completely new problems.</p>
+<p>Sanity checks can be performed by using evaluation tools that help with casting light on areas that were previously overlooked. Still, to add another layer of confidence, a set of completely new, trusted eyes should separately go through the code and try to find bugs and/or exploits in it. This is referred to as a Smart Contract audit and is the last step before the deployment to mainnet.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The focus of this research is on the testing and evaluation techniques that are currently being used in the area of Smart Contract development in the Ethereum Virtual Machine (EVM) ecosystem without going down the rabbit hole of what the best practices are.</p>
+<p>The methodology consists of describing a technique and then giving an appropriate example that shows when it is adequate to use it. Frameworks are purposefully not mentioned, as it is more important to first understand the key concepts of what is being done rather than the unique and specific details of how something is done.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>As to not give too abstract and vague descriptions, an example of a smart contract is given on which the testing can be performed and through which a better understanding can be created.</p>
+<section id="contract-example" class="level2">
+<h2 class="anchored" data-anchor-id="contract-example">Contract example</h2>
+<p>The example contract <code>DummyToken</code> can wrap/unwrap Ether through <code>deposit</code> and <code>withdraw</code> functions and transfer the tokens between two addresses using a function of the same name - <code>transfer</code>. During the execution of those functions, a corresponding event is emitted.</p>
+<p>The implementation details are purposefully hidden with the intention of starting the thinking process of how those functions should behave both when called in intended and non-intended ways.</p>
+<pre class="solidity"><code>/**
+ * @dev Implementation of the Dummy Token.
+ */
+contract DummyToken {
+
+    /**
+     * @dev Emitted when tokens are moved from one account (`from`) to
+     * another (`to`) of the `value` amount.
+     */
+    event Transfer(address indexed from, address indexed to, uint value);
+
+    /**
+     * @dev Emitted when a new Deposit is made
+     */
+    event Deposit(address indexed to, uint value);
+
+    /**
+     * @dev Emitted when new Withdrawal is made
+     */
+    event Withdrawal(address indexed to, uint value);
+
+    ...
+
+    /**
+     * @dev Mints `value` tokens to `msg.sender` that corresponds to `msg.value` .
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Deposit} event.
+     */
+    function deposit () public payable returns (bool) {...}
+
+    /**
+     * @dev Burns `value` tokens if the `msg.sender` balance can cover it.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Withdraw} event.
+     */
+    function withdraw (uint value) public returns (bool) {...}
+
+    /**
+     * @dev Moves `value` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer (address to, uint value) public returns (bool) {...}
+
+    /**
+     * @dev Returns the number of tokens owned by `account`.
+     */
+    function balanceOf(address account) public view returns (uint) {...}
+
+    /**
+     * @dev Returns the total amount of tokens in existence.
+     */
+    function totalSupply() public view returns (uint) {...}
+
+}</code></pre>
+<section id="specification-of-the-transfer-function" class="level3">
+<h3 class="anchored" data-anchor-id="specification-of-the-transfer-function">Specification of the <code>transfer</code> function</h3>
+<p>To understand the forms of testing that can be performed, let us write a specification on what one of the functions needs to accomplish, namely the <code>transfer</code> function.</p>
+<section id="high-level-specification-of-the-transfer-function" class="level4">
+<h4 class="anchored" data-anchor-id="high-level-specification-of-the-transfer-function">High level specification of the <code>transfer</code> function</h4>
+<p>This function transfers the amount of tokens (<code>value</code>) from the <code>msg.sender</code>‘s balance to the <code>to</code> address’ balance.</p>
+</section>
+<section id="low-level-specification-of-the-transfer-function" class="level4">
+<h4 class="anchored" data-anchor-id="low-level-specification-of-the-transfer-function">Low level specification of the <code>transfer</code> function</h4>
+<ul>
+<li>After successful transfer, the balance of <code>to</code> address is incremented by the <code>value</code> amount and the <code>msg.sender</code>’s balance is decremented by it.</li>
+<li>If the <code>msg.sender</code>’s balance is smaller than the <code>value</code>, the transaction should revert with the <code>"Transfer amount exceeds balance"</code> message.</li>
+<li>If the transfer is successful, the function returns <code>true</code> - otherwise, it returns <code>false</code></li>
+<li>If the transfer is successful, the <code>Transfer</code> event should be emitted with the corresponding fields:
+<ul>
+<li><code>from</code> : <code>msg.sender</code></li>
+<li><code>to</code> : value of the <code>to</code> argument</li>
+<li><code>value</code> : value of the <code>value</code> argument</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="forms-of-testing" class="level2">
+<h2 class="anchored" data-anchor-id="forms-of-testing">Forms of testing</h2>
+<section id="unit-testing" class="level3">
+<h3 class="anchored" data-anchor-id="unit-testing">Unit Testing</h3>
+<p>Unit Testing relies on keeping the tests separate from each other and as simple as possible, with each unit test being responsible for testing a single module(“unit”).</p>
+<p>These tests follow a common pattern referred to as <strong>Arrange-Act-Assert(AAA)</strong>. First, the “arrangments” are made to put the system in the desired state, then the “act” is performed (function call most often) that leads the system to the next state, after which that state is “asserted” for correctness.</p>
+<p>In an individual unit test, most often, only one assertion is made, which increases the number of tests. This, however, has the benefits of having a clear indication of why a test has failed and increasing the code readability.</p>
+<p>When thinking about unit testing the <code>DummyToken</code> contract, we will take only the <code>transfer</code> function as an example. Following is an incomplete list of test scenarios for this functionality that should serve as a starting point.</p>
+<section id="test-scenarios" class="level4">
+<h4 class="anchored" data-anchor-id="test-scenarios">Test Scenarios:</h4>
+<p>To form a part of a test suite, let us divide the test scenarios into two sections (<strong>generalized</strong> and <strong>edge cases</strong>) and write some examples of tests for each of them.</p>
+<ul>
+<li><p><strong>Generalized:</strong></p>
+<ul>
+<li>Valid* Transfer <code>amount</code>** of <code>DummyToken</code> from <code>address0</code> to <code>address1</code> where <code>address0</code> != <code>address1</code>
+<ul>
+<li>Tests:
+<ul>
+<li><code>address0</code>’s balance is decremented by the <code>amount</code></li>
+<li><code>address1</code>’s balance is incremented by the <code>amount</code></li>
+<li>balances of other adresses has not changed</li>
+<li><code>Transfer</code> event was emitted with the corresponding fields</li>
+</ul></li>
+</ul></li>
+<li>Invalid* Transfer <code>amount</code> of <code>DummyToken</code> from <code>address0</code> to <code>address1</code> where <code>address0</code> != <code>address1</code>
+<ul>
+<li>Tests:
+<ul>
+<li>transaction was reverted with the right message (“Transfer amount exceeds balance”)</li>
+</ul></li>
+</ul></li>
+<li>…</li>
+</ul></li>
+<li><p><strong>Edge Cases:</strong></p>
+<ul>
+<li>Valid/Invalid Transfer <code>amount</code> of <code>DummyToken</code> from <code>address0</code> to <code>address1</code> where <code>address0</code> == <code>address1</code></li>
+<li>Valid Transfer <code>0/1</code> of <code>DummyToken</code> from <code>address0</code> to <code>address1</code> where <code>address0</code> != <code>address1</code></li>
+<li>Valid Transfer <code>0/1</code> of <code>DummyToken</code> from <code>address0</code> to <code>address1</code> where <code>address0</code> == <code>address1</code></li>
+<li>…</li>
+</ul></li>
+</ul>
+<p>*Term “Valid/Invalid” refers to the fact of whether this transfer should be possible (due to balance amounts).</p>
+<p>**<code>amount</code> can be any <code>uint</code> (including the value being greater than the total supply)</p>
+<p>We can notice that for the first scenario of the generalized section, four tests need to be written, with each of them being a unit test that checks a specific thing (i.e., the sender’s balance has been decremented by the right amount).</p>
+<p>It is important to note that a “Property-based Testing” technique was used in the above list, which is a form of an automated process called “fuzzing” that is used to find bugs by feeding randomized data into the system. This technique focuses on the “properties” of the code that should always hold. The tests are not concerned with the actual values of <code>amount</code>, <code>address0</code>, and <code>address1</code>, which can be anything in the allowed range of possibilities. Rather, they aim to say whether the properties around the balances hold in the test scenario - i.e., if an account transfers some tokens to another account, only those two balances should be affected.</p>
+</section>
+</section>
+<section id="integration-testing" class="level3">
+<h3 class="anchored" data-anchor-id="integration-testing">Integration Testing</h3>
+<p>In the context of Smart Contract testing, integration tests validate interactions between different components of a single contract or across multiple different contracts and are more complex when compared to unit tests.</p>
+<p>One form of integration testing is <strong>Stateful testing</strong>, an advanced method of property-based testing, where a single test is defined by:</p>
+<ul>
+<li>an <strong>initial state</strong> that can, after deployment, be kept as it is or be created by some fixed sequence of <strong>actions</strong></li>
+<li><strong>actions</strong> - transactions that lead to a transition of state</li>
+<li><strong>invariants</strong> which are properties that should always hold true</li>
+</ul>
+<p>Starting from the <strong>initial state</strong>, a randomized sequence of <strong>actions</strong> is carried out, where after each action, all of the <strong>invariants</strong> are tested.</p>
+<p>For example, when writing a “stateful” test for the <code>DummyToken</code> contract :</p>
+<ul>
+<li><strong>initial state</strong> can be created such that each test account calls a <code>deposit</code> function with a random amount of Ether provided</li>
+<li><strong>actions</strong> can be kept basic (<code>deposit</code> , <code>transfer</code> and <code>withdraw</code>) or more complex (nested - i.e.&nbsp;one action can be [<code>deposit</code>, <code>withdraw</code>, <code>withdraw</code>,…])</li>
+<li>one of the <strong>invariants</strong> can be that sum of account balances of the <code>DummyToken</code> must always be equal to the Ether amount that the contract holds</li>
+</ul>
+<p>Besides being more complex, integration tests require more resources and execution time.</p>
+</section>
+<section id="static-code-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="static-code-analysis">Static (code) analysis</h3>
+<p>Both of the above-mentioned forms of testing are considered a type of “dynamic code analysis” that searches for bugs during the execution of the program, and they are the main topic of this research.</p>
+<p>It is worth mentioning its counterpart - <strong>Static code analysis</strong> or just <strong>Static analysis</strong>, which is a debugging method that examines the source code before a program is run. This is done by analyzing the code against a set of detection rules that include: timestamp dependency, integer underflow/overflow, re-entrancy issues, use of tx.origin instead of msg.sender, … It remains up to the developer to implement or reject the recommendations of these rules.</p>
+</section>
+<section id="general-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="general-considerations">General Considerations</h3>
+<p>Smart Contracts operate in an extremely hostile environment, and this should always be taken into account. During development and testing, the most valuable guiding principle is that everything that can go wrong will eventually go wrong, especially if someone stands to benefit from it.</p>
+<p>A set of principles can be adopted to make the functionality of a contract and its complexity more manageable as to reduce the probability of bugs or exploits happening. Some of those include that:</p>
+<ul>
+<li>code should be modularized and kept simple (KISS and DRY principles*** should be followed)</li>
+<li>clarity should be preferred over performance (if possible)</li>
+<li>latest versions of battle-tested tools and frameworks should be used</li>
+<li>the blockchain characteristics should be considered</li>
+<li>the latest security developments should always be incorporated</li>
+<li>deployment and testing should be done on Testnet before moving to Mainnet</li>
+</ul>
+<p>*** KISS (Keep It Simple, Stupid) and DRY (Don’t Repeat Yourself) are software programming principles where KISS states that the most simple solutions often work the best, while DRY follows the reasoning that same/similar code sections should not be replicated across the code base.</p>
+</section>
+</section>
+<section id="evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
+<p>The purpose of tests is to verify the correctness of the implementation, which poses the question of whether or not the test suite is sufficient for the implementation requirements. To address this and to have a sanity check for a developer’s thought process, evaluation tools have been created.</p>
+<section id="code-coverage" class="level3">
+<h3 class="anchored" data-anchor-id="code-coverage">Code Coverage</h3>
+<p>The term <strong>code coverage</strong> refers to the set of evaluation metrics that are used to determine how much of the program has been tested by the test suite - how many functions have been called, how many statements have been executed, etc.</p>
+<p>For example, in the code below, to reach a 100% coverage for the function <code>fcn</code>, at least one of the tests would need to call with parameters that pass all of the three <code>if</code> statements (i.e.&nbsp;<code>fcn(32, 300, 500)</code>).</p>
+<pre class="solidity"><code>function fcn (uint a, uint b, uint c) {
+
+    if(a &lt; 100) {
+        if(b &gt; 200) {
+            if(c &gt; 300 &amp;&amp; c &lt; 600) {
+                ...
+            }
+        }
+    }
+}</code></pre>
+<p>While a high coverage doesn’t generally equal good tests, low coverage helps in identifying gaps in the test suite that can be filled by adding new, carefully designed tests.</p>
+<section id="coverage-guided-fuzzing" class="level4">
+<h4 class="anchored" data-anchor-id="coverage-guided-fuzzing">Coverage-guided Fuzzing</h4>
+<p>During testing, feeding purely randomized values is often wasteful and time-consuming. In the example above, parameter <code>a</code> is of type <code>uint</code>, which means it can hold any value in the range [0, 2**64-1], but the condition <code>a &lt; 100</code> will hold true only for a small portion of time.</p>
+<p>Coverage-guided Fuzzing takes into account code coverage information for each random value it tries, and if that value executes a new code, it is put in the set of promising values. For example, if <code>a = 32</code> has been generated, fuzzer will keep note of it, as it opens the door to new code - it can then keep <code>a</code> fixed and randomize parameters <code>b</code> and <code>c</code>, thus reducing the search space.</p>
+</section>
+</section>
+<section id="mutation-testing-mutation-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="mutation-testing-mutation-analysis">Mutation Testing (Mutation analysis)</h3>
+<p>Mutation testing is a technique used to evaluate the effectiveness of a test suite by introducing minor modifications, called “mutations”, in the code, thus producing “mutants”.</p>
+<p>These modifications are performed using a fixed set of mutation operators like operand replacement, expression modification, statement modification, etc.</p>
+<p>Listed below is an example of an <strong>original</strong> code as well as one potential <strong>mutant</strong> that can be generated from it.</p>
+<p><strong>Original Code</strong></p>
+<pre class="solidity"><code>function fcn (uint a, uint b) returns (bool) {
+
+    if(a &gt; b){
+
+        return true;
+    }
+
+    return false;
+}</code></pre>
+<p><strong>Mutant #1</strong> - produced by using an expression modification operator (replaced <code>&gt;</code> with <code>&lt;</code>)</p>
+<pre class="solidity"><code>function fcn (uint a, uint b) returns (bool) {
+
+    if(a &lt; b){
+
+        return true;
+    }
+
+    return false;
+}</code></pre>
+<p>These mutants are then tested, and, ideally, all of them would need to get caught (killed) by at least one of the tests. The percentage of killed mutants is referred to as the <strong>mutation score</strong>.</p>
+<p>These techniques can give insight into what are the tests missing and where are the blind spots as well as what tests are rarely killing mutants - both of which is valuable when improving the test suite.</p>
+<p>If a mutant cannot be compiled (i.e., mutation produced a syntax error), it is called <strong>stillborn</strong> and is not taken into consideration. Sometimes, mutants can have the same behavior as the original code, in which case, they are referred to as <strong>equivalent mutants</strong>. These mutants will not get killed by the test suite and will lower the mutation score. Detecting and taking them out of consideration is not an easy task and is the biggest obstacle to the widespread application of mutation testing.</p>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>This research concludes that the space of testing techniques is vast and evolving. As the complexity of challenges that the developers are faced with is rapidly increasing, staying up to date is a task by itself.</p>
+<p>With time, we will probably see more and more specialized roles and the separation of responsibilities as it was done in traditional software. For this to happen, some standards should be formed that would enable effective communication between team members, namely clear requirement specification documents.</p>
+<p>While posing a risk of the field becoming too rigid, rather than each individual/team having a different approach, we may also see the evolution of techniques and frameworks leading up to complete standardized methodologies.</p>
+<p>Some possible roads for future research on this topic should include tools that are used when creating a well-documented functional specification for the project and digging deeper into the evaluation methods, specifically mutation testing, which is an active area of research.</p>
+
+
+</section>
+</main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

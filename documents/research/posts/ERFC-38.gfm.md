@@ -1,9 +1,31 @@
----
-title: Building on Filecoin and Filecoin Proofs
-subtitle: ERFC - 38
-author: Aleksandar Damjanovic
-date: 2/25/2022
----
+Building on Filecoin and Filecoin Proofs
+================
+Aleksandar Damjanovic
+February 25, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#filecoins-proof-system"
+    id="toc-filecoins-proof-system">Filecoin’s Proof System</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#critique-from-the-users-perspective"
+        id="toc-critique-from-the-users-perspective">Critique From the users
+        perspective:</a>
+    -   <a href="#the-issue-with-replication-and-filecoin"
+        id="toc-the-issue-with-replication-and-filecoin">The issue with
+        Replication and Filecoin</a>
+-   <a href="#filecoin-and-storj-comparission"
+    id="toc-filecoin-and-storj-comparission">Filecoin and Storj
+    comparission</a>
+-   <a href="#filecoin-grants" id="toc-filecoin-grants">Filecoin Grants</a>
+    -   <a href="#next-step-microgrants" id="toc-next-step-microgrants">Next
+        Step Microgrants</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 ## Executive Summary
 
@@ -102,11 +124,8 @@ a physically unique copy, or replica, of the data. Proof of Replication
 happens just once, at the time the data is first stored by the miner. As
 the storage miner receives each piece of client data they place it into
 a sector, fundamental unit of storage in Filecoin. Sectors can contain
-pieces from multiple deals and clients. Steps in PoRep: 
-
-### Proof of Replication 
-
-1. **Filling sectors and generating the Commd**
+pieces from multiple deals and clients. Steps in PoRep: \### Proof of
+Replication 1. **Filling sectors and generating the Commd**
 
 Once a sector is full a Commitment of Data (CommD) is created,
 representing the root node of all the piece CIDs contained in the
@@ -142,10 +161,8 @@ sector.
     physically unique copy of the data at the time the sector was
     sealed. PoSt is run repeteadly to prove that the miners are
     continuing to dedicate storage space to that same data over
-    time.[^4] 
-    
-    ### Proof of Spacetime
-    PoSt builds on several elements created during PoRep: the replica, the private CommRLast and public
+    time.[^4] \### Proof of Spacetime PoSt builds on several elements
+    created during PoRep: the replica, the private CommRLast and public
     Commr. PoSt then selects some leaf nodes of the encoded replica and
     runs merkle inclusion proofs on them to prove that the miner has the
     specific bytes that indicate that he still holds the clients data.
@@ -217,7 +234,7 @@ Filecoin is it’s cheap storage but there are various downsides such as:
     data retrieval possible even in the case of ChainSafe files app
     outage. In the case of retrieval users still have to decrypt the
     data, since all the data stored by ChainSafe Files is encrypted by
-    default.[^8]
+    default. ‘ChainSafe Files - Decentralized Cloud Storage’[^8]
 
 4.  If the storage provider doesn’t respect his end of the deal he will
     be penalized and lose his staked FIL. Unless negotiating a great
@@ -401,21 +418,16 @@ Filecoin offers various types of grants for building with Filecoin.
 
 ### Next Step Microgrants
 
-Filecoin offers grants of 5000$ in FIL to support taking the next step
+Filecoin offers grants of 5000\$ in FIL to support taking the next step
 when the initial prototype is created. Their purpose is financing
 projects in the early stage. Acceptance criteria is simple. Projects
-must meet these criteria:
-
-
-1. Applicant has already built something with
+must meet these criteria: 1. Applicant has already built something with
 Filecoin (or closely related technologies such as IPLD, libp2p, or
 frameworks or services such as NFT.storage, Textile Powergate, etc.),
-independently or as part of a course or hackathon. 
-2. Applicant must
-provide clear description of the Next Step after grant support 
-3. The project can be completed within 3 months. 
-4. Project must be open-sourced. 
-5. The applicant must complete weekly updates and a grant
+independently or as part of a course or hackathon. 2. Applicant must
+provide clear description of the Next Step after grant support 3. The
+project can be completed within 3 months. 4. Project must be
+open-sourced. 5. The applicant must complete weekly updates and a grant
 report upon conclusion.
 
 Projects that qualify for Microgrants: 1. Projects that publish data or
@@ -423,23 +435,17 @@ files to IPFS 2. Projects that don’t use IPFS directly 3. Projects that
 save data or retrieve data from the Filecoin Network 4. Non-coding
 projects, videos, tutorials etc
 
-These grants are offered on the quarterly basis. 
-
-### Open Grants
-Filecoin’s focus areas currently are: 
-1. Core development - core protocol research, specification and implementation work 
-2. Application Development - applications that utilize Filecoin as a decentralized
-storage layer 
-3. Developer tools and libraries - tools and libraries for
-protocol developers and application developers 
-4. Integration and adoption - integration into existing app or projects with significant
-usage 
-5. Technical design - improvement proposals for the core storage protocol 
-6. Documentation 
-7. Community building
-8. Metaverse - experiences, applications, communities, tooling, standards,
-infrastructure, et cetera[^15] 
-9. Research that explores Filecoin and
+These grants are offered on the quarterly basis. \### Open Grants
+Filecoin’s focus areas currently are: 1. Core development - core
+protocol research, specification and implementation work 2. Application
+Development - applications that utilize Filecoin as a decentralized
+storage layer 3. Developer tools and libraries - tools and libraries for
+protocol developers and application developers 4. Integration and
+adoption - integration into existing app or projects with significant
+usage 5. Technical design - improvement proposals for the core storage
+protocol 6. Documentation 7. Community building 8. Metaverse -
+experiences, applications, communities, tooling, standards,
+infrastructure, et cetera[^15] 9. Research that explores Filecoin and
 decentralized storage[^16]
 
 ## Conclusion
@@ -449,8 +455,6 @@ attention compared to its competitors like Storj and Sia. Storj solves
 Filecoin’s replication problem, on the expense of decentralization but
 the internet search statistics still shows that Filecoin is the main
 contender in Decentralized storage.
-
-
 <img src="https://i.imgur.com/Lr2LaBi.png"  style="height: 250px; width:500px;"/>
 
 *Figure 3. Filecoin (blue) vs Storj (red) search interest in the past 12
@@ -471,10 +475,84 @@ protocol is unclear and not available.
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 
+<div id="ref-ChainSafeFilesDecentralized" class="csl-entry">
+
+‘ChainSafe Files - Decentralized Cloud Storage’
+\<<https://files.chainsafe.io/>\> \[accessed 24 February 2022\]
+
+</div>
+
+<div id="ref-filecoinChainSafeFilesBuilding" class="csl-entry">
+
+Filecoin, ‘ChainSafe Files <span class="nocase">Building
+Privacy-preserving Cloud Storage</span>’, *Filecoin*
+\<<https://filecoin.io/blog/posts/chainsafe-files-building-privacy-preserving-cloud-storage/>\>
+\[accessed 23 February 2022\]
+
+</div>
+
+<div id="ref-Filecoin" class="csl-entry">
+
+‘Filecoin’, *CoinSupplyCap.com*
+\<<https://coinsupplycap.com/filecoin/>\> \[accessed 17 February 2022\]
+
+</div>
+
+<div id="ref-filecoinFilecoinPolygonStudios" class="csl-entry">
+
+Filecoin, ‘Filecoin and Polygon Studios Deepen Collaboration in NFTs,
+Games, and the Metaverse’, *Filecoin*
+\<<https://filecoin.io/blog/posts/filecoin-and-polygon-studios-deepen-collaboration-in-nfts-games-and-the-metaverse/>\>
+\[accessed 17 February 2022\]
+
+</div>
+
+<div id="ref-FilecoinDocumentation" class="csl-entry">
+
+‘Filecoin Documentation’ \<<https://docs.filecoin.io/>\> \[accessed 16
+February 2022\]
+
+</div>
+
+<div id="ref-FilecoinFAQ" class="csl-entry">
+
+‘Filecoin FAQ’ \<<https://docs.filecoin.io/about-filecoin/faq/>\>
+\[accessed 17 February 2022\]
+
+</div>
+
 <div id="ref-fischPoRepsProofsSpace2018" class="csl-entry">
 
 Fisch, Ben, *PoReps: Proofs of Space on Useful Data*, 2018
 \<<http://eprint.iacr.org/2018/678>\> \[accessed 10 February 2022\]
+
+</div>
+
+<div id="ref-fischProofsReplication" class="csl-entry">
+
+Fisch, Ben, and Joseph Bonneau, ‘Proofs of Replication’, 25
+
+</div>
+
+<div id="ref-HttpsFileApp" class="csl-entry">
+
+‘<span class="nocase">https://file.app</span>’ \<<https://file.app>\>
+\[accessed 17 February 2022\]
+
+</div>
+
+<div id="ref-IPFSFilecoin" class="csl-entry">
+
+‘IPFS and Filecoin’
+\<<https://docs.filecoin.io/about-filecoin/ipfs-and-filecoin/>\>
+\[accessed 16 February 2022\]
+
+</div>
+
+<div id="ref-labsFilecoinGrants" class="csl-entry">
+
+Labs, Protocol, ‘Filecoin Grants’, *Filecoin*
+\<<https://grants.filecoin.io/>\> \[accessed 17 February 2022\]
 
 </div>
 
@@ -484,6 +562,22 @@ Olio, JT, ‘Replication Is Bad for Decentralized Storage, Part 1: Erasure
 Codes for Fun and Profit’, 2018
 \<<https://www.storj.io/blog/replication-is-bad-for-decentralized-storage-part-1-erasure-codes-for-fun-and-profit>\>
 \[accessed 10 February 2022\]
+
+</div>
+
+<div id="ref-projectUnderstandingFilecoinCirculating" class="csl-entry">
+
+Project, Filecoin, ‘Understanding Filecoin Circulating Supply’,
+*Filecoin* \<<https://filecoin.io/blog/filecoin-circulating-supply/>\>
+\[accessed 16 February 2022\]
+
+</div>
+
+<div id="ref-StorageChainsCompared" class="csl-entry">
+
+‘Storage Chains Compared - Skynet Guide’
+\<<https://skynet.guide/tech/storage-chains-compared.html>\> \[accessed
+24 February 2022\]
 
 </div>
 
@@ -498,25 +592,36 @@ Decentralized Storage, Part 2: Churn and Burn’
 
 </div>
 
-[^1]: [**HttpsFileApp?**](#ref-HttpsFileApp)
+[^1]: [‘<span class="nocase">https://file.app</span>’
+    \<<https://file.app>\> \[accessed 17 February
+    2022\]](#ref-HttpsFileApp).
 
-[^2]: [**FilecoinDocumentation?**](#ref-FilecoinDocumentation)
+[^2]: [‘Filecoin Documentation’ \<<https://docs.filecoin.io/>\>
+    \[accessed 16 February 2022\]](#ref-FilecoinDocumentation).
 
-[^3]: [**IPFSFilecoin?**](#ref-IPFSFilecoin)
+[^3]: [‘IPFS and Filecoin’
+    \<<https://docs.filecoin.io/about-filecoin/ipfs-and-filecoin/>\>
+    \[accessed 16 February 2022\]](#ref-IPFSFilecoin).
 
-[^4]: [**fischProofsReplication?**](#ref-fischProofsReplication)
+[^4]: [Ben Fisch and Joseph Bonneau, ‘Proofs of Replication’,
+    25](#ref-fischProofsReplication).
 
 [^5]: [Ben Fisch, *PoReps: Proofs of Space on Useful Data*, 2018
     \<<http://eprint.iacr.org/2018/678>\> \[accessed 10 February
     2022\]](#ref-fischPoRepsProofsSpace2018).
 
-[^6]: [**HttpsFileApp?**](#ref-HttpsFileApp)
+[^6]: [‘Https’](#ref-HttpsFileApp).
 
-[^7]: [**filecoinChainSafeFilesBuilding?**](#ref-filecoinChainSafeFilesBuilding)
+[^7]: [Filecoin, ‘ChainSafe Files <span class="nocase">Building
+    Privacy-preserving Cloud Storage</span>’, *Filecoin*
+    \<<https://filecoin.io/blog/posts/chainsafe-files-building-privacy-preserving-cloud-storage/>\>
+    \[accessed 23 February 2022\]](#ref-filecoinChainSafeFilesBuilding).
 
-[^8]: [**ChainSafeFilesDecentralized?**](#ref-ChainSafeFilesDecentralized)
+[^8]: [\<[Https://files.chainsafe.io/](https://files.chainsafe.io/)\>
+    \[accessed 24 February 2022\]](#ref-ChainSafeFilesDecentralized).
 
-[^9]: [**FilecoinFAQ?**](#ref-FilecoinFAQ)
+[^9]: [‘Filecoin FAQ’ \<<https://docs.filecoin.io/about-filecoin/faq/>\>
+    \[accessed 17 February 2022\]](#ref-FilecoinFAQ).
 
 [^10]: [JT Olio, ‘Replication Is Bad for Decentralized Storage, Part 1:
     Erasure Codes for Fun and Profit’, 2018
@@ -529,12 +634,25 @@ Decentralized Storage, Part 2: Churn and Burn’
     \<<https://www.storj.io/blog/why-proof-of-replication-is-bad-for-decentralized-storage-part-2-churn-and-burn>\>
     \[accessed 16 February 2022\]](#ref-WhyProofofReplication).
 
-[^12]: [**projectUnderstandingFilecoinCirculating?**](#ref-projectUnderstandingFilecoinCirculating)
+[^12]: [Filecoin Project, ‘Understanding Filecoin Circulating Supply’,
+    *Filecoin*
+    \<<https://filecoin.io/blog/filecoin-circulating-supply/>\>
+    \[accessed 16 February
+    2022\]](#ref-projectUnderstandingFilecoinCirculating).
 
-[^13]: [**Filecoin?**](#ref-Filecoin)
+[^13]: [‘Filecoin’, *CoinSupplyCap.com*
+    \<<https://coinsupplycap.com/filecoin/>\> \[accessed 17 February
+    2022\]](#ref-Filecoin).
 
-[^14]: [**StorageChainsCompared?**](#ref-StorageChainsCompared)
+[^14]: [‘Storage Chains Compared - Skynet Guide’
+    \<<https://skynet.guide/tech/storage-chains-compared.html>\>
+    \[accessed 24 February 2022\]](#ref-StorageChainsCompared).
 
-[^15]: [**filecoinFilecoinPolygonStudios?**](#ref-filecoinFilecoinPolygonStudios)
+[^15]: [Filecoin, ‘Filecoin and Polygon Studios Deepen Collaboration in
+    NFTs, Games, and the Metaverse’, *Filecoin*
+    \<<https://filecoin.io/blog/posts/filecoin-and-polygon-studios-deepen-collaboration-in-nfts-games-and-the-metaverse/>\>
+    \[accessed 17 February 2022\]](#ref-filecoinFilecoinPolygonStudios).
 
-[^16]: [**labsFilecoinGrants?**](#ref-labsFilecoinGrants)
+[^16]: [Protocol Labs, ‘Filecoin Grants’, *Filecoin*
+    \<<https://grants.filecoin.io/>\> \[accessed 17 February
+    2022\]](#ref-labsFilecoinGrants).

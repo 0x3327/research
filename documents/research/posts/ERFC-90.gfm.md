@@ -1,9 +1,30 @@
----
-title: Detect NFT Wash Trading
-subtitle: ERFC - 90
-author: Milos Bojinovic
-date: 3/12/2022 
----
+Detect NFT Wash Trading
+================
+Milos Bojinovic
+March 12, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#wash-trading-patterns" id="toc-wash-trading-patterns">Wash
+        Trading Patterns</a>
+    -   <a href="#collecting-and-parsing-of-data"
+        id="toc-collecting-and-parsing-of-data">Collecting and Parsing of
+        Data</a>
+    -   <a href="#wash-trading-detectors" id="toc-wash-trading-detectors">Wash
+        Trading Detectors</a>
+    -   <a href="#implementation" id="toc-implementation">Implementation</a>
+        -   <a href="#example" id="toc-example">Example</a>
+        -   <a href="#implications" id="toc-implications">Implications</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#appendices" id="toc-appendices">Appendices</a>
+    -   <a href="#appendix-a" id="toc-appendix-a">Appendix A</a>
+    -   <a href="#appendix-b" id="toc-appendix-b">Appendix B</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -462,6 +483,32 @@ to the fact that they belong to CEXs
 
 # Bibliography
 
-[^1]: [**haywardOpenSeaHitsRecord2022?**](#ref-haywardOpenSeaHitsRecord2022)
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-[^2]: [**WashTradingDefinition?**](#ref-WashTradingDefinition)
+<div id="ref-haywardOpenSeaHitsRecord2022" class="csl-entry">
+
+Hayward, Decrypt / Andrew, ‘OpenSea Hits Record \$5b in Monthly Sales as
+Ethereum NFT Market Swells’, *Decrypt*, 2022
+\<<https://decrypt.co/91748/opensea-record-5b-ethereum-nft-market-swells>\>
+\[accessed 13 March 2022\]
+
+</div>
+
+<div id="ref-WashTradingDefinition" class="csl-entry">
+
+‘Wash Trading Definition’, *Investopedia*
+\<<https://www.investopedia.com/terms/w/washtrading.asp>\> \[accessed 21
+March 2022\]
+
+</div>
+
+</div>
+
+[^1]: [Decrypt / Andrew Hayward, ‘OpenSea Hits Record \$5b in Monthly
+    Sales as Ethereum NFT Market Swells’, *Decrypt*, 2022
+    \<<https://decrypt.co/91748/opensea-record-5b-ethereum-nft-market-swells>\>
+    \[accessed 13 March 2022\]](#ref-haywardOpenSeaHitsRecord2022).
+
+[^2]: [‘Wash Trading Definition’, *Investopedia*
+    \<<https://www.investopedia.com/terms/w/washtrading.asp>\>
+    \[accessed 21 March 2022\]](#ref-WashTradingDefinition).

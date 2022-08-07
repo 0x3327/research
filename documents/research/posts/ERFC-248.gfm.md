@@ -1,9 +1,23 @@
----
-title: Crosschain Identity
-subtitle: ERFC - 248
-author: Aleksandar Damjanovic
-date: 6/14/2022
----
+# \[ERFC - 248\] Crosschain Identity
+
+|               |                       |
+|:--------------|-----------------------|
+| **Author(s)** | Aleksandar Damjanovic |
+| **Date**      | 6/14/2022             |
+
+### Table of Contents
+
+-   [Executive Summary](#executive-summary)
+-   [Introduction](#introduction)
+-   [Goals & Methodology](#goals-methodology)
+-   [Results & Discussion](#results-discussion)
+    -   [Litentry - identity
+        aggregator](#litentry---identity-aggregator)
+    -   [ORE ID - identity registry](#ore-id---identity-registry)
+    -   [Accumulate - mainnet launch planned for September
+        2022](#accumulate---mainnet-launch-planned-for-september-2022)
+-   [Conclusion](#conclusion)
+-   [Bibliography](#bibliography)
 
 # Executive Summary
 

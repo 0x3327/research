@@ -1,26 +1,90 @@
----
-title: OWT - Omni Web Token
-subtitle: ERFC - 147
-author: Aleksandar Veljković
-date: 4/6/2022  
----
+OWT - Omni Web Token
+================
+Aleksandar Veljković
+April 6, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+    -   <a href="#oauth-standard" id="toc-oauth-standard">OAuth standard</a>
+    -   <a href="#jwt-tokens" id="toc-jwt-tokens">JWT Tokens</a>
+    -   <a href="#general-authorization-protocol"
+        id="toc-general-authorization-protocol">General Authorization
+        Protocol</a>
+    -   <a href="#existing-approaches" id="toc-existing-approaches">Existing
+        Approaches</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+    -   <a href="#chain-token-ct-representation"
+        id="toc-chain-token-ct-representation">Chain token (CT)
+        representation</a>
+        -   <a href="#token-size-optimization"
+            id="toc-token-size-optimization">Token size optimization</a>
+        -   <a href="#signature-size-optimization"
+            id="toc-signature-size-optimization">Signature size optimization</a>
+        -   <a href="#mapping-oauth2.0-parameters"
+            id="toc-mapping-oauth2.0-parameters">Mapping OAuth2.0 parameters</a>
+    -   <a href="#token-reusability" id="toc-token-reusability">Token
+        reusability</a>
+    -   <a href="#action-scope-schemas" id="toc-action-scope-schemas">Action
+        scope schemas</a>
+        -   <a href="#scope-1-generic-identity"
+            id="toc-scope-1-generic-identity">Scope 1: Generic Identity</a>
+    -   <a href="#from-chain-token-ct-to-omni-web-token-owt"
+        id="toc-from-chain-token-ct-to-omni-web-token-owt">From Chain Token (CT)
+        to Omni Web Token (OWT)</a>
+        -   <a href="#owt-body" id="toc-owt-body">OWT Body</a>
+        -   <a href="#owt-signature" id="toc-owt-signature">OWT Signature</a>
+    -   <a href="#owt-issuing" id="toc-owt-issuing">OWT Issuing</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#allowance-use-case" id="toc-allowance-use-case">Allowance Use
+        Case</a>
+        -   <a href="#test-setup" id="toc-test-setup">Test setup</a>
+        -   <a href="#test-1-payout-by-whitelisting"
+            id="toc-test-1-payout-by-whitelisting">Test 1: Payout by
+            Whitelisting</a>
+        -   <a href="#test-2-payout-with-token"
+            id="toc-test-2-payout-with-token">Test 2: Payout with Token</a>
+        -   <a
+            href="#test-3-payout-with-token-using-token-hash-as-payment-identifier"
+            id="toc-test-3-payout-with-token-using-token-hash-as-payment-identifier">Test
+            3: Payout with Token using Token Hash as Payment Identifier</a>
+        -   <a href="#cost-analysis" id="toc-cost-analysis">Cost Analysis</a>
+    -   <a href="#generic-identity-use-case"
+        id="toc-generic-identity-use-case">Generic Identity Use Case</a>
+        -   <a href="#use-case-analysis" id="toc-use-case-analysis">Use case
+            analysis</a>
+    -   <a href="#general-purpose-token-verification-service-gptvs"
+        id="toc-general-purpose-token-verification-service-gptvs">General
+        Purpose Token Verification Service (GPTVS)</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#appendices" id="toc-appendices">Appendices</a>
+    -   <a href="#appendix-1-chain-token-verification-smart-contract"
+        id="toc-appendix-1-chain-token-verification-smart-contract">Appendix 1:
+        Chain token verification smart contract</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
-JSON Web Tokens, or JWT, are standard for authorizing clients on the
-Web. Some JWT payloads have a specific structure, such as OAuth(2)
+JSON Web Tokens, or JWT, are the format of JSON encoded data structures
+for authorizing clients on the Web. Some JWT payloads have a specific
+standardized structure, defined by the protocol, such as OAuth(2)
 tokens. Others, however, are designed specifically for particular apps.
+
 Authorization on the Blockchain is done mainly through explicitly
 whitelisting addresses that are allowed to perform specific actions.
 Whitelisting introduces high costs when the number of whitelisted
 addresses is large. A good example is ICO whitelisting, where hundreds
-or even thousands of participants need to get whitelisted. This research
-aims to find an efficient, more cost-effective solution for authorizing
-users on the Blockchain using a system of authorization tokens issued
-and received off-chain, without the Blockchain transaction fees, and
-valid on-chain and off-chain. In addition, the token structure should be
-transferrable off-chain as a JWT token, compatible with the OAuth2
-standard, and reusable in both Web 2.0 and Web 3.0 worlds.
+or even thousands of participants need to get whitelisted.
+
+This research aims to find an efficient, more cost-effective solution
+for authorizing users on the Blockchain using a system of authorization
+tokens issued and received off-chain, without the Blockchain transaction
+fees, and which will be valid on-chain and off-chain. In addition, the
+token structure should be transferrable off-chain as a JWT token,
+compatible with the OAuth2 standard, and reusable in both Web 2.0 and
+Web 3.0 worlds.
 
 # Introduction
 
@@ -39,15 +103,17 @@ done by whitelisting wallet addresses that are allowed to perform
 specific actions, submitting the list of the whitelisted wallets, and
 storing them on the Blockchain. The price of each transaction for
 storing whitelisted wallets linearly grows by the number of the wallets.
+
 In a more concrete example, storing one 20 byte address on Blockchain,
 having ETH at the January 1st, 2022 price, costs approximately 20000 GAS
 or around \$5.6, having an average gas price of 74 Gwei. With those
 prices, storing a hundred whitelisted addresses would cost about \$565,
 with base transaction cost included. It is challenging for technology to
-expand with such high prices for such basic requirements. Before
-introducing the solution this research is proposing, it is essential
-first to briefly introduce some basic concepts regarding the existing
-methods for authorization on the Web.
+expand with such high prices for such basic requirements.
+
+Before introducing the solution this research is proposing, it is
+essential first to briefly introduce some basic concepts regarding the
+existing methods for authorization on the Web.
 
 ## OAuth standard
 
@@ -74,29 +140,29 @@ segments. The header segment includes the token type and a label of the
 algorithm used for creating signatures.
 
 Example JWT header
-```json
+
     {
         "type": "JWT",
         "alg": "ES256"
     }
-```
+
 The body segment is a container segment used for storing
 protocol-specific information. OAuth 2.0 standard, introduced with
 RFC-6749 \[4\], specifies several fields required for authorization that
 are members of the body of a JWT token. Some of those fields are:
 
-- `aud` (Audience) - Identifier of the user to whom the client will
-  present the token for executing an action
-- `exp` (Expiration) - Token expiration timestamp
-- `iss` (Issuer) - Identifier of the token issuer, authorization
-  service provider
-- `scope` (Action scope) - List of actions for which the token owner
-  would be authorized to perform
-- `sub` (Subject) - Identifier of the token owner
-- `iat` (Issued at) - Isusing timestamp
+-   `aud` (Audience) - Identifier of the user to whom the client will
+    present the token for executing an action
+-   `exp` (Expiration) - Token expiration timestamp
+-   `iss` (Issuer) - Identifier of the token issuer, authorization
+    service provider
+-   `scope` (Action scope) - List of actions for which the token owner
+    would be authorized to perform
+-   `sub` (Subject) - Identifier of the token owner
+-   `iat` (Issued at) - Isusing timestamp
 
 Example JWT Body
-```json
+
     {
       "sub": "user1",
       "name": "John Doe",
@@ -104,7 +170,7 @@ Example JWT Body
       "aud": "server1",
       "scope": ["data.fetching"]
     }
-```
+
 Field `name` in the JWT body example represents a custom,
 application-specific data field.
 
@@ -129,11 +195,11 @@ requested action
 
 ## Existing Approaches
 
-There are existing approaches for combining the Blockchain and OAuth
-tokens. In one research \[5\], the authors used NFTs as authorization
-tokens generated on-chain that would be verifiable using the OAuth 2.0
-protocol. That approach is inverse to this research: it doesn’t reduce
-costs but puts authorization tokens on the chain.
+There are some existing approaches for combining the Blockchain and
+OAuth tokens. In one such research \[5\], the authors used NFTs as
+authorization tokens generated on-chain that would be verifiable using
+the OAuth 2.0 protocol. That approach is inverse to this research: it
+doesn’t reduce costs but puts authorization tokens on the chain.
 
 # Goals & Methodology
 
@@ -168,15 +234,11 @@ confirm the client’s authorization.
 ## Chain token (CT) representation
 
 The essential requirements for the token that would be used on the chain
-are: 
-
-- Efficient verifiability; token should be efficiently verifiable
-  on the chain 
-- Authenticity; the probability of token forgery should be
-  negligible 
-- Succinctness; token should be small in byte size 
-- Non-transferability; token should be used only by the user who received
-  the token
+are: - Efficient verifiability; token should be efficiently verifiable
+on the chain - Authenticity; the probability of token forgery should be
+negligible - Succinctness; token should be small in byte size -
+Non-transferability; token should be used only by the user who received
+the token
 
 As an example throughout this research, we will use the money checkout
 allowance problem, where a client needs to be authorized to payout a
@@ -200,11 +262,10 @@ this problem is to provide a signature made by the authorization entity,
 which confirms the provided values. Ethereum signatures contain three
 segments, v, r, and s, 65 bytes long. All summed up to 137 bytes of
 memory. Even if this doesn’t look like a significant sum, the main issue
-is that the token size asymptotically grows by
-$O(n)$, linearly
-with the number of arguments n. In other words, it would become costly,
-or even unusable, for methods with more arguments. It is not very
-efficient, but it is a start.
+is that the token size asymptotically grows by $O(n)$, linearly with the
+number of arguments n. In other words, it would become costly, or even
+unusable, for methods with more arguments. It is not very efficient, but
+it is a start.
 
 ### Token size optimization
 
@@ -218,9 +279,9 @@ values within the token but use only a hash of the approved values and
 check if the hash of the provided input values matches the token hash.
 Using the hashing method clears the linear growth of the token as the
 size of the keccak256 hash is fixed to 32 bytes in length, achieving a
-constant $O(1)$ size of the token. The hash can also cover other values that could be
-hard-coded into the smart contract without a token size increase, which
-will become an essential feature in later sections.
+constant $O(1)$ size of the token. The hash can also cover other values
+that could be hard-coded into the smart contract without a token size
+increase, which will become an essential feature in later sections.
 
 ### Signature size optimization
 
@@ -296,9 +357,8 @@ the action for which the client can use the token. Action scopes are not
 specified as they can be represented using any string value. The problem
 here is the cost of using string data types in smart contracts. This
 research proposes restriction for action type values to numerical data
-types of 4 bytes. This restriction allows
-$2^32$ possible
-scope values that could represent many use cases.
+types of 4 bytes. This restriction allows $2^32$ possible scope values
+that could represent many use cases.
 
 A library of token schemas can help developers properly format their
 tokens based on scope number schemas. Furthermore, enumeration of action
@@ -313,26 +373,20 @@ Generic identity scope should be used for verification of the client’s
 identity. The verification is based on the client’s wallet address and
 unique identifier in the issuer’s database. The hash for “scope 1”
 tokens be made by hashing the following array of values in their
-respective order: 
-
-- `address iss`; token issuer `address aud`; smart contract address or 0 address for general identification 
-- `address sub`; client’s wallet address 
-- `uint4 scope`; action scope with value `1` for generic identification 
-- `bytes32 uuid`; unique identifier of the client in the issuer’s 
-- `uint8 exp`; token expiration timestamp in UNIX timestamp format database 
-
-### Scope 2: Allowance
-
+respective order: - `address iss`; token issuer `address aud`; smart
+contract address or 0 address for general identification -
+`address sub`; client’s wallet address - `uint4 scope`; action scope
+with value `1` for generic identification - `bytes32 uuid`; unique
+identifier of the client in the issuer’s - `uint8 exp`; token expiration
+timestamp in UNIX timestamp format database \### Scope 2: Allowance
 Allowance tokens, used for crypto cheques, should have hashes made by
-hashing the following array of values in their respective order: 
-
-- `address iss`; token issuer 
-- `address aud`; smart contract address 
-- `address sub`; money receiver 
-- `uint4 scope`; action scope with value `2` for allowance 
-- `bytes32 paymentId`; payment identifier (NOTE: token hash may be used as payment ID but it can introduce new problems) 
-- `uint256 amount`; amount to transfer 
-- `uint8 exp`; token expiration timestamp in UNIX timestamp format
+hashing the following array of values in their respective order: -
+`address iss`; token issuer - `address aud`; smart contract address -
+`address sub`; money receiver - `uint4 scope`; action scope with value
+`2` for allowance - `bytes32 paymentId`; payment identifier (NOTE: token
+hash may be used as payment ID but it can introduce new problems) -
+`uint256 amount`; amount to transfer - `uint8 exp`; token expiration
+timestamp in UNIX timestamp format
 
 The reader may notice that in both cases, there are two logical groups
 of parameters: - general parameters; `iss`, `aud`,
@@ -356,25 +410,28 @@ creating a proper JWT signature. The verifier needs to know the CT hash
 value and the parameters used in the construction of the token.
 
 The proposed OWT body schema is:
-```json
+
     {
-   "aud":"<smart contract address>",
-   "iss":"<issuer's wallet address>",
-        "scope": "<readable name of the '<scope>'",
-        "exp": "<token expiration timestamp>",
-        "chain_token": {
-            "token_hash": "<CT hash with expiration timestamp>",
-        "r": "<signature r value>",
-        "sv": "<compact representation of s and v signature values>",
-            "params": "[<ordered list of token parameters in form of:
+        aud: <smart contract address>,
+        iss: <issuer's wallet address>,
+        scope: <readable name of the scope>,
+        exp: <token expiration timestamp>
+        chain_token: {
+            token_hash: <CT hash with expiration timestamp>,
+        r: <signature r value>,
+        sv: <compact representation of s and v signature values>
+            params: [<
+                    ordered list of token parameters
+                    in form of:
                      {
                         param: <parameter name>,
                         value: <parameter value>,
                         type: <parameter data type>,
                      }
-                >]"
+                >]
         }
-```
+    }
+
 ### OWT Signature
 
 The JWT standard allows using the Ethereum secp256k1 signatures by
@@ -399,21 +456,20 @@ together with testing REST API for issuing OWTs following the OAuth 2.0
 protocol. An example smart contract for testing the usability of the
 chain token was also implemented.
 
-The smart contract used for testing included four methods: 
-
-- `whitelist(address client, uint256 amount)` method for whitelisting the
-  user for a given amount of money - `payoutOld(uint256 amount)` method
-  for performing payout in the old fashioned way by checking the
-  whitelisted amount 
-- `payoutNew(address sender, uint256 amount, bytes32 paymentId, bytes32[3] calldata token)`
-  method for performing payout using the chain token following “scope 2”
-  schema 
-- `payoutNewShort(address sender, uint256 amount, bytes32[3] calldata token)`
-  method for performing payout using the chain token but without payment
-  identifier, having token hash as a payment identifier 
-- `verifyIdentity(address issuer, bytes32 userId, bytes32[3] calldata token)`
-  method for simple verification of the client’s identity following “scope
-  1” schema
+The smart contract used for testing included four methods: -
+`whitelist(address client, uint256 amount)` method for whitelisting the
+user for a given amount of money - `payoutOld(uint256 amount)` method
+for performing payout in the old fashioned way by checking the
+whitelisted amount -
+`payoutNew(address sender, uint256 amount, bytes32 paymentId, bytes32[3] calldata token)`
+method for performing payout using the chain token following “scope 2”
+schema -
+`payoutNewShort(address sender, uint256 amount, bytes32[3] calldata token)`
+method for performing payout using the chain token but without payment
+identifier, having token hash as a payment identifier -
+`verifyIdentity(address issuer, bytes32 userId, bytes32[3] calldata token)`
+method for simple verification of the client’s identity following “scope
+1” schema
 
 ## Allowance Use Case
 
@@ -472,7 +528,6 @@ thus have the same payment identifier. This situation can cause the
 issuer to be unable to reissue the token as its timestamp has already
 expired. The results of the cost analysis are presented in Table 1.
 </br></br>
-
 <table>
 <tr>
 <th>
@@ -586,8 +641,7 @@ General Purpose Token Verification Service.
 
 ## Appendix 1: Chain token verification smart contract
 
-```js
-
+``` solidity
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
@@ -613,7 +667,7 @@ contract VerifierContract {
                 address recovered = ecrecover(prefixedProof, v, r, s);
                 return recovered == signer;
         }
-
+        
         function whitelist(address client, uint256 amount) public {
                 whitelisted[client] = amount;
         }
@@ -680,25 +734,25 @@ contract VerifierContract {
 
 </div>
 
-1. Coinmarketcap, Historical snapshot from 2019/01/01,
-   https://coinmarketcap.com/historical/20190101/
+1.  Coinmarketcap, Historical snapshot from 2019/01/01,
+    https://coinmarketcap.com/historical/20190101/
 
-2. Coinmarketcap, Historical snapshot from 2022/01/01,
-   https://coinmarketcap.com/historical/20220101/
+2.  Coinmarketcap, Historical snapshot from 2022/01/01,
+    https://coinmarketcap.com/historical/20220101/
 
-3. M. Jones, J. Bradley, N. Sakimura, RFC-7519: JSON Web Token (JWT),
-   https://datatracker.ietf.org/doc/html/rfc7519
+3.  M. Jones, J. Bradley, N. Sakimura, RFC-7519: JSON Web Token (JWT),
+    https://datatracker.ietf.org/doc/html/rfc7519
 
-4. D. Hardt, Ed., RFC-6749: The OAuth 2.0 Authorization Framework,
-   https://datatracker.ietf.org/doc/html/rfc6749
+4.  D. Hardt, Ed., RFC-6749: The OAuth 2.0 Authorization Framework,
+    https://datatracker.ietf.org/doc/html/rfc6749
 
-5. N. Fotiou, I. Pittaras, V. A. Siris, S. Voulgaris, G. C. Polyzosar,
-   OAuth 2.0 authorization using blockchain-based tokens,
-   arXiv:2001.10461v1, 28 Jan 2020,
-   https://arxiv.org/pdf/2001.10461.pdf
+5.  N. Fotiou, I. Pittaras, V. A. Siris, S. Voulgaris, G. C. Polyzosar,
+    OAuth 2.0 authorization using blockchain-based tokens,
+    arXiv:2001.10461v1, 28 Jan 2020,
+    https://arxiv.org/pdf/2001.10461.pdf
 
-6. R Moore, N Johnson, EIP-2098: Compact Signature Representation,
-   https://eips.ethereum.org/EIPS/eip-2098
+6.  R Moore, N Johnson, EIP-2098: Compact Signature Representation,
+    https://eips.ethereum.org/EIPS/eip-2098
 
-7. R. Housley, RFC-3874: A 224-bit One-way Hash Function: SHA-224,
-   https://datatracker.ietf.org/doc/html/rfc3874
+7.  R. Housley, RFC-3874: A 224-bit One-way Hash Function: SHA-224,
+    https://datatracker.ietf.org/doc/html/rfc3874

@@ -1,9 +1,19 @@
----
-title: ROTOKEN
-subtitle: ERFC - 103
-author: Aleksandar Veljković
-date: 3/3/2022  
----
+ROTOKEN
+================
+Aleksandar Veljković
+March 3, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#potential-markets" id="toc-potential-markets">Potential
+        markets</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -138,16 +148,15 @@ can be tampered so it should not be used as a source of randomness.
 Another approach is using verifiable random functions such as Chainlink
 VRF. This might be costly but it is a good solution. This research also
 proposes another, possibly cheaper approach. Selecting the latest
-transaction hashes of ![k](https://latex.codecogs.com/svg.latex?k "k")
-wallets outside of the organisation ,with the most frequent
-transactions, and hashing them all together may be a good source of
-randomness as the main problem with predictable randomness from block
-hash is the ability of the miner to reorder transactions until the
-desired hash is achieved. By selecting transaction hashes instead of
-blocks, the only way to tamper with the randomness is to selectively
-mine transactions which leaves much less room for tampered combinations
-and transaction hashes are close to random as they are influenced by
-many changing variables.
+transaction hashes of $k$ wallets outside of the organisation ,with the
+most frequent transactions, and hashing them all together may be a good
+source of randomness as the main problem with predictable randomness
+from block hash is the ability of the miner to reorder transactions
+until the desired hash is achieved. By selecting transaction hashes
+instead of blocks, the only way to tamper with the randomness is to
+selectively mine transactions which leaves much less room for tampered
+combinations and transaction hashes are close to random as they are
+influenced by many changing variables.
 
 Selection of new members with special roles should happen regularly in
 fixed intervals. As transaction of changing the role needs to be

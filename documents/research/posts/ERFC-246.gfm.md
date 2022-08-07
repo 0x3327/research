@@ -1,9 +1,21 @@
----
-title: Token Engineering and Design of complex systems
-subtitle: ERFC - 246
-author: Aleksandar Damjanovic
-date: 6/28/2022
----
+-   [Executive Summary](#executive-summary)
+-   [Introduction](#introduction)
+-   [Goals & Methodology](#goals-methodology)
+-   [Results & Discussion](#results-discussion)
+    -   [Steps in Token Engineering
+        process](#steps-in-token-engineering-process)
+        -   [System Mapping](#system-mapping)
+        -   [Formalising the design](#formalising-the-design)
+        -   [Modularising the logic and model
+            building](#modularising-the-logic-and-model-building)
+        -   [Refining the model](#refining-the-model)
+        -   [Evaluation and improvements on the running
+            system](#evaluation-and-improvements-on-the-running-system)
+    -   [Machinations](#machinations)
+    -   [cad Cad](#cad-cad)
+    -   [TokenSPICE](#tokenspice)
+-   [Conclusion](#conclusion)
+-   [Bibliography](#bibliography)
 
 # Executive Summary
 

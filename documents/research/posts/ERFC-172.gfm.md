@@ -1,9 +1,17 @@
----
-title: Developing with Ape
-subtitle: ERFC - 172
-author: Aleksandar Damjanovic
-date: 4/30/2022  
----
+Developing with Ape
+================
+Aleksandar Damjanovic
+April 30, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -90,14 +98,14 @@ suggested.
 After initial testing of this framework and considering the state of the
 documentation at this stage I would recommend this framework to
 experienced python developers venturing into Web3. Documentation is well
-written, still in the works and continuously updated with contributions
+written, still in the works and continuosly updated with contributions
 from the community around this framework. Apeworx Team and Apeworx
 community is currently working on workshops to get developers up to
 speed and tutorials are in the works.
 
-Currently, there is little materials for newcomers. Considering this is a
+Currently there is little materials for newcomers. Considering this is a
 new open-source project this is understandable. However, for absolute
-beginners, going through the Brownie framework first is recommended at
+beginners, going through the Brownie framework first is recomended at
 this stage of Ape’s development. The reason for that is abundance of
 tutorials, workshops and well written documentation. After Brownie,
 switch to Ape and its plugin system is smooth.
@@ -189,10 +197,14 @@ improve developers user experience and is currently in development.
 **Tech Radar Proposal:**
 
 Recommended location is the Assess ring at this stage. The reason for
-that is the sheer novelty of this framework. However, the development
-team is great, community is growing, and we are seeing new projects
+that is the shere novelty of this framework. However the development
+team is great, community is growing and we are seeing new projects
 emerging using Ape. This framework is with its simplicity aiming to
 become the industry standard in Ethereum development for python
 developers and is on a great way to do so.
 
+# Bibliography
 
+<div id="refs">
+
+</div>

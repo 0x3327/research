@@ -1,9 +1,35 @@
----
-title: Approaches to Testing Of Smart Contracts
-subtitle: ERFC - 259
-author: Milos Bojinovic
-date: 6/4/2022
----
+Approaches to Testing Of Smart Contracts
+================
+Milos Bojinovic
+June 4, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#contract-example" id="toc-contract-example">Contract
+        example</a>
+        -   <a href="#specification-of-the-transfer-function"
+            id="toc-specification-of-the-transfer-function">Specification of the
+            <code>transfer</code> function</a>
+    -   <a href="#forms-of-testing" id="toc-forms-of-testing">Forms of
+        testing</a>
+        -   <a href="#unit-testing" id="toc-unit-testing">Unit Testing</a>
+        -   <a href="#integration-testing" id="toc-integration-testing">Integration
+            Testing</a>
+        -   <a href="#static-code-analysis" id="toc-static-code-analysis">Static
+            (code) analysis</a>
+        -   <a href="#general-considerations"
+            id="toc-general-considerations">General Considerations</a>
+    -   <a href="#evaluation" id="toc-evaluation">Evaluation</a>
+        -   <a href="#code-coverage" id="toc-code-coverage">Code Coverage</a>
+        -   <a href="#mutation-testing-mutation-analysis"
+            id="toc-mutation-testing-mutation-analysis">Mutation Testing (Mutation
+            analysis)</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
 
 # Executive Summary
 

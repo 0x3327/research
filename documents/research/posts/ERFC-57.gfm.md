@@ -1,9 +1,26 @@
----
-title: Solidity++ (S++)
-subtitle: ERFC - 57
-author: Aleksandar Veljković
-date: 2/24/2022
----
+Solidity++ (S++)
+================
+Aleksandar Veljković
+February 24, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+    -   <a href="#existing-solutions" id="toc-existing-solutions">Existing
+        solutions</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#variable-declaration-reordering"
+        id="toc-variable-declaration-reordering">Variable declaration
+        reordering</a>
+    -   <a href="#data-type-extensions" id="toc-data-type-extensions">Data type
+        extensions</a>
+    -   <a href="#code-generation" id="toc-code-generation">Code generation</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#appendices" id="toc-appendices">Appendices</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -76,13 +93,17 @@ optimisations or includes multiple improvements in one software. The
 goal of this project is to evaluate feasibility of implementing such
 tool and Solidity language extensions that could allow its easier
 implementation. End PoC toll planned as a result of this project focuses
-on space optimisation techniques and includes: \* Implementing parser
-for Solidity language that enables language semantic and syntax analysis
-\* Implementing optimisation methods: \* Variable declaration reordering
-\* Struct values declaration reordering \* Defining data type extensions
-for storing custom-sized data (i.e. integers with values between 20 and
-40) and implementing language parser extensions \* Implementing
-generator for optimised code
+on space optimisation techniques and includes:
+
+-   Implementing parser for Solidity language that enables language
+    semantic and syntax analysis
+-   Implementing optimisation methods:
+    -   Variable declaration reordering
+    -   Struct values declaration reordering
+    -   Defining data type extensions for storing custom-sized data
+        (i.e. integers with values between 20 and 40) and implementing
+        language parser extensions
+-   Implementing generator for optimised code
 
 # Results & Discussion
 
@@ -106,9 +127,11 @@ on structs.
 
 ### Data type extensions
 
-To enable extensions of data types there are two steps: \* Defining
-language extensions \* Map variables to bits of memory blocks and create
-getters and setters
+To enable extensions of data types there are two steps:
+
+-   Defining language extensions
+-   Map variables to bits of memory blocks and create getters and
+    setters
 
 New data types will be mapped to memory blocks, variables of 256 bits,
 on bit level using bit masks. Packing of those values will be optimised
@@ -164,14 +187,14 @@ makes no harm to use it, it can only be an improvement.
 The value of this project is assumed, but still has to be confirmed.
 That is why the next step of this research should be further assessment
 by target user group, which should include developers that are actively
-using Solidity in their everyday work and domain experts. \# Appendices
+using Solidity in their everyday work and domain experts.
+
+# Appendices
 
 # Bibliography
 
 \[1\] B Mariano, Y. Chen, Y. Feng *Demystifying Loops in Smart
-Contracts* https://fredfeng.github.io/papers/ase20-consul.pdf 
-
-\[2\] T.Brandstaetter *Optimisation of Solidity Smart Contracts*
+Contracts* https://fredfeng.github.io/papers/ase20-consul.pdf \[2\] T.
+Brandstaetter *Optimisation of Solidity Smart Contracts*
 https://repositum.tuwien.at/bitstream/20.500.12708/1428/2/Brandstaetter%20Tamara%20-%202020%20-%20Optimization%20of%20solidity%20smart%20contracts.pdf
-
-\[3\] https://mudit.blog/solidity-gas-optimization-tips/
+\[3\] https://mudit.blog/solidity-gas-optimization-tips/ ::: {#refs} :::

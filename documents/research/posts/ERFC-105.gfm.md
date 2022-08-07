@@ -1,9 +1,21 @@
----
-title: Transaction splitting
-subtitle: ERFC - 105
-author: Andrej Rakic
-date: 3/8/2022  
----
+Transaction splitting
+================
+Andrej
+March 8, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+    -   <a href="#goals" id="toc-goals">Goals</a>
+    -   <a href="#methodology" id="toc-methodology">Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#step-1" id="toc-step-1">Step 1)</a>
+    -   <a href="#step-2" id="toc-step-2">Step 2)</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -161,3 +173,9 @@ There are no blockers for implementing this idea in Solidity. The
 tooling is stable, the math is not complex and can be handled by the
 language, and the blockchain technology itself is capable for storing
 this type of applications.
+
+# Bibliography
+
+<div id="refs">
+
+</div>

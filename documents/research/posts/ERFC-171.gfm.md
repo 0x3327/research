@@ -1,9 +1,30 @@
----
-title: Royalty Contract Standardization - RCS
-subtitle: ERFC - 171
-author: Aleksandar Damjanovic
-date: 5/12/2022
----
+Royalty Contract Standardization - RCS
+================
+Aleksandar Damjanovic
+May 12, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#opensea" id="toc-opensea">OpenSea</a>
+        -   <a href="#how-do-creators-earn-their-royaties"
+            id="toc-how-do-creators-earn-their-royaties">How do creators earn their
+            royaties</a>
+        -   <a href="#opensea-royalty-on-other-marketplaces"
+            id="toc-opensea-royalty-on-other-marketplaces">OpenSea royalty on other
+            marketplaces</a>
+    -   <a href="#looksrare" id="toc-looksrare">LooksRare</a>
+        -   <a href="#token" id="toc-token">Token</a>
+        -   <a href="#royalties" id="toc-royalties">Royalties</a>
+    -   <a href="#eip-2981" id="toc-eip-2981">EIP-2981</a>
+        -   <a href="#our-experiment" id="toc-our-experiment">Our experiment</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#appendices" id="toc-appendices">Appendices</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -27,7 +48,7 @@ conclusions:
 
 # Introduction
 
-Current marketplaces and NFTs have fragmented royalty payment
+Current markketplaces and NFTs have fragmented royalty payment
 implementations. This leaves the nft artist/creator with the issue of
 unpredictable royalty payments for his art. Each marketplace has
 different solutions for this problem. EIP-2981 has basic royalty
@@ -204,7 +225,8 @@ recepient in the future EIPs.[^3]
 After trying to implement hardcoding the royalties the same issue with
 the transfer function occured.
 
-```js
+``` solidity
+
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
@@ -297,12 +319,45 @@ for NFTs proposed, and what are the limitations.
 research and expertize in NFT royalties. Thank you for showing the
 fallacies in the logic of this research proposal*
 
+# Appendices
 
 # Bibliography
 
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-[^1]: [**NFTAnalyticsTools2022?**](#ref-NFTAnalyticsTools2022)
+<div id="ref-10SettingFees" class="csl-entry">
 
-[^2]: [**10SettingFees?**](#ref-10SettingFees)
+‘10. Setting Fees on Secondary Sales’, *OpenSea Developer Documentation*
+\<<https://docs.opensea.io/docs/10-setting-fees-on-secondary-sales>\>
+\[accessed 18 May 2022\]
 
-[^3]: [**EIP2981NFTRoyalty?**](#ref-EIP2981NFTRoyalty)
+</div>
+
+<div id="ref-NFTAnalyticsTools2022" class="csl-entry">
+
+‘8 NFT Analytics Tools to Boost Your Profits Tokenized’, 2022
+\<<https://tokenizedhq.com/nft-analytics/>\> \[accessed 18 May 2022\]
+
+</div>
+
+<div id="ref-EIP2981NFTRoyalty" class="csl-entry">
+
+‘EIP-2981: NFT Royalty Standard’, *Ethereum Improvement Proposals*
+\<<https://eips.ethereum.org/EIPS/eip-2981>\> \[accessed 18 May 2022\]
+
+</div>
+
+</div>
+
+[^1]: [‘8 NFT Analytics Tools to Boost Your Profits Tokenized’, 2022
+    \<<https://tokenizedhq.com/nft-analytics/>\> \[accessed 18 May
+    2022\]](#ref-NFTAnalyticsTools2022).
+
+[^2]: [‘10. Setting Fees on Secondary Sales’, *OpenSea Developer
+    Documentation*
+    \<<https://docs.opensea.io/docs/10-setting-fees-on-secondary-sales>\>
+    \[accessed 18 May 2022\]](#ref-10SettingFees).
+
+[^3]: [‘EIP-2981: NFT Royalty Standard’, *Ethereum Improvement
+    Proposals* \<<https://eips.ethereum.org/EIPS/eip-2981>\> \[accessed
+    18 May 2022\]](#ref-EIP2981NFTRoyalty).

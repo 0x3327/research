@@ -1,9 +1,33 @@
----
-title: Access NFT Tools - Overview And Space For Improvements
-subtitle: ERFC - 40
-author: Milos Novitovic
-date: 2/21/2022
----
+Access NFT Tools - Overview And Space For Improvements
+================
+Milos Novitovic
+February 21, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+    -   <a href="#goals" id="toc-goals">Goals</a>
+    -   <a href="#methodology" id="toc-methodology">Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#collab.land" id="toc-collab.land">Collab.Land</a>
+    -   <a href="#swordy-bot" id="toc-swordy-bot">Swordy Bot</a>
+    -   <a href="#unlock-protocol-decentralized-protocol"
+        id="toc-unlock-protocol-decentralized-protocol">Unlock Protocol
+        [Decentralized Protocol]</a>
+    -   <a href="#whale-room-centralized-platform"
+        id="toc-whale-room-centralized-platform">Whale room [Centralized
+        Platform]</a>
+    -   <a href="#mintgate-centralized-tool-platform"
+        id="toc-mintgate-centralized-tool-platform">MintGate [Centralized Tool
+        &amp; Platform]</a>
+    -   <a href="#guild-centralized-platform"
+        id="toc-guild-centralized-platform">Guild [Centralized Platform]</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#appendices" id="toc-appendices">Appendices</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -306,6 +330,8 @@ What solution must not do:
     discord/telegram username)
 -   Allow more than one user to access Discord channels using the same
     NFT
+
+# Appendices
 
 # Bibliography
 

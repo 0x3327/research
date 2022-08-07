@@ -1,9 +1,48 @@
----
-title: SBT - Soulbound Tokens
-subtitle: ERFC - 261
-author: Aleksandar Damjanovic
-date: 5/31/2022
----
+SBT - Soulbound Tokens
+================
+Aleksandar Damjanovic
+May 31, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#some-of-the-current-problems-in-web3"
+        id="toc-some-of-the-current-problems-in-web3">Some of the current
+        problems in Web3</a>
+    -   <a href="#what-are-souls-exactly" id="toc-what-are-souls-exactly">What
+        are souls exactly?</a>
+    -   <a href="#possible-use-cases-of-sbts"
+        id="toc-possible-use-cases-of-sbts">Possible use cases of SBTs</a>
+        -   <a href="#sbts-and-lending" id="toc-sbts-and-lending">SBTs and
+            Lending</a>
+        -   <a href="#sbts-and-nfts" id="toc-sbts-and-nfts">SBTs and NFTs</a>
+        -   <a href="#soul-accounts-in-airdrops-and-daos"
+            id="toc-soul-accounts-in-airdrops-and-daos">Soul Accounts in Airdrops
+            and DAOs</a>
+        -   <a href="#property" id="toc-property">Property</a>
+    -   <a href="#recovery-of-soul-accountswallets"
+        id="toc-recovery-of-soul-accountswallets">Recovery of Soul
+        Accounts/Wallets</a>
+        -   <a href="#social-recovery" id="toc-social-recovery">Social recovery</a>
+        -   <a href="#sbt-community-recovery" id="toc-sbt-community-recovery">SBT
+            community recovery</a>
+    -   <a href="#implementation-and-adoption-challenges"
+        id="toc-implementation-and-adoption-challenges">Implementation and
+        adoption challenges</a>
+        -   <a href="#privacy" id="toc-privacy">Privacy</a>
+        -   <a href="#bribing-the-owners-of-the-sbts"
+            id="toc-bribing-the-owners-of-the-sbts">Bribing the owners of the
+            SBTs</a>
+        -   <a href="#legacy-systems" id="toc-legacy-systems">Legacy systems</a>
+        -   <a href="#cold-start-challenge" id="toc-cold-start-challenge">Cold start
+            challenge</a>
+    -   <a href="#sentiment" id="toc-sentiment">Sentiment</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 

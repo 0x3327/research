@@ -1,9 +1,35 @@
----
-title: Crypto Insurance - Current state, problems and possibilities of creating new products
-subtitle: ERFC - 91
-author: Aleksandar Damjanovic
-date: 3/9/2022  
----
+Explorative Research on Crypto Insurance - Current state, problems and
+possibilities of creating new products
+================
+Aleksandar Damjanovic
+March 9, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+    -   <a href="#what-is-insurance" id="toc-what-is-insurance">What is
+        Insurance?</a>
+    -   <a href="#benefits-of-insurance-and-the-nature-of-insurance"
+        id="toc-benefits-of-insurance-and-the-nature-of-insurance">Benefits of
+        Insurance and the nature of Insurance</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a
+        href="#the-current-state-of-defi-insurance-and-insurance-with-cryptocurrency-and-insurance-processes"
+        id="toc-the-current-state-of-defi-insurance-and-insurance-with-cryptocurrency-and-insurance-processes">The
+        current state of DeFi Insurance and Insurance with cryptocurrency and
+        insurance processes</a>
+        -   <a href="#main-players-in-this-market"
+            id="toc-main-players-in-this-market">Main players in this market</a>
+        -   <a href="#nexus-mutual" id="toc-nexus-mutual">Nexus mutual</a>
+        -   <a href="#bridge-mutual" id="toc-bridge-mutual">Bridge Mutual</a>
+        -   <a href="#insureace.io" id="toc-insureace.io">InsureAce.io</a>
+        -   <a href="#nsure" id="toc-nsure">Nsure</a>
+        -   <a href="#etherisc" id="toc-etherisc">Etherisc</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -448,7 +474,7 @@ minority can lose “reputation” which decreases voting power. If there is
 a large diference in voting yes or no (80% to 20%) users that voted no
 will lose a portion of their stake.
 
-<img src="https://1853607048-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/assets%2F-McJ-rdy5DzkSkdXp6VM%2F-MdWXc4-iyw6LOwtZ90R%2F-MdWfiqPXhasXmnJESvb%2Fimage.png?alt=media&token=11a1af05-bbde-4941-be28-3274fac85146" style="height: 400px; width:600px;"/>
+<img src="https://1853607048-files.gitbook.io/~/files/v0/b/gitbook-28427.appspot.com/o/assets%2F-McJ-rdy5DzkSkdXp6VM%2F-MdWXc4-iyw6LOwtZ90R%2F-MdWfiqPXhasXmnJESvb%2Fimage.png?alt=media&token=11a1af05-bbde-4941-be28-3274fac85146" style="height: 400px; width:600px;"/>
 
 *Figure 2. High Level Overview of Bridge Mutual’s Mechanism*
 
@@ -504,7 +530,8 @@ investors with risk appetite. The free capital in the insurance capital
 pool can be placed into the investment pool to gain a higher yield,
 while the insurance arm will protect the investment activities.
 Meanwhile, the investment arm’s yield will complement the premium on the
-insurance side and reduce the cover cost for customers.”[^8]
+insurance side and reduce the cover cost for customers.”
+‘Whitepaper’[^8]
 
 **Pricing model**
 
@@ -657,7 +684,7 @@ projects by assessing:
 
 **Claim process**
 
-<img src="https://399601259-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/assets%2Fnsure-network%2F-MX6EZjd-IYguhPxsT3i%2F-MX6K9inCZbKlXukrmEm%2F0.png?generation=1617178176984217&alt=media" style="height: 500px; width:700px;"/>
+<img src="https://399601259-files.gitbook.io/~/files/v0/b/gitbook-28427.appspot.com/o/assets%2Fnsure-network%2F-MX6EZjd-IYguhPxsT3i%2F-MX6K9inCZbKlXukrmEm%2F0.png?generation=1617178176984217&alt=media" style="height: 500px; width:700px;"/>
 
 *Figure 4: Nsure claim process*
 
@@ -885,28 +912,137 @@ conclusions:
 
 # Bibliography
 
-<div id="refs">
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-HistoryLloydFounding1928" class="csl-entry">
+
+‘A History of Lloyd’s: From the Founding of Lloyd’s <span
+class="nocase">Coffee-house</span> to the Present Day’, *Nature*,
+122.3069 (1928), 267–68
+\<https://doi.org/[10.1038/122267a0](https://doi.org/10.1038/122267a0)\>
 
 </div>
 
-[^1]: [**HistoryLloydFounding1928?**](#ref-HistoryLloydFounding1928)
+<div id="ref-CapacityLimits" class="csl-entry">
 
-[^2]: [**outrevilleInsuranceConcepts1998?**](#ref-outrevilleInsuranceConcepts1998)
+‘Capacity Limits’
+\<<https://nexusmutual.gitbook.io/docs/users/understanding-nexus-mutual/capacity-limits>\>
+\[accessed 22 March 2022\]
 
-[^3]: [**litanRegulatingInsuranceCrisis2009?**](#ref-litanRegulatingInsuranceCrisis2009)
+</div>
 
-[^4]: [**TopDecentralizedInsurance2021?**](#ref-TopDecentralizedInsurance2021)
+<div id="ref-CoverProducts" class="csl-entry">
 
-[^5]: [**NexusMutualBuy?**](#ref-NexusMutualBuy)
+‘Cover Products’
+\<<https://nexusmutual.gitbook.io/docs/welcome/faq/cover-products>\>
+\[accessed 11 March 2022\]
 
-[^6]: [**CoverProducts?**](#ref-CoverProducts)
+</div>
 
-[^7]: [**CapacityLimits?**](#ref-CapacityLimits)
+<div id="ref-etheriscEtheriscChainlinkLaunch2022" class="csl-entry">
 
-[^8]: [**Whitepaper?**](#ref-Whitepaper)
+Etherisc, ‘Etherisc and Chainlink Launch Joing Grant Program’, *Medium*,
+2022
+\<<https://blog.etherisc.com/supporting-the-development-of-blockchain-based-insurance-solutions-through-the-chainlink-etherisc-c1d34076926b>\>
+\[accessed 22 March 2022\]
 
-[^9]: [**EtheriscDecentralizedInsurance?**](#ref-EtheriscDecentralizedInsurance)
+</div>
 
-[^10]: [**etheriscEtheriscChainlinkLaunch2022?**](#ref-etheriscEtheriscChainlinkLaunch2022)
+<div id="ref-EtheriscDecentralizedInsurance" class="csl-entry">
 
-[^11]: [**EtheriscLaunchesFlight?**](#ref-EtheriscLaunchesFlight)
+‘Etherisc - Decentralized Insurance’ \<<https://etherisc.com/>\>
+\[accessed 14 March 2022\]
+
+</div>
+
+<div id="ref-EtheriscLaunchesFlight" class="csl-entry">
+
+‘Etherisc Launches Flight Delay Insurance Platform That Leverages
+Chainlink Data’
+\<<https://finance.yahoo.com/news/etherisc-launches-flight-delay-insurance-140029295.html>\>
+\[accessed 14 March 2022\]
+
+</div>
+
+<div id="ref-litanRegulatingInsuranceCrisis2009" class="csl-entry">
+
+Litan, Robert E, ‘Regulating Insurance After The Crisis’, 2009, 20
+
+</div>
+
+<div id="ref-NexusMutualBuy" class="csl-entry">
+
+‘Nexus Mutual - Buy Cover’ \<<https://app.nexusmutual.io/cover>\>
+\[accessed 11 March 2022\]
+
+</div>
+
+<div id="ref-outrevilleInsuranceConcepts1998" class="csl-entry">
+
+Outreville, J., ‘Insurance Concepts’, 1998, pp. 131–46
+\<https://doi.org/[10.1007/978-1-4615-6187-3_8](https://doi.org/10.1007/978-1-4615-6187-3_8)\>
+
+</div>
+
+<div id="ref-TopDecentralizedInsurance2021" class="csl-entry">
+
+‘Top Decentralized Insurance for DeFi Investors in 2021 \|
+Bitcoinist.com’, 2021
+\<<https://bitcoinist.com/top-decentralized-insurance-for-defi-investors-in-2021/>\>
+\[accessed 10 March 2022\]
+
+</div>
+
+<div id="ref-Whitepaper" class="csl-entry">
+
+‘Whitepaper’
+\<<https://docs.insurace.io/landing-page/documentation-1/whitepaper>\>
+\[accessed 13 March 2022\]
+
+</div>
+
+</div>
+
+[^1]: [‘A History of Lloyd’s: From the Founding of Lloyd’s <span
+    class="nocase">Coffee-house</span> to the Present Day’, *Nature*,
+    122.3069 (1928), 267–68
+    \<https://doi.org/[10.1038/122267a0](https://doi.org/10.1038/122267a0)\>](#ref-HistoryLloydFounding1928).
+
+[^2]: [J. Outreville, ‘Insurance Concepts’, 1998, pp. 131–46
+    \<https://doi.org/[10.1007/978-1-4615-6187-3_8](https://doi.org/10.1007/978-1-4615-6187-3_8)\>](#ref-outrevilleInsuranceConcepts1998).
+
+[^3]: [Robert E Litan, ‘Regulating Insurance After The Crisis’, 2009,
+    20](#ref-litanRegulatingInsuranceCrisis2009).
+
+[^4]: [‘Top Decentralized Insurance for DeFi Investors in 2021 \|
+    Bitcoinist.com’, 2021
+    \<<https://bitcoinist.com/top-decentralized-insurance-for-defi-investors-in-2021/>\>
+    \[accessed 10 March 2022\]](#ref-TopDecentralizedInsurance2021).
+
+[^5]: [‘Nexus Mutual - Buy Cover’ \<<https://app.nexusmutual.io/cover>\>
+    \[accessed 11 March 2022\]](#ref-NexusMutualBuy).
+
+[^6]: [‘Cover Products’
+    \<<https://nexusmutual.gitbook.io/docs/welcome/faq/cover-products>\>
+    \[accessed 11 March 2022\]](#ref-CoverProducts).
+
+[^7]: [‘Capacity Limits’
+    \<<https://nexusmutual.gitbook.io/docs/users/understanding-nexus-mutual/capacity-limits>\>
+    \[accessed 22 March 2022\]](#ref-CapacityLimits).
+
+[^8]: [\<[Https://docs.insurace.io/landing-page/documentation-1/whitepaper](https://docs.insurace.io/landing-page/documentation-1/whitepaper)\>
+    \[accessed 13 March 2022\]](#ref-Whitepaper).
+
+[^9]: [‘Etherisc - Decentralized Insurance’ \<<https://etherisc.com/>\>
+    \[accessed 14 March 2022\]](#ref-EtheriscDecentralizedInsurance).
+
+[^10]: [Etherisc, ‘Etherisc and Chainlink Launch Joing Grant Program’,
+    *Medium*, 2022
+    \<<https://blog.etherisc.com/supporting-the-development-of-blockchain-based-insurance-solutions-through-the-chainlink-etherisc-c1d34076926b>\>
+    \[accessed 22 March
+    2022\]](#ref-etheriscEtheriscChainlinkLaunch2022).
+
+[^11]: [‘Etherisc Launches Flight Delay Insurance Platform That
+    Leverages Chainlink Data’
+    \<<https://finance.yahoo.com/news/etherisc-launches-flight-delay-insurance-140029295.html>\>
+    \[accessed 14 March 2022\]](#ref-EtheriscLaunchesFlight).

@@ -1,9 +1,47 @@
----
-title: BLS vs Schnorr vs ECDSA digital signatures
-subtitle: ERFC - 39
-author: Andrej Rakic
-date: 3/4/2022
----
+BLS vs Schnorr vs ECDSA digital signatures
+================
+Andrej
+March 4, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+    -   <a href="#quick-recap-ecdsa" id="toc-quick-recap-ecdsa">Quick recap:
+        ECDSA</a>
+        -   <a href="#secp256k1" id="toc-secp256k1">secp256k1</a>
+        -   <a href="#private-and-public-keys"
+            id="toc-private-and-public-keys">Private and public keys</a>
+        -   <a href="#signing-and-verification"
+            id="toc-signing-and-verification">Signing and verification</a>
+        -   <a href="#ecdsa-verification-in-solidity"
+            id="toc-ecdsa-verification-in-solidity">ECDSA verification in
+            Solidity</a>
+        -   <a href="#ecdsa-verification-in-javascripttypescript"
+            id="toc-ecdsa-verification-in-javascripttypescript">ECDSA verification
+            in Javascript/Typescript</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+    -   <a href="#bls" id="toc-bls">BLS</a>
+        -   <a href="#bls12-381" id="toc-bls12-381">BLS12-381</a>
+        -   <a href="#private-and-public-keys-1"
+            id="toc-private-and-public-keys-1">Private and public keys</a>
+        -   <a href="#signing" id="toc-signing">Signing</a>
+        -   <a href="#verification" id="toc-verification">Verification</a>
+        -   <a href="#aggregation" id="toc-aggregation">Aggregation</a>
+        -   <a href="#bls-verification-in-solidity"
+            id="toc-bls-verification-in-solidity">BLS verification in Solidity</a>
+        -   <a href="#bls-verification-in-javascripttypescript"
+            id="toc-bls-verification-in-javascripttypescript">BLS verification in
+            Javascript/Typescript</a>
+    -   <a href="#schnorr" id="toc-schnorr">Schnorr</a>
+        -   <a href="#batch-validation" id="toc-batch-validation">Batch
+            validation</a>
+        -   <a href="#key-aggregation" id="toc-key-aggregation">Key aggregation</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#appendices" id="toc-appendices">Appendices</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -435,3 +473,11 @@ these new changes and how efficient will they be because we already
 concluded from the paper that the reason for switching from ECDSA is
 justified. We should monitor also the Bitcoin timeframe to be able to
 disscus more about Schnoor signatures implementation.
+
+# Appendices
+
+# Bibliography
+
+<div id="refs">
+
+</div>

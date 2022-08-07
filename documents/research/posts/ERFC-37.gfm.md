@@ -1,9 +1,45 @@
----
-title: Gaming DAPPs - Play to Earn model
-subtitle: ERFC - 37
-author: Milos Bojinovic
-date: 02/24/2022  
----
+Gaming DAPPs - Play to Earn model
+================
+Milos Bojinovic
+February 24, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#ronin-sidechain" id="toc-ronin-sidechain">Ronin sidechain</a>
+    -   <a href="#scholarships" id="toc-scholarships">Scholarships</a>
+    -   <a href="#game-breakdown" id="toc-game-breakdown">Game Breakdown</a>
+    -   <a href="#matches" id="toc-matches">Matches</a>
+        -   <a href="#team-formations" id="toc-team-formations">Team formations</a>
+        -   <a href="#rounds" id="toc-rounds">Rounds</a>
+        -   <a href="#drawing-of-cards" id="toc-drawing-of-cards">Drawing of
+            Cards</a>
+        -   <a href="#reveal-of-the-cards" id="toc-reveal-of-the-cards">Reveal of
+            the Cards</a>
+        -   <a href="#battle-of-the-round" id="toc-battle-of-the-round">Battle of
+            the Round</a>
+    -   <a href="#summary-of-proposed-matched-progression"
+        id="toc-summary-of-proposed-matched-progression">Summary of proposed
+        matched progression</a>
+        -   <a href="#inital-proposal" id="toc-inital-proposal">Inital proposal</a>
+        -   <a href="#improved-match-progression"
+            id="toc-improved-match-progression">Improved Match Progression</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#appendices" id="toc-appendices">Appendices</a>
+    -   <a href="#appendix-a" id="toc-appendix-a">Appendix A</a>
+        -   <a href="#axie-classes" id="toc-axie-classes">Axie Classes</a>
+        -   <a href="#axie-stats" id="toc-axie-stats">Axie Stats</a>
+        -   <a href="#axie-body-parts" id="toc-axie-body-parts">Axie Body Parts</a>
+        -   <a href="#axie-abilities-cards" id="toc-axie-abilities-cards">Axie
+            Abilities (Cards)</a>
+        -   <a href="#axie-card-buffsdebuffs-card-effects"
+            id="toc-axie-card-buffsdebuffs-card-effects">Axie Card Buffs/Debuffs
+            (Card Effects)</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 

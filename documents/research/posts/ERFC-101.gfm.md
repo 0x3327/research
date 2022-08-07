@@ -1,9 +1,17 @@
----
-title: NFT that is bound by time
-subtitle: ERFC - 101
-author: Marija Mijailovic
-date: 3/14/2022  
----
+NFT that is bound by time
+================
+Marija Mijailovic
+March 14, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 

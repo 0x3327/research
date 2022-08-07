@@ -1,9 +1,24 @@
----
-title: ZK NFT Mixer
-subtitle: ERFC - 270
-author: Aleksandar Veljković
-date: 6/5/2022  
----
+# \[ERFC - 270\] ZK NFT Mixer
+
+|               |                      |
+|:--------------|----------------------|
+| **Author(s)** | Aleksandar Veljković |
+| **Date**      | 6/5/2022             |
+
+### Table of Contents
+
+-   [Executive Summary](#executive-summary)
+-   [Introduction](#introduction)
+-   [Goals & Methodology](#goals-methodology)
+    -   [Depositing NFTs from Ethereum to the side
+        chain](#depositing-nfts-from-ethereum-to-the-side-chain)
+    -   [Transfering NFTs on the
+        sidechain](#transfering-nfts-on-the-sidechain)
+    -   [Withdrawing NFTs from the side chain to
+        Ethereum](#withdrawing-nfts-from-the-side-chain-to-ethereum)
+-   [Results & Discussion](#results-discussion)
+-   [Conclusion](#conclusion)
+-   [Bibliography](#bibliography)
 
 # Executive Summary
 

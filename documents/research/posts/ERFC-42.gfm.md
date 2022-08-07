@@ -1,9 +1,18 @@
----
-title: Analysis of smart contract fuzzers
-subtitle: ERFC - 42
-author: Marija Mijailovic
-date: 2/17/2022
----
+Analyze of smart contract fuzzers
+================
+Marija Mijailovic
+February 17, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#appendices" id="toc-appendices">Appendices</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -374,8 +383,7 @@ Figure13 : Echidna found Integer Bug with 0.8.9
 
 <div id="ref-BuildingsecurecontractsWorkflowMd" class="csl-entry">
 
-‘Building-Secure-Contracts/Workflow.md at Master
-![\\cdot](https://latex.codecogs.com/svg.latex?%5Ccdot "\cdot")
+‘Building-Secure-Contracts/Workflow.md at Master $\cdot$
 Crytic/Building-Secure-Contracts’, *GitHub*
 \<<https://github.com/crytic/building-secure-contracts>\> \[accessed 14
 February 2022\]
@@ -390,6 +398,13 @@ and Dynamic Data-Flow Analyses’, in *2021 36th IEEE/ACM International
 Conference on Automated Software Engineering (ASE)* (Melbourne,
 Australia: IEEE, 2021), pp. 227–39
 \<https://doi.org/[10.1109/ASE51524.2021.9678888](https://doi.org/10.1109/ASE51524.2021.9678888)\>
+
+</div>
+
+<div id="ref-CryticEchidnaEthereum" class="csl-entry">
+
+‘Crytic/Echidna: Ethereum Smart Contract Fuzzer’
+\<<https://github.com/crytic/echidna>\> \[accessed 28 February 2022\]
 
 </div>
 
@@ -432,6 +447,14 @@ Siegel, David, ‘Understanding The DAO Attack’, 2016
 
 </div>
 
+<div id="ref-Smartian2022" class="csl-entry">
+
+‘Smartian’ (SoftSec Lab, 2022)
+\<<https://github.com/SoftSec-KAIST/Smartian>\> \[accessed 28 February
+2022\]
+
+</div>
+
 <div id="ref-ParityWalletHack2017" class="csl-entry">
 
 ‘The Parity Wallet Hack Explained’, *OpenZeppelin Blog*, 2017
@@ -456,8 +479,7 @@ Siegel, David, ‘Understanding The DAO Attack’, 2016
     \<<https://www.coindesk.com/tech/2020/10/26/harvest-finance-24m-attack-triggers-570m-bank-run-in-latest-defi-exploit/>\>
     \[accessed 11 February 2022\]](#ref-foxleyHarvestFinance24M2020).
 
-[^4]: [‘Building-Secure-Contracts/Workflow.md at Master
-    ![\\cdot](https://latex.codecogs.com/svg.latex?%5Ccdot "\cdot")
+[^4]: [‘Building-Secure-Contracts/Workflow.md at Master $\cdot$
     Crytic/Building-Secure-Contracts’, *GitHub*
     \<<https://github.com/crytic/building-secure-contracts>\> \[accessed
     14 February 2022\]](#ref-BuildingsecurecontractsWorkflowMd).
@@ -472,7 +494,9 @@ Siegel, David, ‘Understanding The DAO Attack’, 2016
     Fuzzing for Smart Contracts’, in *ISSTA 2020*,
     2020](#ref-griecoEchidnaEffectiveUsable2020).
 
-[^7]: [**CryticEchidnaEthereum?**](#ref-CryticEchidnaEthereum)
+[^7]: [‘Crytic/Echidna: Ethereum Smart Contract Fuzzer’
+    \<<https://github.com/crytic/echidna>\> \[accessed 28 February
+    2022\]](#ref-CryticEchidnaEthereum).
 
 [^8]: [‘Etheno’ (Crytic, 2022) \<<https://github.com/crytic/etheno>\>
     \[accessed 28 February 2022\]](#ref-Etheno2022).
@@ -483,4 +507,6 @@ Siegel, David, ‘Understanding The DAO Attack’, 2016
     \<<https://github.com/crytic/slither>\> \[accessed 11 February
     2022\]](#ref-SlitherSoliditySource2022).
 
-[^11]: [**Smartian2022?**](#ref-Smartian2022)
+[^11]: [‘Smartian’ (SoftSec Lab, 2022)
+    \<<https://github.com/SoftSec-KAIST/Smartian>\> \[accessed 28
+    February 2022\]](#ref-Smartian2022).

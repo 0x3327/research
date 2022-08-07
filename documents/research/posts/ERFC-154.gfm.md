@@ -1,9 +1,20 @@
----
-title: Blacklisting Platform based on untransferable NFTs
-subtitle: ERFC - 154
-author: Aleksandar Damjanovic
-date: 3/31/2022
----
+Blacklisting Platform based on untransferable NFTs
+================
+Aleksandar Damjanovic
+March 31, 2022
+
+-   <a href="#executive-summary" id="toc-executive-summary">Executive
+    Summary</a>
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#goals-methodology" id="toc-goals-methodology">Goals &amp;
+    Methodology</a>
+-   <a href="#results-discussion" id="toc-results-discussion">Results &amp;
+    Discussion</a>
+    -   <a href="#blacklisting" id="toc-blacklisting">Blacklisting</a>
+    -   <a href="#untransferable-nfts"
+        id="toc-untransferable-nfts">Untransferable NFTs</a>
+-   <a href="#conclusion" id="toc-conclusion">Conclusion</a>
+-   <a href="#bibliography" id="toc-bibliography">Bibliography</a>
 
 # Executive Summary
 
@@ -72,7 +83,7 @@ they cannot move the funds.
 They managed that by importing the Blacklist contract in their main
 contract. We will try to explain the contract in the code-box comments
 below:
-```js
+
     contract BlackList is Ownable, BasicToken {
 
         // Getters to allow the same blacklist to be used also by other contracts.(including upgraded Tether) 
@@ -116,12 +127,11 @@ below:
         event RemovedBlackList(address _user);
 
     }
-```
 
 Then they simply put the require statement in all their main contract
 functions(except for the ones with the “Only Owner modifier”) for
 example:
-```js
+
     // Require statement above makes sure the blacklisted address can't access the function.
     function transferFrom(address _from, address _to, uint _value) public whenNotPaused {
             require(!isBlackListed[_from]);
@@ -131,7 +141,7 @@ example:
                 return super.transferFrom(_from, _to, _value);
             }
         }
-```
+
 This approach to blacklisting gives the Tether the absolute control in
 what addresses it blacklists and for how long.
 

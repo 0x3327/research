@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.556">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andrej">
+<meta name="dcterms.date" content="2022-03-04">
+
+<title>3327 Research - BLS vs Schnorr vs ECDSA digital signatures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - BLS vs Schnorr vs ECDSA digital signatures">
+<meta property="og:description" content="Bitcoin and Ethereum both use elliptic-curve cryptography for generating keys and signing transactions.">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - BLS vs Schnorr vs ECDSA digital signatures">
+<meta name="twitter:description" content="Bitcoin and Ethereum both use elliptic-curve cryptography for generating keys and signing transactions.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../logo.png" alt="">
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">BLS vs Schnorr vs ECDSA digital signatures</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andrej </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 4, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#quick-recap-ecdsa" id="toc-quick-recap-ecdsa" class="nav-link" data-scroll-target="#quick-recap-ecdsa">Quick recap: ECDSA</a>
+  <ul class="collapse">
+  <li><a href="#secp256k1" id="toc-secp256k1" class="nav-link" data-scroll-target="#secp256k1">secp256k1</a></li>
+  <li><a href="#private-and-public-keys" id="toc-private-and-public-keys" class="nav-link" data-scroll-target="#private-and-public-keys">Private and public keys</a></li>
+  <li><a href="#signing-and-verification" id="toc-signing-and-verification" class="nav-link" data-scroll-target="#signing-and-verification">Signing and verification</a></li>
+  <li><a href="#ecdsa-verification-in-solidity" id="toc-ecdsa-verification-in-solidity" class="nav-link" data-scroll-target="#ecdsa-verification-in-solidity">ECDSA verification in Solidity</a></li>
+  <li><a href="#ecdsa-verification-in-javascripttypescript" id="toc-ecdsa-verification-in-javascripttypescript" class="nav-link" data-scroll-target="#ecdsa-verification-in-javascripttypescript">ECDSA verification in Javascript/Typescript</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a>
+  <ul class="collapse">
+  <li><a href="#bls" id="toc-bls" class="nav-link" data-scroll-target="#bls">BLS</a>
+  <ul class="collapse">
+  <li><a href="#bls12-381" id="toc-bls12-381" class="nav-link" data-scroll-target="#bls12-381">BLS12-381</a></li>
+  <li><a href="#private-and-public-keys-1" id="toc-private-and-public-keys-1" class="nav-link" data-scroll-target="#private-and-public-keys-1">Private and public keys</a></li>
+  <li><a href="#signing" id="toc-signing" class="nav-link" data-scroll-target="#signing">Signing</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
+  <li><a href="#aggregation" id="toc-aggregation" class="nav-link" data-scroll-target="#aggregation">Aggregation</a></li>
+  <li><a href="#bls-verification-in-solidity" id="toc-bls-verification-in-solidity" class="nav-link" data-scroll-target="#bls-verification-in-solidity">BLS verification in Solidity</a></li>
+  <li><a href="#bls-verification-in-javascripttypescript" id="toc-bls-verification-in-javascripttypescript" class="nav-link" data-scroll-target="#bls-verification-in-javascripttypescript">BLS verification in Javascript/Typescript</a></li>
+  </ul></li>
+  <li><a href="#schnorr" id="toc-schnorr" class="nav-link" data-scroll-target="#schnorr">Schnorr</a>
+  <ul class="collapse">
+  <li><a href="#batch-validation" id="toc-batch-validation" class="nav-link" data-scroll-target="#batch-validation">Batch validation</a></li>
+  <li><a href="#key-aggregation" id="toc-key-aggregation" class="nav-link" data-scroll-target="#key-aggregation">Key aggregation</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#appendices" id="toc-appendices" class="nav-link" data-scroll-target="#appendices">Appendices</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-39.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>Bitcoin and Ethereum both use elliptic-curve cryptography for generating keys and signing transactions. The algorithm they both use is called Elliptic Curve Digital Signature Algorithm (ECDSA), which represents a secure way of signing a message (a transaction for example) using Elliptic Curve Cryptography (ECC). This is a comparative analysis of BLS, Schnorr, and ECDSA signatures. The goal is to understand why are Ethereum and Bitcoin migrating from ECDSA, why BLS and Schnorr are superior to ECDSA and what are the key differences between them, how to use these signatures in the development and which Elliptic curves they are using and why.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>The main goal of this paper is to provide a clear understanding of the differences between them and how to use them in future protocol development; to understand why is Bitcoin migrating from ECDSA to Schnorr and why Ethereum is migrating from ECDSA to BLS.</p>
+<section id="quick-recap-ecdsa" class="level2">
+<h2 class="anchored" data-anchor-id="quick-recap-ecdsa">Quick recap: ECDSA</h2>
+<p>Modern cryptography is founded on the idea that the key that you use to encrypt your data can be made public while the key that is used to to decrypt your data can be kept private. As such, these systems are known as public-key cryptographic systems.</p>
+<p>ECDSA stands for Elliptic Curve Digital Signature Algorithm. Elliptic curve cryptography is a form of public key cryptography which is based on the algebraic structure of elliptic curves over finite fields. Used by both Bitcoin and Ethereum.</p>
+<p>Elliptic curve: secp256k1</p>
+<section id="secp256k1" class="level3">
+<h3 class="anchored" data-anchor-id="secp256k1">secp256k1</h3>
+<p>The elliptic curve domain parameters over <code>Fp</code> associated with a Koblitz curve secp256k1 are specified by the sextuple <code>T = (p, a, b, G, n, h)</code> where the finite field <code>Fp</code> is defined by:</p>
+<ul>
+<li>p = <code>0xFFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFE FFFFFC2F</code> = <code>2^256 − 2^32 − 2^9 − 2^8 − 2^7 − 2^6 − 2^4 − 1</code></li>
+</ul>
+<p>The curve <strong>E</strong>: <code>y^2 = x^3 + ax + b</code> over Fp is defined by:</p>
+<ul>
+<li>a = <code>0x00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000</code></li>
+<li>b = <code>0x00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000007</code></li>
+</ul>
+<p>The base point <strong>G</strong> in compressed form is:</p>
+<ul>
+<li><code>0x02 79BE667E F9DCBBAC 55A06295 CE870B07 029BFCDB 2DCE28D9 59F2815B 16F81798</code></li>
+</ul>
+<p>and in uncompressed form is:</p>
+<ul>
+<li><code>0x04 79BE667E F9DCBBAC 55A06295 CE870B07 029BFCDB 2DCE28D9 59F2815B 16F81798 483ADA77 26A3C465 5DA4FBFC 0E1108A8 FD17B448 A6855419 9C47D08F FB10D4B8</code></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/ethereumbook/ethereumbook/raw/develop/images/simple_elliptic_curve.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">secp256k1 curve</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="private-and-public-keys" class="level3">
+<h3 class="anchored" data-anchor-id="private-and-public-keys">Private and public keys</h3>
+<p>Private keys are generated as random 256 bits or 64 random hex characters or 32 random bytes. The public key is derived from the private key using ECDSA. Public key is a point on secp256k1 elliptic curve, generated by formula <code>K = k * G</code> where <code>K</code> is public key, <code>k</code> is private key, <code>G</code> is the constant point on secp256k1 elliptic curve and <code>*</code> is the multiplication operator on secp256k1 elliptic curve. There is no inverse, “<code>/</code>” operator, therefore the relationship between <code>k</code> and <code>K</code> is fixed, but can only be calculated in one direction, from <code>k</code> to <code>K</code>. A private key can be converted into a public key, but a public key cannot be converted back into a private key, because the math only works one way. The multiplication of <code>k * G</code> is equivalent to repeated addition, so <code>G + G + G + …​ + G</code>, repeated <code>k</code> times.</p>
+</section>
+<section id="signing-and-verification" class="level3">
+<h3 class="anchored" data-anchor-id="signing-and-verification">Signing and verification</h3>
+<p>To sign and verify ECDSA signature using OpenSSL, do next</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate private key</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> genpkey <span class="at">-algorithm</span> rsa <span class="at">-out</span> privatni.pem</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate public key out of private key</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> rsa <span class="at">-pubout</span> <span class="at">-in</span> privatni.pem <span class="at">-out</span> javni.pem</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test message for signing</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Test"</span> <span class="op">&gt;</span> message.txt</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Sign the message (with Bitcoin's hashing alghorithm)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> dgst <span class="at">-sha256</span> <span class="at">-sign</span> privatni.pem <span class="at">-out</span> signature.bin message.txt</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Verification</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> dgst <span class="at">-sha256</span> <span class="at">-verify</span> javni.pem <span class="at">-signature</span> signature.bin message.txt</span></code></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://miro.medium.com/max/1400/1*aWEbhqQIpHXZgvNpRSi54g@2x.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">ecdsa signing</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="ecdsa-verification-in-solidity" class="level3">
+<h3 class="anchored" data-anchor-id="ecdsa-verification-in-solidity">ECDSA verification in Solidity</h3>
+<pre class="solidty"><code>import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+
+contract Example {
+  address public admin;
+
+  constructor() {
+    admin = msg.sender;
+  }
+
+  function verify(bytes32 _digest, bytes calldata _signature) public view returns(bool) {
+    return admin == ECDSA.recover(_digest, _signature);
+  }
+}</code></pre>
+</section>
+<section id="ecdsa-verification-in-javascripttypescript" class="level3">
+<h3 class="anchored" data-anchor-id="ecdsa-verification-in-javascripttypescript">ECDSA verification in Javascript/Typescript</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { SignerWithAddress } <span class="im">from</span> <span class="st">'@nomiclabs/hardhat-ethers/signers'</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { utils } <span class="im">from</span> <span class="st">'ethers'</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { expect } <span class="im">from</span> <span class="st">'chai'</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>(<span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> admin<span class="op">:</span> SignerWithAddress<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    [admin] <span class="op">=</span> <span class="cf">await</span> ethers<span class="op">.</span><span class="fu">getSigners</span>()<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> message<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> <span class="st">'Hello World'</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> msgHash<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> utils<span class="op">.</span><span class="fu">hashMessage</span>(message)<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> digest<span class="op">:</span> <span class="bu">Uint8Array</span> <span class="op">=</span> utils<span class="op">.</span><span class="fu">arrayify</span>(msgHash)<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> signature<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> <span class="cf">await</span> admin<span class="op">.</span><span class="fu">signMessage</span>(message)<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> address<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> utils<span class="op">.</span><span class="fu">recoverAddress</span>(digest<span class="op">,</span> signature)<span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect</span>(address)<span class="op">.</span><span class="at">to</span><span class="op">.</span><span class="fu">equal</span>(admin<span class="op">.</span><span class="at">address</span>)<span class="op">;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>})()<span class="op">;</span></span></code></pre></div>
+</section>
+</section>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<section id="bls" class="level2">
+<h2 class="anchored" data-anchor-id="bls">BLS</h2>
+<p>BLS stands for Boneh-Lynn-Shacham, it’s a signature scheme that is based on bi-linear pairings. A pairing, defined as <code>e(,)</code>, is a bilinear map of 2 groups <code>G1</code> and <code>G2</code> in some other group, <code>GT</code>. <code>e(,)</code> takes as arguments points in G1 and G2.</p>
+<p>Pairings that verifies a signature looks like this:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">e</span><span class="er">(</span><span class="ex">g1,</span> sig<span class="kw">)</span> <span class="ex">=</span> e<span class="er">(</span><span class="ex">P,</span> H<span class="er">(</span><span class="ex">m</span><span class="kw">))</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or in expanded form like this</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">e</span><span class="er">(</span><span class="ex">g1,</span> pk<span class="pp">*</span>H<span class="er">(</span><span class="ex">m</span><span class="kw">))</span> <span class="ex">=</span> e<span class="er">(</span><span class="ex">pk*g1,</span> H<span class="er">(</span><span class="ex">m</span><span class="kw">))</span> <span class="ex">=</span> e<span class="er">(</span><span class="ex">g1,</span> pk<span class="pp">*</span>H<span class="er">(</span><span class="ex">m</span><span class="kw">))</span></span></code></pre></div>
+<p><code>H(m)</code> is hashing a message to a point on an elliptic curve.</p>
+<p>BLS consists of:</p>
+<ul>
+<li><p><strong>KeyGen</strong> — choose a random <code>α</code>. Given generator <code>g1</code>, <code>P=α*g1</code></p></li>
+<li><p><strong>Sign</strong> — <code>σ = α*H(m) ∈ G2</code> (in the case of ETH 2.0)</p></li>
+<li><p><strong>Verify<code>(P,m, σ)</code></strong> — if <code>e(g1, σ) = e(P, H(m))</code> return <code>true</code>.</p></li>
+</ul>
+<p>Elliptic curve: BLS12-381</p>
+<section id="bls12-381" class="level3">
+<h3 class="anchored" data-anchor-id="bls12-381">BLS12-381</h3>
+<p>BLS12-381 is a pairing-friendly elliptic curve construction that is optimal for zk-SNARKs at the 128-bit security level.</p>
+<p>Barreto-Naehrig (BN) curves are a class of pairing-friendly elliptic curve constructions built over a base field <code>Fp</code> of order <code>r</code>, where <code>r≈p</code>. It is possible to construct a new BN curve that targets 128-bit security by selecting a curve closer to <code>p≈2^(384)</code>. However, the larger group order <code>r</code> impairs the performance of multi-exponentiation, fast fourier transforms and other cryptographic operations.</p>
+<p>Barreto-Lynn-Scott (BLS) curves are a slightly older class of pairing-friendly curves which now appear to be more useful for targeting this security level. Current research suggests that with <code>p≈2^(384)</code>, and with an embedding degree of 12, these curves target the 128-bit security level.</p>
+</section>
+<section id="private-and-public-keys-1" class="level3">
+<h3 class="anchored" data-anchor-id="private-and-public-keys-1">Private and public keys</h3>
+<p>The private/secret key (to be used for signing) is just a randomly chosen number between <code>1</code> and <code>r−1</code> inclusive. We’ll call it <code>pk</code>.</p>
+<p>The corresponding public key is <code>P=[pk]g1</code>, where <code>g1</code> is the chosen generator of <code>G1</code>. That is, <code>g1</code> multiplied by <code>pk</code>, which is <code>g1</code> added to itself <code>pk</code> times.</p>
+<p>The discrete logarithm problem means that it is unfeasible to recover <code>pk</code> given the public key <code>P</code>.</p>
+</section>
+<section id="signing" class="level3">
+<h3 class="anchored" data-anchor-id="signing">Signing</h3>
+<p>One can sign the message by calculating the signature <code>σ=[pk]H(m)</code>. That is, by multiplying the hash point by our secret key. But what is <code>H</code>?</p>
+<p>To calculate a digital signature over a message, we first need to transform an arbitrary message (byte string) to a point on the <code>G2</code> curve. The initial implementation in Eth2 was “hash-and-check”:</p>
+<ol type="1">
+<li>Hash your message to an integer modulo <code>q</code></li>
+<li>Check if there is a point on the curve with this <code>x</code>-coordinate. If not, add one and repeat</li>
+<li>Once you have a point on the curve multiply it by the <code>G2</code> cofactor to convert it into a point in <code>G2</code>.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://miro.medium.com/max/1400/1*IpmIdJLR36iHnOHq1OqHnw@2x.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">bls signing</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="verification" class="level3">
+<h3 class="anchored" data-anchor-id="verification">Verification</h3>
+<p>Given a message <code>m</code>, a signature <code>σ</code>, and a public key <code>P</code>, we want to verify that it was signed with the <code>pk</code> corresponding to <code>P</code>. The signature is valid if, and only if, <code>e(g1,σ)=e(P,H(m))</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://miro.medium.com/max/1400/1*CyqBtsUTnME5R4QTU_ZZCg@2x.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">bls verification</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="aggregation" class="level3">
+<h3 class="anchored" data-anchor-id="aggregation">Aggregation</h3>
+<p>A really neat property of BLS signatures is that they can be aggregated, so that we need only two pairings to verify a single message signed by <code>n</code> parties, or <code>n - 1</code> pairings to verify <code>n</code> different messages signed by <code>n</code> parties, rather than <code>2n</code> pairings you might naively expect to need. Pairings are expensive to compute, so this is very attractive.</p>
+<p>To aggregate signatures we just have to add up the <code>G2</code> points they correspond to: <code>σagg=σ1+σ2+...+σn</code>. We also aggregate the corresponding <code>G1</code> public key points <code>Pagg=P1+P2+...+Pn</code>.</p>
+<p>Now the magic of pairings means that we can just verify that <code>e(g1,σagg)=e(Pagg,H(m))</code> to verify all the signatures together with just two pairings.</p>
+</section>
+<section id="bls-verification-in-solidity" class="level3">
+<h3 class="anchored" data-anchor-id="bls-verification-in-solidity">BLS verification in Solidity</h3>
+<p>Below shows an example Solidity function that verifies a single signature. EIP-197 defined a pairing precompile contract at address <code>0x8</code> and requires input to a multiple of <code>192</code>. This assembly code calls the precompile contract at address <code>0x8</code> with inputs.</p>
+<pre class="solidity"><code>  // Negated genarator of G2
+  uint256 constant nG2x1 = 11559732032986387107991004021392285783925812861821192530917403151452391805634;
+  uint256 constant nG2x0 = 10857046999023057135944570762232829481370756359578518086990519993285655852781;
+  uint256 constant nG2y1 = 17805874995975841540914202342111839520379459829704422454583296818431106115052;
+  uint256 constant nG2y0 = 13392588948715843804641432497768002650278120570034223513918757245338268106653;
+
+
+function verifySingle(
+    uint256[2] memory signature, \\ small signature
+    uint256[4] memory pubkey, \\ big public key: 96 bytes
+    uint256[2] memory message
+) public view returns (bool) {
+    uint256[12] memory input = [
+        signature[0],
+        signature[1],
+        nG2x1,
+        nG2x0,
+        nG2y1,
+        nG2y0,
+        message[0],
+        message[1],
+        pubkey[1],
+        pubkey[0],
+        pubkey[3],
+        pubkey[2]
+    ];
+    uint256[1] memory out;
+    bool success;
+
+    assembly {
+        success := staticcall(sub(gas(), 2000), 8, input, 384, out, 0x20)
+        switch success
+            case 0 {
+                invalid()
+            }
+    }
+
+    require(success, "");
+    return out[0] != 0;
+}</code></pre>
+</section>
+<section id="bls-verification-in-javascripttypescript" class="level3">
+<h3 class="anchored" data-anchor-id="bls-verification-in-javascripttypescript">BLS verification in Javascript/Typescript</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> bls <span class="op">=</span> <span class="pp">require</span>(<span class="st">'@noble/bls12-381'</span>)<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// keys, messages &amp; other inputs can be Uint8Arrays or hex strings</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> privateKey <span class="op">=</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'67d53f170b908cabb9eb326c3c337762d59289a8fec79f7bc9254b584b73265c'</span><span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> message <span class="op">=</span> <span class="st">'64726e3da8'</span><span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> publicKey <span class="op">=</span> bls<span class="op">.</span><span class="fu">getPublicKey</span>(privateKey)<span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> signature <span class="op">=</span> <span class="cf">await</span> bls<span class="op">.</span><span class="fu">sign</span>(message<span class="op">,</span> privateKey)<span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> isValid <span class="op">=</span> <span class="cf">await</span> bls<span class="op">.</span><span class="fu">verify</span>(signature<span class="op">,</span> message<span class="op">,</span> publicKey)<span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>({ publicKey<span class="op">,</span> signature<span class="op">,</span> isValid })<span class="op">;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Sign 1 msg with 3 keys</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> privateKeys <span class="op">=</span> [</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'18f020b98eb798752a50ed0563b079c125b0db5dd0b1060d1c1b47d4a193e1e4'</span><span class="op">,</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">'ed69a8c50cf8c9836be3b67c7eeff416612d45ba39a5c099d48fa668bf558c9c'</span><span class="op">,</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'16ae669f3be7a2121e17d0c68c05a8f3d6bef21ec0f2315f1d7aec12484e4cf5'</span><span class="op">,</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> messages <span class="op">=</span> [<span class="st">'d2'</span><span class="op">,</span> <span class="st">'0d98'</span><span class="op">,</span> <span class="st">'05caf3'</span>]<span class="op">;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> publicKeys <span class="op">=</span> privateKeys<span class="op">.</span><span class="fu">map</span>(bls<span class="op">.</span><span class="at">getPublicKey</span>)<span class="op">;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> signatures2 <span class="op">=</span> <span class="cf">await</span> <span class="bu">Promise</span><span class="op">.</span><span class="fu">all</span>(</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        privateKeys<span class="op">.</span><span class="fu">map</span>((p) <span class="kw">=&gt;</span> bls<span class="op">.</span><span class="fu">sign</span>(message<span class="op">,</span> p))</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> aggPubKey2 <span class="op">=</span> bls<span class="op">.</span><span class="fu">aggregatePublicKeys</span>(publicKeys)<span class="op">;</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> aggSignature2 <span class="op">=</span> bls<span class="op">.</span><span class="fu">aggregateSignatures</span>(signatures2)<span class="op">;</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> isValid2 <span class="op">=</span> <span class="cf">await</span> bls<span class="op">.</span><span class="fu">verify</span>(aggSignature2<span class="op">,</span> message<span class="op">,</span> aggPubKey2)<span class="op">;</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>({ signatures2<span class="op">,</span> aggSignature2<span class="op">,</span> isValid2 })<span class="op">;</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>})()<span class="op">;</span></span></code></pre></div>
+</section>
+</section>
+<section id="schnorr" class="level2">
+<h2 class="anchored" data-anchor-id="schnorr">Schnorr</h2>
+<p>Schnorr signatures are generated slightly differently than ECDSA. Instead of two scalars <code>(r,s)</code> we use a point <code>R</code> and a scalar <code>s</code>. Similar to ECDSA, <code>R</code> is a random point on elliptic curve <code>(R = k×G)</code>. Second part of the signature is calculated slightly differently: <code>s = k + hash(P,R,m) ⋅ pk</code>. Here <code>pk</code> is your private key, <code>P = pk×G</code> is your public key, <code>m</code> is the message. Then one can verify this signature by checking that <code>s×G = R + hash(P,R,m)×P</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://miro.medium.com/max/1400/1*hIjYiOdjwBVqdRpa5lrJOg@2x.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">schnorr signing</figcaption><p></p>
+</figure>
+</div>
+<p>This equation is linear, so equations can be added and subtracted with each other and still stay valid. This brings us to several nice features of Schnorr signatures that we can use.</p>
+<section id="batch-validation" class="level3">
+<h3 class="anchored" data-anchor-id="batch-validation">Batch validation</h3>
+<p>To verify a block in Bitcoin blockchain we need to make sure that all signatures in the block are valid. If one of them is not valid we don’t care which one - we just reject the whole block and that’s it.</p>
+<p>With ECDSA every signature has to be verified separately. Meaning that if we have 1000 signatures in the block we will need to compute 1000 inversions and 2000 point multiplications. In total ~3000 heavy operations.</p>
+<p>With Schnorr signatures we can add up all the signature verification equations and save some computational power. In total for a block with 1000 transactions we need to verify that</p>
+<pre><code>(s1+s2+…+s1000)×G=(R1+…+R1000)+(hash(P1,R1,m1)×P1+ hash(P2,R2,m2)×P2+…+hash(P1000,R1000,m1000)×P1000)</code></pre>
+<p>Here we have a bunch of point additions (almost free in sense of computational power) and 1001 point multiplication. This is already a factor of 3 improvement - we need to compute roughly one heavy operation per signature.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://miro.medium.com/max/1400/1*ZVUPaZBVXs-ORSI_rrh0fw@2x.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">batch validation</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="key-aggregation" class="level3">
+<h3 class="anchored" data-anchor-id="key-aggregation">Key aggregation</h3>
+<p>We want to keep our bitcoins safe, so we might want to use at least two different private keys to control bitcoins. One we will use on a laptop or a phone and another one - on a hardware wallet / cold wallet. So when one of them is compromised we still have control over our bitcoins.</p>
+<p>Currently it is implemented via 2-of-2 multisig script. This requires two separate signatures to be included in the transaction.</p>
+<p>With Schnorr signatures we can use a pair of private keys <code>(pk1,pk2)</code> and generate a shared signature corresponding to a shared public key <code>P=P1+P2=pk1×G+pk2×G</code>. To generate this signature we need to choose a random number on every device <code>(k1,k2)</code>, generate a random point <code>Ri=ki×G</code>, add them up to calculate a common <code>hash(P,R1+R2,m)</code> and then get <code>s1</code> and <code>s2</code> from every device <code>(si = ki + hash(P,R,m) ⋅ pki)</code>. Then we can add up these signatures and use a pair <code>(R, s) = (R1+R2, s1+s2)</code> as our signature for shared public key <code>P</code>. No one else won’t be able to say if it is an aggregated signature or not - it looks exactly the same as a normal Schnorr signature.</p>
+</section>
+</section>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>A major reason to use this new stack is that it admits efficient aggregation of many signatures into one signature which directly contributes to the scalability of ETH2.0’s security. With this transition, ECDSA signatures aren’t enough anymore as the number of signatures to verify was too big and would take too long on the average machine.</p>
+<p>ETH 2.0 definies 64 committees for every block and each committee can have as many as 2048 validators, with each epoch consisting of 32 blocks. Under normal ECDSA that means 131,072 (64*2048) signatures for every block (12 sec), and 4,194,304 for every epoch (32 blocks). This means that an epoch’s worth of signatures would be 33.6 megabytes which comes to ~7.6 gigabytes per day. In this case, all of the false claims about the ETH 1.0 state-size reaching 1TB back in 2018 would be true in ETH 2.0’s case in fewer than 133 days (based on signatures alone). If every node in the network will need to verify each signature it becomes infeasible to build a scalable, sharded, blockchain.</p>
+<p>As a solution to the above, signature aggregation was considered. Technically it will mean that many signatures could be verified in a batch, significantly shortening the time and resources required. ETH 2.0 makes use of the BLS signatures - a signature scheme defined over several elliptic curves that is friendly to aggregation. On the specific curve chosen, signatures are 96 bytes each. If Alice produces signature A, and Bob’s signature is B on the same data, then both Alice’s and Bob’s signatures can be stored and checked together by only storing C = A + B. By using signature aggregation, only 1 signature needs to be stored and checked for the entire committee. This reduces the storage requirements to less than 2 megabytes per day.</p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>It will be interesting to see how blockchain clients will implement these new changes and how efficient will they be because we already concluded from the paper that the reason for switching from ECDSA is justified. We should monitor also the Bitcoin timeframe to be able to disscus more about Schnoor signatures implementation.</p>
+</section>
+<section id="appendices" class="level1">
+<h1>Appendices</h1>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+<div id="refs" role="doc-bibliography">
+
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

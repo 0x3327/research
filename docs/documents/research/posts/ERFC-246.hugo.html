@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.556">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aleksandar Damjanovic">
+<meta name="dcterms.date" content="2022-06-28">
+
+<title>3327 Research - [ERFC - 246] Token Engineering and Design of complex systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - [ERFC - 246] Token Engineering and Design of complex systems">
+<meta property="og:description" content="This is the first research paper in the series of research exploring Token Economics and Token Engineering tools and processes.">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - [ERFC - 246] Token Engineering and Design of complex systems">
+<meta name="twitter:description" content="This is the first research paper in the series of research exploring Token Economics and Token Engineering tools and processes.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../logo.png" alt="">
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">[ERFC - 246] Token Engineering and Design of complex systems</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Aleksandar Damjanovic </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 28, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+  <ul class="collapse">
+  <li><a href="#steps-in-token-engineering-process" id="toc-steps-in-token-engineering-process" class="nav-link" data-scroll-target="#steps-in-token-engineering-process">Steps in Token Engineering process</a>
+  <ul class="collapse">
+  <li><a href="#system-mapping" id="toc-system-mapping" class="nav-link" data-scroll-target="#system-mapping">System Mapping</a></li>
+  <li><a href="#formalising-the-design" id="toc-formalising-the-design" class="nav-link" data-scroll-target="#formalising-the-design">Formalising the design</a></li>
+  <li><a href="#modularising-the-logic-and-model-building" id="toc-modularising-the-logic-and-model-building" class="nav-link" data-scroll-target="#modularising-the-logic-and-model-building">Modularising the logic and model building</a></li>
+  <li><a href="#refining-the-model" id="toc-refining-the-model" class="nav-link" data-scroll-target="#refining-the-model">Refining the model</a></li>
+  <li><a href="#evaluation-and-improvements-on-the-running-system" id="toc-evaluation-and-improvements-on-the-running-system" class="nav-link" data-scroll-target="#evaluation-and-improvements-on-the-running-system">Evaluation and improvements on the running system</a></li>
+  </ul></li>
+  <li><a href="#machinations" id="toc-machinations" class="nav-link" data-scroll-target="#machinations">Machinations</a></li>
+  <li><a href="#cad-cad" id="toc-cad-cad" class="nav-link" data-scroll-target="#cad-cad">cad Cad</a></li>
+  <li><a href="#tokenspice" id="toc-tokenspice" class="nav-link" data-scroll-target="#tokenspice">TokenSPICE</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-246.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>This is the first research paper in the series of research exploring Token Economics and Token Engineering tools and processes. It provides an introduction to the practice and the Process of Token Engineering. It also covers a portion of systems theory and the three most prevalent tools in the field of Token Engineering. These tools are:</p>
+<ol type="1">
+<li>Machinations - tool token engineers can use in designing Crypto Economic systems in all stages, from System Mapping to Evaluation and improvements on the running system.</li>
+<li>cadCad - the package most often used in designing, testing, and validating complex systems through simulation.</li>
+<li>TokenSPICE - an EVM Agent-Based Token Simulator written in Python which simulates tokenized ecosystems via an agent-based approach, with EVM “in the loop”.</li>
+</ol>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>We as humans are participating in numerous systems in our everyday life. Our families are a system, schools we participate in, markets we shop at, and countries we are residents of all have rules and incentives to get us to comply with their rules and laws. Some incentives are positive (you get paid for your work), and some are negative (steal, and if you are not lucky, you will get caught). Nevertheless, they serve as a guide to the participant’s behavior.</p>
+<p>In Web3, we have tokenized decentralized systems that anyone can participate in. Like any other system, the complex socio-economic system that is Web3 system must have rules and limitations to function correctly and according to its purpose. That is why said systems have their own economies to incentivize system participants towards a specific goal. These economies are called Token Economies, as Token is the medium by which transactions happen, and behavior is incentivized. “Tokens represent a part of the state of any cryptoeconomic systems and can be seen as their atomic unit.” - Shermin Voshmgir and Michael Zargham.</p>
+<p>A token can cover various functions of money: medium of exchange, store of value, or unit of account. A token can represent anything in the confines of the Web3 tokenized system. But the question here is: How to actually design these tokenized ecosystems? How to analyze said design and simulate it?</p>
+<p>This is where the emerging Token Engineering field comes into play.</p>
+<p>Token Engineering as a term was first mentioned in 2018. in the paper “Can Blockchains Go Rogue?” by Trent McConaghy of Ocean Protocol. In the article, he calls blockchains the “incentive machines with the power to get people to do stuff by rewarding with tokens”. Trent McConaghy<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Token engineering is a cross-disciplinary field that draws from systems, electrical, and robotics engineering practices. It also draws from Behavioural and Ecological Economics, AI, and Optimization. Its goal is to create reliable systems that work under varying circumstances and to create tokenomic systems that are exploit-proof. Shermin Voshmgir and Michael Zargham<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p><img src="../assets/ERFC-246/Cryptoecon.png" width="600"></p>
+<p><em>Figure 1: Crypto Economic systems as a cross-disciplinary field</em></p>
+<p>As Crypto Economic systems are complex, Token Engineering process includes:</p>
+<ol type="1">
+<li>Ideation and design of the system</li>
+<li>Modelling</li>
+<li>Simulation</li>
+<li>Testing</li>
+<li>Deployment</li>
+<li>Maintenance</li>
+</ol>
+<p>This research will cover the process of token engineering and the tools used by token engineers to design, model and evaluate Crypto Economic systems. These tools are Machinations, cadCad and tokenSPICE.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The goal of this research is to serve as an introduction to the field of the Token Engineering, the process of Token Engineering and its tools. It will explore the process as a whole. On the tool side, we will examine Machinations, cadCad, and TokenSPICE.</p>
+<p>The research will be done by reviewing the documentation of said tools, trying them out, and interviewing the people behind them. We will also interview an experienced Token Engineer to understand how the process is assessed in practice.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<section id="steps-in-token-engineering-process" class="level2">
+<h2 class="anchored" data-anchor-id="steps-in-token-engineering-process">Steps in Token Engineering process</h2>
+<p>Below we will present some general steps in the process of Token Engineering.</p>
+<section id="system-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="system-mapping">System Mapping</h3>
+<p><strong>Identifying what concepts and constructs are relevant to our model and goals for the system</strong></p>
+<p>Before starting the process, we need to take systems thinking approach. In this stage of the design, the engineer:</p>
+<ul>
+<li>Builds stakeholder taxonomies by identifying stakeholder groups, their possible actions, and the form of their incentives</li>
+<li>Lays out the system dynamics and agent goals.</li>
+</ul>
+<p>Some of the tools for system mapping are Cluster Maps and Ecosystem Canvas:</p>
+<p><strong>Cluster Maps</strong></p>
+<p>The system’s goal is set in the middle of a cluster map while the associated nodes are drawn around it. This is a not-so-rigorous approach and is often used to get an outline of the system engineer is creating.</p>
+<p><img src="../assets/ERFC-246/Cluster.jpeg" width="600"></p>
+<p><em>Figure 2: Cluster map example</em>@acarogluToolsSystemsThinkers2017</p>
+<p><strong>Ecosystem canvas</strong></p>
+<p>When using this method, the purpose of the system is put at the center while key players are laid out in circles radiating outwards.</p>
+<p><img src="../assets/ERFC-246/Ecosystem_canvas.png" width="600"></p>
+<p><em>Figure 3: Ecosystem canvas</em> Author stephenyo<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+</section>
+<section id="formalising-the-design" class="level3">
+<h3 class="anchored" data-anchor-id="formalising-the-design">Formalising the design</h3>
+<p>After the initial phase is the phase of formalizing the design using causal loop diagrams and stock and flow diagrams, there is another tool called Machinations that Token Engineers could use in this step. We will cover Machinations later in the paper.</p>
+<p><strong>Causal Loop Diagrams</strong></p>
+<p>“A causal loop diagram is a”snapshot of all relationships that matter.” It visualizes key variables (i.e., factors, issues, processes) and how they are interconnected. These diagrams show variables represented as texts and causal relationships between them as arrows.” ‘What Is a Causal Loop Diagram and What Is It Good For? | Marketlinks’<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p><img src="../assets/ERFC-246/causal_loop.png" width="600"></p>
+<p><em>Figure 4: Causal Loop Diagram</em></p>
+<p>In a Causal Loop Diagram positive relationships are labeled with a plus sign while negative relationships are labeled with a minus sign. Above example is often used to explain this type of diagrams. It shows how market saturation and word of mouth impact potential adopters and adoption rate.</p>
+<p><strong>Stock and flow diagrams</strong></p>
+<p>Stock and flow diagrams are a more complex way of formalizing the design. You can see below a representation of the simple system using this diagram.</p>
+<p><img src="../assets/ERFC-246/stock_flow.png" width="600"></p>
+<p><em>Figure 5: Stock and Flow Diagram</em></p>
+</section>
+<section id="modularising-the-logic-and-model-building" class="level3">
+<h3 class="anchored" data-anchor-id="modularising-the-logic-and-model-building">Modularising the logic and model building</h3>
+<p>After formalizing the design, system modeling is done using an open-source python package, cadCad. We will cover cadCad in detail in the next section of the paper.</p>
+</section>
+<section id="refining-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="refining-the-model">Refining the model</h3>
+<p>As the name suggests, this is the part in the process where the model is refined using quantitative and qualitative backtesting.</p>
+</section>
+<section id="evaluation-and-improvements-on-the-running-system" class="level3">
+<h3 class="anchored" data-anchor-id="evaluation-and-improvements-on-the-running-system">Evaluation and improvements on the running system</h3>
+<p>After the system is up and running cadCad model can be used as a “digital twin,” which allows token engineers to:</p>
+<ul>
+<li>evaluate proposed changes to the system</li>
+<li>test the sensitivity of parameters</li>
+<li>explore the success criteria and failure modes</li>
+<li>evaluate behaviors and policies</li>
+<li>make recommendations to governance bodies stephenyo<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
+</ul>
+</section>
+</section>
+<section id="machinations" class="level2">
+<h2 class="anchored" data-anchor-id="machinations">Machinations</h2>
+<p>Machinations is a browser-based tool to design and balance game systems. This tool has seen use from game designers, consultants, developers, and analysts. Token Engineers can also use this tool in designing Crypto Economic systems in stages from System Mapping to Evaluation and improvements on the running system. Machinations shines in pre-production.</p>
+<p>Using Machinations, Token Engineer can:</p>
+<ul>
+<li>Map systems in an interactive diagram</li>
+<li>Set parameters that define resource flow</li>
+<li>Plot and analyze the results in real-time using the chart option</li>
+<li>Simulate outcomes for one player journey or stochastically using batch plays</li>
+<li>Export outcomes in CSV</li>
+<li>Export design parameters to Google Sheets</li>
+</ul>
+<p>Machinations is uses these types of nodes:</p>
+<ul>
+<li>Pools that collect Resources</li>
+<li>Sources that create Resources</li>
+<li>Drains that consume/destroy resources</li>
+<li>Converters that transmute resources</li>
+<li>Gates that redistribute resources</li>
+</ul>
+<p>And two types of connections:</p>
+<ul>
+<li>Resource connections that determine how the Resources flow</li>
+<li>State connections that modify the state of diagram elements Dana<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></li>
+</ul>
+<p>Below you will find a basic diagram created in machinations that can be used to see the flow of an AMM system:</p>
+<p><img src="../assets/ERFC-246/Machinations.png" width="600"></p>
+<p><em>Figure 6: Machinations diagram example</em></p>
+<p>This design was done in less than 20 minutes and represents a basic flow of the user exchanging tokens for crypto using our AMM. The Key takeaway is that machinations, even though its main focus is on game design can be used for the stages of System Mapping and Formalising the design.</p>
+</section>
+<section id="cad-cad" class="level2">
+<h2 class="anchored" data-anchor-id="cad-cad">cad Cad</h2>
+<pre><code>                  ___________    ____
+  ________ __ ___/ / ____/   |  / __ \
+ / ___/ __` / __  / /   / /| | / / / /
+/ /__/ /_/ / /_/ / /___/ ___ |/ /_/ /
+\___/\__,_/\__,_/\____/_/  |_/_____/
+by cadCAD                  ver. 0.4.28
+======================================
+       Complex Adaptive Dynamics       
+       o       i        e
+       m       d        s
+       p       e        i
+       u       d        g
+       t                n
+       e
+       r</code></pre>
+<p>cadCad is the package most often used in designing, testing, and validating complex systems through simulation. It supports Monte Carlo methods, A/B testing, and parameter sweeping. cadCad can model systems from agent-based modeling to system dynamic modeling. It can easily be integrated with other Python modules and data science workflows. But first, let’s briefly explain what these methods are:</p>
+<p>“Monte Carlo simulations are used to model the probability of different outcomes in a process that cannot easily be predicted due to the intervention of random variables. It is a technique used to understand the impact of risk and uncertainty in prediction and forecasting models.” ‘What Is a Monte Carlo Simulation?’<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>“A/B Testing is a method to compare two (or more) variations of something and determine which one works better. In this method, users are randomly assigned to one of two variants. A statistical analysis is performed to determine which variation performs better for a defined business goal.”<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<p>“In modeling, parameter sweeps are an important method for fine-tuning parameter values, exploring parameter space, and calibrating simulations to data. A parameter sweep is an iterative process in which simulations are run repeatedly using different values of the parameter(s) of choice. This process enables the modeler to determine a parameter’s”best” value (or range of values), or even where in parameter space the model produces desirable (or non-desirable) behaviors.” ‘Parameter Sweeps and Model Iteration Idmtools Documentation’<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
+<p>Although it can be used to simulate any system that can be described as state variables that evolve over time according to a set of equations, cadCad has seen the most use in the Token Engineering process.</p>
+<p>The first step in modeling using cadCad is the Visual System mapping we mentioned earlier.</p>
+<p>Afterward, the next step is Mathematical specification using differential equations. For example, we will use the simple system of sheep from the cadCad introduction course:</p>
+<p><img src="../assets/ERFC-246/sheeps.png" width="600"></p>
+<p>Here we set the initial differential equations for our model. It is self explanatory. Population growth depends on food sources.</p>
+<p><em>Note: This is a simplified model used to for demonstration, Crypto Economy equations are much more complex</em></p>
+<p>Afterwards, the Modelling and simulation process in general works like this:</p>
+<p><img src="../assets/ERFC-246/cadcad-flow.png" style="width:50.0%;height:50.0%"></p>
+<p><em>Figure 7: cadCad processes</em></p>
+<p>We will briefly explain the steps without going into code examples as we will cover plenty of code examples in future research papers:</p>
+<ol type="1">
+<li>First, the engineer defines all the state variables in the system and their initial values (they can be of any Python data type)</li>
+<li>Afterwards, the variables that impact the behavior of the model.</li>
+<li>Policy functions compute one or more signals to be passed to state update functions. They are used to describe the logic and behavior of a system component.</li>
+<li>State update functions are then designed to define how the model changes over time.</li>
+<li>Partial state update blocks are used for composing state update functions and policy functions in series or parallel.</li>
+</ol>
+<p>Simulation process steps:</p>
+<ol type="1">
+<li>In the configuration stage, engineer ties all the model compenents using “config_sim” and chooses how the simulation should run:
+<ol type="1">
+<li>The number of times it will run</li>
+<li>The number of timesteps the simulation will run for</li>
+<li>The parameters of the system</li>
+</ol></li>
+<li>Execution computes the simulation output</li>
+<li>Output preparation is the process in which data is manipulated and analyzed in order to answer questions about the model.</li>
+<li>Analysis is self explanatory - engineer evaluates the model performance and if there is a need, improves the model. Usually that is the case as the first model is almost always not the optimal one.</li>
+</ol>
+<p>As we can see cadCad covers the entire Token Engineering process with help from stock and flow diagrams and system mapping tools. We will cover this library and its functionalities in great detail in future research papers.</p>
+</section>
+<section id="tokenspice" class="level2">
+<h2 class="anchored" data-anchor-id="tokenspice">TokenSPICE</h2>
+<p>TokenSPICE is an EVM Agent-Based Token Simulator written in Python, which simulates tokenized ecosystems via an agent-based approach, with EVM “in the loop”.</p>
+<p>Ethereum Virtual Machine (EVM) is a computation engine which acts like a decentralized computer that has millions of executable projects. It acts as the virtual machine which is the bedrock of Ethereum’s entire operating structure. ‘Ethereum Virtual Machine (EVM) | CoinMarketCap’<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<p>TokenSPICE has been mainly used in later stage analysis and for verifying and tuning the system designs.</p>
+<p>Agent-based modeling focuses on the individual active components of a system. Agents in tokenSPICE can be DAOs, unique users, and other protocols, making it a versatile tool.</p>
+<p>It can be used in Token Engineering flows to design, tune and verify tokenized ecosystems.</p>
+<p>If the engineer wants to model on the smart contract code directly and skip the equations set up like in cadCad, then the tokenSPICE is the tool of choice.</p>
+<p>It uses Brownie, which treats smart contracts as classes, making it easier to run simulations. It also requires less work upfront in contrast to cadCad. Write the contracts in Solidity, then simulate with tokenSPICE.</p>
+<p>When you run the simulator, the run function in SimEngine.py is triggered and starts the run loop in it:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run(<span class="va">self</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">        @description</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">          Runs the simulation!  This is the main work routine.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">        @return</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">           &lt;&lt;none&gt;&gt; but it continually generates an output csv output_dir</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        log.info(<span class="st">"Begin."</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        log.info(<span class="bu">str</span>(<span class="va">self</span>.state.ss) <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)  <span class="co"># pylint: disable=logging-not-lazy</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="va">True</span>:  </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.takeStep()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="va">self</span>.doStop():</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.state.tick <span class="op">+=</span> <span class="dv">1</span> </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            chain.mine(blocks<span class="op">=</span><span class="dv">1</span>, timedelta<span class="op">=</span><span class="va">self</span>.state.ss.time_step)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        log.info(<span class="st">"Done"</span>)</span></code></pre></div>
+<p>Every single time it loops, every single agent inside the state takes a step:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> takeStep(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Run one tick, updates self.state"""</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        log.debug(<span class="st">"============================================="</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        log.debug(<span class="st">"Tick=</span><span class="sc">%d</span><span class="st">: begin"</span>, (<span class="va">self</span>.state.tick))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="va">self</span>.elapsedSeconds() <span class="op">%</span> <span class="va">self</span>.state.ss.log_interval) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            s, dataheader, datarow <span class="op">=</span> <span class="va">self</span>.createLogData()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            log.info(<span class="st">""</span>.join(s))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.logToCsv(dataheader, datarow)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># main work</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state.takeStep()</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        log.debug(<span class="st">"============================================="</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        log.debug(<span class="st">"Tick=</span><span class="sc">%d</span><span class="st">: done"</span>, <span class="va">self</span>.state.tick)</span></code></pre></div>
+<p>The rest of the file is dedicated to logging the results into CSV format, and we will not examine it further.</p>
+<p>Similarly, the simulation engine also takes a step when the Agents take a step in the simulation.</p>
+<p>Simulation with tokenSPICE can be done using the following command in the terminal and the results can saved in CSV or a plot created in png:</p>
+<pre><code>  tsp plot netlists/scheduler/netlist.py outdir_csv outdir_png</code></pre>
+<p><em>Note: Netlists are just agents “wired-up”</em></p>
+<p>Here we ran a vesting simulation in the Ocean protocol and this is the resulting plot:</p>
+<p><img src="../assets/ERFC-246/vesting.png" width="600"></p>
+<p><em>Figure 8: Vesting simulation in tokenSPICE</em></p>
+<p>You can run all kinds of netlists in order to get a “feel” of it, in the tokenSPICE <a href="https://github.com/tokenspice/tokenspice">official GitHub repo</a>.</p>
+<p>In contrast to cadCad, which can be used for any type of system, tokenSPICE is focused on EVM systems and incentives. The main difference is that cadCad is mainly used in the early-stage design of systems.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>Token Engineering as a field is still young, and the community around it is still tiny. However, the quality of tools available is exceptional. The tools range from general game design tools (Machinations) and general system design tools (cadCad) to specialized tools like tokenSPICE. The only missing piece of the puzzle are the Token Engineers, who will focus on mastering these tools to provide valuable insights into both designing and validating crypto-economic systems.</p>
+<p>You can see the list of all possible tools for system modeling with tokens, and their strengths and weaknesses <a href="https://github.com/TokenEngineeringCommunity/summary-of-tools/blob/main/README.md">here</a>.</p>
+<p>Considering the complex nature of systems in Web3, we have only discovered the tip of the iceberg and the picks to dig deeper and examine the economies of this vast ecosystem.</p>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-danaFrameworkBasicsMachinations" class="csl-entry" role="doc-biblioentry">
+Dana, ‘Framework Basics Machinations.io’, <em>Machinations.io</em> &lt;<a href="https://machinations.io/docs/framework-basics/" class="uri">https://machinations.io/docs/framework-basics/</a>&gt; [accessed 30 June 2022]
+</div>
+<div id="ref-EthereumVirtualMachine" class="csl-entry" role="doc-biblioentry">
+‘Ethereum Virtual Machine (EVM) | CoinMarketCap’, <em>CoinMarketCap Alexandria</em> &lt;<a href="https://coinmarketcap.com/alexandria/glossary/ethereum-virtual-machine-evm" class="uri">https://coinmarketcap.com/alexandria/glossary/ethereum-virtual-machine-evm</a>&gt; [accessed 17 July 2022]
+</div>
+<div id="ref-mcconaghyCanBlockchainsGo2020" class="csl-entry" role="doc-biblioentry">
+McConaghy, Trent, ‘Can Blockchains Go Rogue?’, <em>Medium</em>, 2020 &lt;<a href="https://blog.oceanprotocol.com/can-blockchains-go-rogue-5134300ce790" class="uri">https://blog.oceanprotocol.com/can-blockchains-go-rogue-5134300ce790</a>&gt; [accessed 29 June 2022]
+</div>
+<div id="ref-ParameterSweepsModel" class="csl-entry" role="doc-biblioentry">
+‘Parameter Sweeps and Model Iteration Idmtools Documentation’ &lt;<a href="https://institutefordiseasemodeling.github.io/idmtools/parameter-sweeps.html" class="uri">https://institutefordiseasemodeling.github.io/idmtools/parameter-sweeps.html</a>&gt; [accessed 1 July 2022]
+</div>
+<div id="ref-stephenyoTokenEngineeringProcess2019" class="csl-entry" role="doc-biblioentry">
+stephenyo, Author, ‘A Token Engineering Process’, <em>Syoung.org</em>, 2019 &lt;<a href="https://syounggallery.wordpress.com/2019/10/18/a-token-engineering-process/" class="uri">https://syounggallery.wordpress.com/2019/10/18/a-token-engineering-process/</a>&gt; [accessed 29 June 2022]
+</div>
+<div id="ref-voshmgirFoundationsCryptoeconomicSystems" class="csl-entry" role="doc-biblioentry">
+Voshmgir, Shermin, and Michael Zargham, ‘Foundations of Cryptoeconomic Systems’, 1.1, 18
+</div>
+<div id="ref-WhatCausalLoop" class="csl-entry" role="doc-biblioentry">
+‘What Is a Causal Loop Diagram and What Is It Good For? | Marketlinks’ &lt;<a href="https://www.marketlinks.org/resources/what-causal-loop-diagram-and-what-it-good" class="uri">https://www.marketlinks.org/resources/what-causal-loop-diagram-and-what-it-good</a>&gt; [accessed 30 June 2022]
+</div>
+<div id="ref-WhatMonteCarlo" class="csl-entry" role="doc-biblioentry">
+‘What Is a Monte Carlo Simulation?’, <em>Investopedia</em> &lt;<a href="https://www.investopedia.com/terms/m/montecarlosimulation.asp" class="uri">https://www.investopedia.com/terms/m/montecarlosimulation.asp</a>&gt; [accessed 1 July 2022]
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p><a href="#ref-mcconaghyCanBlockchainsGo2020">‘Can Blockchains Go Rogue?’, <em>Medium</em>, 2020 &lt;&lt;https://blog.oceanprotocol.com/can-blockchains-go-rogue-5134300ce790&gt;&gt; [accessed 29 June 2022]</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><a href="#ref-voshmgirFoundationsCryptoeconomicSystems">‘Foundations of Cryptoeconomic Systems’, 1.1, 18</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p><a href="#ref-stephenyoTokenEngineeringProcess2019">‘A Token Engineering Process’, <em>Syoung.org</em>, 2019 &lt;&lt;https://syounggallery.wordpress.com/2019/10/18/a-token-engineering-process/&gt;&gt; [accessed 29 June 2022]</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p><a href="#ref-WhatCausalLoop">&lt;[Https://www.marketlinks.org/resources/what-causal-loop-diagram-and-what-it-good](https://www.marketlinks.org/resources/what-causal-loop-diagram-and-what-it-good)&gt; [accessed 30 June 2022]</a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"></li>
+<li id="fn6" role="doc-endnote"><p><a href="#ref-danaFrameworkBasicsMachinations">‘Framework Basics Machinations.io’, <em>Machinations.io</em> &lt;&lt;https://machinations.io/docs/framework-basics/&gt;&gt; [accessed 30 June 2022]</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p><a href="#ref-WhatMonteCarlo"><em>Investopedia</em> &lt;&lt;https://www.investopedia.com/terms/m/montecarlosimulation.asp&gt;&gt; [accessed 1 July 2022]</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8" role="doc-endnote"><p><a href="#ref-devbot5sTesting2017"><strong>devbot5sTesting2017?</strong></a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9" role="doc-endnote"><p><a href="#ref-ParameterSweepsModel">&lt;[Https://institutefordiseasemodeling.github.io/idmtools/parameter-sweeps.html](https://institutefordiseasemodeling.github.io/idmtools/parameter-sweeps.html)&gt; [accessed 1 July 2022]</a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10" role="doc-endnote"><p><a href="#ref-EthereumVirtualMachine"><em>CoinMarketCap Alexandria</em> &lt;&lt;https://coinmarketcap.com/alexandria/glossary/ethereum-virtual-machine-evm&gt;&gt; [accessed 17 July 2022]</a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

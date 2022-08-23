@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.556">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Milos Bojinovic">
+<meta name="dcterms.date" content="2022-06-19">
+
+<title>3327 Research - [ERFC - 315] Reaching Towards Realtime in Blockchain</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - [ERFC - 315] Reaching Towards Realtime in Blockchain">
+<meta property="og:description" content="The concept of Real-Time can be best explained as a set of guarantees that are given and that need to be met within a predetermined time period.">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - [ERFC - 315] Reaching Towards Realtime in Blockchain">
+<meta name="twitter:description" content="The concept of Real-Time can be best explained as a set of guarantees that are given and that need to be met within a predetermined time period.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../logo.png" alt="">
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">[ERFC - 315] Reaching Towards Realtime in Blockchain</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Milos Bojinovic </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 19, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#ethereums-layer-1" id="toc-ethereums-layer-1" class="nav-link" data-scroll-target="#ethereums-layer-1">Ethereum’s Layer 1</a></li>
+  <li><a href="#off-chain-scaling-approaches" id="toc-off-chain-scaling-approaches" class="nav-link" data-scroll-target="#off-chain-scaling-approaches">Off-chain Scaling Approaches</a>
+  <ul class="collapse">
+  <li><a href="#sidechains" id="toc-sidechains" class="nav-link" data-scroll-target="#sidechains">Sidechains</a></li>
+  <li><a href="#optimistic-rollups" id="toc-optimistic-rollups" class="nav-link" data-scroll-target="#optimistic-rollups">Optimistic Rollups</a></li>
+  </ul></li>
+  <li><a href="#bridges-and-cross-chain-applications" id="toc-bridges-and-cross-chain-applications" class="nav-link" data-scroll-target="#bridges-and-cross-chain-applications">Bridges and Cross-chain Applications</a>
+  <ul class="collapse">
+  <li><a href="#application-specific-blockchains" id="toc-application-specific-blockchains" class="nav-link" data-scroll-target="#application-specific-blockchains">Application-specific Blockchains</a></li>
+  </ul></li>
+  <li><a href="#concept-of-time-in-blockchains" id="toc-concept-of-time-in-blockchains" class="nav-link" data-scroll-target="#concept-of-time-in-blockchains">Concept of Time in Blockchains</a></li>
+  </ul></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+  <ul class="collapse">
+  <li><a href="#on-chain-code" id="toc-on-chain-code" class="nav-link" data-scroll-target="#on-chain-code">On-chain code</a>
+  <ul class="collapse">
+  <li><a href="#parallezization-of-processes" id="toc-parallezization-of-processes" class="nav-link" data-scroll-target="#parallezization-of-processes">Parallezization of Processes</a></li>
+  <li><a href="#persistence-across-transactions" id="toc-persistence-across-transactions" class="nav-link" data-scroll-target="#persistence-across-transactions">Persistence across Transactions</a></li>
+  <li><a href="#prioritization-of-processes" id="toc-prioritization-of-processes" class="nav-link" data-scroll-target="#prioritization-of-processes">Prioritization of Processes</a></li>
+  <li><a href="#providing-guarantees-committing-to-promises" id="toc-providing-guarantees-committing-to-promises" class="nav-link" data-scroll-target="#providing-guarantees-committing-to-promises">Providing Guarantees: Committing to Promises</a></li>
+  <li><a href="#honoring-commitments" id="toc-honoring-commitments" class="nav-link" data-scroll-target="#honoring-commitments">Honoring Commitments</a></li>
+  </ul></li>
+  <li><a href="#off-chain-code" id="toc-off-chain-code" class="nav-link" data-scroll-target="#off-chain-code">Off-chain code</a>
+  <ul class="collapse">
+  <li><a href="#monitoring-the-on-chain-activity" id="toc-monitoring-the-on-chain-activity" class="nav-link" data-scroll-target="#monitoring-the-on-chain-activity">Monitoring the on-chain activity</a></li>
+  <li><a href="#optimization-of-action-sequences" id="toc-optimization-of-action-sequences" class="nav-link" data-scroll-target="#optimization-of-action-sequences">Optimization of action sequences</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-315.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>The concept of <strong>Real-Time</strong> can be best explained as a set of guarantees that are given and that need to be met within a predetermined time period. Usually, though not necessarily, this is a short time period. In the case the guarantees are not met before the deadline has been reached, then the performance of the real-time system either degrades or the system has failed completely.</p>
+<p>For a blockchain to achieve real-time operations, it has to have low latency and indirectly a high throughput, hopefully without sacrificing decentralization and security.</p>
+<p>This is a problem of scaling a blockchain, and several approaches exist, each with its advantages and limitations. These approaches can be grouped into <strong>on-chain</strong> and <strong>off-chain</strong> scaling solutions, with the main difference being whether there exist a need for changing the blockchain’s protocol in some way.</p>
+<p>The main focus of this research is put on the off-chain scaling in the Ethereum Ecosystem and how can a Decentralized Application (DApp) potentially achieve something that resembles real-time operations.</p>
+<p>The research proposes a framework consisting of an off-chain and on-chain part where the on-chain part would be used to enforce rules that the off-chain code needs to honor.</p>
+<p>The ideas proposed here would need to be expanded upon and thoroughly tested in real-world conditions to completely assess their practical significance.</p>
+<p>Further research should also take into consideration on-chain scaling, namely ETH2.0, as well as an exciting concept of creating a network of private sovereign blockchains built specifically for the DApp’s needs.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="ethereums-layer-1" class="level2">
+<h2 class="anchored" data-anchor-id="ethereums-layer-1">Ethereum’s Layer 1</h2>
+<p>Ethereum blockchain, as defined in,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> can be viewed as a “transaction-based state machine” that groups transactions into blocks which are then sequentially executed in the order that was set by the block’s creator - miner.</p>
+<p>Before being included inside a block, the transactions reside in the pending transaction pool. Miners have complete control over what transactions get included and in what order. Each transaction advances the chain’s state for which the miners are rewarded fees paid by the Externally-Owned-Account(EOA)* that initiated the transaction.</p>
+<p>In essence, the more the EOA is willing to pay for the service of including their transaction, the more likely it is will be included in the next block. This creates the problem in the situation of blockchain’s network congestion - as the transactions are being created at a faster rate than they can be processed, fees drastically increase, and it becomes a competition between different EOAs, which leads to a bad user experience.</p>
+<p>To ease the load put on the Ethereum Mainnet (Layer 1 - L1) chain and effectively perform scaling, multiple approaches exist: Sidechains and schemes commonly referred to as Layer 2 (L2) solutions. L2 solutions include State Channels, Plasma, and Rollups (Optimistic and Zero-Knowledge based).</p>
+<p>* Ethereum account can be defined as a private-public keypair mapped to an address. EOA is a type of an Ethereum account where the private key is known and “externally” controlled, in contrast to smart contract accounts where the private key is not known, and only the address exists.</p>
+</section>
+<section id="off-chain-scaling-approaches" class="level2">
+<h2 class="anchored" data-anchor-id="off-chain-scaling-approaches">Off-chain Scaling Approaches</h2>
+<p>When considering approaches to Ethereum’s scaling problem, this paper considers only Ethereum Virtual Machine (EVM) compatible sidechains and optimistic rollups.</p>
+<section id="sidechains" class="level3">
+<h3 class="anchored" data-anchor-id="sidechains">Sidechains</h3>
+<p>Sidechains are completely independent parallel blockchains to the Ethereum’s L1, with which they can communicate over two-way bridges. They introduce their own set of parameters and operate on different rules.</p>
+<p>For example, <a href="https://polygon.technology/">Polygon</a>, a popular Ethereum sidechain, uses Proof-of-Stake for its consensus mechanism, with block times being around 2.3 seconds<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (Ethereum’s average block time is between 12 and 14 seconds)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+</section>
+<section id="optimistic-rollups" class="level3">
+<h3 class="anchored" data-anchor-id="optimistic-rollups">Optimistic Rollups</h3>
+<p>Unlike Sidechains, Optimistic Rollups have their security rooted in the L1 chain.</p>
+<p>As Vitalik Buterin, the founder of Ethereum discusses in<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> :</p>
+<blockquote class="blockquote">
+<p>“Instead of putting all activity on the blockchain directly, users perform the bulk of their activity off-chain in a”layer 2” protocol. There is a smart contract on-chain, which only has two tasks: processing deposits and withdrawals and verifying proofs that everything happening off-chain is following the rules. There are multiple ways to do these proofs, but they all share the property that verifying the proofs on-chain is much cheaper than doing the original computation off-chain.”</p>
+</blockquote>
+<p>In Optimistic Rollups, after a state is proposed, there exists a period where it can be disputed, after which it cannot be longer challenged.</p>
+<p>While anyone can propose a state, one of the optimistic rollups - <a href="https://developer.offchainlabs.com/docs/inside_arbitrum">Arbitrum One</a> chain has used a concept of a “sequencer”<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>:</p>
+<blockquote class="blockquote">
+<p>The sequencer is a specially designated full node, which is given limited power to control the ordering of transactions. This allows the sequencer to guarantee the results of user transactions immediately, without needing to wait for anything to happen on Ethereum. So no need to wait five minutes or so for block confirmations–and no need to even wait 15 seconds for Ethereum to make a block.</p>
+</blockquote>
+<p>The company behind Arbitrum has recently introduced another L2 concept chain - AnyTrust Chains<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, which is operated by a “committee” of nodes signing the state that will later be put on-chain. If nodes go offline or refuse to cooperate, the chain reverts to a standard protocol.</p>
+</section>
+</section>
+<section id="bridges-and-cross-chain-applications" class="level2">
+<h2 class="anchored" data-anchor-id="bridges-and-cross-chain-applications">Bridges and Cross-chain Applications</h2>
+<p>To enable cross-chain communication, there exist Bridges with the purpose of transferring assets and passing messages. The benefit of bridges is that users can move to a different chain if their needs require it. For example, when either transaction cost is too high or when there is more of a specific user activity going on the target chain - i.e., Non-Fungible Token (NFT) trading.</p>
+<p>Bridges operate between two extremes - trusted (there is a centralized entity that is being <em>trusted</em>) and trustless (there is no need for the centralized entity).<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>The security of bridges, however, remains troublesome. As Buterin has pointed out in,<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> in the case of a 51% attack of the chain from which funds are being moved, attacker can broadcast a transaction that deposits some funds to the target chain and then revert it, as soon the assets are minted on the target chain. He states that:</p>
+<blockquote class="blockquote">
+<p>“… while I am optimistic about a multi-chain blockchain ecosystem (there really are a few separate communities with different values and it’s better for them to live separately than all fight over influence on the same thing), I am pessimistic about cross-chain applications.”</p>
+</blockquote>
+<section id="application-specific-blockchains" class="level3">
+<h3 class="anchored" data-anchor-id="application-specific-blockchains">Application-specific Blockchains</h3>
+<p>Instead of having all applications competing for the same resources, a DApp can run its own blockchain. There can exist inter-communication between those private and public chains through bridges.</p>
+<p>Each chain operates with a unique set of rules and validators - making them sovereign but less decentralized.</p>
+</section>
+</section>
+<section id="concept-of-time-in-blockchains" class="level2">
+<h2 class="anchored" data-anchor-id="concept-of-time-in-blockchains">Concept of Time in Blockchains</h2>
+<p>Blockchains operate in discrete time as the state is advanced only when a block is created and validated. It is worth noting that Ethereum’s Yellow Paper[2] states only that the current block’s timestamp should be strictly greater than its predecessor’s timestamp - not what’s the maximum difference between those two values.</p>
+<p>This leads to blocks being produced at non-constant time intervals and the concept of time being distorted. When periods and deadlines are mentioned in this paper, it is meant in terms of block numbers.</p>
+</section>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>This paper tries to give a thought framework and a set of underlying principles that can be used to create a DApp that comes as close to real-time operations as possible.</p>
+<p>It considers only EVM compatible chains when doing this and reasons how their properties can enable those operations.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>The main ideas presented in this research are the separation of DApp’s functionality into parallel processes of different priorities while providing guarantees that a part of the process will be executed in a predefined period.</p>
+<p>It breaks the DApp into its <strong>on-chain code</strong> (a set of smart contracts) and <strong>off-chain code</strong> (operates under rules imposed by the on-chain part).</p>
+<section id="on-chain-code" class="level2">
+<h2 class="anchored" data-anchor-id="on-chain-code">On-chain code</h2>
+<section id="parallezization-of-processes" class="level3">
+<h3 class="anchored" data-anchor-id="parallezization-of-processes">Parallezization of Processes</h3>
+<p>Rather than separating DApp’s functionality into different contract methods with only one method being called per transaction, it is possible to have one method capable of executing different sequences of method calls and accomplishing more.</p>
+<p>In the example shown below, there exist three separate processes(P0, P1, P2) that perform operations on the same set of data. Processes P0 and P1 are independent of each other and have no other dependencies (if EVM allowed concurrency, they could be executed in parallel). P2 is, however dependent on P0 and so before calling P2 we need to call P0.</p>
+<pre class="solidity"><code>contract Example_0 {
+
+    ...
+
+    function execute (uint[] operation, uint[] data_0) public onlyAdmin returns (bool) {
+
+        for (uint i = 0; i &lt; operation.length; ++i){
+
+            if (operation[i] == 0){
+
+                //P0 : calculate the sum of numbers in `data_0` and put in the `sum` storage variable
+
+            } else if (operation[i] == 1){
+
+                //P1 : store the entire `data_0` into the storage variable `buffer`
+
+            } else if (operation[i] == 2){
+
+                //P2 : if the `sum` even returns 'true'
+
+            }
+        }
+        return false;
+    }
+
+    ...
+}</code></pre>
+<p>This setup allows us to create “programmable” sequences of operations and a higher degree of freedom. We can call the <code>execute</code> function with its <code>operation</code> argument set to [0, 2], [1], [0, 2, 1], [1, 0, 2] or [0, 1, 2]. We could also execute a single process multiple times by repeating a number corresponding to the process, though in the example above, that would not make much sense.</p>
+</section>
+<section id="persistence-across-transactions" class="level3">
+<h3 class="anchored" data-anchor-id="persistence-across-transactions">Persistence across Transactions</h3>
+<p>In the previous example, everything happens in the context of one single transaction, but it doesn’t have to. There can exist another process - P3 that would read from the <code>buffer</code> variable and perform a different operation on its data. Now the order of operations becomes even more important. Because P3 reads from the <code>buffer</code>, we could first call P1 that stores the <code>data_0</code> into the <code>buffer</code> and then P3 or first call P3 and after P1, which would exhibit a completely different behavior.</p>
+</section>
+<section id="prioritization-of-processes" class="level3">
+<h3 class="anchored" data-anchor-id="prioritization-of-processes">Prioritization of Processes</h3>
+<p>It is obvious that there are limitations to this approach - transaction size and the transaction cost. This is where prioritization comes in, as not all processes are created equal - some need to be executed more frequently in a shorter period of time while others are less important and can have higher latency. It is up to the DApp’s off-chain code to monitor, decide and optimize for the right moment when a process should be executed.</p>
+</section>
+<section id="providing-guarantees-committing-to-promises" class="level3">
+<h3 class="anchored" data-anchor-id="providing-guarantees-committing-to-promises">Providing Guarantees: Committing to Promises</h3>
+<p>Processes can depend upon each other; that is, they depend on the result(state) produced by previously executed processes. As there is so much that can fit into a single transaction, DApp doesn’t have to execute a process and produce a result right away - it can make a claim about that result and simultaneously commit to the promise that it will justify the claim later.</p>
+</section>
+<section id="honoring-commitments" class="level3">
+<h3 class="anchored" data-anchor-id="honoring-commitments">Honoring Commitments</h3>
+<p>Commitments made obviously need to be honored. Otherwise, there is no point. If the deadlines are not met, DApp should be penalized, and the users affected should be compensated.</p>
+<p>However, there is no direct reason to halt the execution of the processes - they can operate on claims. The issue now becomes that they effectively act on promises - if it is found later on that the claim has not been honored, the processes and all of their results should be affected as well. An example of this dependency is shown in Figure 1.</p>
+<center>
+<p><img src="../assets/ERFC-315/OperatingOnPromises.png" class="img-fluid"></p>
+<p>Figure 1: Operating on Claims</p>
+</center>
+<p>For simplicity, states (S0, S1, S2, S3, S4) are just <code>uint</code> variables, while P0 and P1 are addition and multiplication operations, respectively. The yellow color indicates that a claim has been made for that variable, while green says that the claim has been honored. We see that claiming S0 affects S2 and S4.</p>
+<p>It gets even more complicated when a process operates on and produces an update to the same variable. For instance, in Figure 1, if the S2 is fixed to always be equal to S0. The on-chain code would need to keep track of what is affected if the specific claim will not be honored.</p>
+<p>How to effectively implement mechanisms that would take into account all of these concerns should be part of separate research.</p>
+</section>
+</section>
+<section id="off-chain-code" class="level2">
+<h2 class="anchored" data-anchor-id="off-chain-code">Off-chain code</h2>
+<p>Off-chain code’s responsibility can be summed up to:</p>
+<ul>
+<li>monitor the state of the contract and all of the commitments that need to be honored</li>
+<li>decide what to put inside the transaction by predicting when is the best time to execute a process</li>
+</ul>
+<section id="monitoring-the-on-chain-activity" class="level3">
+<h3 class="anchored" data-anchor-id="monitoring-the-on-chain-activity">Monitoring the on-chain activity</h3>
+<p>In the case where only the admin account can alter the contract’s state, off-chain code can maintain a separate record offline that will periodically be checked with the actual state read from the chain. If it is possible for users to interact directly with the contract, then the chain needs to be read more often - one approach would be to parse the blocks as soon as they are validated.</p>
+</section>
+<section id="optimization-of-action-sequences" class="level3">
+<h3 class="anchored" data-anchor-id="optimization-of-action-sequences">Optimization of action sequences</h3>
+<p>Deciding on how to structure a transaction is a more complex problem, and its main part resides in the scheduling of processes. When should a specific process be scheduled depends on what claims need to be honored and when, as well as the state of the network. If the demand for the network’s resources is high, the execution cost is high as well, so it is better to issue a transaction that will use a lot of resources when the demand becomes lower. However, there is no formal guarantee when a transaction will be mined; there would need to exist models that would try to predict and speculate how the demand will change over time and how much to incentivize the miners.</p>
+<section id="bursts-of-transcatiions" class="level4">
+<h4 class="anchored" data-anchor-id="bursts-of-transcatiions">Bursts of transcatiions</h4>
+<p>Another important concept is that an EOA can create multiple transactions that can be included in the same block. The miner needs to honor only the order in which they are issued.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> This can be used to enable “bursts” of transactions in order to catch up with the claims that are pending. If there are multiple accounts interacting with the contract, then the order is not guaranteed so there would need to exist some form of synchronization across transactions.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>This research has defined a set of principles on how an individual DApp can be structured in order to more effectively distribute its functionality. The ideas proposed have not been tested in practice, so there exists a cloud of doubt about whether this approach is generalizable and sufficient for a large number of DApps.</p>
+<p>The research has operated on the assumption that only the DApp’s admin account can alter the on-chain state of a contract, whether by aggregating** the users’ activity or by issuing commands that are made possible by on-chain code. There exist a problem of what happens if the DApp’s off-chain code goes offline, the users should not suffer for it, and so there needs to exist a mechanism that would enable the users to alter the contract’s state as well, which introduces more complexities in the DApp’s design.</p>
+<p>The main proposed direction for further research is taking an existing real-world DApp and restructuring its code to enable “parallelization”. Also, as everything is dependent on the off-chain’s code correct scheduling of actions studies and simulations would need to be conducted based on a specific chain’s properties to see how much a chain can handle in terms of the block size, block time, transaction’s execution cost…</p>
+<p>Another direction would be Ethereum’s on-chain scaling solution - ETH 2.0, as well as private chains and non-EVM chains and their approaches.</p>
+<p>**By collecting signed messages from users that correspond to the action that the user wants to make. This, however, introduces the potential for censorship as well as manipulation when a message will be included in a transaction (both in terms of block numbers and in terms of ordering of messages).</p>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-IncompleteGuideRollups" class="csl-entry" role="doc-biblioentry">
+‘An Incomplete Guide to Rollups’ &lt;<a href="https://vitalik.ca/general/2021/01/05/rollup.html" class="uri">https://vitalik.ca/general/2021/01/05/rollup.html</a>&gt; [accessed 26 June 2022]
+</div>
+<div id="ref-Blocks" class="csl-entry" role="doc-biblioentry">
+‘Blocks’, <em>Ethereum.org</em> &lt;<a href="https://ethereum.org" class="uri">https://ethereum.org</a>&gt; [accessed 27 June 2022]
+</div>
+<div id="ref-EthereumMiningEthHub" class="csl-entry" role="doc-biblioentry">
+‘Ethereum Mining - EthHub’ &lt;<a href="https://docs.ethhub.io/using-ethereum/mining/" class="uri">https://docs.ethhub.io/using-ethereum/mining/</a>&gt; [accessed 21 June 2022]
+</div>
+<div id="ref-EthereumWhitepaper" class="csl-entry" role="doc-biblioentry">
+‘Ethereum Whitepaper’, <em>Ethereum.org</em> &lt;<a href="https://ethereum.org" class="uri">https://ethereum.org</a>&gt; [accessed 27 June 2022]
+</div>
+<div id="ref-ArbitrumOffchainLabs" class="csl-entry" role="doc-biblioentry">
+‘Inside Arbitrum <span class="math inline">\(\cdot\)</span> Offchain Labs Dev Center’ &lt;<a href="https://developer.offchainlabs.com/" class="uri">https://developer.offchainlabs.com/</a>&gt; [accessed 27 June 2022]
+</div>
+<div id="ref-IntroductionBlockchainBridges" class="csl-entry" role="doc-biblioentry">
+‘Introduction to Blockchain Bridges’, <em>Ethereum.org</em> &lt;<a href="https://ethereum.org" class="uri">https://ethereum.org</a>&gt; [accessed 26 June 2022]
+</div>
+<div id="ref-labsIntroducingAnyTrustChains2022" class="csl-entry" role="doc-biblioentry">
+Labs, Offchain, ‘Introducing AnyTrust Chains: Cheaper, Faster L2 Chains with Minimal Trust Assumptions’, <em>Offchain Labs</em>, 2022 &lt;<a href="https://medium.com/offchainlabs/introducing-anytrust-chains-cheaper-faster-l2-chains-with-minimal-trust-assumptions-31def59eb8d7" class="uri">https://medium.com/offchainlabs/introducing-anytrust-chains-cheaper-faster-l2-chains-with-minimal-trust-assumptions-31def59eb8d7</a>&gt; [accessed 27 June 2022]
+</div>
+<div id="ref-polygonscan.comPolygonPoSChain" class="csl-entry" role="doc-biblioentry">
+polygonscan.com, ‘Polygon PoS Chain Average Block Time Chart | PolygonScan’, <em>Polygon (MATIC) Blockchain Explorer</em> &lt;<a href="http://polygonscan.com/chart/blocktime" class="uri">http://polygonscan.com/chart/blocktime</a>&gt; [accessed 27 June 2022]
+</div>
+<div id="ref-vbuterinFundamentalSecu2022" class="csl-entry" role="doc-biblioentry">
+vbuterin, ‘The Fundamental Secu…’, <em>R/Ethereum</em>, 2022 &lt;<a href="https://www.reddit.com/r/ethereum/comments/rwojtk/ama_we_are_the_efs_research_team_pt_7_07_january/hrngyk8/">www.reddit.com/r/ethereum/comments/rwojtk/ama_we_are_the_efs_research_team_pt_7_07_january/hrngyk8/</a>&gt; [accessed 26 June 2022]
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p><a href="#ref-EthereumWhitepaper">‘Ethereum Whitepaper’, <em>Ethereum.org</em> &lt;&lt;https://ethereum.org&gt;&gt; [accessed 27 June 2022]</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><a href="#ref-polygonscan.comPolygonPoSChain">Polygonscan.com, ‘Polygon PoS Chain Average Block Time Chart | PolygonScan’, <em>Polygon (MATIC) Blockchain Explorer</em> &lt;&lt;http://polygonscan.com/chart/blocktime&gt;&gt; [accessed 27 June 2022]</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p><a href="#ref-Blocks">‘Blocks’, <em>Ethereum.org</em> &lt;&lt;https://ethereum.org&gt;&gt; [accessed 27 June 2022]</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p><a href="#ref-IncompleteGuideRollups">‘An Incomplete Guide to Rollups’ &lt;&lt;https://vitalik.ca/general/2021/01/05/rollup.html&gt;&gt; [accessed 26 June 2022]</a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p><a href="#ref-ArbitrumOffchainLabs">‘Inside Arbitrum <span class="math inline">\(\cdot\)</span> Offchain Labs Dev Center’ &lt;&lt;https://developer.offchainlabs.com/&gt;&gt; [accessed 27 June 2022]</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p><a href="#ref-labsIntroducingAnyTrustChains2022">Offchain Labs, ‘Introducing AnyTrust Chains: Cheaper, Faster L2 Chains with Minimal Trust Assumptions’, <em>Offchain Labs</em>, 2022 &lt;&lt;https://medium.com/offchainlabs/introducing-anytrust-chains-cheaper-faster-l2-chains-with-minimal-trust-assumptions-31def59eb8d7&gt;&gt; [accessed 27 June 2022]</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p><a href="#ref-IntroductionBlockchainBridges">‘Introduction to Blockchain Bridges’, <em>Ethereum.org</em> &lt;&lt;https://ethereum.org&gt;&gt; [accessed 26 June 2022]</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8" role="doc-endnote"><p><a href="#ref-vbuterinFundamentalSecu2022">Vbuterin, ‘The Fundamental Secu…’, <em>R/Ethereum</em>, 2022 &lt;[www.reddit.com/r/ethereum/comments/rwojtk/ama_we_are_the_efs_research_team_pt_7_07_january/hrngyk8/](https://www.reddit.com/r/ethereum/comments/rwojtk/ama_we_are_the_efs_research_team_pt_7_07_january/hrngyk8/)&gt; [accessed 26 June 2022]</a>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9" role="doc-endnote"><p><a href="#ref-EthereumMiningEthHub">‘Ethereum Mining - EthHub’ &lt;&lt;https://docs.ethhub.io/using-ethereum/mining/&gt;&gt; [accessed 21 June 2022]</a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -9,7 +9,7 @@ listing:
   categories: false
   feed: true
   type: default
-  fields: [ title, subtitle, filename, author, date, description, reading-time, erfc-no]
+  fields: [ title, filename, author, date, description, reading-time, erfc-no]
 page-layout: full
 # margin-header: signup.html
 ---

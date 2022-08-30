@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.163">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andrej">
+<meta name="dcterms.date" content="2022-03-08">
+
+<title>3327 Research - Transaction splitting</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - Transaction splitting">
+<meta property="og:description" content="Many companies sell goods with a business model based on donating some percent of their profit to charity. The problem is that some of these companies don’t transparently perform these donations.">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - Transaction splitting">
+<meta name="twitter:description" content="Many companies sell goods with a business model based on donating some percent of their profit to charity. The problem is that some of these companies don’t transparently perform these donations.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Transaction splitting</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andrej </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 8, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a>
+  <ul class="collapse">
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  </ul></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+  <ul class="collapse">
+  <li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1">Step 1)</a></li>
+  <li><a href="#step-2" id="toc-step-2" class="nav-link" data-scroll-target="#step-2">Step 2)</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-105.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>Many companies sell goods with a business model based on donating some percent of their profit to charity. The problem is that some of these companies don’t transparently perform these donations. If, for example, the handmade wristwatch company claims that it donates 90 percent of earnings to the charity, the buyers can’t be sure whether they indeed donated the funds to charity or just bought a very expensive product. They can only believe the company itself. Blockchain technology eliminates the need for trust.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This paper tends to explain and show how the need for trust can be eliminated when it comes to donations and setting up business models in general. Idea is to have a platform that will allow you to set up a use case in which you want to allow users to buy a product from you where a specific percentage of the purchase will go to a different wallet(s).</p>
+<ul>
+<li>X% of purchase transparently goes to verified charity wallet</li>
+<li>a split transaction between different co-creators or marketplace and author</li>
+</ul>
+<p>We can develop a fully transparent set of smart contracts and protocols on some general-purpose blockchain and introduce to sellers and customers a brand new way for selling goods and doing business in general.</p>
+<p>Additionally, if there are too many different wallet recipients, the splitting can be done through merkle tree claim model.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<section id="goals" class="level3">
+<h3 class="anchored" data-anchor-id="goals">Goals</h3>
+<ul>
+<li>How to make charity donations and spending transparent</li>
+<li>Eliminate the need for trusting the brand, and provide customers a way to easily verify their spendings</li>
+<li>Split input transaction to several different wallets by desired percentage</li>
+</ul>
+</section>
+<section id="methodology" class="level3">
+<h3 class="anchored" data-anchor-id="methodology">Methodology</h3>
+<ul>
+<li>Write a set of smart contracts in Solidity for this purpose.
+<ul>
+<li>Pros:
+<ul>
+<li>Portable to any EVM general purpose blockchain</li>
+<li>Native support for cryptocurrencies</li>
+<li>Possibility for including ERC-20 tokens, as well</li>
+<li>Tooling (Hardhat, OpenZeppelin, etc.)</li>
+</ul></li>
+<li>Cons:
+<ul>
+<li>Lack of native percentage operator in Solidity, one need to decide up to which decimal the result is reliable</li>
+<li>Transaction costs</li>
+</ul></li>
+</ul></li>
+<li>Integrate it with <a href="https://www.npmjs.com/package/bizzswap">Bizzswap</a>
+<ul>
+<li>Pros:
+<ul>
+<li>Out of the box solution for paying/swapping coins and tokens</li>
+</ul></li>
+<li>Cons:
+<ul>
+<li>Third-party dependency</li>
+</ul></li>
+</ul></li>
+<li>Testing
+<ul>
+<li>Unit tests</li>
+<li>Integration tests</li>
+<li>End to end tests</li>
+<li>Static analasys</li>
+<li>Code coverage</li>
+<li>Gas usage</li>
+<li>Fuzz testing (optional)</li>
+<li>Formal verification (optional)</li>
+<li>Audit</li>
+<li>Deployment to testnet</li>
+</ul></li>
+</ul>
+<p>The beauty of the end result is that anyone can port a frontend app to this decentralized protocol and incorporate it in their business models, already existing platforms, etc.</p>
+</section>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>Transaction can be split among several parties in Solidity like this:</p>
+<section id="step-1" class="level3">
+<h3 class="anchored" data-anchor-id="step-1">Step 1)</h3>
+<p>Smart contract should have the ability to receive native coin or any other token. There is a need for a <code>receive()</code> or <code>fallback()</code> function, depends on the implementation of the smart contract.</p>
+<p><code>receive()</code> is called if <code>msg.data</code> is empty, otherwise <code>fallback()</code> is called.</p>
+<pre class="solidity"><code>    /**
+    Which function is called, fallback() or receive()?
+
+           send Ether
+               |
+         msg.data is empty?
+              / \
+            yes  no
+            /     \
+receive() exists?  fallback()
+         /   \
+        yes   no
+        /      \
+    receive()   fallback()
+    */
+
+    // Function to receive Ether. msg.data must be empty
+    receive() external payable {}
+
+    // Fallback function is called when msg.data is not empty
+    fallback() external payable {}</code></pre>
+</section>
+<section id="step-2" class="level3">
+<h3 class="anchored" data-anchor-id="step-2">Step 2)</h3>
+<p>Smart contract then needs to split the received amount among other wallets by defined percentage. Sending funds is trivial and we won’t focus on that. The most challenging part is proper ratio calculations in a language with no native support for decimal arithmetics.</p>
+<p>In Solidity, one must assume that all numbers have 18 decimal precision. For example:</p>
+<ul>
+<li>1 is 1000000000000000000,</li>
+<li>0.5 is 500000000000000000, and</li>
+<li>100 is 100000000000000000000</li>
+</ul>
+<p>Since there are no native language support for percentage arithmetics in Solidity, devs are using Basis Points as a unit of measurement equal to 1/100th of 1 percent. This metric is commonly used for loans and bonds to signify percentage changes or yield spreads in financial instruments, especially when the difference in material interest rates is less than one percent.</p>
+<ul>
+<li>0.01% = 1 BPS</li>
+<li>0.05% = 5 BPS</li>
+<li>0.1% = 10 BPS</li>
+<li>0.5% = 50 BPS</li>
+<li>1% = 100 BPS</li>
+<li>10% = 1 000 BPS</li>
+<li>100% = 10 000 BPS</li>
+</ul>
+<p>Possible implementation:</p>
+<pre class="solidity"><code>    function calculateFee(uint256 _amount) public pure returns(uint256) {
+        // for example 1.85% is fee
+
+        return _amount * 185 / 10000;
+    }</code></pre>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>There are no blockers for implementing this idea in Solidity. The tooling is stable, the math is not complex and can be handled by the language, and the blockchain technology itself is capable for storing this type of applications.</p>
+</section>
+<section id="bibliography" class="level1">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" role="doc-bibliography">
+
+</div></section></div></main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

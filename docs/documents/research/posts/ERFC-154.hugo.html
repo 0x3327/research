@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.163">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aleksandar Damjanovic">
+<meta name="dcterms.date" content="2022-03-31">
+
+<title>3327 Research - Blacklisting Platform based on untransferable NFTs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - Blacklisting Platform based on untransferable NFTs">
+<meta property="og:description" content="The main topic of this research is exploring the possibility and the need to create the “Authority” protocol that would handle blacklisting based on community voting and assessment.">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - Blacklisting Platform based on untransferable NFTs">
+<meta name="twitter:description" content="The main topic of this research is exploring the possibility and the need to create the “Authority” protocol that would handle blacklisting based on community voting and assessment.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Blacklisting Platform based on untransferable NFTs</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Aleksandar Damjanovic </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 31, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+  <ul class="collapse">
+  <li><a href="#blacklisting" id="toc-blacklisting" class="nav-link" data-scroll-target="#blacklisting">Blacklisting</a></li>
+  <li><a href="#untransferable-nfts" id="toc-untransferable-nfts" class="nav-link" data-scroll-target="#untransferable-nfts">Untransferable NFTs</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-154.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>The main topic of this research is exploring the possibility and the need to create the “Authority” protocol that would handle blacklisting based on community voting and assessment. This protocol would mint the untransferable NFT to the blacklisted address. Creating this solutions (both the platform and the NFT) would not be challenging but the need for these solutions is questionable to the author. This paper explored the current blacklist cases and the possibility of creating the said NFTs. The Tether case is in the main focus since the solutions are similar and simple. The main takeaway is that creating this solution is not necessary per se, but the issue is open for discussion.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>When it comes to Web3, security breaches, hacks and malicious behaviour are a big issue. That is why some protocols resort to blacklisting the addressses they deem malicious. Blacklisting is essentially putting the addresses that have engaged in unethical or unacceptable activities on a list which in turn would limit their usage of said protocols.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Initial idea for this research is to explore the possibility of creating a platform that would blacklist addresses and send them an untransferable NFT. This platform would take it upon itself to take care of blacklisting for other protocols and users. The cases would be reported and voted on i.e Nexus Mutual model (for more info on their voting model check ERFC-91). When it comes to problems that this solution would solve the main problem is taking care of blacklisting for other protocols, this in turn makes our solution (even with voting) a point of centralization but more on that in later paragraphs.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The goal of this research is to explore how was blacklisting taken care of so far and to explore the possibility and need of creating a protocol that would do this with utilizing untransferable NFTs. Untransferable NFTs have been a topic of interest in the field for a while, otherwise there is no explicit point of including them except for “flagging” the addresses for the world to see.</p>
+<p>This will be done by examining the source code of protocols that have done blacklisting in the past. After the examination we will draw some conclusions.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<section id="blacklisting" class="level2">
+<h2 class="anchored" data-anchor-id="blacklisting">Blacklisting</h2>
+<p>As we pointed above we did a deep-dive into contracts that utilize blacklisting. In the beginning of the research we have searched for contracts that previously used blacklisting and we have come across the Tether case as it is the biggest one. There are various contracts that use the blacklist contracts but it is the exact same approach. When it comes to individual sites and addresses MetaMask already blocks sites that are known to steal funds.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Stablecoin issuer Tether froze the ethereum <a href="https://etherscan.io/tx/0x60891b856cdae4fd0878d45d2768e640be2dc2a50876d20138797a09877a7cd6#eventlog">address</a> holding over $715,000 worth of USDT. This address is the address of hackers who stole $3 million on the Multichain bridge. This means that they cannot move the funds.</p>
+<ul>
+<li>The question here is how did Tether manage to do that?</li>
+</ul>
+<p>They managed that by importing the Blacklist contract in their main contract. We will try to explain the contract in the code-box comments below:</p>
+<pre><code>contract BlackList is Ownable, BasicToken {
+
+    // Getters to allow the same blacklist to be used also by other contracts.(including upgraded Tether) 
+    function getBlackListStatus(address _maker) external constant returns (bool) {
+        return isBlackListed[_maker];
+    }
+
+    // Returns the owner of the contract address.
+    function getOwner() external constant returns (address) {
+        return owner;
+    }
+
+    // Puts the blacklisted addresses in the mapping for checking and later use.
+    mapping (address =&gt; bool) public isBlackListed;
+
+    // Self explanatory, adds the address to the isBlacklisted mapping. Only owner of the contract can call the function
+    function addBlackList (address _evilUser) public onlyOwner {
+        isBlackListed[_evilUser] = true;
+        AddedBlackList(_evilUser);
+    }
+
+    // Removes the address from the blacklist and "unfreezes the assets". Only owner of the contract can call the function.
+    function removeBlackList (address _clearedUser) public onlyOwner {
+        isBlackListed[_clearedUser] = false;
+        RemovedBlackList(_clearedUser);
+    }
+
+    // Destroys the funds of the blacklisted address and reduces the total suply by the same amount. Only owner of the contract can call this function.
+    function destroyBlackFunds (address _blackListedUser) public onlyOwner {
+        require(isBlackListed[_blackListedUser]);
+        uint dirtyFunds = balanceOf(_blackListedUser);
+        balances[_blackListedUser] = 0;
+        _totalSupply -= dirtyFunds;
+        DestroyedBlackFunds(_blackListedUser, dirtyFunds);
+    }
+    // Simple events for transaction logs.
+    event DestroyedBlackFunds(address _blackListedUser, uint _balance);
+
+    event AddedBlackList(address _user);
+
+    event RemovedBlackList(address _user);
+
+}</code></pre>
+<p>Then they simply put the require statement in all their main contract functions(except for the ones with the “Only Owner modifier”) for example:</p>
+<pre><code>// Require statement above makes sure the blacklisted address can't access the function.
+function transferFrom(address _from, address _to, uint _value) public whenNotPaused {
+        require(!isBlackListed[_from]);
+        if (deprecated) {
+            return UpgradedStandardToken(upgradedAddress).transferFromByLegacy(msg.sender, _from, _to, _value);
+        } else {
+            return super.transferFrom(_from, _to, _value);
+        }
+    }</code></pre>
+<p>This approach to blacklisting gives the Tether the absolute control in what addresses it blacklists and for how long.</p>
+<p>As we can see in the getBlacklistStatus the other contracts can use the same Blacklist to limit their usage as Tether thus leaning on their decision making.</p>
+<p>In theory a blacklist protocol can be created where the voting what address to blacklist could be done by the community. The said addresses would be stored in the contract and those addresses could be whitelisted by voting again. Then, other contracts could lean on the “list” and block the addresses from using their functions. This would also make our solution the major point of centralization and considering how easy it is to set up blacklisting individually this proposes a question is the such solution needed?</p>
+<p>Implementing a separate blacklist functions is not challenging and any contract can include them and have the complete control in what addresses it freezes and for how long.</p>
+</section>
+<section id="untransferable-nfts" class="level2">
+<h2 class="anchored" data-anchor-id="untransferable-nfts">Untransferable NFTs</h2>
+<p>Untrasferable NFTs have been a topic of interest for a while in Web3 and there are various use cases that have been explored. Such as:</p>
+<ul>
+<li>identity</li>
+<li>badges</li>
+<li>achievements, etc</li>
+</ul>
+<p>Vitalik Buterin in his blog post showed his interest in “soulbound NFTs”. If we want these NFTs to be truly soulbound (untrasferable) we would need to block transferability thus limiting them to only one address. When it comes to badges and achievements there are already POAPs. POAP has made the decision not to block transferability of POAPs themselves since the owners might want to change addresses and migrate assets for various reasons. There are various cases where they have been sold or even given out for free and after that sold for the highest bidder.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>When it comes to creating a “soulbound NFT” we think that it is possible and that it can be done by modifying the transfer function from the ERC-721 standard.</p>
+<p>The main issue here is utilizing them in the Blacklisting sense, the mint function from the ERC-721 interface can be included in the addBlacklist() function which would mint the said token to the said address. But so far we haven’t come to the use-case except for “flagging” the addresses for the world to see, so it seems unnecessary at the moment.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>When exploring blacklisting we have come to conclusion that it is already implemented in some contracts and that creating a protocol that marks the “malicious” addresses is possible. The untransferable NFTs are possible to create also. The main question here is are those solutions needed? Creating a protocol that others can lean on can be useful but it would also be a major point of centralization and a lot of effort for a feature that simple. Not to mention including untransferable NFTs in the process which at this stage of the research seem unnecessary. What if the address is removed from the blacklist for various reasons does the NFT stay?</p>
+</section>
+<section id="bibliography" class="level1">
+
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Soulbound" class="csl-entry" role="doc-biblioentry">
+‘Soulbound’ &lt;<a href="https://vitalik.ca/general/2022/01/26/soulbound.html" class="uri">https://vitalik.ca/general/2022/01/26/soulbound.html</a>&gt; [accessed 12 April 2022]
+</div>
+<div id="ref-WhatBlacklist" class="csl-entry" role="doc-biblioentry">
+‘What Is a Blacklist?’, <em>Investopedia</em> &lt;<a href="https://www.investopedia.com/terms/b/blacklist.asp" class="uri">https://www.investopedia.com/terms/b/blacklist.asp</a>&gt; [accessed 12 April 2022]
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="#ref-WhatBlacklist">‘What Is a Blacklist?’, <em>Investopedia</em> &lt;&lt;https://www.investopedia.com/terms/b/blacklist.asp&gt;&gt; [accessed 12 April 2022]</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="#ref-metamaskmetamaskMetaMaskAutomaticallyBlocks2018"><strong>metamaskmetamaskMetaMaskAutomaticallyBlocks2018?</strong></a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="#ref-Soulbound">‘Soulbound’ &lt;&lt;https://vitalik.ca/general/2022/01/26/soulbound.html&gt;&gt; [accessed 12 April 2022]</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

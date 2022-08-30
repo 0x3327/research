@@ -1,0 +1,35 @@
+name: Render Quarto files
+on:
+  push:
+    - branches: 'feature/**'
+
+jobs:
+  quarto-render-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Download Quarto"
+        shell: bash
+        run: |
+          # Hardcoding versions for now to make sure new versions don't break things
+          quarto_version="1.1.163"
+          quarto_file_name="quarto-${quarto_version}-linux-amd64.deb"
+          quarto_url="https://github.com/quarto-dev/quarto-cli/releases/download/v${quarto_version}/${quarto_file_name}"
+          wget -q "${quarto_url}"
+          sudo dpkg -i "${quarto_file_name}"
+      
+      - name: "Checkout repo"
+        uses: actions/checkout@v3
+
+      - name: "Quarto render"
+        shell: bash
+        run: |
+          quarto render --execute-debug
+
+      - name: "Publish website rendered html" 
+        shell: bash
+        run: |
+          git config --local user.name schrink
+          git config --local user.email vlelicanin@strategicpoint.rs
+          git add .
+          git commit -m "Quarto render website"
+          git push

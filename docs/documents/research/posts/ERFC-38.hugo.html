@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.163">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aleksandar Damjanovic">
+<meta name="dcterms.date" content="2022-02-25">
+
+<title>3327 Research - Building on Filecoin and Filecoin Proofs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - Building on Filecoin and Filecoin Proofs">
+<meta property="og:description" content="When looking to build dApps that utilize decentralized storage Filecoin seems like the best option even with its flaws like : absent proof of deletion for the client, absent encryption, impossible…">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - Building on Filecoin and Filecoin Proofs">
+<meta name="twitter:description" content="When looking to build dApps that utilize decentralized storage Filecoin seems like the best option even with its flaws like : absent proof of deletion for the client, absent encryption, impossible…">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Building on Filecoin and Filecoin Proofs</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Aleksandar Damjanovic </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 25, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#filecoins-proof-system" id="toc-filecoins-proof-system" class="nav-link" data-scroll-target="#filecoins-proof-system">Filecoin’s Proof System</a></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+  <ul class="collapse">
+  <li><a href="#critique-from-the-users-perspective" id="toc-critique-from-the-users-perspective" class="nav-link" data-scroll-target="#critique-from-the-users-perspective">Critique From the users perspective:</a></li>
+  <li><a href="#the-issue-with-replication-and-filecoin" id="toc-the-issue-with-replication-and-filecoin" class="nav-link" data-scroll-target="#the-issue-with-replication-and-filecoin">The issue with Replication and Filecoin</a></li>
+  </ul></li>
+  <li><a href="#filecoin-and-storj-comparission" id="toc-filecoin-and-storj-comparission" class="nav-link" data-scroll-target="#filecoin-and-storj-comparission">Filecoin and Storj comparission</a></li>
+  <li><a href="#filecoin-grants" id="toc-filecoin-grants" class="nav-link" data-scroll-target="#filecoin-grants">Filecoin Grants</a>
+  <ul class="collapse">
+  <li><a href="#next-step-microgrants" id="toc-next-step-microgrants" class="nav-link" data-scroll-target="#next-step-microgrants">Next Step Microgrants</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-38.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level2">
+<h2 class="anchored" data-anchor-id="executive-summary">Executive Summary</h2>
+<p>When looking to build dApps that utilize decentralized storage Filecoin seems like the best option even with its flaws like : absent proof of deletion for the client, absent encryption, impossible modifying of the stored data and the durability problem of Filecoin’s Proof of Replication. This research gives an overview of competitors in decentralized storage solution field with a focus on Filecoin protocol. It also shows how its competitor Storj differs from Filecoin and the current grant opportunities for potential building on it. Considering the results of the research Filecoin seems to be the best option considering the popularity and the size of its ecosystem. Currently there is no interest for building on and with Filecoin and this is a purely explorative work without experiments, in order to test the researcher’s methodology and the approach to research. However, it proposes a question about a potential way of improving Filecoin, or creating both safer protocol for the user and cheaper for the storage miners.</p>
+</section>
+<section id="goals-methodology" class="level2">
+<h2 class="anchored" data-anchor-id="goals-methodology">Goals &amp; Methodology</h2>
+<p>The aim of this research is to explore Filecoin protocol and show its fallacies as much as writer is possible with a goal of inspiring building applications that utilize Filecoin, new protocols or improving Filecoin via building for it. The paper will compile the list of all fallacies and possibilities for improvement for Filecoin, opportunities for building on it, and the current state of decentralized storage market mainly comparing Storj and Filecoin.</p>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Unlike a centralized server operated by a single company, decentralized storage systems consist of a peer-to-peer network of user-operators who hold a portion of the overall data. The platforms can store any data sent by the user, with some platforms more focusing on encryption. There is no official data disclosing the types of data stored. This research will be covering contract-based persistence platforms with a focus on Filecoin.</p>
+<p>Contract-based persistence means that data cannot be replicated by every node and stored forever, and instead must be upkept with contract agreements. These are agreements made with multiple nodes that have promised to hold a piece of data for a period of time. They must be refunded or renewed whenever they run out to keep the data persisted. Platforms with contract-based persistence currently present on the market are:</p>
+<ul>
+<li><p>Filecoin</p></li>
+<li><p>Skynet</p></li>
+<li><p>Storj</p></li>
+<li><p>0Chain</p></li>
+</ul>
+<p><strong>Filecoin</strong> is a peer-to-peer network that stores files with built in economic incentives to ensure files are stored reliably over time. Users pay to store their files on storage providers. Storage providers are computers responsible for storing files and proving they have stored the files correctly over time. Available storage and the price of it is not controlled by any company. Anyone who wants to store their files or get paid for storing other users files can join Filecoin is written in its documentation, but is that really the case? It will be further explored in later sections. Filecoin’s native currency is FIL. Storage providers earn units of FIL for storing user’s data. Its blockchain records transactions along with proofs from storage providers that they are storing files correctly.</p>
+<p>Currently Filecoin stores over <strong>40.0453 PiB</strong> of users data over <strong>1,848,292</strong> deals.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>When users want to store their files on Filecoin they use terminal or different guis that have been built by developers to choose between cost, redundancy and speed and they select the storage provider whose storage offer is best suited for their needs. Applications that implement filecoin negotiate storage with storage providers. There is no need for different API for each provider.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>“While interacting with IPFS does not require using Filecoin, all Filecoin nodes are IPFS nodes under the hood, and (with some manual configuration) can connect to and fetch IPLD-formatted data from other IPFS nodes using libp2p. However, Filecoin nodes don’t join or participate in the public IPFS DHT. IPFS alone does not include a built-in mechanism to incentivize the storage of data for other people. This is the challenge Filecoin aims to solve. Filecoin is built on IPFS to create a distributed storage marketplace for long-term storage.”<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+</section>
+<section id="filecoins-proof-system" class="level2">
+<h2 class="anchored" data-anchor-id="filecoins-proof-system">Filecoin’s Proof System</h2>
+<p>Filecoin uses Proof of Replication (PoRep) and Proof of Spacetime (poSt).</p>
+<p>In a Proof of Replication, a storage miner proves that they are storing a physically unique copy, or replica, of the data. Proof of Replication happens just once, at the time the data is first stored by the miner. As the storage miner receives each piece of client data they place it into a sector, fundamental unit of storage in Filecoin. Sectors can contain pieces from multiple deals and clients. Steps in PoRep: ### Proof of Replication 1. <strong>Filling sectors and generating the Commd</strong></p>
+<p>Once a sector is full a Commitment of Data (CommD) is created, representing the root node of all the piece CIDs contained in the sector.</p>
+<ol start="2" type="1">
+<li><p><strong>Sealing sectors and producing the Commitment of Replication</strong></p>
+<p>Sector data is encoded through a sequence of graph and hashing processes to create a unique replica. The root hash of the merkle tree of the resulting replica is called CommRLast. CommRLast is then hashed together with the CommC(another merkle root output from PoRep). This generates the CommR (Commitment of Replication) which is then recorded on Filecoin’s Blockchain. CommR, last is saved privately by the miner for future use in Proof of Spacetime but is not saved to the chain.</p>
+<p>Encoding process is slow and computationally heavy. <strong>Filecoin doesn’t provide encryption by default so users must encrypt data before adding it to the Filecoin network.</strong> This is the first issue encountered with Filecoin : <strong>Filecoin is optimized for public data and doesn’t yet support access controls.</strong></p>
+<p>The CommR offers clients the proof that the miner is storing a physically unique copy of the client’s data. If a client stores the same data with multiple storage miners, or makes multiple storage deals for the same data with the same miner, each deal will yield a different CommR. The sealing process also compresses the Proof of Replication using zk-SNARKs to keep the chain smaller so that it can be stored by all members of the Filecoin network for verification purposes.</p>
+<p>Unlike PoRep which is run once to prove that a miner stored a physically unique copy of the data at the time the sector was sealed. PoSt is run repeteadly to prove that the miners are continuing to dedicate storage space to that same data over time.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> ### Proof of Spacetime PoSt builds on several elements created during PoRep: the replica, the private CommRLast and public Commr. PoSt then selects some leaf nodes of the encoded replica and runs merkle inclusion proofs on them to prove that the miner has the specific bytes that indicate that he still holds the clients data. The miner then uses the privately stored CommRLast to prove that they know of a root for the replica which both agrees with the inclusion proofs and can be used to derive the CommR. As the final step PoSt compresses these proofs into a zk-Snark.</p>
+<p>If the miners fail the Proof of Spacetime at any point they will lose their staked collateral. Aside for this fine, there is no other incentive to keep the miners storing the data. That becomes a problem if client’s storing private data or data of great significance.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p></li>
+</ol>
+</section>
+<section id="results-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="results-discussion">Results &amp; Discussion</h2>
+<section id="critique-from-the-users-perspective" class="level3">
+<h3 class="anchored" data-anchor-id="critique-from-the-users-perspective">Critique From the users perspective:</h3>
+<p>As of today the price of 1 Filecoin token (FIL) is $22.05. <strong>The users can store a gigabyte of data for as little as 0.0000006157315278020465 FIL (0.01% the cost of Amazon S3) which means the user can store 100GB of data for $0.00135.</strong><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> From the price perspective the upside of Filecoin is it’s cheap storage but there are various downsides such as:</p>
+<ol type="1">
+<li>Accesibility: if the user is not tech-savvy there is a big barrier to entry even with GUIs currently available. They are often not simple to install and it is hard to get them to work. Hovewer there are various Apps that make that somewhat easier like ChainSafe Files and Web3.Storage.When it comes to being a storage miner there minimal needs for hardware are:</li>
+</ol>
+<ul>
+<li><p>8+ core CPU</p></li>
+<li><p>128 GiB of RAM atleast</p></li>
+<li><p>A strong GPU for SNARK computations</p></li>
+<li><p>1TiB NVMe-based disk space for cache storage is recommended</p>
+<p>This data shows that there needs to be a significant investment on storage miners part which is nothing out of the ordinary but significantly reduces the accessibility to the average person, ofcourse assuming the person wants to be a storage miner.</p></li>
+</ul>
+<ol start="2" type="1">
+<li><p>As the price of FIL tokens fluctuate the price of storage fluctuates as well. There is also a risk if any extra FIL is left in the customers wallet after the storage contract then token could potentially drop/rise in value, not to mention the fees of converting fiat into cryptocurrency.</p></li>
+<li><p>There is no built in encryption. Users need to encrypt their data on their own. Encryption/decryption of files cost compute resources (RAM, CPU), and therefore money. Most end users would prefer the implementation of this functionality to be handled, optionally, by the Filecoin web, cli or desktop client software they choose to make use of. This problem is seemingly taken care of with apps like ChainSafe Files.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>ChainSafe Files is an online platform to store, view, and share files. Its main focus is data privacy of the users and self-reliance. When it comes to self-reliance ChainSafe Files makes sure that the users can access the stored files even if the Files platform becomes unavailable. It also offers authentication flow using a decentralized login provider called tKey, by Torus. tKey is a private key generator that can link keys to social accounts among other functions. The Files’ backend is built on top of ChainSafe Storage, and any file that is uploaded to Files is also pinned by a node on its infrastructure (each file has an CID) thus making the data retrieval possible even in the case of ChainSafe files app outage. In the case of retrieval users still have to decrypt the data, since all the data stored by ChainSafe Files is encrypted by default. ‘ChainSafe Files - Decentralized Cloud Storage’<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p></li>
+<li><p>If the storage provider doesn’t respect his end of the deal he will be penalized and lose his staked FIL. Unless negotiating a great number of deals for the same data and storing a lot of copies in Filecoin, there is no guarantee that the data will be safely stored. These deals for the same data increase the cost of the service if the user wants to have somewhat durable data. Filecoin tries to mittigate this by having storage miners put 100+ FIL in collateral which also lowers the accessibility to the average person to become a storage miner. Currently most of the storage miners are located in China.</p></li>
+<li><p>Filecoin storage is cold storage. There is no way to modify data. If the user needs to change data , new data must be written.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p></li>
+<li><p>If the user issues a deletion command there is no guarantee that the client performs the operation. There is no way yet to Construct a formal Proof of Deletion.</p></li>
+</ol>
+</section>
+<section id="the-issue-with-replication-and-filecoin" class="level3">
+<h3 class="anchored" data-anchor-id="the-issue-with-replication-and-filecoin">The issue with Replication and Filecoin</h3>
+<p>When decentralized storage network is utilized any storage node could go offline thus the stored data would be at risk of getting lost. To achieve a somewhat reliable storage many decentralized providers use replication, which means the only way to keep the users data reliably besides penalizing storage miners is to store multiple copies of it. Replication is not good for the network expansion factor. If Filecoin wants more durability for its data it needs more copies. For every increase of durability (storing or repairing the data) another multiple of the data size in bandwith is needed. Eg. If the durability level requires a replication strategy that makes 10 copies of the data this yields and expansion factor of 1000%. This data needs to be stored on the network, using bandwith in the process. The more replication the bigger the bandwith usage. Hovewer, if the node goes offline , only one of the storage nodes is needed to bring a new replacement node in, which again means that the 100% of the replicated data must be transferred. Excessive expansion factors produce an inefficient allocation of resources.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<p>Another issue with replication is churn (nodes joining and leaving the network). Quoting Patrick Gerbes and John Gleeson: “Using replication in a high-churn environment is not only impractical, but inevitably doomed to fail. Distributed storage systems have mechanisms to repair data by replacing the pieces that become unavailable due to node churn. However, in distributed cloud storage systems, file repair incurs a cost for the bandwidth utilized during the repair process. Regardless of whether file pieces are simply replicated, or whether erasure coding is used to recreate missing pieces, the file repair process requires pieces to be downloaded from available nodes and uploaded to other uncorrelated and available nodes.”<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<p>Currently the circulating supply of FIL token is 162,302,978.00 FIL. The potential circulating FIL could reach 1.977 Billion tokens if the network hits a Yottabyte of storage capacity in under 20 years which is brave considering the current data stored in data centers today is less then a Zettabyte and a Yottabite is 1000 times larger. The 770 Million of which is for baseline minting.</p>
+<p>330 million FIL tokens are released on a 6 year half-life based on time. A 6 year half-life means that 97% of these tokens will be released in aproximately 30 years. This amount is amount is minted to provide counter pressure to shocks.</p>
+<p>Another 300 million FIL is held back in reserve to incentivize future types of mining. How they are released is up to the Filecoin community.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<p><img src="https://filecoin.io/vintage/images/blog/filecoin-circulating-supply-minting.png" style="height: 250px; width:500px;"></p>
+<p><em>Figure 1: Maximum and Minimum Minting from Storage Mining.</em></p>
+<p><img src="https://filecoin.io/vintage/images/blog/filecoin-circulating-supply-baseline.png" style="height: 250px; width:500px;"></p>
+<p><em>Figure 2: Network Storage Baseline for Max Baseline Minting on Log Scale.</em></p>
+<p>As of today 29,180,207.338966275 FIL has been slashed.This means that if a network participant misbehaves, part of their FIL collateral or potential FIL rewards is confiscated and burned. FIL is also slashed for various other reasons.</p>
+<p>Considering the token release we can expect total supply of FIL token to be almost doubled in the next five years. If we look the rate of slashing so far the dilluting process will exceed the tokens burned. This makes specullating Filecoin token price risky, both for the investors and users.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
+</section>
+</section>
+<section id="filecoin-and-storj-comparission" class="level2">
+<h2 class="anchored" data-anchor-id="filecoin-and-storj-comparission">Filecoin and Storj comparission</h2>
+<p>We will compare Filecoin and Storj by: 1. Consensus Algorithms</p>
+<p>Filecoin’s consesus mechanism has been covered in the paragraphs above.</p>
+<p>Storj does not have its own chain: the platform is built on Ethereum(currently built on PoW). The reason they decided to build on the Ethereum network is because of simplicity of using it as a method exchange. From the start Storj was never intented to be a true decentralized storage network.</p>
+<ol start="2" type="1">
+<li><p>Block time</p>
+<p>Filecoin’s block time is thirty seconds on average.</p>
+<p>Storj is the only “decentralized storage” solution to not employ their own chain. Storj decided to use the Ethereum network due to the easy deployment of a coin on it. Because of this decision, the block time is twelve seconds and needs to deal with the consequences of sharing blockchain with other projects.</p></li>
+<li><p>Enforcement of data retention</p>
+<p>Due to the PoSt mentioned in the paragraphs above the entire network is designed around data retention. In the case of miner failing to keep his promise , the only backup of the user’s data was irreversibly lost since Filecoin doesn’t use redundancy which is also mentioned in the paragraphs above.</p>
+<p>In Storj the actual enforcement of data isn’t clearly documented. Each Satellite (the interface between the storage operators and the clients) does the enforcement of data retention all on their own. Each Satellite has its own subset of storage nodes that it knows have a good reputation and it trusts, it uses these hosts to upload data to. Then it, at regular intervals, checks random data segments with “Berlekamp-Welch” error correction to make sure that the data is still there. If they fail to prove they store the data the reputation of that host is changed and data migrates to a new host. There is no chain-level enforcement for data retention.</p></li>
+<li><p>Content distribution</p>
+<p>In Filecoin data has to be sealed to be counted as a provable storage to the chain and because it is computation heavy it isn’t practical for the miners to serve data. 1 MiB file can take 5 to 10 minutes to unseal and 32 GiB file takes 3 hours on minimum hardware requirements mentioned above. To battle this Filecoin introduced a method to store cached and unsealed versions of data while storing the same data as sealed in order to provide proofs. This leads to the issue of miner storing the double amount of data while also posing the problem that unless the data is frequently accessed the miners will not store it because it isn’t profitable for them. That makes creating Google drive equivalent on Filecoin not practical because the data is not frequent enough to makes sense to cache while also being low latency (because of slow sealing and unsealing).</p>
+<p>In Storj’s case data is being accessible only through the S3 gateway of centralized data data Satellites. Users can transform any data to public data and can send anyone a link to that data.</p></li>
+<li><p>Sector size</p>
+<p>Sector size is the minimum amount of data that can be sent to host and paid for. Filecoin has a fixed 32 GiB sector size. For each 256b stored 2b are proofs. Which means 1% of storage paid for is for proof. Also everything sent must be in a .car file which can be computationally heavy on the client-side.</p>
+<p>In Storj’s case the sector size is not really clear. Current object fee is $0.0000022 per file stored. Which means that if there is a large amount of small files stored that would bring extra costs to the user.</p></li>
+<li><p>Decentralization</p>
+<p>Because of the Filecoin’s Hardware requirements for hosts that means not everyone can run a storage node. On the other networks basically anyone can run a storage node( most minimal requirements are 2 cores 8GB of RAM and some storage) but in Filecoin only people with sufficient funds for initial investments can run hosts which reduces the spread of the network. Which makes us question the actuall decentralization of the network.</p>
+<p>Storj isn’t decentralized. The blockchain nature of the Storj coin is only designed for for efficient transacting not decentralized enforcement of data retention which means that Storj is actually a distributed storage provider but not fully decentralized.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p></li>
+</ol>
+</section>
+<section id="filecoin-grants" class="level2">
+<h2 class="anchored" data-anchor-id="filecoin-grants">Filecoin Grants</h2>
+<p>Filecoin offers various types of grants for building with Filecoin.</p>
+<section id="next-step-microgrants" class="level3">
+<h3 class="anchored" data-anchor-id="next-step-microgrants">Next Step Microgrants</h3>
+<p>Filecoin offers grants of 5000$ in FIL to support taking the next step when the initial prototype is created. Their purpose is financing projects in the early stage. Acceptance criteria is simple. Projects must meet these criteria: 1. Applicant has already built something with Filecoin (or closely related technologies such as IPLD, libp2p, or frameworks or services such as NFT.storage, Textile Powergate, etc.), independently or as part of a course or hackathon. 2. Applicant must provide clear description of the Next Step after grant support 3. The project can be completed within 3 months. 4. Project must be open-sourced. 5. The applicant must complete weekly updates and a grant report upon conclusion.</p>
+<p>Projects that qualify for Microgrants: 1. Projects that publish data or files to IPFS 2. Projects that don’t use IPFS directly 3. Projects that save data or retrieve data from the Filecoin Network 4. Non-coding projects, videos, tutorials etc</p>
+<p>These grants are offered on the quarterly basis. ### Open Grants Filecoin’s focus areas currently are: 1. Core development - core protocol research, specification and implementation work 2. Application Development - applications that utilize Filecoin as a decentralized storage layer 3. Developer tools and libraries - tools and libraries for protocol developers and application developers 4. Integration and adoption - integration into existing app or projects with significant usage 5. Technical design - improvement proposals for the core storage protocol 6. Documentation 7. Community building 8. Metaverse - experiences, applications, communities, tooling, standards, infrastructure, et cetera<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> 9. Research that explores Filecoin and decentralized storage<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>When it comes to decentralized storage solutions Filecoin draws all the attention compared to its competitors like Storj and Sia. Storj solves Filecoin’s replication problem, on the expense of decentralization but the internet search statistics still shows that Filecoin is the main contender in Decentralized storage. <img src="https://i.imgur.com/Lr2LaBi.png" style="height: 250px; width:500px;"></p>
+<p><em>Figure 3. Filecoin (blue) vs Storj (red) search interest in the past 12 months.</em></p>
+<p>Even with unclear tokenomics a nd problematic durability to the writer of this research, building with Filecoin seems like the best solution when building dApps that utilize decentralized storage because of its low cost and grant opportunities, even though storage miners are somewhat centralized. If there is a way to improve current storage miner’s/clients experience on Filecoin both in cost and ease of use that would surely be a great grant opportunity. Also there could potentially be a way to draw them to a protocol that is a cheaper alternative. Ofcourse, these are all assumptions, since much of the data on these protocol is unclear and not available.</p>
+</section>
+<section id="bibliography" class="level1">
+
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-ChainSafeFilesDecentralized" class="csl-entry" role="doc-biblioentry">
+‘ChainSafe Files - Decentralized Cloud Storage’ &lt;<a href="https://files.chainsafe.io/" class="uri">https://files.chainsafe.io/</a>&gt; [accessed 24 February 2022]
+</div>
+<div id="ref-filecoinChainSafeFilesBuilding" class="csl-entry" role="doc-biblioentry">
+Filecoin, ‘ChainSafe Files <span class="nocase">Building Privacy-preserving Cloud Storage</span>’, <em>Filecoin</em> &lt;<a href="https://filecoin.io/blog/posts/chainsafe-files-building-privacy-preserving-cloud-storage/" class="uri">https://filecoin.io/blog/posts/chainsafe-files-building-privacy-preserving-cloud-storage/</a>&gt; [accessed 23 February 2022]
+</div>
+<div id="ref-Filecoin" class="csl-entry" role="doc-biblioentry">
+‘Filecoin’, <em>CoinSupplyCap.com</em> &lt;<a href="https://coinsupplycap.com/filecoin/" class="uri">https://coinsupplycap.com/filecoin/</a>&gt; [accessed 17 February 2022]
+</div>
+<div id="ref-filecoinFilecoinPolygonStudios" class="csl-entry" role="doc-biblioentry">
+Filecoin, ‘Filecoin and Polygon Studios Deepen Collaboration in NFTs, Games, and the Metaverse’, <em>Filecoin</em> &lt;<a href="https://filecoin.io/blog/posts/filecoin-and-polygon-studios-deepen-collaboration-in-nfts-games-and-the-metaverse/" class="uri">https://filecoin.io/blog/posts/filecoin-and-polygon-studios-deepen-collaboration-in-nfts-games-and-the-metaverse/</a>&gt; [accessed 17 February 2022]
+</div>
+<div id="ref-FilecoinDocumentation" class="csl-entry" role="doc-biblioentry">
+‘Filecoin Documentation’ &lt;<a href="https://docs.filecoin.io/" class="uri">https://docs.filecoin.io/</a>&gt; [accessed 16 February 2022]
+</div>
+<div id="ref-FilecoinFAQ" class="csl-entry" role="doc-biblioentry">
+‘Filecoin FAQ’ &lt;<a href="https://docs.filecoin.io/about-filecoin/faq/" class="uri">https://docs.filecoin.io/about-filecoin/faq/</a>&gt; [accessed 17 February 2022]
+</div>
+<div id="ref-fischPoRepsProofsSpace2018" class="csl-entry" role="doc-biblioentry">
+Fisch, Ben, <em>PoReps: Proofs of Space on Useful Data</em>, 2018 &lt;<a href="http://eprint.iacr.org/2018/678" class="uri">http://eprint.iacr.org/2018/678</a>&gt; [accessed 10 February 2022]
+</div>
+<div id="ref-fischProofsReplication" class="csl-entry" role="doc-biblioentry">
+Fisch, Ben, and Joseph Bonneau, ‘Proofs of Replication’, 25
+</div>
+<div id="ref-HttpsFileApp" class="csl-entry" role="doc-biblioentry">
+‘<span class="nocase">https://file.app</span>’ &lt;<a href="https://file.app" class="uri">https://file.app</a>&gt; [accessed 17 February 2022]
+</div>
+<div id="ref-IPFSFilecoin" class="csl-entry" role="doc-biblioentry">
+‘IPFS and Filecoin’ &lt;<a href="https://docs.filecoin.io/about-filecoin/ipfs-and-filecoin/" class="uri">https://docs.filecoin.io/about-filecoin/ipfs-and-filecoin/</a>&gt; [accessed 16 February 2022]
+</div>
+<div id="ref-labsFilecoinGrants" class="csl-entry" role="doc-biblioentry">
+Labs, Protocol, ‘Filecoin Grants’, <em>Filecoin</em> &lt;<a href="https://grants.filecoin.io/" class="uri">https://grants.filecoin.io/</a>&gt; [accessed 17 February 2022]
+</div>
+<div id="ref-olioReplicationBadDecentralized2018" class="csl-entry" role="doc-biblioentry">
+Olio, JT, ‘Replication Is Bad for Decentralized Storage, Part 1: Erasure Codes for Fun and Profit’, 2018 &lt;<a href="https://www.storj.io/blog/replication-is-bad-for-decentralized-storage-part-1-erasure-codes-for-fun-and-profit" class="uri">https://www.storj.io/blog/replication-is-bad-for-decentralized-storage-part-1-erasure-codes-for-fun-and-profit</a>&gt; [accessed 10 February 2022]
+</div>
+<div id="ref-projectUnderstandingFilecoinCirculating" class="csl-entry" role="doc-biblioentry">
+Project, Filecoin, ‘Understanding Filecoin Circulating Supply’, <em>Filecoin</em> &lt;<a href="https://filecoin.io/blog/filecoin-circulating-supply/" class="uri">https://filecoin.io/blog/filecoin-circulating-supply/</a>&gt; [accessed 16 February 2022]
+</div>
+<div id="ref-StorageChainsCompared" class="csl-entry" role="doc-biblioentry">
+‘Storage Chains Compared - Skynet Guide’ &lt;<a href="https://skynet.guide/tech/storage-chains-compared.html" class="uri">https://skynet.guide/tech/storage-chains-compared.html</a>&gt; [accessed 24 February 2022]
+</div>
+<div id="ref-WhyProofofReplication" class="csl-entry" role="doc-biblioentry">
+‘Why (<span class="nocase">Proof-of-</span>) Replication Is Bad for Decentralized Storage, Part 2: Churn and Burn’ &lt;<a href="https://www.storj.io/blog/why-proof-of-replication-is-bad-for-decentralized-storage-part-2-churn-and-burn" class="uri">https://www.storj.io/blog/why-proof-of-replication-is-bad-for-decentralized-storage-part-2-churn-and-burn</a>&gt; [accessed 16 February 2022]
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="#ref-HttpsFileApp">‘<span class="nocase">https://file.app</span>’ &lt;&lt;https://file.app&gt;&gt; [accessed 17 February 2022]</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="#ref-FilecoinDocumentation">‘Filecoin Documentation’ &lt;&lt;https://docs.filecoin.io/&gt;&gt; [accessed 16 February 2022]</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="#ref-IPFSFilecoin">‘IPFS and Filecoin’ &lt;&lt;https://docs.filecoin.io/about-filecoin/ipfs-and-filecoin/&gt;&gt; [accessed 16 February 2022]</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="#ref-fischProofsReplication">Ben Fisch and Joseph Bonneau, ‘Proofs of Replication’, 25</a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="#ref-fischPoRepsProofsSpace2018">Ben Fisch, <em>PoReps: Proofs of Space on Useful Data</em>, 2018 &lt;&lt;http://eprint.iacr.org/2018/678&gt;&gt; [accessed 10 February 2022]</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="#ref-HttpsFileApp">‘Https’</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="#ref-filecoinChainSafeFilesBuilding">Filecoin, ‘ChainSafe Files <span class="nocase">Building Privacy-preserving Cloud Storage</span>’, <em>Filecoin</em> &lt;&lt;https://filecoin.io/blog/posts/chainsafe-files-building-privacy-preserving-cloud-storage/&gt;&gt; [accessed 23 February 2022]</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><a href="#ref-ChainSafeFilesDecentralized">&lt;[Https://files.chainsafe.io/](https://files.chainsafe.io/)&gt; [accessed 24 February 2022]</a>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p><a href="#ref-FilecoinFAQ">‘Filecoin FAQ’ &lt;&lt;https://docs.filecoin.io/about-filecoin/faq/&gt;&gt; [accessed 17 February 2022]</a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p><a href="#ref-olioReplicationBadDecentralized2018">JT Olio, ‘Replication Is Bad for Decentralized Storage, Part 1: Erasure Codes for Fun and Profit’, 2018 &lt;&lt;https://www.storj.io/blog/replication-is-bad-for-decentralized-storage-part-1-erasure-codes-for-fun-and-profit&gt;&gt; [accessed 10 February 2022]</a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p><a href="#ref-WhyProofofReplication">‘Why (<span class="nocase">Proof-of-</span>) Replication Is Bad for Decentralized Storage, Part 2: Churn and Burn’ &lt;&lt;https://www.storj.io/blog/why-proof-of-replication-is-bad-for-decentralized-storage-part-2-churn-and-burn&gt;&gt; [accessed 16 February 2022]</a>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><a href="#ref-projectUnderstandingFilecoinCirculating">Filecoin Project, ‘Understanding Filecoin Circulating Supply’, <em>Filecoin</em> &lt;&lt;https://filecoin.io/blog/filecoin-circulating-supply/&gt;&gt; [accessed 16 February 2022]</a>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p><a href="#ref-Filecoin">‘Filecoin’, <em>CoinSupplyCap.com</em> &lt;&lt;https://coinsupplycap.com/filecoin/&gt;&gt; [accessed 17 February 2022]</a>.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p><a href="#ref-StorageChainsCompared">‘Storage Chains Compared - Skynet Guide’ &lt;&lt;https://skynet.guide/tech/storage-chains-compared.html&gt;&gt; [accessed 24 February 2022]</a>.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p><a href="#ref-filecoinFilecoinPolygonStudios">Filecoin, ‘Filecoin and Polygon Studios Deepen Collaboration in NFTs, Games, and the Metaverse’, <em>Filecoin</em> &lt;&lt;https://filecoin.io/blog/posts/filecoin-and-polygon-studios-deepen-collaboration-in-nfts-games-and-the-metaverse/&gt;&gt; [accessed 17 February 2022]</a>.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p><a href="#ref-labsFilecoinGrants">Protocol Labs, ‘Filecoin Grants’, <em>Filecoin</em> &lt;&lt;https://grants.filecoin.io/&gt;&gt; [accessed 17 February 2022]</a>.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

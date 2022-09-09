@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.163">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Milan Pavlovic">
+<meta name="dcterms.date" content="2022-07-25">
+
+<title>3327 Research - [ERFC - 278] Meritocratic voting</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - [ERFC - 278] Meritocratic voting">
+<meta property="og:description" content="We considered a setting where a resource or rights are to be distributed among participants/members of a group.">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - [ERFC - 278] Meritocratic voting">
+<meta name="twitter:description" content="We considered a setting where a resource or rights are to be distributed among participants/members of a group.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">[ERFC - 278] Meritocratic voting</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Milan Pavlovic </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 25, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#appendices" id="toc-appendices" class="nav-link" data-scroll-target="#appendices">Appendices</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-278.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>We considered a setting where a resource or rights are to be distributed among participants/members of a group. One possibility would be to allocate it equally (we can call this system democratic), another possibility would be to allocate it proportionally to relative efforts made, this system is known as meritocratic (based on credits earned).</p>
+<p>We are mainly interested in the voting system (for example for DAOs), but believe that a similar system could be used in many other situations.</p>
+<p>Prior to June, some of the existing solutions solves a good way process of weighted voting (MACI), and some (Colony) provide the solution for calculating reputation rating. Both have their missings - the role of coordinator in MACI, lack of ZK in Colony, for example. In the last weeks, Polygon came out with their PoligonID - web3 virtual identity which can store various data and uses ZK. It could be a great solution, after some testing and research, and one of its use cases could be Meritocratic voting. We could do deep dive into PolygonID and find others applications of it too, beside Meritocratic voting. It’s very new solution and we could be one of first adopters.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>We considered setting where a resource or rights are to be distributed among participants/members of group. One possibility would be to allocate it equally (we can call this system democratic), another possibility would be to allocate it proportionaly to relative efforts made, this system is known as meritocratic (based on credits earned).</p>
+<p>We are mainly interested in voting system (for example for DAOs), but believe that similar system could be used in many other situations.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The steps of this research include:</p>
+<ul>
+<li><p>Research use of blockchain as infrastructure for governance</p></li>
+<li><p>Researching known practices, solutions, and implementations (eg. Aragon, Polkadot, Colony, MACI, PolygonID)</p></li>
+<li><p>Research how ZK is used, where it is used, and how it could be used in systems which don’t use it yet</p></li>
+<li><p>Research the possibility of making dapp</p></li>
+</ul>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>The first question that one meets is who would favor one and who another system. A meritocratic system would favor members that have high rating/a lot of contributions. While it is a good thing to encourage members to make contributions it can disincentivize members with modest contributions from participating. Also if an objectively-good proposal can be vetoed by some small portion of the community, say 1%, then it doesn’t do well for the organization. If we are into realizing a project with a technical solution like a dapp, we should find the balance between these two extremes or include the option for user “how much meritocratic system” is wanted. Some further market research could be done in this direction.</p>
+<p>The next phase of research shows that there are two groups of existing solutions that partly solves a problem at the root of this research. In one group there are solutions that solve problems of blockchain governance (such as Colony and other systems for the governance of DAOs). Another group is solutions for the voting system, most notable is MACI.</p>
+<p>While MACI enables efficient weighted voting by using ZK proofs it has its drawbacks. Besides widely accepted missings such as having a coordinator, MACI does not have an efficiently updatable rating system. For example, if our Meritocratic system is to be used on some forum, the rating of a lot of members is changed daily. With MACI it is hard to register all that changes. If a rating of members in our Meritocratic system is rarely changed (for example we are using it for voting at universities where professors change their status/get a promotion every couple of years), MACI is a good existing solution - members pool does not change too fast and it can be efficiently updated. On the other side, MACI supports weighted voting (which because of ZK proofs is efficient) but relies that before voting we have the complete list of members (and their reputation). In short, MACI does not interfere a lot with members polls, it is mainly concerned with the process of voting alone.</p>
+<p>Another group of existing solutions is solutions for the governance of blockchains, and DAOs, such as Colony. Colony supports a reputation system that is updateable and based on contributions but lacks ZK voting. They use simple commitments for voting, downsides are notable: after voting members must ‘unlock’ their vote; zk based voting system would be much better - more privacy, less cost. Also, even though Colony uses a reputation system, it does not do it on a blockchain (because of costs - the calculation is too large to be done on-chain due to technical and economic limitations (i.e.&nbsp;the block gas limit and the cost of gas, respectively), this calculation can easily be performed by a typical user’s computer.) so they also assume the role of coordinator. Also, I could not find that they are proving proof of valid reputation calculation, which could be important to some clients.</p>
+<p>For a question of calculating reputation there are some nice solutions from Colony which takes into consideration a couple of parameters such as type of contribution, the quantity of contribution, and also the time of inactivity - which brings negative reputation. Reputation rating can be measured with transferable or nontransferable tokens, depending on the use case.</p>
+<p>Polkadot is a PoS, mostly-on-chain governed blockchain platform with a number interesting additions, they have for example an elected council and a technical council. Voters require at least 5 DOT to participate in governance and their voting power is based on stake. At a glance, the voters elect councillors, directly vote on referenda and submit proposals. The councilors then have the power to veto dangerous proposals, elect the technical committee, submit proposal of their own for approval by the voters and also control the treasury. The technical council can submit emergency referenda, that are implemented immediately if approved. Identity on Polkadot can be conected with various web2 platforms such as Twitter or Linkedin. They do not use ZK, so that could be tech improvement. For that improvement we could get inspiration from Polygons PolygonID, or simply focus our research on it.</p>
+<p>In middle of this research, Polygon came out with blogs that announce their solution for problems of this kind. At it’s core is their PolygonID - private identity on blockchain that uses power of ZK proofs. Namely, to someone prove their reputation, one can be in temptation to use it’s wallet address. But it comes with cost, it risks revalving whole history, a lot of data from wallet, only because of voting. To address such concerns Polygon came with a new Web3 identity primitive - Polygon ID will serve that purpose, and Polygon DAO will be its testing ground. Polygon only announced this project, saying:</p>
+<p>“Over the coming months, the Polygon ID ecosystem will grow to include a set of tools, platform services and examples for developers to learn, test and integrate with their apps or dApps leveraging Polygon ID’s unique on-chain capabilities.”</p>
+<p>Weather we are about to make our demo app or try to improve/understand some of existing ( PolygonID stands out), paper [2] from litterature sugests immportant questions to think about, some of which are: * Tradeoffs between Privacy vs.&nbsp;Verifiability and Suffrage * Proofs of Personhood, Identity-based suffrage and tradeoffs with Privacy * Meritocratic suffrage and tradeoffs with privacy * …</p>
+<p>If we are about to make ZK solution for weighted voting, or reputation managment, good starting point is paper [3] of J. Groth in which there are numerous different votting system as well pseudo code and proofs of correctnes of main ZK attributes such as soundnes. For us, most interesting application would be ‘Borda Vote’. In Borda voting, voters cast weighted votes. The worst candidate gets 1 vote, the second worst 2 votes, and so forth. A valid vote is therefore on the form <span class="math inline">\(\prod_{i=1}^{L} \pi(i)M^{i-1}\)</span> for some permutation <span class="math inline">\(\pi\)</span>. In paper there is sugested protocool and correctnes argument for it.</p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>Need for Meritocratic voting system is most cercitnly large, question is how big is need for frequent and large updates in mebembers poll (mostly because of changing reputation rating). If that need is also large, then doing deeper technical research on this subject is jutified. Arguably, without effective governance processes, blockchain technology will fail to reach its full potential</p>
+<p>Solution for our Meritocratic voting problem should be mix of the two - reputation mainteinnig system and voting system. For voting phase we could use MACI (or some variation) but we should design more cost-friendly system for mainteing reputation score/updating members list. If members trust coordinators for that part, than Colony solution works. One upgrade would be to coordinator provide ZK proof for updating reputations of members - proof that state transition is OK. It is elegant solution because it can be done off blockchain an we can chalange coordinator. On the other side, it adds costs to coordinator. If organization does not want that cost it would use Colony.</p>
+<p>Another route to go is to monitor closely on PolygonID, try to get some use-case examples, code, and documentation, and dig deeper into their solution. Based on MVP’s good collaboration with Polygon, and the top-of-the-class reputation of Polygon’s ZK teams, I believe that this is a good route to go. We could find others applications of it too, beside Meritocratic voting; and build dapps on-top-of their solution. It’s very new solution and we could be one of first adopters.</p>
+</section>
+<section id="appendices" class="level1">
+<h1>Appendices</h1>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+<p>[1] Gradstein, M.; Voting on meritocracy. European Economic Review, 48(4), 797–803.; 2004</p>
+<p>[2] SoK: Blockchain Governance; Aggelos Kiayias, Philip Lazos; 2022</p>
+<p>[3] https://link.springer.com/chapter/10.1007/11496137_32</p>
+<p>[4] https://colony.io/whitepaper.pdf</p>
+<p>[5] https://github.com/privacy-scaling-explorations/maci</p>
+<p>[6] https://blog.polygon.technology/state-of-governance-2-identity-reputation/</p>
+<p>[7] https://blog.polygon.technology/polygon-id-x-polygon-dao-integration-launches-to-create-new-zk-based-governance-frameworks/</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

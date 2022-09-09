@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.163">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Uros Kukic">
+<meta name="dcterms.date" content="2022-07-28">
+
+<title>3327 Research - Introduction to Avalanche</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - Introduction to Avalanche">
+<meta property="og:description" content="While Bitcoin and Ethereum represent the most popular networks in the Web3 space, they also face technical limitations for practical mass adoption.">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - Introduction to Avalanche">
+<meta name="twitter:description" content="While Bitcoin and Ethereum represent the most popular networks in the Web3 space, they also face technical limitations for practical mass adoption.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Introduction to Avalanche</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Uros Kukic </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 28, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#components-of-the-avalanche-network" id="toc-components-of-the-avalanche-network" class="nav-link" data-scroll-target="#components-of-the-avalanche-network">Components of the Avalanche network</a>
+  <ul class="collapse">
+  <li><a href="#blockchains" id="toc-blockchains" class="nav-link" data-scroll-target="#blockchains">Blockchains</a></li>
+  <li><a href="#validators" id="toc-validators" class="nav-link" data-scroll-target="#validators">Validators</a></li>
+  <li><a href="#subnets" id="toc-subnets" class="nav-link" data-scroll-target="#subnets">Subnets</a></li>
+  </ul></li>
+  <li><a href="#avalanche-consensus-protocol" id="toc-avalanche-consensus-protocol" class="nav-link" data-scroll-target="#avalanche-consensus-protocol">Avalanche Consensus Protocol</a></li>
+  </ul></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a>
+  <ul class="collapse">
+  <li><a href="#subnet-development" id="toc-subnet-development" class="nav-link" data-scroll-target="#subnet-development">Subnet development</a></li>
+  <li><a href="#dapp-development" id="toc-dapp-development" class="nav-link" data-scroll-target="#dapp-development">dApp Development</a></li>
+  </ul></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+  <ul class="collapse">
+  <li><a href="#languages" id="toc-languages" class="nav-link" data-scroll-target="#languages">Languages</a></li>
+  <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">Tools</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-336.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>While Bitcoin and Ethereum represent the most popular networks in the Web3 space, they also face technical limitations for practical mass adoption. New networks were developed to address these limitations with novel technologies and approaches. To better understand these innovations and their advantages, this paper looks into one of these networks, Avalanche.</p>
+<p>This paper aims to give an overview of the technical architecture of the Avalanche network, as well as present the reader with the technologies they would encounter when developing on the Avalanche network.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This document aims to give an introduction to the Avalanche network. By describing the consensus mechanism and the network architecture, we can better understand how to develop solutions on it.</p>
+<p>This paper looks at the technologies one would encounter when using the Avalanche network. It briefly describes their function, how they can be used, their limitations, and possible improvements in the future.</p>
+<section id="components-of-the-avalanche-network" class="level2">
+<h2 class="anchored" data-anchor-id="components-of-the-avalanche-network">Components of the Avalanche network</h2>
+<p>The Avalanche network is a modular system, so before we describe how the entire network works, we will define the components that form the Avalanche network. Afterward, we can explore how those components interconnect and how each component function works in detail.</p>
+<section id="blockchains" class="level3">
+<h3 class="anchored" data-anchor-id="blockchains">Blockchains</h3>
+<p>When we refer to Blockchains on the Avalanche network, we refer to virtual machines. Every node on a particular network runs that network’s virtual machine (or machines). They dictate valid states, as well as the rules for transitioning between those states.</p>
+<p>These virtual machines can be customized to better suit the needs of the product that will use them. In general, one can change the initial state of the blockchain or the state transition rules. For example, one can change how transaction fees are calculated and distributed, or how the funds are distributed initially.</p>
+<p>In a later section, we will explore the technical details and different available virtual machines on the Avalanche network.</p>
+</section>
+<section id="validators" class="level3">
+<h3 class="anchored" data-anchor-id="validators">Validators</h3>
+<p>Different nodes communicate with each other on the Avalanche network to form the decentralized system. Nodes that run a virtual machine and receive and validate new transactions are considered validators. The validator nodes stake some amount of AVAX and receive rewards for their work.</p>
+</section>
+<section id="subnets" class="level3">
+<h3 class="anchored" data-anchor-id="subnets">Subnets</h3>
+<p>A Subnet is a sovereign network that defines its own rules regarding membership and token economics. It is composed of a dynamic subset of Avalanche validators working together to achieve consensus on the state of one or more blockchains. Each blockchain is validated by exactly one Subnet, and a Subnet can have many blockchains. A validator may be a member of many Subnets.</p>
+<center>
+<p><img src="../assets/ERFC-336/Subnets.png" class="img-fluid"></p>
+<p>Figure 1: Avalanche subnets overview</p>
+<p><em>Source: docs.avax.network</em></p>
+</center>
+<p>Subnets are independent; they specify their own execution logic, determine their own fee regime, maintain their own state, facilitate their own networking, and provide their own security. They do not share the execution thread, storage, or networking with other Subnets.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>With all components of the Avalanche network shown, we can demonstrate how they combine together using the Avalanche Primary network as an example.</p>
+<p><strong>The primary network</strong></p>
+<p>Every validator is a member of Avalanche’s built-in public Subnet, called the Primary network. Validators can be members of as many Subnets as they choose, but they must be members of the Primary network along with them.</p>
+<p>The Primary network is comprised of three blockchains:</p>
+<ol type="1">
+<li><p>The Platform Chain (P-chain) is the metadata blockchain on Avalanche and coordinates validators, keeps track of active Subnets, and enables the creation of new Subnets.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p></li>
+<li><p>The Contract Chain (C-chain) is a blockchain compatible with the Ethereum Virtual Machine. It enables creating and using smart contracts similarly to how they function on the Ethereum network.</p></li>
+<li><p>The Exchange Chain (X-chain) is a blockchain for creating and trading digital assets.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p></li>
+</ol>
+<center>
+<p><img src="../assets/ERFC-336/Chains.png" class="img-fluid"></p>
+<p>Figure 2: The Avalanche primary network chains</p>
+<p><em>Source: docs.avax.network</em></p>
+</center>
+</section>
+</section>
+<section id="avalanche-consensus-protocol" class="level2">
+<h2 class="anchored" data-anchor-id="avalanche-consensus-protocol">Avalanche Consensus Protocol</h2>
+<p>For the network to function, the validators need to agree on the state of the blockchain they contain. The process through which they reach this agreement is called a consensus protocol. By ensuring that only valid transactions will be included in the final state of the network, consensus protocols provide security on the network.</p>
+<p>The Avalanche Network uses a novel consensus protocol called Avalanche protocol, which functions by randomly subsampling the network multiple times.</p>
+<center>
+<p><img src="../assets/ERFC-336/Mechanism.png" class="img-fluid"></p>
+<p>Figure 3: Avalanche consensus mechanism</p>
+<p><em>Source: docs.avax.network</em></p>
+</center>
+<p>When a validator receives a transaction, it checks that the transaction metadata is valid (e.g., the transaction signature is valid, the sender has enough funds to execute the transaction, and such). After confirming the transaction validity locally, the validator selects <em>n</em> nodes randomly if they also consider the transaction valid. If <em>α</em> of those <em>n</em> nodes consider the transaction valid, the round is considered successful. This concludes one successful round, and the process is repeated, starting from the selection of n nodes. If <em>β</em> consecutive rounds are successful, the transaction is accepted, and the state of the blockchain is updated.</p>
+<p>In order to increase the throughput of the blockchain, the Avalanche protocol creates a Directed Acyclic Graph (DAG) that represents state changes of the blockchain. A set of transactions is considered a vertex in the DAG. How this data structure functions will be explored further in subsequent research, as it is not the focal point of this document.</p>
+<p><strong>Snowman Consensus Protocol</strong></p>
+<p>Snowman is a modification of the Avalanche Consensus Protocol, which creates a linear chain of vertices instead of a DAG. This modification is similar to how most decentralized blockchains work, with each vertex representing a block of transactions.</p>
+<p>While the X-Chain uses the Avalanche Consensus Protocol, it is noteworthy that the C-chain and X-chain utilize the Snowman protocol for simplicity.</p>
+</section>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>In this section, we will present the experience of a developer starting to develop solutions on the Avalanche network. First we’ll cover the experience of developing a subnet and afterwards the experience of developing a decentralized application (dApp) on the Avalanche network.</p>
+<section id="subnet-development" class="level2">
+<h2 class="anchored" data-anchor-id="subnet-development">Subnet development</h2>
+<p>The official Avalanche documentation<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> offers plenty of subnet creation and deployment guides of increasing complexity to introduce the reader to various aspects of the network.</p>
+<p>The Create an EVM Subnet on a Local Network<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> guide enables one to run a subnet locally without worrying about too many dependencies or steps during the setup. The guide explains how to locally create a subnet with five validators and an EVM-compatible blockchain called Subnet-EVM. The guide also gives additional steps on how to stop and start the Subnet or redeploy it.</p>
+<p>The following guide<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> instructs the user how to deploy the Subnet used in the previous guide on the Fuji testnet. With detailed instructions, one can follow the menus in the CLI wizard and have a subnet registered on the testnet. The only significant difference is that validators are not automatically created; they need to be added to the Subnet after the deployment.</p>
+<p>The subsequent guides require running an Avalanche node, for which one would likely need to install the AvalancheGo<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> and Subnet-CLI<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> libraries. These dependencies raise the level of complexity when working with Avalanche but are foundational for deploying subnets on the production network and unlock the potential to customize node functionality.</p>
+<p>After deploying a subnet on the testnet, we worked on customizing a subnet’s virtual machine<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>. By altering the genesis block, we modified the transaction fee calculation. However, the Avalanche guides also offer instructions on building a virtual machine from scratch that the Subnet will use.</p>
+<p>Due to the scope of this research, we did not explore the topic further, but we hope to explore customizing subnets and virtual machines which use them deeper.</p>
+</section>
+<section id="dapp-development" class="level2">
+<h2 class="anchored" data-anchor-id="dapp-development">dApp Development</h2>
+<p>As we previously mentioned, smart contracts are used on Avalanche C-Chain; thus, the development of dApps is done through that same type of chain. Luckily, the virtual machines used in subnet guides are primarily using Subnet-EVM. This enables developers to use the same “dummy” subnets for dApp development.</p>
+<p>The first step for dApp developers should be connecting to a local Subnet using Remix and Metamask, two well-known tools for smart contract development. Using these tools will introduce communicating with subnets to the developer.</p>
+<p>For developing more advanced dApps on Avalanche, we used Hardhat for connecting to the Avalanche C-Chain on the Fuji network. After customizing the Hardhat configuration file with the appropriate RPC endpoints, smart contract deployment was identical to the deployment experience on the Ethereum network.</p>
+<p>More research is required to validate more complex functionalities, but we expect that most frameworks and tools available for Ethereum dApp development will also work on Avalanche.</p>
+</section>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>In this section, we will technologies we’ve encountered in the previous section, with a brief explanation of how and why we’ve utilized them and our experience with using those technologies.</p>
+<section id="languages" class="level2">
+<h2 class="anchored" data-anchor-id="languages">Languages</h2>
+<ol type="1">
+<li><p><strong>GoLang</strong></p>
+<p>Both the Avalanche node implementation and coreth, the virtual machine the c-chain implements, are written in Go. For anyone looking to start developing on the Avalanche network, especially using custom subnets, Go is a language with which they should get acquainted.</p></li>
+<li><p><strong>Solidity</strong></p>
+<p>For developers who want to create and deploy their own dApps, Solidity is the most employed language for writing smart contracts, which are essential for almost any dApp.</p>
+<p>It was built for creating smart contracts on the Ethereum network. However, the Avalanche network’s compatibility with the Ethereum virtual machine means that this language (and all its tools) is available to developers.</p>
+<p>Due to its widespread usage, available resources, and tooling, we recommend this language for any developer looking to create dApps on the Avalanche network’s C-Chain.</p></li>
+<li><p><strong>NodeJS</strong></p>
+<p>Besides Go libraries for communicating with the Avalanche network, developers can also use AvalancheJS to access the Avalanche network using JavaScript.</p>
+<p>Coupled with numerous NodeJS libraries for smart contract development, for any developer wanting to create a dApp, we recommend learning NodeJS.</p></li>
+</ol>
+</section>
+<section id="tools" class="level2">
+<h2 class="anchored" data-anchor-id="tools">Tools</h2>
+<ol type="1">
+<li><p><strong>Avalanche-CLI</strong></p>
+<p>The Avalanche-CLI is a tool that enables users to create and deploy subnets. With simple-to-use commands, developers can quickly run a Subnet locally and later deploy them on the Avalanche Fuji testnet.</p>
+<p>At the time of writing, it supports the following:</p>
+<ul>
+<li>Creation of Subnet-EVM configs and Subnet-EVM forks</li>
+<li>Local deployment of Subnet-EVM-based Subnets</li>
+<li>Fuji deployment of Subnet-EVM-based Subnets</li>
+</ul>
+<p><strong>Our experience</strong></p>
+<p>Avalanche-CLI is a great tool for quickly having something running on one’s machine. It does not require a lot of setup or complicated commands. One can interact with an Avalanche subnet with just five commands using common Ethereum tools like Remix and Metamask.</p>
+<p>The downside to that ease of use is its limited functionality. The authors note that Avalanche-CLI is under active development and early in its lifecycle, so expect frequent changes and certain limitations with what one can do with it.</p>
+<p>At the time of writing, it seems that only Subnet EVM is supported as the blockchain for the Subnet. One can edit the genesis file, enabling customizations of transaction fees, initial fund allocation, consensus, gossip, and validator communication. While this level of customization is quite a lot for someone just getting into the Avalanche network, we expect it is not enough for teams or products that want to deploy custom virtual machines highly tailored for their use case.</p></li>
+<li><p><strong>AvalancheGo</strong></p>
+<p>As the node implementation for the Avalanche network, AvalancheGo<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> is a foundational library one needs for Avalanche development. Besides running a node instance (which connects to the Avalanche network), the library also enables a wide berth of RPC endpoints for:</p>
+<ul>
+<li>Interacting with the P-Chain, C-Chain, and X-Chain</li>
+<li>Examining the node’s internal state, health, basic information, and statistics</li>
+<li>Manage authorization tokens</li>
+<li>Fetch transactions, vertices, or blocks</li>
+</ul>
+<p><strong>Our Experience</strong></p>
+<p>During this research, we used AvalancheGo to run our nodes on the Fuji testnet and were able to customize it to communicate with our custom subnet. We also used it together with Avalanche Network Runner and Subnet-CLI to build a custom virtual machine for our Subnet. As such, it was more used as a dependency for other Avalanche tools, and we only had limited interaction with it.</p>
+<p>The library functioned without many issues. However, we do have to warn the reader to pay attention to the location of the installation, as quite a few guides assume the default installation location. Installing the library at a non-default location caused unnecessary difficulty following some guides and using other Avalanche network tools.</p>
+<p>Since it is an integral library on the Avalanche network, we hope to dive deeper into this library in subsequent research efforts to learn its capabilities and limitations.</p></li>
+<li><p><strong>Subnet-CLI</strong></p>
+<p>A tool for managing Subnets on the Avalanche production network, this command line interface enables the user to create a new subnet, define its validators, and create and check the status of the blockchain for the Subnet.</p>
+<p>Subnet-CLI is also required to build custom node configurations using the Avalanche Network Runner tool.</p>
+<p><strong>Our experience</strong></p>
+<p>At the time of research, Subnet-CLI was the only tool available for creating a Subnet on the Fuji testnet, so it is a winner in its category by default. Subsequently, Avalanche-CLI was updated to support this functionality, and we found it more straightforward to use than Subnet-CLI.</p>
+<p>For now, Subnet-CLI seems to be the primary way to deploy a subnet on the Avalanche production network. However, Avalanche subnet libraries are still in rapid development. As such, we would recommend comparing the functionalities of Subnet-CLI and Avalanche-CLI to see which one has the capabilities the reader requires.</p></li>
+<li><p><strong>Avalanche Network Runner</strong></p>
+<p>The Avalanche Network Runner allows a user to define, create and interact with a network of Avalanche nodes. It can be used for development and testing. It aims at being a tool for developers and system integrators alike, offering functionality to run networks of AvalancheGo nodes. It also has support for custom node, Subnet, and network configurations, allowing to locally test code before deploying to the mainnet or public testnets<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>.</p>
+<p>Although the tool has more dependencies and slightly more complicated commands than Avalanche-CLI, Avalanche Network Runner enables customized configuration for each node individually and more detailed logging when accessing the Subnet via API.</p>
+<p><strong>Our experience</strong></p>
+<p>We utilized the Avalanche Network Runner to create a Subnet of 5 nodes locally and to add a new node after subnet deployment. The experience was straightforward; we only encountered difficulty setting up the tool’s dependencies.</p>
+<p>The ability to use the Avalanche Network Runner as a library enables the developer to set up scripts and access a subnet programmatically. This key feature enables faster testing and development of subnets, making ANR invaluable for developers.</p>
+<p>As Avalanche Network Runner is intended as a tool for development and testing, we hope to utilize it more in subsequent research when we further cover developing subnets. In that research, we hope to give a more comprehensive description of this tool.</p></li>
+<li><p><strong>Avalanche wallet</strong></p>
+<p>The Avalanche wallet is a web application that allows users to create a new wallet or access their existing one. The app shows the wallet balance for each chain and any assets or collectibles the wallets hold.</p>
+<p>Users can access their wallets using a private key, mnemonic phrase, keystore file, or a hardware ledger wallet. Access using Metamask is not available at the time of writing.</p>
+<p>Inside the app, users can access their wallet address for each Avalanche network chain, send assets and collectibles (or create new collectibles), or send AVAX from one chain to another. Applying for staking or delegating is also available through the web wallet, as well as a view of previously executed transactions and UTXOs.</p>
+<p><strong>Our experience</strong></p>
+<p>We have used Avalanche wallet when registering a subnet on the Avalanche Fuji testnet for transferring funds between different Avalanche chains. Its missing feature to connect to Metamask does degrade the user experience, but overall the process was straightforward.</p>
+<p>Although this paper primarily focuses on development tools, we wanted to mention the Avalanche wallet as something a developer will come across when deploying a subnet on the Fuji testnet, as the faucet transfers AVAX to the wallet on the X-Chain, and a transfer is necessary.</p></li>
+<li><p><strong>Remix, Metamask, and Hardhat</strong></p>
+<p>In this section, we wanted to mention some Ethereum tools we have used in Avalanche development and how they operated. For more details on specific tools from this group, check out our Web3 Technology Radar<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<p><strong>Our experience</strong></p>
+<p>We used Remix and Metamask to deploy and interact with smart contracts on a local EVM compatible Subnet, and Hardhat for deploying a sample dApp on the Avalanche Fuji testnet.</p>
+<p>Aside from customizing the RPC endpoint these tools use and the chain ID, these tools worked seamlessly with local and public Avalanche networks. As we mentioned, while we want to test more tools made for Ethereum on Avalanche in future research, we do not expect many issues with them functioning the same way on Avalanche as they would on Ethereum.</p></li>
+</ol>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>In this research, we have described the three main components of the Avalanche network, how they interact to form subnets of validators with specific chains, and the underlying consensus mechanism for those chains. We have also given an overview of the guides and topics one would encounter when starting to work on Avalanche for the first time. Lastly, we have given a list of the technologies a developer should know when working with Avalanche and our experience with them.</p>
+<p>We hope to have provided the reader with the foundational understanding of the Avalanche Network, its components, and introductory projects, which will enable them to decide whether Avalanche is a good choice for their use case and how they can get started if it is.</p>
+<p>We hope to explore the Avalanche ecosystem further in subsequent research, specifically creating more customized virtual machines and testing, deploying, and monitoring subnets on the Avalanche production network. This research would also include measuring a subnet’s performance and programmatical use of the development tools to test network behavior before deployment.</p>
+<p>The Avalanche network’s X-Chain is another subject we would like to research further. Its directed acyclic graph, the data structure of the chain, and high throughput are interesting subjects we would like to explore more comprehensively.</p>
+</section>
+<section id="bibliography" class="level1">
+
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-avalabsAvalancheDocs" class="csl-entry" role="doc-biblioentry">
+Ava Labs, ‘Avalanche Docs’, <em>Avalanche Docs</em> &lt;<a href="https://docs.avax.network/" class="uri">https://docs.avax.network/</a>&gt; [accessed 2 August 2022]
+</div>
+<div id="ref-avalabsAvalancheNetworkRunner" class="csl-entry" role="doc-biblioentry">
+———, ‘Avalanche Network Runner’, <em>Avalanche Network Runner</em> &lt;<a href="https://docs.avax.network/subnets/network-runner" class="uri">https://docs.avax.network/subnets/network-runner</a>&gt; [accessed 7 August 2022]
+</div>
+<div id="ref-avalabsAvalanchePlatform" class="csl-entry" role="doc-biblioentry">
+———, ‘Avalanche Platform’, <em>Avalanche Platform</em> &lt;<a href="https://docs.avax.network/overview/getting-started/avalanche-platform" class="uri">https://docs.avax.network/overview/getting-started/avalanche-platform</a>&gt; [accessed 2 August 2022]
+</div>
+<div id="ref-avalabsAvalancheGo" class="csl-entry" role="doc-biblioentry">
+———, ‘AvalancheGo’, <em>AvalancheGo Github Repository</em> &lt;<a href="https://github.com/ava-labs/avalanchego" class="uri">https://github.com/ava-labs/avalanchego</a>&gt; [accessed 7 August 2022]
+</div>
+<div id="ref-avalabsAvalancheGoAPIsOverview" class="csl-entry" role="doc-biblioentry">
+———, ‘AvalancheGo APIs Overview’, <em>AvalancheGo APIs Overview</em> &lt;<a href="https://docs.avax.network/subnets/customize-a-subnet" class="uri">https://docs.avax.network/subnets/customize-a-subnet</a>&gt; [accessed 3 August 2022]
+</div>
+<div id="ref-avalabsCreateEVMSubnet" class="csl-entry" role="doc-biblioentry">
+———, ‘Create an EVM Subnet on a Local Network’, <em>Create an EVM Subnet on a Local Network</em> &lt;<a href="https://docs.avax.network/subnets/create-a-local-subnet" class="uri">https://docs.avax.network/subnets/create-a-local-subnet</a>&gt; [accessed 2 August 2022]
+</div>
+<div id="ref-avalabsCreateEVMSubneta" class="csl-entry" role="doc-biblioentry">
+———, ‘Create an EVM Subnet on Fuji Testnet’, <em>Create an EVM Subnet on Fuji Testnet</em> &lt;<a href="https://docs.avax.network/subnets/create-a-fuji-subnet" class="uri">https://docs.avax.network/subnets/create-a-fuji-subnet</a>&gt; [accessed 3 August 2022]
+</div>
+<div id="ref-avalabsCustomizeYourEVMPowered" class="csl-entry" role="doc-biblioentry">
+———, ‘Customize Your EVM-Powered Subnet’, <em>Customize Your EVM-Powered Subnet</em> &lt;<a href="https://docs.avax.network/subnets/customize-a-subnet" class="uri">https://docs.avax.network/subnets/customize-a-subnet</a>&gt; [accessed 3 August 2022]
+</div>
+<div id="ref-avalabsSubnetCLI" class="csl-entry" role="doc-biblioentry">
+———, ‘Subnet-CLI’, <em>Subnet-CLI | Avalanche Docs</em> &lt;<a href="https://docs.avax.network/subnets/subnet-cli" class="uri">https://docs.avax.network/subnets/subnet-cli</a>&gt; [accessed 7 August 2022]
+</div>
+<div id="ref-avalabsSubnetsOverview" class="csl-entry" role="doc-biblioentry">
+———, ‘Subnets Overview’, <em>Subnets Overview</em> &lt;<a href="https://docs.avax.network/subnets" class="uri">https://docs.avax.network/subnets</a>&gt; [accessed 2 August 2022]
+</div>
+<div id="ref-mvpworkshopWeb3TechnologyRadar" class="csl-entry" role="doc-biblioentry">
+MVP Workshop, ‘Web3 Technology Radar’, <em>Web3 Technology Radar</em> &lt;<a href="https://web3radar.3327.io/tech-radar" class="uri">https://web3radar.3327.io/tech-radar</a>&gt; [accessed 7 August 2022]
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="#ref-avalabsSubnetsOverview">Ava Labs, ‘Subnets Overview’, <em>Subnets Overview</em> &lt;&lt;https://docs.avax.network/subnets&gt;&gt; [accessed 2 August 2022]</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="#ref-avalabsAvalanchePlatform">Ava Labs, ‘Avalanche Platform’, <em>Avalanche Platform</em> &lt;&lt;https://docs.avax.network/overview/getting-started/avalanche-platform&gt;&gt; [accessed 2 August 2022]</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="#ref-avalabsAvalanchePlatform">Ava Labs, ‘Avalanche Platform’</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="#ref-avalabsAvalancheDocs">Ava Labs, ‘Avalanche Docs’, <em>Avalanche Docs</em> &lt;&lt;https://docs.avax.network/&gt;&gt; [accessed 2 August 2022]</a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="#ref-avalabsCreateEVMSubnet">Ava Labs, ‘Create an EVM Subnet on a Local Network’, <em>Create an EVM Subnet on a Local Network</em> &lt;&lt;https://docs.avax.network/subnets/create-a-local-subnet&gt;&gt; [accessed 2 August 2022]</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="#ref-avalabsCreateEVMSubneta">Ava Labs, ‘Create an EVM Subnet on Fuji Testnet’, <em>Create an EVM Subnet on Fuji Testnet</em> &lt;&lt;https://docs.avax.network/subnets/create-a-fuji-subnet&gt;&gt; [accessed 3 August 2022]</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="#ref-avalabsAvalancheGo">Ava Labs, ‘AvalancheGo’, <em>AvalancheGo Github Repository</em> &lt;&lt;https://github.com/ava-labs/avalanchego&gt;&gt; [accessed 7 August 2022]</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><a href="#ref-avalabsSubnetCLI">Ava Labs, ‘Subnet-CLI’, <em>Subnet-CLI | Avalanche Docs</em> &lt;&lt;https://docs.avax.network/subnets/subnet-cli&gt;&gt; [accessed 7 August 2022]</a>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p><a href="#ref-avalabsCustomizeYourEVMPowered">Ava Labs, ‘Customize Your EVM-Powered Subnet’, <em>Customize Your EVM-Powered Subnet</em> &lt;&lt;https://docs.avax.network/subnets/customize-a-subnet&gt;&gt; [accessed 3 August 2022]</a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p><a href="#ref-avalabsAvalancheGoAPIsOverview">Ava Labs, ‘AvalancheGo APIs Overview’, <em>AvalancheGo APIs Overview</em> &lt;&lt;https://docs.avax.network/subnets/customize-a-subnet&gt;&gt; [accessed 3 August 2022]</a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p><a href="#ref-avalabsAvalancheNetworkRunner">Ava Labs, ‘Avalanche Network Runner’, <em>Avalanche Network Runner</em> &lt;&lt;https://docs.avax.network/subnets/network-runner&gt;&gt; [accessed 7 August 2022]</a>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><a href="#ref-mvpworkshopWeb3TechnologyRadar">MVP Workshop, ‘Web3 Technology Radar’, <em>Web3 Technology Radar</em> &lt;&lt;https://web3radar.3327.io/tech-radar&gt;&gt; [accessed 7 August 2022]</a>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

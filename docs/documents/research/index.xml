@@ -17,7 +17,241 @@
 <width>144</width>
 </image>
 <generator>quarto-1.1.163</generator>
-<lastBuildDate>Mon, 25 Jul 2022 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 28 Jul 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Introduction to Avalanche</title>
+  <dc:creator>Uros Kukic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-336.hugo.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>While Bitcoin and Ethereum represent the most popular networks in the Web3 space, they also face technical limitations for practical mass adoption. New networks were developed to address these limitations with novel technologies and approaches. To better understand these innovations and their advantages, this paper looks into one of these networks, Avalanche.</p>
+<p>This paper aims to give an overview of the technical architecture of the Avalanche network, as well as present the reader with the technologies they would encounter when developing on the Avalanche network.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This document aims to give an introduction to the Avalanche network. By describing the consensus mechanism and the network architecture, we can better understand how to develop solutions on it.</p>
+<p>This paper looks at the technologies one would encounter when using the Avalanche network. It briefly describes their function, how they can be used, their limitations, and possible improvements in the future.</p>
+<section id="components-of-the-avalanche-network" class="level2">
+<h2 class="anchored" data-anchor-id="components-of-the-avalanche-network">Components of the Avalanche network</h2>
+<p>The Avalanche network is a modular system, so before we describe how the entire network works, we will define the components that form the Avalanche network. Afterward, we can explore how those components interconnect and how each component function works in detail.</p>
+<section id="blockchains" class="level3">
+<h3 class="anchored" data-anchor-id="blockchains">Blockchains</h3>
+<p>When we refer to Blockchains on the Avalanche network, we refer to virtual machines. Every node on a particular network runs that network’s virtual machine (or machines). They dictate valid states, as well as the rules for transitioning between those states.</p>
+<p>These virtual machines can be customized to better suit the needs of the product that will use them. In general, one can change the initial state of the blockchain or the state transition rules. For example, one can change how transaction fees are calculated and distributed, or how the funds are distributed initially.</p>
+<p>In a later section, we will explore the technical details and different available virtual machines on the Avalanche network.</p>
+</section>
+<section id="validators" class="level3">
+<h3 class="anchored" data-anchor-id="validators">Validators</h3>
+<p>Different nodes communicate with each other on the Avalanche network to form the decentralized system. Nodes that run a virtual machine and receive and validate new transactions are considered validators. The validator nodes stake some amount of AVAX and receive rewards for their work.</p>
+</section>
+<section id="subnets" class="level3">
+<h3 class="anchored" data-anchor-id="subnets">Subnets</h3>
+<p>A Subnet is a sovereign network that defines its own rules regarding membership and token economics. It is composed of a dynamic subset of Avalanche validators working together to achieve consensus on the state of one or more blockchains. Each blockchain is validated by exactly one Subnet, and a Subnet can have many blockchains. A validator may be a member of many Subnets.</p>
+<center>
+<p><img src="https://3327.io/documents/research/assets/ERFC-336/Subnets.png" class="img-fluid"></p>
+<p>Figure 1: Avalanche subnets overview</p>
+<p><em>Source: docs.avax.network</em></p>
+</center>
+<p>Subnets are independent; they specify their own execution logic, determine their own fee regime, maintain their own state, facilitate their own networking, and provide their own security. They do not share the execution thread, storage, or networking with other Subnets.<sup>1</sup></p>
+<p>With all components of the Avalanche network shown, we can demonstrate how they combine together using the Avalanche Primary network as an example.</p>
+<p><strong>The primary network</strong></p>
+<p>Every validator is a member of Avalanche’s built-in public Subnet, called the Primary network. Validators can be members of as many Subnets as they choose, but they must be members of the Primary network along with them.</p>
+<p>The Primary network is comprised of three blockchains:</p>
+<ol type="1">
+<li><p>The Platform Chain (P-chain) is the metadata blockchain on Avalanche and coordinates validators, keeps track of active Subnets, and enables the creation of new Subnets.<sup>2</sup></p></li>
+<li><p>The Contract Chain (C-chain) is a blockchain compatible with the Ethereum Virtual Machine. It enables creating and using smart contracts similarly to how they function on the Ethereum network.</p></li>
+<li><p>The Exchange Chain (X-chain) is a blockchain for creating and trading digital assets.<sup>3</sup></p></li>
+</ol>
+<center>
+<p><img src="https://3327.io/documents/research/assets/ERFC-336/Chains.png" class="img-fluid"></p>
+<p>Figure 2: The Avalanche primary network chains</p>
+<p><em>Source: docs.avax.network</em></p>
+</center>
+</section>
+</section>
+<section id="avalanche-consensus-protocol" class="level2">
+<h2 class="anchored" data-anchor-id="avalanche-consensus-protocol">Avalanche Consensus Protocol</h2>
+<p>For the network to function, the validators need to agree on the state of the blockchain they contain. The process through which they reach this agreement is called a consensus protocol. By ensuring that only valid transactions will be included in the final state of the network, consensus protocols provide security on the network.</p>
+<p>The Avalanche Network uses a novel consensus protocol called Avalanche protocol, which functions by randomly subsampling the network multiple times.</p>
+<center>
+<p><img src="https://3327.io/documents/research/assets/ERFC-336/Mechanism.png" class="img-fluid"></p>
+<p>Figure 3: Avalanche consensus mechanism</p>
+<p><em>Source: docs.avax.network</em></p>
+</center>
+<p>When a validator receives a transaction, it checks that the transaction metadata is valid (e.g., the transaction signature is valid, the sender has enough funds to execute the transaction, and such). After confirming the transaction validity locally, the validator selects <em>n</em> nodes randomly if they also consider the transaction valid. If <em>α</em> of those <em>n</em> nodes consider the transaction valid, the round is considered successful. This concludes one successful round, and the process is repeated, starting from the selection of n nodes. If <em>β</em> consecutive rounds are successful, the transaction is accepted, and the state of the blockchain is updated.</p>
+<p>In order to increase the throughput of the blockchain, the Avalanche protocol creates a Directed Acyclic Graph (DAG) that represents state changes of the blockchain. A set of transactions is considered a vertex in the DAG. How this data structure functions will be explored further in subsequent research, as it is not the focal point of this document.</p>
+<p><strong>Snowman Consensus Protocol</strong></p>
+<p>Snowman is a modification of the Avalanche Consensus Protocol, which creates a linear chain of vertices instead of a DAG. This modification is similar to how most decentralized blockchains work, with each vertex representing a block of transactions.</p>
+<p>While the X-Chain uses the Avalanche Consensus Protocol, it is noteworthy that the C-chain and X-chain utilize the Snowman protocol for simplicity.</p>
+</section>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>In this section, we will present the experience of a developer starting to develop solutions on the Avalanche network. First we’ll cover the experience of developing a subnet and afterwards the experience of developing a decentralized application (dApp) on the Avalanche network.</p>
+<section id="subnet-development" class="level2">
+<h2 class="anchored" data-anchor-id="subnet-development">Subnet development</h2>
+<p>The official Avalanche documentation<sup>4</sup> offers plenty of subnet creation and deployment guides of increasing complexity to introduce the reader to various aspects of the network.</p>
+<p>The Create an EVM Subnet on a Local Network<sup>5</sup> guide enables one to run a subnet locally without worrying about too many dependencies or steps during the setup. The guide explains how to locally create a subnet with five validators and an EVM-compatible blockchain called Subnet-EVM. The guide also gives additional steps on how to stop and start the Subnet or redeploy it.</p>
+<p>The following guide<sup>6</sup> instructs the user how to deploy the Subnet used in the previous guide on the Fuji testnet. With detailed instructions, one can follow the menus in the CLI wizard and have a subnet registered on the testnet. The only significant difference is that validators are not automatically created; they need to be added to the Subnet after the deployment.</p>
+<p>The subsequent guides require running an Avalanche node, for which one would likely need to install the AvalancheGo<sup>7</sup> and Subnet-CLI<sup>8</sup> libraries. These dependencies raise the level of complexity when working with Avalanche but are foundational for deploying subnets on the production network and unlock the potential to customize node functionality.</p>
+<p>After deploying a subnet on the testnet, we worked on customizing a subnet’s virtual machine<sup>9</sup>. By altering the genesis block, we modified the transaction fee calculation. However, the Avalanche guides also offer instructions on building a virtual machine from scratch that the Subnet will use.</p>
+<p>Due to the scope of this research, we did not explore the topic further, but we hope to explore customizing subnets and virtual machines which use them deeper.</p>
+</section>
+<section id="dapp-development" class="level2">
+<h2 class="anchored" data-anchor-id="dapp-development">dApp Development</h2>
+<p>As we previously mentioned, smart contracts are used on Avalanche C-Chain; thus, the development of dApps is done through that same type of chain. Luckily, the virtual machines used in subnet guides are primarily using Subnet-EVM. This enables developers to use the same “dummy” subnets for dApp development.</p>
+<p>The first step for dApp developers should be connecting to a local Subnet using Remix and Metamask, two well-known tools for smart contract development. Using these tools will introduce communicating with subnets to the developer.</p>
+<p>For developing more advanced dApps on Avalanche, we used Hardhat for connecting to the Avalanche C-Chain on the Fuji network. After customizing the Hardhat configuration file with the appropriate RPC endpoints, smart contract deployment was identical to the deployment experience on the Ethereum network.</p>
+<p>More research is required to validate more complex functionalities, but we expect that most frameworks and tools available for Ethereum dApp development will also work on Avalanche.</p>
+</section>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>In this section, we will technologies we’ve encountered in the previous section, with a brief explanation of how and why we’ve utilized them and our experience with using those technologies.</p>
+<section id="languages" class="level2">
+<h2 class="anchored" data-anchor-id="languages">Languages</h2>
+<ol type="1">
+<li><p><strong>GoLang</strong></p>
+<p>Both the Avalanche node implementation and coreth, the virtual machine the c-chain implements, are written in Go. For anyone looking to start developing on the Avalanche network, especially using custom subnets, Go is a language with which they should get acquainted.</p></li>
+<li><p><strong>Solidity</strong></p>
+<p>For developers who want to create and deploy their own dApps, Solidity is the most employed language for writing smart contracts, which are essential for almost any dApp.</p>
+<p>It was built for creating smart contracts on the Ethereum network. However, the Avalanche network’s compatibility with the Ethereum virtual machine means that this language (and all its tools) is available to developers.</p>
+<p>Due to its widespread usage, available resources, and tooling, we recommend this language for any developer looking to create dApps on the Avalanche network’s C-Chain.</p></li>
+<li><p><strong>NodeJS</strong></p>
+<p>Besides Go libraries for communicating with the Avalanche network, developers can also use AvalancheJS to access the Avalanche network using JavaScript.</p>
+<p>Coupled with numerous NodeJS libraries for smart contract development, for any developer wanting to create a dApp, we recommend learning NodeJS.</p></li>
+</ol>
+</section>
+<section id="tools" class="level2">
+<h2 class="anchored" data-anchor-id="tools">Tools</h2>
+<ol type="1">
+<li><p><strong>Avalanche-CLI</strong></p>
+<p>The Avalanche-CLI is a tool that enables users to create and deploy subnets. With simple-to-use commands, developers can quickly run a Subnet locally and later deploy them on the Avalanche Fuji testnet.</p>
+<p>At the time of writing, it supports the following:</p>
+<ul>
+<li>Creation of Subnet-EVM configs and Subnet-EVM forks</li>
+<li>Local deployment of Subnet-EVM-based Subnets</li>
+<li>Fuji deployment of Subnet-EVM-based Subnets</li>
+</ul>
+<p><strong>Our experience</strong></p>
+<p>Avalanche-CLI is a great tool for quickly having something running on one’s machine. It does not require a lot of setup or complicated commands. One can interact with an Avalanche subnet with just five commands using common Ethereum tools like Remix and Metamask.</p>
+<p>The downside to that ease of use is its limited functionality. The authors note that Avalanche-CLI is under active development and early in its lifecycle, so expect frequent changes and certain limitations with what one can do with it.</p>
+<p>At the time of writing, it seems that only Subnet EVM is supported as the blockchain for the Subnet. One can edit the genesis file, enabling customizations of transaction fees, initial fund allocation, consensus, gossip, and validator communication. While this level of customization is quite a lot for someone just getting into the Avalanche network, we expect it is not enough for teams or products that want to deploy custom virtual machines highly tailored for their use case.</p></li>
+<li><p><strong>AvalancheGo</strong></p>
+<p>As the node implementation for the Avalanche network, AvalancheGo<sup>10</sup> is a foundational library one needs for Avalanche development. Besides running a node instance (which connects to the Avalanche network), the library also enables a wide berth of RPC endpoints for:</p>
+<ul>
+<li>Interacting with the P-Chain, C-Chain, and X-Chain</li>
+<li>Examining the node’s internal state, health, basic information, and statistics</li>
+<li>Manage authorization tokens</li>
+<li>Fetch transactions, vertices, or blocks</li>
+</ul>
+<p><strong>Our Experience</strong></p>
+<p>During this research, we used AvalancheGo to run our nodes on the Fuji testnet and were able to customize it to communicate with our custom subnet. We also used it together with Avalanche Network Runner and Subnet-CLI to build a custom virtual machine for our Subnet. As such, it was more used as a dependency for other Avalanche tools, and we only had limited interaction with it.</p>
+<p>The library functioned without many issues. However, we do have to warn the reader to pay attention to the location of the installation, as quite a few guides assume the default installation location. Installing the library at a non-default location caused unnecessary difficulty following some guides and using other Avalanche network tools.</p>
+<p>Since it is an integral library on the Avalanche network, we hope to dive deeper into this library in subsequent research efforts to learn its capabilities and limitations.</p></li>
+<li><p><strong>Subnet-CLI</strong></p>
+<p>A tool for managing Subnets on the Avalanche production network, this command line interface enables the user to create a new subnet, define its validators, and create and check the status of the blockchain for the Subnet.</p>
+<p>Subnet-CLI is also required to build custom node configurations using the Avalanche Network Runner tool.</p>
+<p><strong>Our experience</strong></p>
+<p>At the time of research, Subnet-CLI was the only tool available for creating a Subnet on the Fuji testnet, so it is a winner in its category by default. Subsequently, Avalanche-CLI was updated to support this functionality, and we found it more straightforward to use than Subnet-CLI.</p>
+<p>For now, Subnet-CLI seems to be the primary way to deploy a subnet on the Avalanche production network. However, Avalanche subnet libraries are still in rapid development. As such, we would recommend comparing the functionalities of Subnet-CLI and Avalanche-CLI to see which one has the capabilities the reader requires.</p></li>
+<li><p><strong>Avalanche Network Runner</strong></p>
+<p>The Avalanche Network Runner allows a user to define, create and interact with a network of Avalanche nodes. It can be used for development and testing. It aims at being a tool for developers and system integrators alike, offering functionality to run networks of AvalancheGo nodes. It also has support for custom node, Subnet, and network configurations, allowing to locally test code before deploying to the mainnet or public testnets<sup>11</sup>.</p>
+<p>Although the tool has more dependencies and slightly more complicated commands than Avalanche-CLI, Avalanche Network Runner enables customized configuration for each node individually and more detailed logging when accessing the Subnet via API.</p>
+<p><strong>Our experience</strong></p>
+<p>We utilized the Avalanche Network Runner to create a Subnet of 5 nodes locally and to add a new node after subnet deployment. The experience was straightforward; we only encountered difficulty setting up the tool’s dependencies.</p>
+<p>The ability to use the Avalanche Network Runner as a library enables the developer to set up scripts and access a subnet programmatically. This key feature enables faster testing and development of subnets, making ANR invaluable for developers.</p>
+<p>As Avalanche Network Runner is intended as a tool for development and testing, we hope to utilize it more in subsequent research when we further cover developing subnets. In that research, we hope to give a more comprehensive description of this tool.</p></li>
+<li><p><strong>Avalanche wallet</strong></p>
+<p>The Avalanche wallet is a web application that allows users to create a new wallet or access their existing one. The app shows the wallet balance for each chain and any assets or collectibles the wallets hold.</p>
+<p>Users can access their wallets using a private key, mnemonic phrase, keystore file, or a hardware ledger wallet. Access using Metamask is not available at the time of writing.</p>
+<p>Inside the app, users can access their wallet address for each Avalanche network chain, send assets and collectibles (or create new collectibles), or send AVAX from one chain to another. Applying for staking or delegating is also available through the web wallet, as well as a view of previously executed transactions and UTXOs.</p>
+<p><strong>Our experience</strong></p>
+<p>We have used Avalanche wallet when registering a subnet on the Avalanche Fuji testnet for transferring funds between different Avalanche chains. Its missing feature to connect to Metamask does degrade the user experience, but overall the process was straightforward.</p>
+<p>Although this paper primarily focuses on development tools, we wanted to mention the Avalanche wallet as something a developer will come across when deploying a subnet on the Fuji testnet, as the faucet transfers AVAX to the wallet on the X-Chain, and a transfer is necessary.</p></li>
+<li><p><strong>Remix, Metamask, and Hardhat</strong></p>
+<p>In this section, we wanted to mention some Ethereum tools we have used in Avalanche development and how they operated. For more details on specific tools from this group, check out our Web3 Technology Radar<sup>12</sup></p>
+<p><strong>Our experience</strong></p>
+<p>We used Remix and Metamask to deploy and interact with smart contracts on a local EVM compatible Subnet, and Hardhat for deploying a sample dApp on the Avalanche Fuji testnet.</p>
+<p>Aside from customizing the RPC endpoint these tools use and the chain ID, these tools worked seamlessly with local and public Avalanche networks. As we mentioned, while we want to test more tools made for Ethereum on Avalanche in future research, we do not expect many issues with them functioning the same way on Avalanche as they would on Ethereum.</p></li>
+</ol>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>In this research, we have described the three main components of the Avalanche network, how they interact to form subnets of validators with specific chains, and the underlying consensus mechanism for those chains. We have also given an overview of the guides and topics one would encounter when starting to work on Avalanche for the first time. Lastly, we have given a list of the technologies a developer should know when working with Avalanche and our experience with them.</p>
+<p>We hope to have provided the reader with the foundational understanding of the Avalanche Network, its components, and introductory projects, which will enable them to decide whether Avalanche is a good choice for their use case and how they can get started if it is.</p>
+<p>We hope to explore the Avalanche ecosystem further in subsequent research, specifically creating more customized virtual machines and testing, deploying, and monitoring subnets on the Avalanche production network. This research would also include measuring a subnet’s performance and programmatical use of the development tools to test network behavior before deployment.</p>
+<p>The Avalanche network’s X-Chain is another subject we would like to research further. Its directed acyclic graph, the data structure of the chain, and high throughput are interesting subjects we would like to explore more comprehensively.</p>
+</section>
+<section id="bibliography" class="level1">
+
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-avalabsAvalancheDocs" class="csl-entry">
+Ava Labs, ‘Avalanche Docs’, <em>Avalanche Docs</em> &lt;<a href="https://docs.avax.network/" class="uri">https://docs.avax.network/</a>&gt; [accessed 2 August 2022]
+</div>
+<div id="ref-avalabsAvalancheNetworkRunner" class="csl-entry">
+———, ‘Avalanche Network Runner’, <em>Avalanche Network Runner</em> &lt;<a href="https://docs.avax.network/subnets/network-runner" class="uri">https://docs.avax.network/subnets/network-runner</a>&gt; [accessed 7 August 2022]
+</div>
+<div id="ref-avalabsAvalanchePlatform" class="csl-entry">
+———, ‘Avalanche Platform’, <em>Avalanche Platform</em> &lt;<a href="https://docs.avax.network/overview/getting-started/avalanche-platform" class="uri">https://docs.avax.network/overview/getting-started/avalanche-platform</a>&gt; [accessed 2 August 2022]
+</div>
+<div id="ref-avalabsAvalancheGo" class="csl-entry">
+———, ‘AvalancheGo’, <em>AvalancheGo Github Repository</em> &lt;<a href="https://github.com/ava-labs/avalanchego" class="uri">https://github.com/ava-labs/avalanchego</a>&gt; [accessed 7 August 2022]
+</div>
+<div id="ref-avalabsAvalancheGoAPIsOverview" class="csl-entry">
+———, ‘AvalancheGo APIs Overview’, <em>AvalancheGo APIs Overview</em> &lt;<a href="https://docs.avax.network/subnets/customize-a-subnet" class="uri">https://docs.avax.network/subnets/customize-a-subnet</a>&gt; [accessed 3 August 2022]
+</div>
+<div id="ref-avalabsCreateEVMSubnet" class="csl-entry">
+———, ‘Create an EVM Subnet on a Local Network’, <em>Create an EVM Subnet on a Local Network</em> &lt;<a href="https://docs.avax.network/subnets/create-a-local-subnet" class="uri">https://docs.avax.network/subnets/create-a-local-subnet</a>&gt; [accessed 2 August 2022]
+</div>
+<div id="ref-avalabsCreateEVMSubneta" class="csl-entry">
+———, ‘Create an EVM Subnet on Fuji Testnet’, <em>Create an EVM Subnet on Fuji Testnet</em> &lt;<a href="https://docs.avax.network/subnets/create-a-fuji-subnet" class="uri">https://docs.avax.network/subnets/create-a-fuji-subnet</a>&gt; [accessed 3 August 2022]
+</div>
+<div id="ref-avalabsCustomizeYourEVMPowered" class="csl-entry">
+———, ‘Customize Your EVM-Powered Subnet’, <em>Customize Your EVM-Powered Subnet</em> &lt;<a href="https://docs.avax.network/subnets/customize-a-subnet" class="uri">https://docs.avax.network/subnets/customize-a-subnet</a>&gt; [accessed 3 August 2022]
+</div>
+<div id="ref-avalabsSubnetCLI" class="csl-entry">
+———, ‘Subnet-CLI’, <em>Subnet-CLI | Avalanche Docs</em> &lt;<a href="https://docs.avax.network/subnets/subnet-cli" class="uri">https://docs.avax.network/subnets/subnet-cli</a>&gt; [accessed 7 August 2022]
+</div>
+<div id="ref-avalabsSubnetsOverview" class="csl-entry">
+———, ‘Subnets Overview’, <em>Subnets Overview</em> &lt;<a href="https://docs.avax.network/subnets" class="uri">https://docs.avax.network/subnets</a>&gt; [accessed 2 August 2022]
+</div>
+<div id="ref-mvpworkshopWeb3TechnologyRadar" class="csl-entry">
+MVP Workshop, ‘Web3 Technology Radar’, <em>Web3 Technology Radar</em> &lt;<a href="https://web3radar.3327.io/tech-radar" class="uri">https://web3radar.3327.io/tech-radar</a>&gt; [accessed 7 August 2022]
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Ava Labs, ‘Subnets Overview’, <em>Subnets Overview</em> &lt;&lt;https://docs.avax.network/subnets&gt;&gt; [accessed 2 August 2022].↩︎</p></li>
+<li id="fn2"><p>Ava Labs, ‘Avalanche Platform’, <em>Avalanche Platform</em> &lt;&lt;https://docs.avax.network/overview/getting-started/avalanche-platform&gt;&gt; [accessed 2 August 2022].↩︎</p></li>
+<li id="fn3"><p>Ava Labs, ‘Avalanche Platform’.↩︎</p></li>
+<li id="fn4"><p>Ava Labs, ‘Avalanche Docs’, <em>Avalanche Docs</em> &lt;&lt;https://docs.avax.network/&gt;&gt; [accessed 2 August 2022].↩︎</p></li>
+<li id="fn5"><p>Ava Labs, ‘Create an EVM Subnet on a Local Network’, <em>Create an EVM Subnet on a Local Network</em> &lt;&lt;https://docs.avax.network/subnets/create-a-local-subnet&gt;&gt; [accessed 2 August 2022].↩︎</p></li>
+<li id="fn6"><p>Ava Labs, ‘Create an EVM Subnet on Fuji Testnet’, <em>Create an EVM Subnet on Fuji Testnet</em> &lt;&lt;https://docs.avax.network/subnets/create-a-fuji-subnet&gt;&gt; [accessed 3 August 2022].↩︎</p></li>
+<li id="fn7"><p>Ava Labs, ‘AvalancheGo’, <em>AvalancheGo Github Repository</em> &lt;&lt;https://github.com/ava-labs/avalanchego&gt;&gt; [accessed 7 August 2022].↩︎</p></li>
+<li id="fn8"><p>Ava Labs, ‘Subnet-CLI’, <em>Subnet-CLI | Avalanche Docs</em> &lt;&lt;https://docs.avax.network/subnets/subnet-cli&gt;&gt; [accessed 7 August 2022].↩︎</p></li>
+<li id="fn9"><p>Ava Labs, ‘Customize Your EVM-Powered Subnet’, <em>Customize Your EVM-Powered Subnet</em> &lt;&lt;https://docs.avax.network/subnets/customize-a-subnet&gt;&gt; [accessed 3 August 2022].↩︎</p></li>
+<li id="fn10"><p>Ava Labs, ‘AvalancheGo APIs Overview’, <em>AvalancheGo APIs Overview</em> &lt;&lt;https://docs.avax.network/subnets/customize-a-subnet&gt;&gt; [accessed 3 August 2022].↩︎</p></li>
+<li id="fn11"><p>Ava Labs, ‘Avalanche Network Runner’, <em>Avalanche Network Runner</em> &lt;&lt;https://docs.avax.network/subnets/network-runner&gt;&gt; [accessed 7 August 2022].↩︎</p></li>
+<li id="fn12"><p>MVP Workshop, ‘Web3 Technology Radar’, <em>Web3 Technology Radar</em> &lt;&lt;https://web3radar.3327.io/tech-radar&gt;&gt; [accessed 7 August 2022].↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <guid>https://3327.io/documents/research/posts/ERFC-336.hugo.html</guid>
+  <pubDate>Thu, 28 Jul 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://3327.io/documents/research/assets/ERFC-336/Subnets.png" medium="image" type="image/png" height="83" width="144"/>
+</item>
 <item>
   <title>[ERFC - 278] Meritocratic voting</title>
   <dc:creator>Milan Pavlovic</dc:creator>
@@ -4265,86 +4499,6 @@ Project, Filecoin, ‘Understanding Filecoin Circulating Supply’, <em>Filecoin
 </section></div> ]]></description>
   <guid>https://3327.io/documents/research/posts/ERFC-38.hugo.html</guid>
   <pubDate>Fri, 25 Feb 2022 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Solidity++ (S++)</title>
-  <dc:creator>Aleksandar Veljković</dc:creator>
-  <link>https://3327.io/documents/research/posts/ERFC-57.hugo.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<section id="executive-summary" class="level1">
-<h1>Executive Summary</h1>
-<p>Writing efficient code in modern languages is mostly reflected in writing efficient algorithms and business logic. Writing efficient code in Solidity is mostly reflected in thinking as an assembler, moving focus from logic implementation to memory optimisations and low level hacks. Highly optimised code may become unreadable and unmaintainable with possible bugs hidden between the lines of bit level operations. To solve this problem, this project proposes multiple automatic optimisation techniques that will be all summed up into a transpiler and Solidity language extensions called Solidity++.</p>
-</section>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>Javascript introduced classes in ES6 which are very useful construct for writing clean and readable code. Browser, however, could not understand ES6 code so the code needed to be transpiled into ES5. Programmers could use classes to write logic and transpiler took care of transforming the code into an optimised ES5. The same parallel could be made with Solidity. Programmers should be focused on writing business logic in Solidity-like S++ code and the code should be automatically transpiled into efficient Solidity code. S++ should not drastically modify basic Solidity syntax, but introduce new annotations and helper functions that would enable efficient transpiling to pure Solidity code.</p>
-<p>There are multiple ways to improve the smart contract code on bytecode level. This project will focus on improvements on Solidity code level but the end product - optimised Solidity code will be compiled into bytecode and further optimisations on bytecode level can be performed.</p>
-<p>Optimisations on code level include variable declaration ordering (state variables, local variables and structs), which correlates with the order of memory block stacking and directly influences the costs of storing the data. Some variables might occupy more space than needed to store values in ranges that require less bits than the closest Solidity data type. The most extreme example is boolean data type which stores true/false values, that could be stored in 1 bit of memory, but really use an entire byte. Accessing storage structs requires more operations than accessing a local variable, which becomes obvious problem when it is done in loops. Any fixed sized data type, like, int64, bytes32 and so on, are always cheaper than dynamic data types, such as string, and those dynamic types should be replaced with fixed ones wherever is possible (wherever the value range of the variable is known). Cost reduction can even be achieved by deleting variables - freeing blockchain space. Execution of a code that performs <em>delete</em> command on some variable/mapping value/… rewards executor with a refund of up to 50% of transaction cost, depending on the amount of freed space. There were some attempts to remove this feature (https://eips.ethereum.org/EIPS/eip-3298) but so far it is still valid and exploitable. Usage of lazy evaluation is, an in other languages, preferred way of saving execution steps, which for Solidity directly equals saved money.</p>
-<section id="existing-solutions" class="level3">
-<h3 class="anchored" data-anchor-id="existing-solutions">Existing solutions</h3>
-<p>There are optimisations on loop level [1] that do not include variable level optimisations but recognise code patterns that are classified into several categories that can be automatically optimised. Also, there are papers [2] that uncover additional space for optimisation, such as removing conditions that always equal the same value or values in the loops that never change. There are also blog advices for writing optimised smart contracts, such as [3], that can and will be referenced when implementing automatisation methods.</p>
-</section>
-</section>
-<section id="goals-methodology" class="level1">
-<h1>Goals &amp; Methodology</h1>
-<p>So far, there is no tool or IDE that either automates these optimisations or includes multiple improvements in one software. The goal of this project is to evaluate feasibility of implementing such tool and Solidity language extensions that could allow its easier implementation. End PoC toll planned as a result of this project focuses on space optimisation techniques and includes:</p>
-<ul>
-<li>Implementing parser for Solidity language that enables language semantic and syntax analysis</li>
-<li>Implementing optimisation methods:
-<ul>
-<li>Variable declaration reordering</li>
-<li>Struct values declaration reordering</li>
-<li>Defining data type extensions for storing custom-sized data (i.e.&nbsp;integers with values between 20 and 40) and implementing language parser extensions</li>
-</ul></li>
-<li>Implementing generator for optimised code</li>
-</ul>
-</section>
-<section id="results-discussion" class="level1">
-<h1>Results &amp; Discussion</h1>
-<p>Proto-parser for Solidity code, which includes basic PoC constructs was implemented, as well as variable declaration reordering to enable more efficient space usage; The plan is to extend the parser and to include other optimisation techniques listed in the previous segment.</p>
-<section id="variable-declaration-reordering" class="level3">
-<h3 class="anchored" data-anchor-id="variable-declaration-reordering">Variable declaration reordering</h3>
-<p>Variable declaration reordering is a problem synonymous to binning problem, where the goal is to pack objects of a certain size into bins of fixed size <em>in any order</em> using the least number of bins. The problem is a known optimisation problem which comes from NP (non-deterministically polynomial) class and has no known efficient solution. The approach for implementing variable declaration reordering was using branch-and-bound algorithm which resulted in decent reordering time of less than 10 seconds for up to 16 variables in one block. The reordering was performed per block. The same algorithm will be performed on structs.</p>
-</section>
-<section id="data-type-extensions" class="level3">
-<h3 class="anchored" data-anchor-id="data-type-extensions">Data type extensions</h3>
-<p>To enable extensions of data types there are two steps:</p>
-<ul>
-<li>Defining language extensions</li>
-<li>Map variables to bits of memory blocks and create getters and setters</li>
-</ul>
-<p>New data types will be mapped to memory blocks, variables of 256 bits, on bit level using bit masks. Packing of those values will be optimised using the previously defined variable stacking algorithm</p>
-<p>Proposed language extension of integer data types consists of using the existing base type (int, uint) followed by value range given in brackets. Example custom type uint&lt;10, 1030&gt; represents unsigned integer values between 12 and 98. The optimiser would determine the closest known data type that covers the range (in this case uint16). The real number of bits required to store value 1030 is 11 and the closest data type is 16 bits long which means that 5 bits are redundant. First level of optimisation may be using 11 bits mapped to a memory block of 256 bits and implementing getters and setters to interact with the value, which is casted to uint16 when used. But there is another hidden optimisation that can further improve space management. Notice that the upper limit of the interval is indeed 1030 which required 11 bits to store but the lower limit is 10 which means that total number of values is 1030 - 10 = 1020 and that many values can be stored in 10 bits of memory, so the optimisation will take into account the overall interval range and generate getters / setters that will include offsets before storing/loading values.</p>
-<p>Boolean type optimisation will be straight forward and, while it will keep the type name, it will be mapped to only one bit of memory.</p>
-<p>String data types would be extended with indicator of the number of characters as string&lt;10&gt; will represent fixed sized string that will be mapped to bytes.</p>
-</section>
-<section id="code-generation" class="level3">
-<h3 class="anchored" data-anchor-id="code-generation">Code generation</h3>
-<p>The parser generates three-like structure of the Solidity code. Every statement or declaration is stored as an object with parameters related to the nature of the statement/declaration. For example, declaration uint256 private var1 is stored as VariableDeclaration object with attributes type=uint256, modifier=private identifier=var1. Each object contains information to reconstruct itself back to string from. This type of organisation enables easy traversal through code, easy recognition of higher-level constructs, such are infinite loops, and easy reconstruction to Solidity code (in this case - optimised code).</p>
-</section>
-</section>
-<section id="conclusion" class="level1">
-<h1>Conclusion</h1>
-<p>The feasibility of the proposed project is confirmed by implementing PoC prototype, the optimisation evaluation on the existing smart contracts is yet to come but even the simple reordering of variables that reduces the number of used memory blocks clearly shows benefits of money savings (saved memory) and time savings (eliminated thinking about such generic problem that can and should be automatised). The borderline is - it makes no harm to use it, it can only be an improvement.</p>
-<p>The value of this project is assumed, but still has to be confirmed. That is why the next step of this research should be further assessment by target user group, which should include developers that are actively using Solidity in their everyday work and domain experts.</p>
-</section>
-<section id="appendices" class="level1">
-<h1>Appendices</h1>
-</section>
-<section id="bibliography" class="level1">
-<h1>Bibliography</h1>
-<p>[1] B Mariano, Y. Chen, Y. Feng <em>Demystifying Loops in Smart Contracts</em> https://fredfeng.github.io/papers/ase20-consul.pdf [2] T. Brandstaetter <em>Optimisation of Solidity Smart Contracts</em> https://repositum.tuwien.at/bitstream/20.500.12708/1428/2/Brandstaetter%20Tamara%20-%202020%20-%20Optimization%20of%20solidity%20smart%20contracts.pdf [3] https://mudit.blog/solidity-gas-optimization-tips/ ::: {#refs} :::</p>
-
-
-</section>
-
- ]]></description>
-  <guid>https://3327.io/documents/research/posts/ERFC-57.hugo.html</guid>
-  <pubDate>Thu, 24 Feb 2022 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

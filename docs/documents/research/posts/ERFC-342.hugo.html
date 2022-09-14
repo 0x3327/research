@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.163">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Milos Bojinovic">
+<meta name="dcterms.date" content="2022-07-24">
+
+<title>3327 Research - [ERFC - 342] Intro to the Cosmos Network</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - [ERFC - 342] Intro to the Cosmos Network">
+<meta property="og:description" content="Since its inception, Ethereum[1] has enabled smart contract functionality by introducing Ethereum Virtual Machine (EVM).">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - [ERFC - 342] Intro to the Cosmos Network">
+<meta name="twitter:description" content="Since its inception, Ethereum[1] has enabled smart contract functionality by introducing Ethereum Virtual Machine (EVM).">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">[ERFC - 342] Intro to the Cosmos Network</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Milos Bojinovic </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 24, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+  <ul class="collapse">
+  <li><a href="#cosmos-blockchain" id="toc-cosmos-blockchain" class="nav-link" data-scroll-target="#cosmos-blockchain">Cosmos Blockchain</a>
+  <ul class="collapse">
+  <li><a href="#tendermint-core" id="toc-tendermint-core" class="nav-link" data-scroll-target="#tendermint-core">Tendermint Core</a></li>
+  <li><a href="#abci" id="toc-abci" class="nav-link" data-scroll-target="#abci">ABCI</a></li>
+  <li><a href="#application-layer" id="toc-application-layer" class="nav-link" data-scroll-target="#application-layer">Application layer</a></li>
+  </ul></li>
+  <li><a href="#ibc" id="toc-ibc" class="nav-link" data-scroll-target="#ibc">IBC</a>
+  <ul class="collapse">
+  <li><a href="#zones-and-hubs" id="toc-zones-and-hubs" class="nav-link" data-scroll-target="#zones-and-hubs">Zones and Hubs</a></li>
+  <li><a href="#ibc-layers" id="toc-ibc-layers" class="nav-link" data-scroll-target="#ibc-layers">IBC layers</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-342.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>Since its inception, Ethereum[1] has enabled smart contract functionality by introducing Ethereum Virtual Machine (EVM). This enabled the possibility of creating many different decentralized applications (DApps). Ethereum is a public general purpose blockchain where everyone can participate, deploy applications and compete for the chain’s resources.</p>
+<p>This idea of a general purpose chain capable of handling multiple applications has certain limitations. The most important is the issue of scalability, where in times of network congestion, transaction fees skyrocket, leading to an awful user experience.</p>
+<p>The other significant issue is that DApps suffer from a “two-layer” governance system. Besides honoring its rules, a DApp must honor the rules imposed by the protocol. It would be unfeasible to alter the protocol each time there’s a need to enable some feature for one of the DApps.</p>
+<p>Besides Ethereum, there are other Layer 1 chains with different approaches. However, they are in ruthless competition with each other. They cannot effectively communicate, which leads to the segmentation of space and slowness of adoption.</p>
+<p>Cosmos[2] proposes and enables a separate sovereign, parallel, and optimized chain for each DApp. These independent chains can be separately altered and upgraded on a protocol level while maintaining communication. This cross-chain communication can, under certain rules, be achieved both for new as well as existing chains.</p>
+<p>This different way of thinking should be taken seriously as user experience will most likely be the main factor in the race for mass adoption. With 68.72 billion USD worth of assets present in the Cosmos ecosystem[3], this approach shows great potential and should be investigated further.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p><strong>Blockchain can be viewed as a replicated state machine that follows a predefined deterministic transition process.</strong></p>
+<p>From the architecture’s standpoint, any blockchain on Cosmos is formed using three layers:</p>
+<ul>
+<li><strong>network layer</strong> meant to discover nodes that form a peer-to-peer (P2P) network and propagate transactions as well as consensus messages between those nodes</li>
+<li><strong>consensus layer</strong> responsible for reaching an agreement between nodes of this P2P network</li>
+<li><strong>application layer</strong> which defines the state and the rules under which a transaction can alter it</li>
+</ul>
+<p>This non-monolithic approach to building a blockchain is supported by a set of tools where:</p>
+<ul>
+<li>network and consensus layer (responsible for the replication of state across the nodes) are handled by the Tendermint Core[4], which communicates with the application layer through an Application Blockchain Interface (ABCI)*</li>
+<li>application layer and its equivalent state machine is created using the Cosmos SDK[5]</li>
+</ul>
+<p><em>*Tendermint Core and ABCI together comprise Tendermint BFT</em></p>
+<p>Using Inter Blockchain Communication (IBC), each Cosmos blockchain can connect with others. IBC also provides a mechanism for connecting with other non-cosmos chains.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>This exploratory research into the Cosmos project mainly focuses on understanding the architecture and its capabilities. The paper showcases its features and briefly discusses their potential.</p>
+<p>However, the research does not go into the specifics of the Cosmos’ tools nor the projects that have been built. Each tool in the Cosmos’ stack should be a part of separate further research.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<section id="cosmos-blockchain" class="level2">
+<h2 class="anchored" data-anchor-id="cosmos-blockchain">Cosmos Blockchain</h2>
+<section id="tendermint-core" class="level3">
+<h3 class="anchored" data-anchor-id="tendermint-core">Tendermint Core</h3>
+<p>Tendermint Core handles peer-discovery, validator selection, staking, upgrades, and consensus. In doing so, it heavily relies on:</p>
+<ul>
+<li><p><strong>Delegated Proof-of-Stake (DPoS)</strong> where validators and delegators vote on proposals with weights proportional to the amount they’ve staked.</p>
+<ul>
+<li>Validators accept the block by providing their signature. When the new block’s creator gathers the necessary signatures, it is finalized, and it cannot be overturned.</li>
+<li>In a blockchain running on Tendermint, transactions have absolute finality, and hard forks should not happen.</li>
+</ul></li>
+<li><p><strong>Practical Byzantine Fault Tolerance</strong> guarantees that the blockchain will continue functioning even if up to 1/3rd of machines fail or become malevolent.</p></li>
+</ul>
+</section>
+<section id="abci" class="level3">
+<h3 class="anchored" data-anchor-id="abci">ABCI</h3>
+<p>The ABCI is an interface between Tendermint Core and the application layer. It consists of three main message types:</p>
+<ul>
+<li><strong>AppendTx</strong> - each transaction is delivered with this message. The application layer checks the transaction’s validity against the application’s state and protocol. As well as if all of the necessary signatures are present.</li>
+<li><strong>CheckTX</strong> - performs lower resolution checks (only checks in the transaction context are performed)</li>
+<li><strong>Commit</strong> - computes a commitment of the current state which will be put into the new block’s header</li>
+</ul>
+</section>
+<section id="application-layer" class="level3">
+<h3 class="anchored" data-anchor-id="application-layer">Application layer</h3>
+<p>It is worth explicitly noting that which was implied in the previous paragraphs: <strong>Tendermint doesn’t concern itself with the interpretation of transactions and is unopinionated about their meaning - this is the function of the application layer.</strong></p>
+<p>The main focus for most developers involves making changes to the application layer through a framework written in Golang - <a href="https://docs.cosmos.network/">Cosmos SDK</a>. The application layer can be broken down into “modules,” which are built to have a single purpose, thus achieving separation of concerns. These modules are then combined to enable the intended functionality of the new blockchain.</p>
+<p>Overall, the development process consists of:</p>
+<ul>
+<li>defining “messages” which are the main part of the transactions, and where:
+<ul>
+<li>each transaction can contain multiple messages</li>
+<li>each message has a destination module responsible for processing the message</li>
+</ul></li>
+<li>defining “handlers” for those messages that are called when the corresponding message is received</li>
+<li>defining “queries” that will provide a REST API through which the information about the chain’s state can be retrieved and displayed to the user</li>
+</ul>
+<p>One additional tool that eases the development, especially in the beginning, is the <a href="https://docs.ignite.com/">Ignite CLI</a>. This tool scaffolds pieces of code in the project and is extremely useful for newcomers.</p>
+<p>To connect to the chain and to build, as well as issue, transactions, developers should use <a href="https://tutorials.cosmos.network/academy/5-cosmjs/cosmjs-intro.html">CosmJs</a>, a Javascript/Typescript library with which it’s relatively easy to integrate with <a href="https://www.keplr.app/">Keplr wallet</a>. CosmJs needs to know the types of messages in order to build a transaction; this is a somewhat time-consuming process as it needs to be done manually through a terminal - for more info, visit <a href="https://tutorials.cosmos.network/academy/5-cosmjs/create-custom.html">Create Custom CosmJS Interfaces</a></p>
+</section>
+</section>
+<section id="ibc" class="level2">
+<h2 class="anchored" data-anchor-id="ibc">IBC</h2>
+<section id="zones-and-hubs" class="level3">
+<h3 class="anchored" data-anchor-id="zones-and-hubs">Zones and Hubs</h3>
+<p>Each independent Cosmos blockchain is referred to as a “zone”. Zones can be connected to “hubs” - blockchains dedicated to managing the communication of zones and their assets.</p>
+<p>The Cosmos whitepaper[2] states:</p>
+<blockquote class="blockquote">
+<p>From the Hub’s perspective, a zone is a multi-asset dynamic-membership multi-signature account that can send and receive tokens using IBC packets. …</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Like a cryptocurrency account, a zone cannot transfer more tokens than it has, but can receive tokens from others who have them. A zone may be designated as an “source” of one or more token types, granting it the power to inflate that token supply.</p>
+</blockquote>
+<p>Any of the zones can themselves be hubs to form an acyclic graph. Currently, only one hub exists - “Cosmos Hub”[6], which is the economic center of the whole ecosystem.</p>
+<p>Hubs keep up with the state of each zone by the block commits that each zone posts. Zones, however, do not keep track of each other’s state. Information packets are transferred from one zone to another by posting Merkle-proofs which signal that the packet was sent/received.</p>
+</section>
+<section id="ibc-layers" class="level3">
+<h3 class="anchored" data-anchor-id="ibc-layers">IBC layers</h3>
+<p>IBC is comprised of two layers:</p>
+<ul>
+<li>Transport (sometimes referred to as the “Transport, Authentication and Ordering” (TAO)) layer is responsible for providing the infrastructure to establish communication lines between chains in order to transport the packets between the source (sending) and destination (receiving) chain</li>
+<li>Application layer specifies how data from the packets should be structured and interpreted by the sending/receiving chain</li>
+</ul>
+<section id="transport-layer" class="level4">
+<h4 class="anchored" data-anchor-id="transport-layer">Transport layer</h4>
+<p>The transport layer’s components include:</p>
+<ul>
+<li><strong>light clients</strong> - which are a blockchain’s light representation. They are designed to connect to a full node and verify the block headers. Two zones (or zone and a hub) interacting over IBC must contain light clients of the other chain. Interestingly, these two chains do not send messages directly to each other but via “relayers”.</li>
+<li><strong>relayers</strong> - permissionless off-chain processes constantly monitoring for the presence of the messages in the chain’s state machine. To do this, they need access to a full node of both chains</li>
+<li><strong>connections</strong> - connect light clients of two different chains and can have an arbitrary number of “channels”</li>
+<li><strong>channels</strong> - route packets to the intended modules; In order to facilitate two-way communication between chains A and B, a 4-step handshake is required:
+<ul>
+<li>the first message originates from A and signals the initialization attempt to chain B</li>
+<li>the second message is sent from B that corresponds to the attempt to open a channel on chain A</li>
+<li>the third message is an acknowledgment message sent from A to B that states that A’s channel is open</li>
+<li>the fourth message is the confirmation sent from chain B to chain A that that B’s channel is also open</li>
+</ul></li>
+</ul>
+</section>
+<section id="application-layer-1" class="level4">
+<h4 class="anchored" data-anchor-id="application-layer-1">Application layer</h4>
+<p>The application layer sits on top of the TAO layer and supports, among others, these functionalities :</p>
+<ul>
+<li><strong>fungible (ICS20[7])</strong> / <strong>non-fungible token (NFT - ICS721[8])</strong> transfers</li>
+<li><strong>Interchain Accounts ICS27[9]</strong> enable cross-chain interaction - any action that can be performed on the “host” chain can be initiated from the “controller” chain. From the host chain’s perspective, interchain accounts are just regular accounts controlled via IBC messages instead of having a private key.</li>
+<li><strong>Interchain Security</strong> allows for a “provider” chain to be in charge of producing blocks for a “consumer” chain.</li>
+<li><strong>Fee middleware</strong> is used to pay the costs and incentivize the operation of relayers</li>
+<li>etc.</li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>This paper has provided a high-level overview of the Cosmos, which has taken a seriously thought-out approach to building blockchains. Its radical way of making the difficulty of developing an application-specific chain comparable to the development of a DApp on a general purpose chain is worth considering during the initial design stage of any project.</p>
+<p>There are three major directions in which further research should be conducted:</p>
+<ol type="1">
+<li>diving deep into the projects built using Cosmos. One example of an interesting project is Evmos[2], a scalable, high-throughput PoS blockchain fully compatible and interoperable with Ethereum</li>
+<li>assessing the capabilities of the Cosmos SDK</li>
+<li>exploring the ways IBC can connect zones with Proof-Of-Work (PoW) chains</li>
+</ol>
+<p>Tendermint Core shouldn’t be a priority as it is a relatively old consensus mechanism and can be replaced by newer ones as long as they are adapted to honor the ABCI.</p>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+<p>[1] https://ethereum.org/en/whitepaper/</p>
+<p>[2] https://v1.cosmos.network/resources/whitepaper</p>
+<p>[3] https://cosmos.network/ecosystem/tokens/ (Accessed on 07/08/22)</p>
+<p>[4] https://github.com/tendermint/tendermint</p>
+<p>[5] https://v1.cosmos.network/sdk</p>
+<p>[6] https://hub.cosmos.network/main/hub-overview/overview.html</p>
+<p>[7] https://github.com/cosmos/ibc/blob/main/spec/app/ics-020-fungible-token-transfer/README.md</p>
+<p>[8] https://github.com/cosmos/ibc/tree/main/spec/app/ics-721-nft-transfer</p>
+<p>[9] https://github.com/cosmos/ibc/blob/main/spec/app/ics-027-interchain-accounts/README.md</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" role="doc-bibliography">
+
+</div></section></div></main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

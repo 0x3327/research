@@ -17,7 +17,82 @@
 <width>144</width>
 </image>
 <generator>quarto-1.1.163</generator>
-<lastBuildDate>Thu, 28 Jul 2022 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 28 Aug 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>[ERFC - 409] Minty - Massive off-chain minting with verifiable on-chain commitments</title>
+  <dc:creator>Aleksandar Veljković</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-409.hugo.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>Utilizing Blockchain comes with big limitations when it comes to storing a larger number of documents on the chain. Another problem arises when a large number of documents must be stored on the chain with minimal delay - real-time. In those cases, the time and financial costs may become overwhelming. This research aims to find the solution for this issue by combining off-chain issuing techniques and on-chain commitments to maximize throughput while minimizing costs from the number of transactions required to store the commitments. The solution is formulated as a hybrid (on-chain/off-chain) protocol called Minty.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>While higher utilization of Blockchain in formerly pure Web 2.0 use-cases is a trend, some obstacles prevent a smooth transition to Web 3.0. Most of those issues are known scalability issues, combined with high transaction costs. Two scalability issues closely related to the costs of using Blockchain in business are the number of transactions that could be processed in a second (TPS) and the size limit of the transaction. The TPS metric can easily trick the user into thinking that 1,000s of transactions per second would mean that he or she can submit 1,000 transactions and expect them to be included in a block after a one-second delay. Unfortunately, that assumption would be wrong, and we can prove that with a simple counter-example. Let us assume that TPS is 10,000 transactions, ten times more than the user needs. Although Blockchain protocols could indeed process 10,000 transactions per second, there could be at least 9,001 other transactions from different users waiting to be accepted. In this case, it is impossible to have 10,001 or more transactions in one block, so at least one transaction will have to wait for the next block - breaking the one-second expectation. The last nail for this assumption is the requirement to have all transaction nonces ordered correctly. If one sends 1,000 correctly ordered transactions to the miners, there are no guarantees that the miners will sort them correctly, leaving transactions out of order for the next block. As the Blockchain becomes more utilized, the issue will become more severe. To make the situation worse, some transactions may offer better gas prices than others, prioritizing them and delaying other transactions even further.</p>
+<p>Another issue is submitting 1,000 transactions on an EVM blockchain, which requires at least 21,000 gas per transaction. Those amounts may quickly add up costs and disincentivize further use of Blockchain (at least use of mainnet).</p>
+<p>The main question is how realistic it is to have a use case where it is required to execute 1,000s of transactions in a short time. The answer is not clear as the question is not correctly formed. If use cases, for some reason, specifically require 1,000s of separate transactions to be executed, then there is no better solution than waiting for faster blockchains. A better question might be how realistic it is to have a use case where it is required to write 1,000s of data blocks on Blockchain often. The answer might be - not a lot, but the numbers will quickly rise as soon as the more efficient solution for performing the task appears. In that case, it becomes reasonable to investigate the possibilities of having much fewer transactions than the number of data blocks and explore off-chain solutions, such as ZK proofs and signatures, to reduce the costs of writing on Blockchain.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>This research will focus on a generic example problem, minting 1,000s of generic documents in short intervals, which can be easily specialized for any use case requiring minting high volumes of data in a short time. The following sections will also present a concrete example of a real-world use case.</p>
+<p>Before we get into details, we shall first define some basic assumptions. The worst-case scenario is putting the data of each document on Blockchain in separate transactions. The more reasonable scenario is writing documents in batches of <embed src="https://latex.codecogs.com/svg.latex?n" title="n" class="img-fluid"> per transaction. Let us assume that a document consists of <embed src="https://latex.codecogs.com/svg.latex?k" title="k" class="img-fluid"> bytes32 elements. The minimum gas required to run a transaction is 21,000 gas and 2,000 more to store one <code>bytes32</code> element. Another restriction is the upper limit of the gas amount per block, which is 30,000,000 on Ethereum. Assuming a very farfetched case where:</p>
+<ul>
+<li>TPS is 1,000 (currently much lower)</li>
+<li>One user gets to have all transactions in all blocks until the document storing is complete (possible only on private chains)</li>
+<li>Every document consists of only five <code>bytes32</code> elements (a reasonable amount of data)</li>
+<li>One transaction contains 30 documents (reasonable limitation)</li>
+</ul>
+<p>The number of transactions in a block would be ~93, which enables storing only 2790 documents per second. On the other hand, having a low gas price of 10 gwei, for 30,000,000 gas, the cost would be 0.3 native coins. On Ethereum, with the price of $1500, the cost would be 0.3 * $1500 = $500. Executing the same transaction on Polygon L2, the price would be only 0.7 * $1 = $0.7. This is the price for having 2790 documents stored on-chain under pretty unreal circumstances. To store all 100,000 documents, the total cost would be ~12 coins ($18000 on Ethereum and $12 on Polygon), which would take around 36 seconds. To summarize, the lowest theoretical boundary for storing 100,000 * 5 <code>bytes32</code> elements, under given circumstances, is 36 seconds and $12. In practice, the time delay would be much higher as executing ~3,333 transactions from one user in 36 seconds would only be possible on a private chain.</p>
+<p>What if the requirement is to store data of 100,000 documents in 10 seconds with a high probability? How could it be achieved? The only way to reduce the number of transactions executed on Blockchain is to reduce the amount of data that has to be written. There is, of course, a possibility to increase the number of documents in a batch, but we are already hitting the boundary with that in the previous example. When there is a requirement to store exactly 100,000 documents, there are two options: - Compress the data to have more of the smaller documents in batches; the example would be storing hashes of data. - Store no data but generate signed documents off-chain - Store single commitments for multiple data; the example would be storing a root hash of a Merkle tree built from documents.</p>
+<p>In each case, we assume the user will receive proof that the document belongs to a commitment and can materialize (mint) its data on the chain by providing the proof.</p>
+<p>The first solution might be tempting for smaller amounts of data. However, it reduces the number of transactions for a constant factor (5 in the previous example), which would not be very helpful when data quantity increases.</p>
+<p>The second solution is very similar to OWT and represents an ideal solution from a theoretical perspective. However, the issue arises from the time required to generate a large number of signatures, which is much higher than a Merkle tree construction time. The comparison is provided in the results section.</p>
+<p>The third option is more suitable for handling large quantities of data, as it scales much better. On the other hand, the construction of the Merkle tree grows exponentially with the number of documents, so the time required to generate bigger trees adds another limit to the number of documents processed in a given time after a certain threshold. Nevertheless, the Merkle tree solution has better potential, as one can generate multiple Merkle trees in parallel (on multicore processors or multiple servers), which can scale document processing to another level. This fact leads us to an outstanding balance between the number of transactions, the number of processed documents, and the time required to prepare and write the data - the parallel computation of multiple Merkle tree roots and writing multiple roots in one transaction. In this scenario, there are better guarantees that a single storage transaction will be executed in 10 seconds while storing <embed src="https://latex.codecogs.com/svg.latex?k" title="k" class="img-fluid"> Merkle roots of <embed src="https://latex.codecogs.com/svg.latex?n" title="n" class="img-fluid">-document trees. Can we go even further? For a few milliseconds more, another tree could be formed from the roots of the trees generated in parallel - leading to one tree with <embed src="https://latex.codecogs.com/svg.latex?m" title="m" class="img-fluid"> subtrees and <embed src="https://latex.codecogs.com/svg.latex?O%28log_%7B2%7D%29" title="O(log_{2})" class="img-fluid"> extra levels. This upgrade results in storing only one root hash for the entire set with <embed src="https://latex.codecogs.com/svg.latex?m" title="m" class="img-fluid"> subtrees generated in parallel for a few times speedup. There is also one more concern regarding parallelization. It is not the case that having 10,000 parallel processes will always result in 10,000 times speedup. The overhead communication between processes adds a slowdown. The results from the following section show the example of speedup achieved when creating Merkle trees in parallel workers.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>The assumption of efficiently generating Merkle roots in a parallel way, as data commitments, was put to the test. A simple but representative use case assumed storing trading cards on Blockchain (similar to NFTs but more straightforward). The card consists of an ID, image number (associated with image URL) and owner address. The goal was to enable storing commitments of 100,000 cards in 10 seconds. The flow consisted of generating <embed src="https://latex.codecogs.com/svg.latex?k" title="k" class="img-fluid"> Merkle trees with <embed src="https://latex.codecogs.com/svg.latex?l" title="l" class="img-fluid"> leaves sequentially until all cards had been committed. The resulting roots were used to generate a “cap” Merkle tree, and inclusion proofs for the cards were generated from the subtrees and extended with respective “cap” proofs. In the end, each card had a root commitment stored on Blockchain and inclusion proof generated for the end user to claim or transfer the card. Multiple tests estimated the speed of generating Merkle trees and all of the proofs under different conditions. The variables were the number of leaves and workers that generated trees. One worker generated one tree. The results showed that parallel tree generation achieved, on average, 3.5x - 4x speedup on a 2.6 GHz 6-Core Intel Core i7 CPU. Leaves of the trees were <code>keccak256</code> hashes of card data: - <code>uint256 id</code> - <code>uint256 imageId</code> - <code>address owner</code></p>
+<p>The following charts represent the time and speedup results when using parallel tree generation.</p>
+<br>
+<center>
+<img src="https://3327.io/documents/research/assets/ERFC-409/speedup.png" class="img-fluid"> <br> <i>Speedup in number of processed leaves per second when generating multiple trees in parallel compared to a single tree with the same number of leaves. The results assume not just tree generation but also proof generation for all leaves of all trees</i>
+</center>
+<center>
+<p><br></p>
+<p><img src="https://3327.io/documents/research/assets/ERFC-409/time-required.png" class="img-fluid"> <br> <i>Chart of the time required to generate all proofs when using different number of workers in parallel</i></p>
+</center>
+<p>As expected, the time delays increase exponentially with the number of leaves. The speedup of ~4x correlates with the number of CPU cores left available for the workers minus the overhead from communication costs when moving larger data (proofs) between parallel workers and the parent process. We can notice that even with only 20 parallel processes, the communication overhead is clearly observable. Also, 20 parallel workers could generate <embed src="https://latex.codecogs.com/svg.latex?20%20%5Ccdot%2016384%20%3D%20327680" title="20 \cdot 16384 = 327680" class="img-fluid"> proofs in ~7.5 seconds, much greater than the targeted 100,000 documents per second. However, this computation does not count in the time required for generating document hashes and sending commitment storage transactions on Blockchain.</p>
+<p>Nevertheless, the results gave us some insights into the parameter values. Additionally, the time required to generate document signatures in parallel was also evaluated, as the off-chain signature issuing approach was a direct competitor of the Merkle tree approach. The results show that the parallel Merkle tree generation approach wins this comparison up to a large number of documents, as the time complexity for generating multiple signatures grows linearly with the number of documents but with much higher base costs. It is important to note that the signature generation results do not discard the possibility of using the signature approach but show that the Merkle trees are a more efficient approach.</p>
+<center>
+<p><br></p>
+<p><img src="https://3327.io/documents/research/assets/ERFC-409/signature-time.png" class="img-fluid"> <br> <i>Chart of the time required to generate all signatures when using different number of workers in parallel</i></p>
+</center>
+<p><br></p>
+<p>The full test consisted of generating document hashes for 1,000,000 documents, generating commitments for 100,000 documents per batch using up to 20 parallel workers with a maximum of 16,384 leaves. Finally, the resulting commitment was sent to Blockchain (Ganache) asynchronously after each batch. The time required for the entire process to complete and store all 1,000,000 document commitments as root hashes of batches was ~55s, or ~180,000 processed documents per 10s. The costs of storing commitments on L2 chain like Polygon would be around $27 per day (having the gas price of 100 gwei), for storing commitments of 1.44 billion documents.</p>
+<p>The parameters can and should, be tuned according to the use case. Suppose the number of documents that should be processed per second is insignificant, and higher delays are allowed. In that case, 1,000,000 or more documents could easily be represented as one commitment stored on Blockchain. This approach allows for semi-real-time document processing with minimal delay.</p>
+<section id="document-materialization-on-blockchain" class="level2">
+<h2 class="anchored" data-anchor-id="document-materialization-on-blockchain">Document materialization on Blockchain</h2>
+<p>The smart contract consists of functions for storing commitments and functions used to mint the cards from commitment proofs. The owner of the commitment proof mints the card by providing card data to the smart contract along with inclusion proof and the ID of the corresponding commitment. The smart contract verifies the proof and mints a new card with the given data. The card owner can only do the minting as the message sender’s address is used for the owner’s address. The owner can also mint the card to a different address, where the same process applies, with the only difference being the card minted with a different owner’s address. The one-time overhead costs for the users to mint and/or transfer their documents on the chain are minimal, especially when L2 solutions, like Polygon, are used.</p>
+<p>The entire protocol for generating a massive number of documents using off-chain proofs and commitments was assigned the name <b>Minty</b>.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>The results show that the approach of using parallel off-chain proof generation and storing commitments on the chain enables semi-real-time minting of a massive number of documents with high saves in costs when compared to direct on-chain minting. The example use-case can be further expanded to cover NFTs or any other types of documents which could be minted on the chain. Future research should cover specific applications of the presented protocol and estimate its value in various use cases.</p>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://3327.io/documents/research/posts/ERFC-409.hugo.html</guid>
+  <pubDate>Sun, 28 Aug 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://latex.codecogs.com/svg.latex?n " medium="image"/>
+</item>
 <item>
   <title>Introduction to Avalanche</title>
   <dc:creator>Uros Kukic</dc:creator>
@@ -4378,93 +4453,6 @@ function verifySingle(
   <guid>https://3327.io/documents/research/posts/ERFC-39.hugo.html</guid>
   <pubDate>Fri, 04 Mar 2022 00:00:00 GMT</pubDate>
   <media:content url="https://github.com/ethereumbook/ethereumbook/raw/develop/images/simple_elliptic_curve.png" medium="image" type="image/png"/>
-</item>
-<item>
-  <title>ROTOKEN</title>
-  <dc:creator>Aleksandar Veljković</dc:creator>
-  <link>https://3327.io/documents/research/posts/ERFC-103.hugo.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<section id="executive-summary" class="level1">
-<h1>Executive Summary</h1>
-<p>Organisations may include non-founder members with specific roles (treasurer, secretary, board members…) with higher permission levels, compared to the regular members. Members that have permission levels which include control over organisation finances represent a high risk for the organisation as there is a high risk of losing money if malicious members perform illegal transfers. That problem is especially present in the world of cryptocurrency where transfers cannot be revoked, once transaction is executed there is no rollback. The use of multisig might be an obvious solution, but the high overhead cost of writting multiple signatures on blockchain, even if the transaction is valid, may not be acceptable in many situations where there is a high frequency of transactions.</p>
-<p>This research proposes a solution for this problem, restricted to the world of crypto-financial transactions, by introducing a rotating token which guarantees randomised selection of members that would be granted specified roles over fixed period of time while allowing blockchain money-transferring transactions to be executed only by the members that are holding the token. For improved prevention of unwanted transactions, the transactions may be disputed before their execution, which allows higher control over money transfers and enables improved protection of organisation funds. All transactions are transparent to all approved members, which adds extra layer of transparency over the entire organisation budget.</p>
-</section>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>Money transfer transactions are the essential parts of any organisation. Protection of organisation finances and prevention of malicious transactions is one of the top priorities. There is usually one, or a few people that are responsible for all money transfers in the organisation and are often the only members that are actually aware of those transfers. Malicious member with access to organisation funds may use the opportunity to leak money from the organisation for the causes that are against the organisation rules or even against the law. Board members of the organisation are ofter not aware of those malicious activities as the members that perform those transaction also prepare financial reports, hiding their tracks. An example would be a fake invoice representing payment for the fictive service that actually represents money laundering. Even invoice payments for the regular services may be modified with highly increased price.</p>
-<p>Current mechanisms for controlling financial transactions in smaller organisations basically do no exist as every lost cent is easily trackable when dealing with smaller amounts of money. When dealing with large number of transactions and bigger funds, the situation is not that clear. Bigger organisations specify budgets for certain topics, restricting the maximum amount spent on specific topic, therefore defining the upper limit on transaction fraud potential [1]. Those budgets are not small, Microsoft Corporation spent more than 20 billion USD on sales and marketing in 2021 [2]. There is a big potential for hiding malicious transactions.</p>
-<p>Choosing members that would be granted access to funds is currently solved in two ways: - Hiring accounting department [3]. In this setup, the employees are hired for the longer period of time, sharing the responsibility with each other and the head of the department. - Electing treasurer [4]. In this setup, the treasurer role can be assigned to different members, often by voting. The job of the treasurer is a person responsible for observing the accountant department, but in smaller organisation he is often the only person dedicated to manage and observe financial flows. The issue appears when the malicious clique tampers the voting and forces the election of a certain trusted member as long as they all benefit from it. There is also the case where the treasurer role is assigned once and never changed, assuming his honest work.</p>
-<p>To prevent the problem, it is important to understand its cause. Newly granted members with access to organisation funds are often working by the book, scared of possible consequences when caught performing a malicious activity. As the time goes by, their actions are not carefully observed and their position in the organisation becomes stable. At that point, the risk of malicious transactions becomes higher as the actors are not observed and there was enough time to form a clique with other members [5,6]. To quote Margaret Murray: “Governments are like underwear. They start smelling pretty bad if you don’t change them once in a while.” The same goes with any position of power, even if that power includes just access to finances.</p>
-<p>It seems that there are two main problems, unbiased change of authorisation and transparent transaction control.</p>
-<p>Crypto-world introduced multisig wallets for improved safety. The problem with this approach is that it introduces costs to multiple members for executing one transaction even if that transaction is not malicious. The better approach would be a procedure that would add extra cost only to prevent malicious transactions, thus saving money when the transactions are not malicious.</p>
-<p>Unbiased selection of participants to perform certain actions is demonstrated in certain Blockchains where validator nodes are selected in Round robin manner. Round robin approach may not be adequate for selecting treasurers as it is predictable and assumes that next treasurer will be available to accept the role. In general, unbiased selection should be incorporated wherever there is a high risk involved with knowing the choice in advance or where all choices should be equaly probable. Such cases include distributing role, data or duties to randomly selected entities, selection of randomly generated teams (such as jury selection) and similar.</p>
-</section>
-<section id="goals-methodology" class="level1">
-<h1>Goals &amp; Methodology</h1>
-<p>The main goal of this research was to find a solution for having unbiased selection of personnel with access to finances as well as transaction control. The way to get to the solution was to present first all the requirements and restrictions.</p>
-<p>The transactions that are focus of this research are blockchain transactions. This research will focus on Ethereum money-transferring transactions so the base element of the solutions would be Ethereum smart contract, for this research named ROTOKEN. ROTOKEN smart contract includes NFT token and wallet. The wallet is controlled only by the owner of the NFT.</p>
-<p>All listed members of the organisation should be automatically whitelisted, meaning that all members should be able to get selected for special roles involving access to finances. This is naturally enforced as the salary payments are also transactions from organisation funds and therefore controlled by the ROTOKEN smart contract.</p>
-<p>Unbiased selection can only be performed using unbiased probability distribution over the members that are applying for the position. The selection needs to take into account that next selected member can’t be the same as the previous one. Random selection on blockchain is a tricky part as it relies on values that can be predicted in advance. One of the sources of pseudo-randomness is the block hash, as it is a result of SHA3 function. However, the value is predictable by the miners and it can be tampered so it should not be used as a source of randomness. Another approach is using verifiable random functions such as Chainlink VRF. This might be costly but it is a good solution. This research also proposes another, possibly cheaper approach. Selecting the latest transaction hashes of <img src="https://latex.codecogs.com/png.latex?k"> wallets outside of the organisation ,with the most frequent transactions, and hashing them all together may be a good source of randomness as the main problem with predictable randomness from block hash is the ability of the miner to reorder transactions until the desired hash is achieved. By selecting transaction hashes instead of blocks, the only way to tamper with the randomness is to selectively mine transactions which leaves much less room for tampered combinations and transaction hashes are close to random as they are influenced by many changing variables.</p>
-<p>Selection of new members with special roles should happen regularly in fixed intervals. As transaction of changing the role needs to be executed on blockchain, it is required that transaction is explicitly invoked. To incentivise regular changes, organisation funds would be blocked for transactions until the role is changed. Role change should not be allowed during before the end of current member’s term unless it is invoked by the current member. The role transfer to a new member is done by transferring ROTOKEN NFT.</p>
-<p>Transaction that is submitted on blockchain can’t be revoked. The only way to prevent transaction execution is to prevent its submission. Proposed solution includes two step execution. The first step is transaction announcement, which should be executed on smart contract and contain details about target wallet and the amount being sent. The second step is transaction execution, which submits pending transaction to blockchain for execution. Between two steps, certain period of time should be left for disputes. If the dispute is initiated by enough participants the transaction will be canceled, where enough should be &gt;51% or &gt;2/3, but the exact limit would be configurable value.</p>
-<p>To disincentivise submission of malicious transactions, that would eventually probably be disputed but also add extra cost for disputing, submitter should be penalised. For a member to loose money it is required that the member has the money in first place, so the safest way to ensure successful penalisation is to include staking. The money staked by the submitter would be lost in case of successful dispute.</p>
-<p>Lost staked money needs to change ownership. If the money is sent to disputers, there would exist an incentive for members to dispute every transaction and earn money. To prevent this behaviour, the proposed solutions is transferring money to the organisation wallet. This solution may seem problematic and unnatural but there is an explanation for that. One way to look at staking is to take existing money out of the pocket. The other way is to take money “from the future”, meaning that member may have dedicated annual fond which is used to issue monthly payments as salary and may also be perceived as staked money. In this case, the penalisation would assume reduction of the future salary which technically is returning money back to the organisation. To further disincentivise disputes from the side of the organisation executives, disputed transaction, defined by the receiver’s address and the amount of money to be transferred, blocks further transfers to receiver’s address for certain amount of time. If the disputed transaction was indeed malicious, this mechanism will block further transactions to that address, preventing new attempts. If the transaction was falsely disputed and the receiver is a proper receiver of organisation’s money, by preventing the transaction and blocking the transfer to the proper receiver, the behaviour directly disrupts regular functioning of the organisation.</p>
-</section>
-<section id="results-discussion" class="level1">
-<h1>Results &amp; Discussion</h1>
-<p>ROTOKEN smart contract should follow modifier ERC-721 smart contract. Token transfer should be possible only by internal call and the token should be transferred to randomly selected whitelisted member. Additionally, the smart contract should include: - list of whitelisted members, with getters and setters - list of transactions with statuses - dispute function - transaction announcement and execution functions - ownership change function, which would internally call transfer function</p>
-<p>Proposed ROTOKEN smart contract interface:</p>
-<pre><code>interface ROTOKEN {
-    // + ...ERC-721 interface
-
-    Enum { PENDING, DISPUTED, CANCELED, FAILED, EXECUTED } transactionStatus
-    struct (
-        transactionStatus status,
-        address currentTokenOwner
-        address receiver,
-        uint256 amount,
-    ) transactionData;
-
-    mapping(transactionId =&gt; transactionData) public transactions
-    address[] whitelistedMembers;
-
-    event TransactionStatusChanged(uint256 indexed transactionId, transactionStatus status)
-
-    function announceTransaction(address receiver, uint256 amount) public returns(uint256 transactionId);
-    function executeTransaction(uint256 transactionId) public;
-    function dispute(uint256 transactionId) public;
-    function changeOwnership();
-}</code></pre>
-<section id="potential-markets" class="level2">
-<h2 class="anchored" data-anchor-id="potential-markets">Potential markets</h2>
-<p>Potential markets that might be interested to use ROTOKEN include: - DAOs - Companies with frequent audits by the investors, board members or shareholders, mostly startups - Banks - Government organisations related with public government funds</p>
-</section>
-</section>
-<section id="conclusion" class="level1">
-<h1>Conclusion</h1>
-<p>ROTOKEN smart contract proposes solutions for unbiased selection of members for granting control over organisation funds and incentive based transaction control. Minimal additional operating costs required for essential control are added, on top of regular transaction costs. The smart contact extends ERC-721 interface with certain modifications and extensions which makes ROTOKEN NFT compatible for integration with the existing systems where the ERC-721 tokens are used. Those systems may use the information about the ownership of the ROTOKEN to grant the owners additional privileges, like document signing, voting etc. Next steps include market evaluation, PoC implementation and detailed operating cost estimation.</p>
-</section>
-<section id="bibliography" class="level1">
-
-
-
-
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs">
-<p>[1] https://corporatefinanceinstitute.com/resources/knowledge/finance/financial-controls/</p>
-<p>[2] https://www.statista.com/statistics/506534/microsoft-sales-marketing-expenditure/</p>
-<p>[3] https://www.investopedia.com/terms/a/accountant.asp</p>
-<p>[4] https://nonprofitlawblog.com/treasurer-duties/</p>
-<p>[5] https://corporatefinanceinstitute.com/resources/knowledge/other/fraud-red-flags/</p>
-<p>[6] https://www.nsu.edu/About/Administrative-Offices-Services/Internal-Audit/Making-a-Report/Red-Flags-of-Fraud.aspx</p>
-</div></section></div> ]]></description>
-  <guid>https://3327.io/documents/research/posts/ERFC-103.hugo.html</guid>
-  <pubDate>Thu, 03 Mar 2022 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

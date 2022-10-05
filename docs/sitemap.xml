@@ -1,119 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://3327.io/about.html</loc>
-    <lastmod>2022-09-16T08:21:46.801Z</lastmod>
+    <loc>https://3327.io/index.html</loc>
+    <lastmod>2022-10-05T10:31:05.633Z</lastmod>
   </url>
   <url>
-    <loc>https://3327.io/index.html</loc>
-    <lastmod>2022-09-16T08:21:48.761Z</lastmod>
+    <loc>https://3327.io/about.html</loc>
+    <lastmod>2022-10-05T10:31:06.425Z</lastmod>
   </url>
   <url>
     <loc>https://3327.io/documents/research/index.html</loc>
-    <lastmod>2022-09-16T08:21:49.905Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-146.hugo.html</loc>
-    <lastmod>2022-09-16T08:21:51.137Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-409.hugo.html</loc>
-    <lastmod>2022-09-16T08:21:52.357Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-278.hugo.html</loc>
-    <lastmod>2022-09-16T08:21:53.293Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-105.hugo.html</loc>
-    <lastmod>2022-09-16T08:21:54.553Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-259.hugo.html</loc>
-    <lastmod>2022-09-16T08:21:55.925Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-42.hugo.html</loc>
-    <lastmod>2022-09-16T08:21:57.073Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-101.hugo.html</loc>
-    <lastmod>2022-09-16T08:21:58.001Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-90.hugo.html</loc>
-    <lastmod>2022-09-16T08:21:59.069Z</lastmod>
+    <lastmod>2022-10-05T10:31:07.557Z</lastmod>
   </url>
   <url>
     <loc>https://3327.io/documents/research/posts/ERFC-246.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:00.309Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-336.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:01.497Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-342.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:02.525Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-39.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:03.909Z</lastmod>
+    <lastmod>2022-10-05T10:31:09.117Z</lastmod>
   </url>
   <url>
     <loc>https://3327.io/documents/research/posts/ERFC-57.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:05.173Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-38.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:06.441Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-91.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:08.129Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-103.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:09.073Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-270.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:10.153Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-154.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:11.321Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-261.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:12.585Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-40.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:13.625Z</lastmod>
-  </url>
-  <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-37.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:14.989Z</lastmod>
+    <lastmod>2022-10-05T10:31:10.117Z</lastmod>
   </url>
   <url>
     <loc>https://3327.io/documents/research/posts/ERFC-248.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:16.437Z</lastmod>
+    <lastmod>2022-10-05T10:31:11.477Z</lastmod>
   </url>
   <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-147.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:18.097Z</lastmod>
+    <loc>https://3327.io/documents/research/posts/ERFC-42.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:12.657Z</lastmod>
   </url>
   <url>
-    <loc>https://3327.io/documents/research/posts/ERFC-171.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:19.361Z</lastmod>
+    <loc>https://3327.io/documents/research/posts/ERFC-105.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:13.753Z</lastmod>
   </url>
   <url>
     <loc>https://3327.io/documents/research/posts/ERFC-315.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:20.749Z</lastmod>
+    <lastmod>2022-10-05T10:31:15.157Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-101.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:16.126Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-342.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:17.106Z</lastmod>
   </url>
   <url>
     <loc>https://3327.io/documents/research/posts/ERFC-172.hugo.html</loc>
-    <lastmod>2022-09-16T08:22:21.677Z</lastmod>
+    <lastmod>2022-10-05T10:31:18.042Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-147.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:19.410Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-103.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:20.614Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-270.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:21.586Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-171.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:22.886Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-40.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:23.842Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-146.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:24.862Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-154.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:25.746Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-38.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:26.978Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-358.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:28.466Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-278.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:29.542Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-90.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:30.586Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-39.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:31.890Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-409.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:33.071Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-91.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:34.715Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-37.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:35.987Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-336.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:37.159Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-259.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:38.527Z</lastmod>
+  </url>
+  <url>
+    <loc>https://3327.io/documents/research/posts/ERFC-261.hugo.html</loc>
+    <lastmod>2022-10-05T10:31:39.671Z</lastmod>
   </url>
 </urlset>

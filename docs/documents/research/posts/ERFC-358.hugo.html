@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.163">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aleksandar Damjanovic">
+<meta name="dcterms.date" content="2022-07-29">
+
+<title>3327 Research - [ERFC - 358] On-chain Capitalization Table</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - [ERFC - 358] On-chain Capitalization Table">
+<meta property="og:description" content="This research covers the current solutions based on Capitalization Tables in Web3 to fully understand the idea of creating a Capitalization Table Platform that would store the data and changes…">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - [ERFC - 358] On-chain Capitalization Table">
+<meta name="twitter:description" content="This research covers the current solutions based on Capitalization Tables in Web3 to fully understand the idea of creating a Capitalization Table Platform that would store the data and changes…">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">[ERFC - 358] On-chain Capitalization Table</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Aleksandar Damjanovic </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 29, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+  <ul class="collapse">
+  <li><a href="#what-is-the-capitalization-table" id="toc-what-is-the-capitalization-table" class="nav-link" data-scroll-target="#what-is-the-capitalization-table">What is the Capitalization Table?</a></li>
+  <li><a href="#are-there-any-current-solutions-in-web3-that-use-capitalization-tables" id="toc-are-there-any-current-solutions-in-web3-that-use-capitalization-tables" class="nav-link" data-scroll-target="#are-there-any-current-solutions-in-web3-that-use-capitalization-tables">Are there any current solutions in Web3 that use Capitalization Tables?</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-358.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>This research covers the current solutions based on Capitalization Tables in Web3 to fully understand the idea of creating a Capitalization Table Platform that would store the data and changes on-chain. The proposed solution is building a similar solution to Syndicates but without the governance power of token holders. Is this proposed solution just an inefficient DAO? Probably. It is up to the readers to decide.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This research paper explores the viability of creating a transparent Capitalization Table solution that would store the equity capitalization for a Web3 native/non Web3 native company and its changes on-chain. The motivation for this idea originated from the hypothesis that there is a general lack of transparency of web3 companies funding rounds, equity ownership, and debt positions. If we look at the CoinMarketCap and similar tracking websites, we can see the price history of the token, the largest token holders, and in some cases, the initial token distribution, etc. However, the precise representation of the entity (Capitalization Table, for example) behind the coin is absent. There are also various questionable solutions that provide cap tables behind a paywall. The above reasons are why this research is conducted.</p>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>The goal of this research is to explore:</p>
+<ul>
+<li>the current solutions in Web3 that aim to provide transparency in the space</li>
+<li>the current solutions in Web3 that are based around Capitalization Tables (if there are any)</li>
+<li>is there a way Capitalization Tables of Web3/Web2 companies can be stored on-chain</li>
+<li>is there a possibility/need for building a Capitalization Table platform</li>
+</ul>
+<p>We will accomplish this by exploring what Capitalization Tables are, how they are utilized in Web2, whether there are any limitations/needs for implementing them in Web3, and the current solutions based on entity transparency and Capitalization Tables in Web3.</p>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>We will first explain what the Capitalization Table represents, whether any solutions in Web3 already tackle this, and we will go over the possibility and limitations of creating the Capitalization Table service or a tool.</p>
+<section id="what-is-the-capitalization-table" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-the-capitalization-table">What is the Capitalization Table?</h3>
+<p>In all companies, the Capital Structure de-facto represents the company’s quality and investment quality if the investor were to invest in it. Capital structure is a mix of a company’s capital - its debt and equity:</p>
+<ul>
+<li>Equity is a company’s common and preferred stock plus retained earnings. To not venture deep into what the common and preferred stocks are right now, we can look at equity as stocks + retained earnings.</li>
+<li>Debt, if we simplify it, usually represents short-term borrowing and long-term debt</li>
+</ul>
+<p>Investors analyze capital structure by using ratios like:</p>
+<ul>
+<li>debt ratio</li>
+<li>debt-to-equity ratio</li>
+<li>long-term debt to capitalization ratio ‘Analyzing a Company’s Capital Structure’<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul>
+<p>We will not explain these ratios in this paper as it is not the research topic, but we listed them to show what the investors are taking into account when researching which company to invest in. These are the basics of fundamental analysis and provide some context for the following paragraphs.</p>
+<p>A Capitalization Table is a table or a spreadsheet that shows the equity capitalization of the company ‘Capitalization Table: A Familiar Document in the Startup World’<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>They are mostly used by startups and businesses in early stage however they can be used by already established businesses.</p>
+<p>In the Capitalization Table, each type of equity ownership capital, the investors and the share price at which the funds were invested/current price is listed.They can also list various convertible securities, warrants and options. They are usually used privately by companies to provide information on investors and market value. Investors can use them to decide if they should invest in a company.</p>
+<p>Capitalization Tables can vary in design and the information provided but all of them are centered around above mentioned factors. Here is the example of the table’s structure:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/ERFC-358/cap_table_ex.webp" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">SBT rec</figcaption><p></p>
+</figure>
+</div>
+<p><em>Image 1 : Capitalization Table example - They can be of various types and detail</em></p>
+<p>When making important financial decisions in the company, Capitalization Table is considered. That means the table has to represent the actual state and be updated continously. They do not need to be public but once the company goes public the list of insiders and institutional stakeholder goes public. This is where the idea of storing and tracking this data on-chain becomes interesting.</p>
+<p>In the above table you can see that the investors equity stake is calculated by multiplying the share price by the number of shares owned. We will not go into great detail as this Capitalization Table design is pretty self-explanatory.</p>
+<p>So in it’s essence Capitalization Table shows who owns how many shares, the current market value and the proportions of the ownership, have in mind that these are updated constantly.</p>
+</section>
+<section id="are-there-any-current-solutions-in-web3-that-use-capitalization-tables" class="level3">
+<h3 class="anchored" data-anchor-id="are-there-any-current-solutions-in-web3-that-use-capitalization-tables">Are there any current solutions in Web3 that use Capitalization Tables?</h3>
+<p>Below we will do a short overview of Web3 solutions that aim to provide a similar service or use some type of Capitalization Table. There are various Web2 Cap Table management solutions that support tracking both traditional equity and tokens like Pulley but we will not explore them as the tables are not stored on-chain.</p>
+<section id="syndicate" class="level4">
+<h4 class="anchored" data-anchor-id="syndicate">Syndicate</h4>
+<p>Syndicate ‘Syndicate’<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> is a decentralized investing protocol. It is used to create Investing DAOs. Its Web3 Investment Clubs product has a similar structure as a Capitalization Table. The user creates a wallet through the Syndicate dApp and chooses the name and the club token ticker. Club’s token represents the asset ownership percentage of the investment club (wallet) and the investor’s “equity” in the club. This token is a non-transferrable ERC-20 token used for both the snapshot and on-chain governance voting. The club’s members can track where the investments of their tokens are going and vote for different investment opportunities. So in its essence, Syndicate is used to create investing DAOs.</p>
+<p>However, this Capitalization table can only be used for investment clubs, and there is no “Company Capitalization Table” product in the making. Because of that, we won’t examine Syndicate further.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/ERFC-358/syndicate.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Syndicate</figcaption><p></p>
+</figure>
+</div>
+<p><em>Image 2: How the ownership is represented via Syndicate dApp</em></p>
+</section>
+<section id="liquify" class="level4">
+<h4 class="anchored" data-anchor-id="liquify">Liquify</h4>
+<p>Liquify is a solution that helps users automate their token vesting.@LiquiFiTokenVesting It enables Companies to save time from manually distributing tokens, Investors to track and claim their tokens. However, the user’s address needs to be whitelisted to access its services currently. There is not much information about this solution online, but there are claims that they are building the “Carta of Web3”. Carta is a solution for Capitalization Table management and automation with a $7.4 billion valuation. If that is true, then this solution challenges our idea. ‘LiquiFi Is Building the “Carta of Web3” for Companies Issuing Tokens on the Blockchain’<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+</section>
+<section id="blockstate" class="level4">
+<h4 class="anchored" data-anchor-id="blockstate">Blockstate</h4>
+<p>Blockstate, a Swiss security token platform for non-bankable assets, claimed to have the solution for on-chain Capitalization Table management back in 2019. however, there is not much information on the website, and they deleted all their social media profiles. We won’t venture deep into this solution as it seems that the project has failed.</p>
+</section>
+<section id="magna---still-in-the-works" class="level4">
+<h4 class="anchored" data-anchor-id="magna---still-in-the-works">Magna - still in the works</h4>
+<p>Magna is a solution that aims to solve the Capitalization Table management problem and become a leading TokenOps platform. ‘Magna - Token Cap Table Management Platform’<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> It plans to provide:</p>
+<ul>
+<li>Stakeholder views - the dashboard and notifications for unlocks and token positions</li>
+<li>Exchange analytics - insights on selling and transferring of tokens</li>
+<li>Wallet intelligence - there is no information on what this represents exactly</li>
+<li>Possibility of liquid staking - voting and staking with tokens while they are still unlocking</li>
+<li>One-time and recurring payments - for vendors or contractors</li>
+<li>Support for complex unlocking schedules</li>
+</ul>
+<p>This project is still in the works, so there is no more information. They are currently listed on the Y Combinator’s website. There is no information on funds raised. This solution would be a direct competitor to our idea. ‘Magna: Carta for Web3: Token Vesting and DeFi Investment Management.’<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+</section>
+<section id="legal-nodes" class="level4">
+<h4 class="anchored" data-anchor-id="legal-nodes">Legal nodes</h4>
+<p>Legal Nodes seems to offer the service of Capitalization Table management via Legal Structuring service. However, this is not an open solution/platform and instead a part of their legal services. ‘Legal Structuring Support for Startups | Legal Nodes’<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+</section>
+<section id="proposal-of-the-possible-solution" class="level4">
+<h4 class="anchored" data-anchor-id="proposal-of-the-possible-solution">Proposal of the possible solution</h4>
+<section id="web3-native-entity" class="level5">
+<h5 class="anchored" data-anchor-id="web3-native-entity">Web3 Native entity</h5>
+<p>Suppose we were to create a similar product to Syndicate’s - a wallet/smart contract creation dApp where the creator must provide LLC - Limited Liability Company papers before creation. The smart contract would then be able to mint the company’s utility/security token in exchange for tokens invested in various rounds. The invested tokens would then possibly be locked and unlocked after an agreed time, depending on the owner’s settings. We could then fetch the data as it’s transparent and present the capitalization table based on investments for investors to see. The bonding curve would determine the price, or the company owners would set the price themselves via the smart-contract (ICO).</p>
+<p>Another great insight would be comparing the price at which the funds were invested and the current price on the market. That would show the overall growth of the LLC.</p>
+<p>The prices would be fetched from Oracles and updated daily, thus providing a fully transparent and intuitive experience for the potential future investors in the company.</p>
+<p>The company’s debt positions would also be visible and presented via the dApp, and the invested tokens would go into various costs like payments for workers and other operational costs.</p>
+<p>This raises a question: <strong>Aren’t DAOs already functioning similarly or at least in a more efficient way?</strong> Yes and no. DAOs issue their token representing the users voting power in the DAO’s governance. The voting process is often slow. This proposed solution would not give the owners of the token governance rights. The tokens distributed would be utility/security tokens. And the governance token would be distributed how the company that owns the wallet/smart contract sees fit.</p>
+<p>If we are talking about security tokens they bring regulation with them. As I am not a Legal expert, I cannot comment on that, and it would require separate research.</p>
+</section>
+</section>
+<section id="web2-companies" class="level4">
+<h4 class="anchored" data-anchor-id="web2-companies">Web2 companies</h4>
+<p>The proposed solution of putting the Capitalization Tables of “Web2” companies on-chain would best fit for private blockchains or the chains where the data can be hidden. However, the hypothesis is that this would open up a legal “can of worms”. More research on the Capitalization Tables regulation is required.</p>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>There have been various tries at implementing Capitalization Tables in Web3 or similar products. Currently, there are options where Capitalization Table management is offered as a service for clients like the one Legal Nodes offers. There is a platform in the works (Magna) that aims to solve exactly what our idea is about - a standardized Capitalization Table Platform. This shows that the execution speed is as important as a good idea. However, a growing number of companies are interested in blockchain, so making an alternative to Magna, Liquify, or Syndicate would be in the spirit of decentralization.</p>
+</section>
+<section id="bibliography" class="level1">
+
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-AnalyzingCompanyCapital" class="csl-entry" role="doc-biblioentry">
+‘Analyzing a Company’s Capital Structure’, <em>Investopedia</em> &lt;<a href="https://www.investopedia.com/articles/basics/06/capitalstructure.asp" class="uri">https://www.investopedia.com/articles/basics/06/capitalstructure.asp</a>&gt; [accessed 29 July 2022]
+</div>
+<div id="ref-CapitalizationTableFamiliar" class="csl-entry" role="doc-biblioentry">
+‘Capitalization Table: A Familiar Document in the Startup World’, <em>Investopedia</em> &lt;<a href="https://www.investopedia.com/terms/c/capitalization-table.asp" class="uri">https://www.investopedia.com/terms/c/capitalization-table.asp</a>&gt; [accessed 29 July 2022]
+</div>
+<div id="ref-LegalStructuringSupport" class="csl-entry" role="doc-biblioentry">
+‘Legal Structuring Support for Startups | Legal Nodes’ &lt;<a href="https://legalnodes.com/product/startup-legal-structuring" class="uri">https://legalnodes.com/product/startup-legal-structuring</a>&gt; [accessed 30 July 2022]
+</div>
+<div id="ref-LiquiFiBuildingCarta" class="csl-entry" role="doc-biblioentry">
+‘LiquiFi Is Building the “Carta of Web3” for Companies Issuing Tokens on the Blockchain’, <em>TechCrunch</em> &lt;<a href="https://social.techcrunch.com/2022/04/21/liquifi-is-building-carta-web3-for-crypto-companies-tokens-blockchain/" class="uri">https://social.techcrunch.com/2022/04/21/liquifi-is-building-carta-web3-for-crypto-companies-tokens-blockchain/</a>&gt; [accessed 30 July 2022]
+</div>
+<div id="ref-MagnaTokenCap" class="csl-entry" role="doc-biblioentry">
+‘Magna - Token Cap Table Management Platform’ &lt;<a href="https://www.magna.so/" class="uri">https://www.magna.so/</a>&gt; [accessed 30 July 2022]
+</div>
+<div id="ref-MagnaCartaWeb3" class="csl-entry" role="doc-biblioentry">
+‘Magna: Carta for Web3: Token Vesting and DeFi Investment Management.’, <em>Y Combinator</em> &lt;<a href="https://www.ycombinator.com/companies/magna" class="uri">https://www.ycombinator.com/companies/magna</a>&gt; [accessed 30 July 2022]
+</div>
+<div id="ref-Syndicate" class="csl-entry" role="doc-biblioentry">
+‘Syndicate’ &lt;<a href="https://syndicate.io/" class="uri">https://syndicate.io/</a>&gt; [accessed 29 July 2022]
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="#ref-AnalyzingCompanyCapital"><em>Investopedia</em> &lt;&lt;https://www.investopedia.com/articles/basics/06/capitalstructure.asp&gt;&gt; [accessed 29 July 2022]</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="#ref-CapitalizationTableFamiliar"><em>Investopedia</em> &lt;&lt;https://www.investopedia.com/terms/c/capitalization-table.asp&gt;&gt; [accessed 29 July 2022]</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="#ref-Syndicate">&lt;[Https://syndicate.io/](https://syndicate.io/)&gt; [accessed 29 July 2022]</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="#ref-LiquiFiBuildingCarta"><em>TechCrunch</em> &lt;&lt;https://social.techcrunch.com/2022/04/21/liquifi-is-building-carta-web3-for-crypto-companies-tokens-blockchain/&gt;&gt; [accessed 30 July 2022]</a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="#ref-MagnaTokenCap">&lt;[Https://www.magna.so/](https://www.magna.so/)&gt; [accessed 30 July 2022]</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="#ref-MagnaCartaWeb3"><em>Y Combinator</em> &lt;&lt;https://www.ycombinator.com/companies/magna&gt;&gt; [accessed 30 July 2022]</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="#ref-LegalStructuringSupport">&lt;[Https://legalnodes.com/product/startup-legal-structuring](https://legalnodes.com/product/startup-legal-structuring)&gt; [accessed 30 July 2022]</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -229,3 +229,7 @@ img {
   /*white-space: normal;*/
   max-width: 100%;
 }
+
+#quarto-margin-sidebar{
+  display:none;
+}

@@ -94,6 +94,165 @@
   <media:content url="https://latex.codecogs.com/svg.latex?n " medium="image"/>
 </item>
 <item>
+  <title>[ERFC - 375] Anonymity in MACI</title>
+  <dc:creator>Marija Mikic</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-375.hugo.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>MACI - Minimal Anti-Collusion Infrastructure is a collection of smart contracts, ZK circuits and ts packages that we can use to build programs on top. We have already dealt with this topic, we summarized what has been done in MACI so far. More information about MACI can be found in our previous research (MACI [1]) and blog (Can MACI really destroy the collusion? [2]).</p>
+<p>This research is a continuation of the previous one, but with the aim of improving MACI. Namely, the problem that we saw as “burning” in MACI is that the coordinator can see how which voter voted. There is no problem if the coordinator is honest, but what if he is not?!</p>
+<p>This research solves exactly that problem, i.e.&nbsp;prevents the coordinator from connecting the vote it processes with the voter itself. In this way, the anonymity of voting is completely preserved.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>In order to remove the “burning” problem and fully ensure the privacy of voting, we need to mention the most important components that currently perform encryption-decryption in MACI, as well as the way in which it is achieved.</p>
+<p>Voters vote using MACI smart contracts. Before sending their vote to the blockchain, they first encrypt their vote (actually, they encrypt the signature and the command (which contains a couple of components, one of which is the option they voted for)) using a shared key. They use an Elliptic-curve Diffie–Hellman shared key. Voters send this encrypted message to the MACI smart contract and it will be stored on-chain. Using shared keys, the coordinator decrypts each vote. It should be noted that each voter will have a different shared key, and that only the voter and the coordinator know that key.</p>
+<p>As it is always easier to understand the matter if there is a visualization, the image below shows the way encryption-decryption works in MACI.</p>
+<p><img src="https://3327.io/documents/research/assets/ERFC-375/MACI_A1.png"></p>
+<p>After decryption, the coordinator needs to prove that voting was valid and reveal the results of voting. This should be done in the way that everyone is sure in the voting results, without releasing the vote of every individual. In order that the coordinator fulfill both of the above conditions, he will make ZK proofs. In this way, the anonymity of voting is almost completely preserved, up to the coordinator.</p>
+<p>Our recommendations for interesting articles about MACI:</p>
+<ul>
+<li>MACI research [1];</li>
+<li>Can MACI really destroy the collusion? [2];</li>
+<li>Release Announcement: MACI 1.0 [3];</li>
+<li>A Technical Introduction to MACI 1.0 [4].</li>
+</ul>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>As we already stated in the lines above, the intention of this research is to examine the possibilities and try to find a solution that would nullify the possibility of collusion in MACI. Namely, everything is hidden on-chain at the moment, but we want that coordinator not to know which user took what action.</p>
+<p>Our proposal is to use ElGamal encryption and re-randomization. The main motivation for this is the article authored by Kobi Gurkan (MACI anonymization - using rerandomizable encryption [8]).</p>
+<p>This potential improvement would have enormous implications for rooting out collusion. It is extremely important for the ecosystem to be able to use a decentralized voting system that is completely resistant to collusion. In the first place, it is important to protect the privacy of a certain voter in every sense (on-chain and off-chain). On the other hand, as MACI can be seen to be in use by the clr.fund, where users can vote which projects will receive funding, and for this reason the importance of this potential improvement can be additionally seen.</p>
+<p>Therefore, in the future MACI would represent the most perfect system for voting in a decentralized system - a system completely resistant to collusion.</p>
+<p>To be able to present the idea clearly, we need to explain how encryption works. In the following lines, we will first explain how ECDH encryption works, and how ElGamal encryption works.</p>
+<section id="asymmetric-encryption" class="level2">
+<h2 class="anchored" data-anchor-id="asymmetric-encryption">Asymmetric encryption</h2>
+<p>The creators of asymmetric cryptography are Whitefield Diffie and Martin Hellman, who in 1976. described the idea of cryptography based on two keys: private (secret) and public key.</p>
+<p>The difference between symmetric and asymmetric algorithms is that symmetric algorithms use the same key for encryption and decryption, while asymmetric algorithms use different keys for encryption and decryption. Information encrypted with a public key can only be decrypted with a private key, that can only the person who owns the private asymmetric key.</p>
+<p><img src="https://3327.io/documents/research/assets/ERFC-375/Asymmetric.png"></p>
+<section id="ecdh-encryption" class="level3">
+<h3 class="anchored" data-anchor-id="ecdh-encryption">ECDH encryption</h3>
+<p>ECDH is very similar to the DHKE (Diffie–Hellman Key Exchange) algorithm, but it uses ECC point multiplication (consecutive addition). Our recommendation for literature related to elliptic curves in cryptography is Pairings for beginners [9].</p>
+<p>ECDH allows two parties, each having an elliptic curve public–private key pair, to establish a shared key. Let <img src="https://latex.codecogs.com/png.latex?G"> be a generator point on the elliptic curve over a finite field <img src="https://latex.codecogs.com/png.latex?F_p"> (where <img src="https://latex.codecogs.com/png.latex?p"> is a prime number). Let <img src="https://latex.codecogs.com/png.latex?pr_A"> and <img src="https://latex.codecogs.com/png.latex?pr_B"> be the private keys of two different people <img src="https://latex.codecogs.com/png.latex?A"> and <img src="https://latex.codecogs.com/png.latex?B">. Then <img src="https://latex.codecogs.com/png.latex?pub_A%20=%20pr_A%20*%20G"> and <img src="https://latex.codecogs.com/png.latex?pub_B%20=%20pr_B%20*%20G"> are their public keys. ECDH is based on the property of elliptic curve points:</p>
+<p><img src="https://latex.codecogs.com/png.latex?(pr_A%20*%20G)%20*%20pr_B%20=%20pub_A%20*%20pr_B%20=%20shared%20key%20=%20pub_B%20*%20pr_A%20=%20(pr_B%20*%20G)%20*%20pr_A">.</p>
+<p>In this way, both of them know the shared key, and they get it using their private key and the other person’s public key. In this way, each person’s private key remains secret.</p>
+<p>The security of the algorithm lies in the difficulty of calculating the discrete logarithm.</p>
+</section>
+<section id="encryption-in-maci" class="level3">
+<h3 class="anchored" data-anchor-id="encryption-in-maci">Encryption in MACI</h3>
+<p>Now, we want to show in practice how ECDH works in MACI. First, we start with encryption. The image below shows an encryption template written in Circom (Circom [10]). In order to generate a shared key, the voter will enter as inputs: his private key and the public key of the coordinator (which is available for everyone). As you can see the output of this template will be a shared key.</p>
+<p><img src="https://3327.io/documents/research/assets/ERFC-375/Ec.png"></p>
+<p>In order to process all the votes after the voting is over and to prove (to make ZK proof) that voting was regular (and announce the outcome of the voting), the coordinator needs to decrypt each vote. To achieve this, the coordinator uses the Decrypt(N) template which can be seen below. Namely, as inputs he enters a message and a shared key (marked as private_key in the code). As an output, he can read the message, i.e.&nbsp;he can see who voted (because the public key will be visible to him) as well as the option for which the voter with that public key voted.</p>
+<p><img src="https://3327.io/documents/research/assets/ERFC-375/De.png"></p>
+<p>In order for the coordinator to update the State tree, he must read each vote (in that template). The picture below shows what it looks like. In lines 114-117, the coordinator, using his private key and public key of the voter as inputs (using the Ecdh template), derives the shared key. Then in lines 119-127 coordinator decrypts the message (from the voter) using the Decrypt template. Its input data is the shared key that he obtained in lines 114-117 and the encrypted message. The decrypt_comand_out variable contains the decrypted message that the coordinator can read.</p>
+<p><img src="https://3327.io/documents/research/assets/ERFC-375/State.png"></p>
+</section>
+<section id="ec-elgamal-encryption" class="level3">
+<h3 class="anchored" data-anchor-id="ec-elgamal-encryption">EC ElGamal encryption</h3>
+<p>In 1985, Taher Elgamal created an asymmetric cryptographic algorithm based on the Diffie-Hellman key exchange. Similar to the ECDH algorithm, the security of ElGamal is based on the difficult or almost impossible computation of the discrete logarithm of a large prime number.</p>
+<p>Let <img src="https://latex.codecogs.com/png.latex?G"> be a generator point on the elliptic curve over a finite field <img src="https://latex.codecogs.com/png.latex?F_p"> (where <img src="https://latex.codecogs.com/png.latex?p"> is a prime number). Let <img src="https://latex.codecogs.com/png.latex?pr_A"> and <img src="https://latex.codecogs.com/png.latex?pr_B"> be the private keys of two different people <img src="https://latex.codecogs.com/png.latex?A"> and <img src="https://latex.codecogs.com/png.latex?B">. Then <img src="https://latex.codecogs.com/png.latex?pub_A%20=%20a%20*%20G"> and <img src="https://latex.codecogs.com/png.latex?pub_B%20=%20b%20*%20G"> are their public keys. Let person <img src="https://latex.codecogs.com/png.latex?A"> be the person who will encrypt the data. For this purpose, person <img src="https://latex.codecogs.com/png.latex?A"> should do the following:</p>
+<ol type="1">
+<li><p>choose an arbitrary <img src="https://latex.codecogs.com/png.latex?x"> from the interval <img src="https://latex.codecogs.com/png.latex?(1,p)">;</p></li>
+<li><p>calculate <img src="https://latex.codecogs.com/png.latex?x%20*%20G%20=:%20X">;</p></li>
+<li><p>assigns a point on the elliptic curve <img src="https://latex.codecogs.com/png.latex?M(m,y)"> to the message <img src="https://latex.codecogs.com/png.latex?m">, where person <img src="https://latex.codecogs.com/png.latex?A"> choose <img src="https://latex.codecogs.com/png.latex?y"> so that the point <img src="https://latex.codecogs.com/png.latex?M"> is a point on the elliptic curve;</p></li>
+<li><p>calculate <img src="https://latex.codecogs.com/png.latex?Me%20:=%20M%20+%20pub_B%20*%20x">;</p></li>
+<li><p>send <img src="https://latex.codecogs.com/png.latex?Me"> and <img src="https://latex.codecogs.com/png.latex?X"> to person <img src="https://latex.codecogs.com/png.latex?B">.</p></li>
+</ol>
+<p>Person <img src="https://latex.codecogs.com/png.latex?B"> needs to decrypt the data. For this purpose, person <img src="https://latex.codecogs.com/png.latex?B"> should do the following:</p>
+<ol type="1">
+<li><p>calculate <img src="https://latex.codecogs.com/png.latex?pub_B%20*%20x%20==%20pr_B%20*%20G%20*%20x%20==%20pr_B%20*%20X">;</p></li>
+<li><p>decrypts the message <img src="https://latex.codecogs.com/png.latex?M(m,y)%20==%20Me%20-%20pub_B%20*%20x">;</p></li>
+</ol>
+<p>Note that when encrypting a message, person <img src="https://latex.codecogs.com/png.latex?A"> needs to know the public key of person <img src="https://latex.codecogs.com/png.latex?B">, while person <img src="https://latex.codecogs.com/png.latex?B"> can decrypt the message without knowing the public key of person <img src="https://latex.codecogs.com/png.latex?A"> (which is not possible with decryption that relies on a shared key, i.e.&nbsp;ECDH).</p>
+</section>
+</section>
+<section id="re-randomization" class="level2">
+<h2 class="anchored" data-anchor-id="re-randomization">Re-randomization</h2>
+<p>We usually use re-randomization when we want to convey the same message, but two cipher texts cannot be connected to each other. That function randomizes an existing cipher text such that it’s still decryptable under the original public key it was encrypted for.</p>
+<p>Suppose we are working with the same elliptic curve. Assume that the notation we used above holds. We want the input parameters to be <img src="https://latex.codecogs.com/png.latex?X"> and <img src="https://latex.codecogs.com/png.latex?Me"> and the output parameters to be <img src="https://latex.codecogs.com/png.latex?X_1"> and <img src="https://latex.codecogs.com/png.latex?Me_1"> to hide the same message.</p>
+<p>For this purpose, person <img src="https://latex.codecogs.com/png.latex?A"> should do the following:</p>
+<ol type="1">
+<li><p>choose an arbitrary <img src="https://latex.codecogs.com/png.latex?z"> from the interval <img src="https://latex.codecogs.com/png.latex?(1,p)">;</p></li>
+<li><p>calculate <img src="https://latex.codecogs.com/png.latex?X1%20:=z%20*%20G%20+%20X">;</p></li>
+<li><p>calculate <img src="https://latex.codecogs.com/png.latex?Me_1%20:=%20Me%20+%20pub_B%20*%20z">;</p></li>
+<li><p>output <img src="https://latex.codecogs.com/png.latex?Me_1"> and <img src="https://latex.codecogs.com/png.latex?X_1">.</p></li>
+</ol>
+</section>
+<section id="nullifier" class="level2">
+<h2 class="anchored" data-anchor-id="nullifier">Nullifier</h2>
+<p>In the following, we will use nullifier, so for the convenience of the reader, we will define it.</p>
+<p>The nullifier is a unique ID that is in connection with the commitment and the ZKP proves the connection, but nobody knows which nullifier is assigned to which commitment.</p>
+</section>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<p>In order to achieve complete voter anonymity, we created required building blocks. Codes for ElGamal encryption, decryption and re-randomization are written in circom language. Below is the code for encryption, but all codes are available on github [12].</p>
+<p>Code for encryption:</p>
+<p><img src="https://3327.io/documents/research/assets/ERFC-375/ElGamalEncryption.png"></p>
+<p>The decryption and rerandomization codes existed in a different form and can be viewed in [11].</p>
+<p>In order to take advantage of this, the current MACI protocol needs to be modified. Here we will only give an idea of what needs to be done to achieve the desired goal.</p>
+<section id="protocol" class="level2">
+<h2 class="anchored" data-anchor-id="protocol">Protocol</h2>
+<p>In order to achieve the desired result, it is necessary to change the protocol. The current protocol, as we said before, allows the voter to vote and to change the public key (voter can send two types of message). For example, If the voter is blackmailed, he can create a command with the content of the option he wants to vote for and with a new public key. He can sign it with his previous public key, encrypts it (using ECDH encryption) and submits it to the MACI smart contracts. However, the same voter can then vote for the option the blackmailer wants, without that vote being valid (which the blackmailer will not know). How does it achieve this? The voter creates a command with the content of the option the blackmailer wants and the previous public key. He signs it with his previous public key, encrypts it (using ECDH encryption) and submits it to the MACI smart contracts. When the voting is over, the coordinator decrypts the first message, validates the signature, records this vote (because it is valid) and updates the voter’s public key. Then the coordinator decrypts the second message, sees that the signature does not match the new public key and therefore this message is invalid. But the voter can decrypt this message too, as proof of his vote for option blackmailer wants.</p>
+<p>We want to preserve these two nice features: first, that the voter can prove to the blackmailer that he voted for that option for which he was blackmailed (without that vote being valid), and second, that all votes are encrypted and stored on-chain. But we also want to add a feature, so that the coordinator does not know which option the voter voted for. In the current protocol, when a voter’s public key is changed, the coordinator knows that the change has occurred and from there coordinator knows how the voter voted (although the public key change helped the voter to deceive the blackmailer).</p>
+<p>As we do not want that coordinator to know who is the “owner” of the new public key, we need to disable the coordinator from seeing the link between the old and new public key of the voter. In order to achieve this, it is necessary for the voter to prove (he needs to make ZK proof) that owns the private key for the old public key and to be able to create a new public key based on that. For this purpose, we will need to create a set that will contain all deactivated public keys and his encrypted states. But here we have to be careful, we have to make sure that based on the previous public key, the voter can create exactly one new public key. For this reason we will need nullifiers and the set where we store them. Conclusion, we will need two new sets that we haven’t had so far. Let’s mark the first of them with <img src="https://latex.codecogs.com/png.latex?D"> and the second with <img src="https://latex.codecogs.com/png.latex?N">. Set <img src="https://latex.codecogs.com/png.latex?D"> is public, while set <img src="https://latex.codecogs.com/png.latex?N"> is private. Also, we must expand the set of states, more precisely, in that set there should be a field that says whether the voter’s public key is active or inactive.</p>
+<p>Also, we will need two new message types. The first type of message should be to deactivate the old public key. After deactivation, the coordinator adds the old public key with its encrypted state (using ElGamal encryption) to set <img src="https://latex.codecogs.com/png.latex?D">.</p>
+<p>Second type of message is that the voter creates a new public key proving that he is the owner of the old one. To achieve this, the voter needs to make a ZK proof that the element (old public key of voter, (<img src="https://latex.codecogs.com/png.latex?X">, <img src="https://latex.codecogs.com/png.latex?Me">)) belongs to the set <img src="https://latex.codecogs.com/png.latex?D">, where (<img src="https://latex.codecogs.com/png.latex?X">, <img src="https://latex.codecogs.com/png.latex?Me">) is the ElGamal encrypted message, as well he need to prove that he knows the private key for the old public key. Also the output of the circuit should be (<img src="https://latex.codecogs.com/png.latex?X_1">, <img src="https://latex.codecogs.com/png.latex?Me_1">) which are obtained by rerandomization (<img src="https://latex.codecogs.com/png.latex?X">, <img src="https://latex.codecogs.com/png.latex?Me">) and nullifier which is the hash of the private key. The content of the message itself should be: (<img src="https://latex.codecogs.com/png.latex?X1">, <img src="https://latex.codecogs.com/png.latex?Me_1">), nullifier, the ZK proof and the new public key. Of course the message is encrypted. The coordinator decrypts the message, if the proof is valid, the nullifier doesn’t already exist in the set <img src="https://latex.codecogs.com/png.latex?N">, places the nullifier in the set <img src="https://latex.codecogs.com/png.latex?N">, adds a new public key and updates its state. Note that in this way the coordinator does not know the old public key of the voter whose vote he is processing. In this way, complete anonymity of voting was achieved.</p>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<p>We now want to illustrate the entire protocol with an example. We want a person <img src="https://latex.codecogs.com/png.latex?A"> to be a voter. Person <img src="https://latex.codecogs.com/png.latex?A"> wants to prove to the blackmailer that she voted for option 1, even though she will vote for option 2. Also, person <img src="https://latex.codecogs.com/png.latex?A"> wants the coordinator not to know which option she voted for. Person <img src="https://latex.codecogs.com/png.latex?A"> can do it for example like this.</p>
+<ol type="1">
+<li><p>Person <img src="https://latex.codecogs.com/png.latex?A"> accesses the vote with public key 1. Votes for option 2, changes the public key to public key 2, signs the command with public key 1, and encrypts using ElGamal encryption.</p></li>
+<li><p>Person <img src="https://latex.codecogs.com/png.latex?A"> then votes for option 1 and signs the vote with public key 1 and encrypts using ElGamal encryption.</p></li>
+<li><p>Person <img src="https://latex.codecogs.com/png.latex?A"> deactivates his public key.</p></li>
+<li><p>Person <img src="https://latex.codecogs.com/png.latex?A"> activates a new public key based on the old public key using ZK proof and rerandomization.</p></li>
+</ol>
+<p>Let’s see what happens when the coordinator processes the messages.</p>
+<ol type="1">
+<li><p>The first message will be valid and will update the state related to the public key of person 1 (a vote for option 2 will be entered and the new public key of person <img src="https://latex.codecogs.com/png.latex?A"> will become public key 2).</p></li>
+<li><p>The second message will not be valid and there will be no state change (because person <img src="https://latex.codecogs.com/png.latex?A">’s public key has become public key 2, not 1, as signed in the message).</p></li>
+<li><p>It will change the state of public key 2 of person 1 to inactive. When the key state is inactive, that vote is not counted in the total. Therefore, the vote for option 2 is not counted at this time. Also, the coordinator updates the set <img src="https://latex.codecogs.com/png.latex?D"> and writes to it the public key 2 and the encrypted states (using ElGamal encryption)- vote for option 2.</p></li>
+<li><p>New key - public key 3 (of person <img src="https://latex.codecogs.com/png.latex?A">, but the coordinator does not know that it is the public key of person <img src="https://latex.codecogs.com/png.latex?A">) writes to the set of public keys and registers a new state (vote for option 2 is now written and this key is considered active).</p></li>
+</ol>
+<p>Note that person <img src="https://latex.codecogs.com/png.latex?A"> used all 4 message types in the proposed protocol. In this way, person <img src="https://latex.codecogs.com/png.latex?A"> voted for the desired option 2. Also, by decrypting the second message, person <img src="https://latex.codecogs.com/png.latex?A"> can “prove” to the blackmailer that he voted for option 1. And let’s note that the coordinator does not know how the person <img src="https://latex.codecogs.com/png.latex?A"> voted.</p>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>The research showed that it is possible to achieve complete anonymity of voting, i.e.&nbsp;it was shown that it is possible to avoid that coordinator knows options that each individual voter voted for. Also, for this purpose, codes were made in circom language for ElGamal encryption, decryption and re-randomization. The next step could be the implementation of the presented solution.</p>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+
+<p>[1] MACI, https://github.com/0x3327/3327-operations/blob/babb99c2eec36b95a84c04bde6bd9bb01851e534/_research/ERFC-291.md</p>
+<p>[2] Can MACI really destroy the collusion?, https://3327.io/can-maci-really-destroy-the-collusion/</p>
+<p>[3] Release Announcement: MACI 1.0, https://medium.com/privacy-scaling-explorations/release-announcement-maci-1-0-c032bddd2157</p>
+<p>[4] A Technical Introduction to MACI 1.0, https://medium.com/privacy-scaling-explorations/a-technical-introduction-to-maci-1-0-db95c3a9439a</p>
+<p>[5] ECDH Key Exchange, https://cryptobook.nakov.com/asymmetric-key-ciphers/ecdh-key-exchange</p>
+<p>[6] Cryptography, http://poincare.matf.bg.ac.rs/~ezivkovm/nastava/kripto.pdf</p>
+<p>[7] Cryptography - Notes, http://poincare.matf.bg.ac.rs/~aleksandar/files/kripto/2020/Skripta.pdf</p>
+<p>[8] MACI anonymization - using rerandomizable encryption, https://ethresear.ch/t/maci-anonymization-using-rerandomizable-encryption/7054/1</p>
+<p>[9] Pairings for beginners, https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf</p>
+<p>[10] Circom 2 Documentation, https://docs.circom.io/</p>
+<p>[11] ElGamal encryption, decryption, and rerandomization, with circom support, https://ethresear.ch/t/elgamal-encryption-decryption-and-rerandomization-with-circom-support/8074</p>
+<p>[12] ElGamal codes for encryption, decryption and re-randomization, https://github.com/MarijaMikic/ElGamal</p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs">
+
+</div></section></div> ]]></description>
+  <guid>https://3327.io/documents/research/posts/ERFC-375.hugo.html</guid>
+  <pubDate>Tue, 23 Aug 2022 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>[ERFC - 358] On-chain Capitalization Table</title>
   <dc:creator>Aleksandar Damjanovic</dc:creator>
   <link>https://3327.io/documents/research/posts/ERFC-358.hugo.html</link>
@@ -4158,158 +4317,6 @@ Outreville, J., ‘Insurance Concepts’, 1998, pp.&nbsp;131–46 &lt;https://do
 </section></div> ]]></description>
   <guid>https://3327.io/documents/research/posts/ERFC-91.hugo.html</guid>
   <pubDate>Wed, 09 Mar 2022 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Transaction splitting</title>
-  <dc:creator>Andrej</dc:creator>
-  <link>https://3327.io/documents/research/posts/ERFC-105.hugo.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<section id="executive-summary" class="level1">
-<h1>Executive Summary</h1>
-<p>Many companies sell goods with a business model based on donating some percent of their profit to charity. The problem is that some of these companies don’t transparently perform these donations. If, for example, the handmade wristwatch company claims that it donates 90 percent of earnings to the charity, the buyers can’t be sure whether they indeed donated the funds to charity or just bought a very expensive product. They can only believe the company itself. Blockchain technology eliminates the need for trust.</p>
-</section>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>This paper tends to explain and show how the need for trust can be eliminated when it comes to donations and setting up business models in general. Idea is to have a platform that will allow you to set up a use case in which you want to allow users to buy a product from you where a specific percentage of the purchase will go to a different wallet(s).</p>
-<ul>
-<li>X% of purchase transparently goes to verified charity wallet</li>
-<li>a split transaction between different co-creators or marketplace and author</li>
-</ul>
-<p>We can develop a fully transparent set of smart contracts and protocols on some general-purpose blockchain and introduce to sellers and customers a brand new way for selling goods and doing business in general.</p>
-<p>Additionally, if there are too many different wallet recipients, the splitting can be done through merkle tree claim model.</p>
-</section>
-<section id="goals-methodology" class="level1">
-<h1>Goals &amp; Methodology</h1>
-<section id="goals" class="level3">
-<h3 class="anchored" data-anchor-id="goals">Goals</h3>
-<ul>
-<li>How to make charity donations and spending transparent</li>
-<li>Eliminate the need for trusting the brand, and provide customers a way to easily verify their spendings</li>
-<li>Split input transaction to several different wallets by desired percentage</li>
-</ul>
-</section>
-<section id="methodology" class="level3">
-<h3 class="anchored" data-anchor-id="methodology">Methodology</h3>
-<ul>
-<li>Write a set of smart contracts in Solidity for this purpose.
-<ul>
-<li>Pros:
-<ul>
-<li>Portable to any EVM general purpose blockchain</li>
-<li>Native support for cryptocurrencies</li>
-<li>Possibility for including ERC-20 tokens, as well</li>
-<li>Tooling (Hardhat, OpenZeppelin, etc.)</li>
-</ul></li>
-<li>Cons:
-<ul>
-<li>Lack of native percentage operator in Solidity, one need to decide up to which decimal the result is reliable</li>
-<li>Transaction costs</li>
-</ul></li>
-</ul></li>
-<li>Integrate it with <a href="https://www.npmjs.com/package/bizzswap">Bizzswap</a>
-<ul>
-<li>Pros:
-<ul>
-<li>Out of the box solution for paying/swapping coins and tokens</li>
-</ul></li>
-<li>Cons:
-<ul>
-<li>Third-party dependency</li>
-</ul></li>
-</ul></li>
-<li>Testing
-<ul>
-<li>Unit tests</li>
-<li>Integration tests</li>
-<li>End to end tests</li>
-<li>Static analasys</li>
-<li>Code coverage</li>
-<li>Gas usage</li>
-<li>Fuzz testing (optional)</li>
-<li>Formal verification (optional)</li>
-<li>Audit</li>
-<li>Deployment to testnet</li>
-</ul></li>
-</ul>
-<p>The beauty of the end result is that anyone can port a frontend app to this decentralized protocol and incorporate it in their business models, already existing platforms, etc.</p>
-</section>
-</section>
-<section id="results-discussion" class="level1">
-<h1>Results &amp; Discussion</h1>
-<p>Transaction can be split among several parties in Solidity like this:</p>
-<section id="step-1" class="level3">
-<h3 class="anchored" data-anchor-id="step-1">Step 1)</h3>
-<p>Smart contract should have the ability to receive native coin or any other token. There is a need for a <code>receive()</code> or <code>fallback()</code> function, depends on the implementation of the smart contract.</p>
-<p><code>receive()</code> is called if <code>msg.data</code> is empty, otherwise <code>fallback()</code> is called.</p>
-<pre class="solidity"><code>    /**
-    Which function is called, fallback() or receive()?
-
-           send Ether
-               |
-         msg.data is empty?
-              / \
-            yes  no
-            /     \
-receive() exists?  fallback()
-         /   \
-        yes   no
-        /      \
-    receive()   fallback()
-    */
-
-    // Function to receive Ether. msg.data must be empty
-    receive() external payable {}
-
-    // Fallback function is called when msg.data is not empty
-    fallback() external payable {}</code></pre>
-</section>
-<section id="step-2" class="level3">
-<h3 class="anchored" data-anchor-id="step-2">Step 2)</h3>
-<p>Smart contract then needs to split the received amount among other wallets by defined percentage. Sending funds is trivial and we won’t focus on that. The most challenging part is proper ratio calculations in a language with no native support for decimal arithmetics.</p>
-<p>In Solidity, one must assume that all numbers have 18 decimal precision. For example:</p>
-<ul>
-<li>1 is 1000000000000000000,</li>
-<li>0.5 is 500000000000000000, and</li>
-<li>100 is 100000000000000000000</li>
-</ul>
-<p>Since there are no native language support for percentage arithmetics in Solidity, devs are using Basis Points as a unit of measurement equal to 1/100th of 1 percent. This metric is commonly used for loans and bonds to signify percentage changes or yield spreads in financial instruments, especially when the difference in material interest rates is less than one percent.</p>
-<ul>
-<li>0.01% = 1 BPS</li>
-<li>0.05% = 5 BPS</li>
-<li>0.1% = 10 BPS</li>
-<li>0.5% = 50 BPS</li>
-<li>1% = 100 BPS</li>
-<li>10% = 1 000 BPS</li>
-<li>100% = 10 000 BPS</li>
-</ul>
-<p>Possible implementation:</p>
-<pre class="solidity"><code>    function calculateFee(uint256 _amount) public pure returns(uint256) {
-        // for example 1.85% is fee
-
-        return _amount * 185 / 10000;
-    }</code></pre>
-</section>
-</section>
-<section id="conclusion" class="level1">
-<h1>Conclusion</h1>
-<p>There are no blockers for implementing this idea in Solidity. The tooling is stable, the math is not complex and can be handled by the language, and the blockchain technology itself is capable for storing this type of applications.</p>
-</section>
-<section id="bibliography" class="level1">
-
-
-
-
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs">
-
-</div></section></div> ]]></description>
-  <guid>https://3327.io/documents/research/posts/ERFC-105.hugo.html</guid>
-  <pubDate>Tue, 08 Mar 2022 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

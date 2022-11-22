@@ -232,5 +232,5 @@ img {
 
 #quarto-margin-sidebar{
 /*   display:none; */
-  z-index:-10;
+  z-index:-100 !important;
 }

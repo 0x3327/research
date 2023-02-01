@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Andrija Raičević">
-<meta name="dcterms.date" content="2024-05-12">
+<meta name="dcterms.date" content="2022-12-29">
 
 <title>3327 Research - [ERFC - 520] Deep Dive: DeFi Derivatives</title>
 <style>
@@ -138,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 12, 2024</p>
+        <p class="date">December 29, 2022</p>
       </div>
     </div>
       
@@ -215,7 +215,12 @@ ul.task-list li input[type="checkbox"] {
 <li>Derivatives</li>
 </ul>
 <p>The market is growing, and the protocols are creating niches in which they operate. However, these categories remain broad, and the borders between them remain blurred.</p>
-<p><img src="https://lh3.googleusercontent.com/dMN57r8t97l1T1eQUqSA2yH-sGlmiCZ3PD3j_MyGCL0QDoswmPf6wW8ker9Wb1RQopGhfOfbCN_QkxYg6wAl7nuJ4KJRvgu4MyMWBnBd_FkRM3Kd5rruI6SsvbWAlfok-81_fXPUfKx1kSKu8dllfFzvBst21b8tghE7Jl4mqjhJ-QPvUEBrTHEvJkHKVw.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/ERFC-520/1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">1</figcaption><p></p>
+</figure>
+</div>
 <p>Source: Cryptorank.io</p>
 <p>In this research, we will focus on DeFi derivatives as one of the new and unconquered niches. However, before we do that, let’s start small and explain what derivatives are and how they are used in DeFi, the current state of DeFi derivatives, the challenges they face, and progress to exploring possible improvements and new ideas.</p>
 <section id="derivatives-and-defi" class="level2">
@@ -256,12 +261,27 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="opyn">Opyn</h3>
 <p>Opyn is a DeFi options trading platform operating on Ethereum, Polygon, and Avalanche with $56.8M in Total Value Locked. It allows users to create, buy and sell options. It is also the first options trading platform in DeFi.</p>
 <p>Its primary token is OSQTH (OpynSqueeth) which acts as the index that follows the price of ETH-squared (ETH^2). OSQTH is a mix of options, and perpetual swaps called power perpetual. It follows the squared price of an underlying asset without an expiry date, limiting the downside risk while offering a better return than a 2x leveraged Eth position. [6]</p>
-<p><img src="https://lh6.googleusercontent.com/FzQZ0n7bkPlB0urHghfKRj-rjZTDIvbQyZgR6nt_dQ89OjPHqO3w8Y-VLVlSfTzYeiPUjh8ghTQuw2R5Io0-EVl-XVRBz5A4vp5oEiJ1V3q1OTkCr9hBil-SsdoGud4oLA1PAaxy0C7L3kI1PruRQYMBHhFjk4TaoZpR5tcbQVXky8YbfXAUBaYPasst4w.png" class="img-fluid"></p>
-<p><img src="https://lh5.googleusercontent.com/ClZr6OOyTBvFKoH4PycLuvwqceXACwoXDs8vDu1fqbyycj_KmA4g5HNL7J52aSP4Zx7lMs6liuR3UqjY213ze2pcOctN8ErY84fVjnwl_iKNFRO3H57Ioo4uaSFnb7tUlgwmMEcKt4I1CiHyDPedCfYe8IASzwxB7486sNnJlhFOegsFdCaFyWajYA3-ag.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/ERFC-520/2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">2</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/ERFC-520/3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">3</figcaption><p></p>
+</figure>
+</div>
 <p>Source: Opyn.co</p>
 <p>Generally, DeFi platforms require collateral for entering the position. The cool thing about Opyn is that their collateral ratio is 0% for the Long Squeeth position, which means that the investors have downside protection with unlimited upside. However, shorting Squeeth requires a collateral ratio of 150%, which is an average in DeFi.</p>
 <p>Aside from Long and Short Squeeth, Opyn offers a ‘Crab’ strategy: A position betting on the ETH price moving inside a proposed interval. This is an excellent way of short-term investing during market stagnation since this is a <a href="https://www.investopedia.com/terms/d/deltaneutral.asp#:~:text=Delta%20neutral%20is%20a%20portfolio,of%20the%20position%20to%20zero.">delta-neutral</a> position. Something between Bull and Bear, as it seems.</p>
-<p><img src="https://lh6.googleusercontent.com/2Yda8WXSCnWrg3KigHubX_A78QHBTK14y0lDev8wr-1QKhHi_ag1eR4sZvCiJ8on6nlpqZAuUQ9tgU1sVEKH-OqAs7h18y4mrV95ZlVX6JTCWYF2mgVna-McEx-LmwrhST4EmB3cz7UilGDT5WTFctFE-u4cdUe1L8uu71Zn_RbWUEFuT_91jAhHoswCuA.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/ERFC-520/4.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">4</figcaption><p></p>
+</figure>
+</div>
 <p>Source: Opyn.co</p>
 <p>Our opinion:</p>
 <p>Opyn is the most prominent options trading protocol in DeFi. However, Opyn and the rest of the options trading platforms need more options than they offer their traders. As of now, Opyn offers long and short positions on OSQTH as well as Crab strategy.</p>
@@ -288,7 +308,12 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="gmx">GMX</h3>
 <p>The largest Decentralized Perpetuals platform, operating on Arbitrum and Avalanche with over $466M TVL, is GMX. Unlike dYdX, GMX is an AMM that offers its users 50x leveraged trading.</p>
 <p>What also makes this platform competitive is its low fees, pool transparency, and native tokens GMX and GLP. GMX is used for governance, and holders earn 30% of protocol fees. GLP is the liquidity provider token, generating lenders 70% of protocol fees. It is also an index of pooled assets that serve as the protocol’s <a href="https://portfolio.nansen.ai/dashboard/gmx?chain=ARBITRUM">Proof of Reserves</a>. [12]</p>
-<p><img src="https://lh3.googleusercontent.com/-qx5CefkGl3e31dV2p0ko9__rlSrM9svnWzomTVew2k0I7Xfmf5ZgGsypjelbI-1MF-cI001YesuMdgQcGmJsAPl_37O380CVaxJD39ToNi01yoHYXfj683k1VB8KP_8ef0CJP_GdP1byvuOzrvrCynwRFtH_dPYnDsg_eg0AFb9SpYHHPWztIKFX39g4w.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/ERFC-520/5.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">5</figcaption><p></p>
+</figure>
+</div>
 <p>Our opinion:</p>
 <p>Perpetual swaps are the most popular and developed derivatives in DeFi as they are not constrained by the maturity date and offer good terms in the sense of leverage. These protocols have greatly captured the market share by offering low transaction fees, high leverage, and transparency. One thing that gives GMX the edge over dYdX is that GMX is</p>
 <p>AMM-based and not Order Book. Liquidity is essential for users that want exposure to assets with low trading volumes. While Order Book is still better when there is liquidity as users match each other’s trades, AMMs are a better way of providing liquidity to otherwise illiquid pairs. [13]</p>
@@ -326,7 +351,12 @@ ul.task-list li input[type="checkbox"] {
 <p>In case of not meeting the refinancing requirements of the forward contract (carried out in stablecoins), the buyer faces liquidation. The interest he paid is kept and split between the protocol and the staker, acting as protocol revenues and the staker’s rewards.</p>
 <p>Part of the revenue is stored in a reserve pool, which is used to buy and compensate liquidity providers until their NFTs find a match. This is where the community comes into play. Following the successful models of previous protocols, we would issue our governance tokens so that the users can vote on improvement proposals, fees, staking rewards, etc.</p>
 <p>Here is the visual representation of the architecture behind Fast Forwards done in Machinations with the help of our fellow researcher Aleksandar Damjanovic. Moreover, here is the <a href="https://my.machinations.io/d/fast-forwards/96cbeb63804d11eda2330626ff1c9bc8">link</a> to the full simulation.</p>
-<p><img src="https://lh6.googleusercontent.com/7R3hCTYC83y19vv89o8CYpo9aY9zQdCHw-9L01IbrUsj6vCQIXss1UMNpx6DUQgq7UoPdvRBvoeg-pLNUr6gQ75u5rZr7FR_IRhziX2j-3myh1oCwbZtcrg0wszXTEkVbl-Qr3PU-UqyXvQle8IisU-VPzoZ3B8H1LcaKwUvAf7bwbun954jvmz1ic7B4w.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/ERFC-520/6.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">6</figcaption><p></p>
+</figure>
+</div>
 <p>In the short term, the focus is to allow buyers to acquire NFTs through installed payments while sellers earn yield. The concept is based on the Order Book matching system, and this way, we are solving the counterparty default risk by limiting the default possibilities only to the buyers’ side. If the buyer defaults, the sellers still profit and get their NFTs unstaked, making their expected losses equal to zero. This is how DeFi solves the main problem TradFi forwards face.</p>
 <p>Looking long term, we expect NFTs to be adopted globally as proof of ownership. This would open the possibility of our platform providing real-asset trading services, such as buying and selling real estate through installed payments on the blockchain with minimal risk.</p>
 <p>This is the way to make DeFi permissionless and trustless, and accessible to everyone without even using the over-collateralization as the rest of DeFi Derivatives protocols.</p>

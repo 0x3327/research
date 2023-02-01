@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.163">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dragana Koprivica">
+<meta name="dcterms.date" content="2022-12-30">
+
+<title>3327 Research - [ERFC - 524] Implementation of decentralized identity in user-centric Web3 product development</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #EDF3F9;
+    }
+    </style>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="3327 Research - [ERFC - 524] Implementation of decentralized identity in user-centric Web3 product development">
+<meta property="og:description" content="User-centric development proved to be imperative for any successful digital product.">
+<meta property="og:site-name" content="3327 Research">
+<meta name="twitter:title" content="3327 Research - [ERFC - 524] Implementation of decentralized identity in user-centric Web3 product development">
+<meta name="twitter:description" content="User-centric development proved to be imperative for any successful digital product.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../documents/research/index.html">Research</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">[ERFC - 524] Implementation of decentralized identity in user-centric Web3 product development</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Dragana Koprivica </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 30, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#web-3-identity-ssi" id="toc-web-3-identity-ssi" class="nav-link" data-scroll-target="#web-3-identity-ssi">Web 3 Identity (SSI)</a></li>
+  <li><a href="#creating-your-decentralised-identity" id="toc-creating-your-decentralised-identity" class="nav-link" data-scroll-target="#creating-your-decentralised-identity">Creating your decentralised identity</a></li>
+  </ul></li>
+  <li><a href="#goals-methodology" id="toc-goals-methodology" class="nav-link" data-scroll-target="#goals-methodology">Goals &amp; Methodology</a>
+  <ul class="collapse">
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  </ul></li>
+  <li><a href="#results-discussion" id="toc-results-discussion" class="nav-link" data-scroll-target="#results-discussion">Results &amp; Discussion</a>
+  <ul class="collapse">
+  <li><a href="#the-decentralized-identity-ecosystem" id="toc-the-decentralized-identity-ecosystem" class="nav-link" data-scroll-target="#the-decentralized-identity-ecosystem">The decentralized identity ecosystem</a></li>
+  <li><a href="#decentralized-identity-dapps-in-use" id="toc-decentralized-identity-dapps-in-use" class="nav-link" data-scroll-target="#decentralized-identity-dapps-in-use">Decentralized identity dApps in use</a></li>
+  <li><a href="#analysis-summary" id="toc-analysis-summary" class="nav-link" data-scroll-target="#analysis-summary">Analysis summary</a></li>
+  <li><a href="#current-state-of-did-dapps-challanges" id="toc-current-state-of-did-dapps-challanges" class="nav-link" data-scroll-target="#current-state-of-did-dapps-challanges">Current state of DID dApps: challanges</a></li>
+  <li><a href="#empowering-user-centric-design-in-web3" id="toc-empowering-user-centric-design-in-web3" class="nav-link" data-scroll-target="#empowering-user-centric-design-in-web3">Empowering user-centric design in web3</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/0x3327/research/edit/main/documents/research/posts/ERFC-524.hugo.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/0x3327/research/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>User-centric development proved to be imperative for any successful digital product. Decades of data marketing behind us showed how important is to track, collect insights and examine patterns in user behaviors. Those insights consider the must-have “know-how” of every successful product. According to the PWC digital product Study <a href="https://www.pwc.de/de/digitale-transformation/pwc-studie-digital-product-development-2025.pdf">[1]</a>, data analytics and artificial intelligence (AI) are the new backbones of digital product development. However, unlocking new technology fields like the blockchain industry becomes a problematic question. User-centricity is the subject of many debates as well as the fact of how to achieve it. In a world that lies on high privacy and decentralization, data is strict and is kept to itself. Therefore one of the burning questions is how to find a way to use it and not misuse it and build more user-centered products.</p>
+<p>This paper examines the concept of decentralized identity, as the important integrator of our activities and achievements on-chain and how it can be used for better product development. The first part of the research will be an introduction to basic concepts, then we’ll dive deep into the current state of different decentralized identity solutions, and at the end propose what would be an appreciated approach in the future when it comes to web3 product building <a href="https://blog.dock.io/verifiable-credentials-changing-user-authentication/?_ga=2.167673726.1510007691.1671541874-186932671.1668070693&amp;_gl=1*14fgd84*_ga*MTg2OTMyNjcxLjE2NjgwNzA2OTM.*_ga_K3WZ1GPZ2C*MTY3MTU0MTg3NS4xNS4xLjE2NzE1NDQ1NDQuMC4wLjA.">[2]</a>.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="web-3-identity-ssi" class="level3">
+<h3 class="anchored" data-anchor-id="web-3-identity-ssi">Web 3 Identity (SSI)</h3>
+<p>For almost a decade now, the flow of visiting any standard website looks the same: The first thing are the obnoxious cookie pop-ups urging to allow innumerable third parties to track the visit, so they can sell this information. Then, the pressure to establish yet another password and divulge the email address or phone number. This information flow to the centralized servers that are making all the person who provided this information very vulnerable to phishing attempts and raises the possibility that your personal information is compromised. According to the data from 2021, 1,291 data breaches happened that affected around 281.5 million people <a href="https://blog.dock.io/verifiable-credentials-changing-user-authentication/?_ga=2.167673726.1510007691.1671541874-186932671.1668070693&amp;_gl=1*14fgd84*_ga*MTg2OTMyNjcxLjE2NjgwNzA2OTM.*_ga_K3WZ1GPZ2C*MTY3MTU0MTg3NS4xNS4xLjE2NzE1NDQ1NDQuMC4wLjA.">[2]</a>.</p>
+<p>As a result in Web2, users do not own their user’s data and by it, their online identities. Not to mention malversations and the creation of many users’ identities. As such, they are prone to the risks associated with centralization, including hacking, censorship, manipulation, or even loss of data <a href="https://moralis.io/web3-identity-the-full-guide-to-authentication-identity-and-web3/">[3]</a>. The idea behind the decentralized identity is to store and share your identity on the blockchain. The identity itself is not stored on the blockchain network, instead, DID uses a verification method that lets you verify a claim without actually sharing the identity <a href="https://stanly-johnson.medium.com/signin-with-decentralised-identity-e030590c140c">[4]</a>. Organization-centric approach toward the digital identity we have today helps built data silos we do not own, that are being used without our consent. Rather than this approach, digital identity should be based around the individual (<a href="https://jonnyfry175.medium.com/decentralised-identity-does-it-need-a-blockchain-64759dd378c3">5</a>), and that is how we came to the concept of <strong>self-sovereign identity</strong>.</p>
+<p>Traditional identity management systems have long relied on those centralized intermediaries who issue, hold, and control your identifiers and attestations. This means you cannot control your identity-related information or decide who has access to personally identifiable information (PII) and how much access these parties have (<a href="https://ethereum.org/en/decentralized-identity/">6</a>).</p>
+<p>The real question here is how can we build such a system for handling our most important documents, like driver’s licenses or passports. The ideal system would let a service verify our identity without giving it any access and lets the user remain in complete control of their data. This system became possible with Web3 and the concept of <strong>self-sovereign identity</strong> or <strong>decentralized identity</strong> (<a href="https://stanly-johnson.medium.com/signin-with-decentralised-identity-e030590c140c">4</a>).</p>
+<p>The idea behind <strong>the decentralized identity</strong> is to store and share your identity on the blockchain. The identity itself is not stored on the blockchain network, instead, DID uses a verification method that lets you verify a claim without actually sharing the identity (<a href="https://stanly-johnson.medium.com/signin-with-decentralised-identity-e030590c140c">4</a>).</p>
+<p>Advantages of decentralised identity <a href="https://ethereum.org/en/decentralized-identity/">[6]</a>:</p>
+<ul>
+<li>Decentralized identity increases individual control of identifying information. Decentralized identifiers and attestations can be verified without relying on centralized authorities and third-party services.</li>
+<li>Decentralized identity solutions facilitates a trustless, seamless, and privacy-protecting method for verifying and managing user identity.</li>
+<li>Decentralized identity harnesses blockchain technology, which creates trust between different parties and provides cryptographic guarantees to prove the validity of attestations.</li>
+<li>Decentralized identity makes identity data portable. Users store attestations and identifiers in mobile wallet and can share with any party of their choice. Decentralized identifiers and attestations are not locked into the database of the issuing organization.</li>
+<li>Decentralized identity should work well with emerging zero-knowledge technologies that will enable individuals to prove they own or have done something without revealing what that thing is. This could become a powerful way to combine trust and privacy for applications such as voting.</li>
+<li>Decentralized identity enables anti-Sybil mechanisms to identify when one individual human is pretending to be multiple humans to game or spam some system.</li>
+</ul>
+</section>
+<section id="creating-your-decentralised-identity" class="level3">
+<h3 class="anchored" data-anchor-id="creating-your-decentralised-identity">Creating your decentralised identity</h3>
+<p>Experts distinguish three main components known as the three pillars of SSI: <strong>blockchain, verifiable credentials (VCs)</strong>, and <strong>decentralized identifiers (DIDs)</strong> [<a href="https://mirror.xyz/0x52CEb287BEb81D61eDf413A8B3007b611E8917EA/gBxgOJPaI9pu9GJ2nv4q0bM68jVIuXspAqQ1uDteVHg">7</a>].</p>
+<p><strong>Decentralized identifiers (DIDs)</strong> are globally unique identifiers that can be stored on a blockchain and play an essential role in creating users’ Web3 identity [<a href="https://www.dock.io/post/web3-identity#dock%E2%80%99s-web3-id">8</a>]. For example, centralized digital identifiers like emails, usernames, and phone numbers can be revoked at any time by big organizations. A DID refers to any subject like a person, organization, data model, abstract entity, et cetera, as determined by the controller of the DID. They are created by the user, owned by the user, and independent of any organization. It’s an ID that you generate for yourself. For example, one person can create several identifiers: one for online gaming, one for educational purposes, one with work credentials for business, etc.</p>
+<p><strong>Verifiable credentials</strong> are claims about achievements or attributes that include cryptographic proof of who issued them. For example, it’s your on-chain passport, ID card, or diploma [<a href="https://medium.com/9yards/web3-has-an-identity-problem-building-decentralized-identity-7d8219a992db">9</a>]. A Digital wallet is used to own and manage credentials. When the wallet owner presents these credentials, websites and apps can check that they are valid (with the university, etc.) and grant access accordingly.</p>
+<p>Your wallet holds <strong>all of your DIDs</strong> and <strong>verifiable credentials</strong>. When some dApp needs it, you get the notification and choose if you want to share information with them.</p>
+<p>There are several parties involved in the process of creating a decentralized identity: the <strong>issuer</strong> that issues verifiable credentials to a person, the <strong>prover</strong> that needs that credential and stores it in the wallet, and the <strong>verifier</strong> that can request insight into the credential. Verifier then checks if the issuer issued the credential. So once issued, the prover cares for the credential in its wallet and presents it to the verifier on demand.</p>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/ERFC-524/first.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">first_picture</figcaption><p></p>
+</figure>
+</div>
+<p><a href="https://medium.com/9yards/web3-has-an-identity-problem-building-decentralized-identity-7d8219a992db">Figure 1, Source: Tykn</a></p>
+</center>
+<p>Zero-knowledge proofs and encryption are critical technologies because distributed ledgers are designed to be readable by anyone. To support decentralized identity, distributed ledgers will instead store decryption keys to validate information while the data itself will be encrypted and stored locally on a user’s device. With DIDs, you don’t even have to share your age, the service will simply query your did with a condition like is age &gt; 18 ? and if that statement is true, the DID returns a success message, the service still does not know about your age, it simply knows if you’re old enough to use their service (<a href="https://stanly-johnson.medium.com/signin-with-decentralised-identity-e030590c140c">4</a>).</p>
+</section>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>This research paper will overview the existing Decentralised Identity dApps and their current use cases. Additionally, this data will be examined from the perspective of Web3 product development. Therefore, the main goals of this research are:</p>
+<ul>
+<li>Map out decentralized identity dApps currently in use (exclude beta versions etc.)</li>
+<li>Recognize the use cases and the problems they aim to solve.</li>
+<li>Explore the potential of using these dApps in Web3 product development.</li>
+</ul>
+<section id="methodology" class="level3">
+<h3 class="anchored" data-anchor-id="methodology">Methodology</h3>
+<ul>
+<li>Exploration of the ecosystem by diving deeper into blog posts and articles about DID dApps to map out the relevant solutions.</li>
+<li>Trying out and using existing solutions.</li>
+<li>Comparing and contrasting the current state of DIDs and what they can achieve in future Web3 product development.</li>
+</ul>
+<p>This research wants to validate if the current DID dApps solutions can be used for comprehensive user research in Web3 product development. Based on its findings, we can conclude that it’s time to go deeper into the Web3 product development ideas that can integrate different DID solutions to collect specific data from users without compromising their privacy.</p>
+</section>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<section id="the-decentralized-identity-ecosystem" class="level3">
+<h3 class="anchored" data-anchor-id="the-decentralized-identity-ecosystem">The decentralized identity ecosystem</h3>
+<p>A decentralised identity ecosystem is comprehensive and complex. There are many solutions covering it from different angles: going from the deep infrastructural level of collecting and processing the data to user-level DIDs and even Web3 social networks. The initial list of the explored solutions was made based on Alchemy’s selection of Decentralised Identity Tools<a href="https://www.alchemy.com/best/decentralized-identity-tools">[10]</a>, desktop research, and several blog posts found on DID ecosystem mapping. Based on a different level of infrastructure and the project’s focus, suggestions proposed by the Amber group have been used (<a href="https://medium.com/amber-group/decentralized-identity-passport-to-web3-d3373479268a">11</a>) to narrow down the initial list of dApps to analyze. These categorizations cover the DID ecosystem from infrastructural to reputational DID use cases. Below is their categorization, just to represent the complexity of leveling the existing solutions (<a href="https://medium.com/amber-group/decentralized-identity-passport-to-web3-d3373479268a">11</a>):</p>
+<ul>
+<li><p>Layer 1: Identifiers &amp; Standards</p>
+<ul>
+<li>Standards, identifiers, and namespaces create the public trust layer, ensuring standardization, portability, and interoperability. They also allow networks to register and govern DID methods, providing developers and users with the rules and context of the network’s ID system.</li>
+</ul></li>
+<li><p>Layer 2: Infrastructure</p>
+<ul>
+<li>Infrastructure and agent frameworks allow applications to interact directly with each other and verifiable data registries. These solutions include communication, storage, and key management.</li>
+</ul></li>
+<li><p>Layer 3: Credentials</p>
+<ul>
+<li>Credentials have to be managed, updated, and exchanged. This layer aims to address how DIDs can negotiate proof of control and authentication, as well as securely passing data between identity owners.</li>
+</ul></li>
+<li><p>Layer 4: Apps, Wallets, Products</p>
+<ul>
+<li>This layer is likely most familiar to readers and intends to provide real-world use cases and value to consumers.</li>
+</ul></li>
+<li><p>Layer X: Transversal</p>
+<ul>
+<li>These projects largely transcend any individual layer and have consequences at multiple levels.</li>
+</ul>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/ERFC-524/second.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">second_picture</figcaption><p></p>
+</figure>
+</div>
+<p><a href="https://medium.com/9yards/web3-has-an-identity-problem-building-decentralized-identity-7d8219a992db">Figure 2, Source: Amber</a></p>
+</center></li>
+</ul>
+<p>As the subject of this research is decentralized identity and its application in Web3 product development, the focus of this paper will be on Layer 4. The focus will be on solutions that cover user level, more specifically on the dApps that represent DIDs and can help prove your rights and claim your data with VCs.</p>
+</section>
+<section id="decentralized-identity-dapps-in-use" class="level3">
+<h3 class="anchored" data-anchor-id="decentralized-identity-dapps-in-use">Decentralized identity dApps in use</h3>
+<p>The list of dApps analyzed can be found <a href="https://docs.google.com/spreadsheets/d/1_BrB-JxoA9vVS0xkcsgT6zU-9HTio1L_OBSPxoKOYL8/edit?usp=sharing">here</a>. This list only includes the options that are most pertinent to this paper; it does not include all the options available on the market. Fourteen solutions were analyzed in total. The first step of the analysis was understanding the dApp on a conceptual level based on the information from the website, and then each solution was installed and explored from the user perspective. The main elements analyzed were:</p>
+<ul>
+<li><strong>General information</strong> - type of solution, description, blockchain</li>
+<li><strong>Product focus</strong> - features, main value / USP, customer segment</li>
+<li><strong>Level of adoption</strong> - number of users, stage of development</li>
+<li><strong>Privacy</strong> - data collection necessary, verification mechanism, and how is done</li>
+</ul>
+</section>
+<section id="analysis-summary" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-summary">Analysis summary</h3>
+<ul>
+<li><p>The market for DID solutions as a whole is growing rapidly, and this trend will likely continue in the future.</p></li>
+<li><p>The three categories of DID dApps are <strong>ID wallets, Web3 Passports,</strong> and <strong>ID dApps</strong>. Most of them have a product in their portfolio for their own DID protocol solution, upon which their dApps are based.</p></li>
+<li><p>All the solutions are developed on <strong>different blockchains</strong>, most of them still sticking to <strong>Ethereum</strong>, however, there are a lot of dApps supporting multichain options such as <strong>ONT ID, Human Bound, HashKey</strong>, and <strong>WIW</strong>. Chains covered with analyzed solutions are <strong>Ethereum, Arbitrum, Optimism, Polygon, Avalanche,</strong> and <strong>Solana</strong>, and some of them built their own blockchains e.g.&nbsp;<strong>PlatON, Klaytn, Quorum</strong>, and <strong>Dock</strong>.</p></li>
+<li><p><strong>ID dApps</strong> (Fractal ID, Bright ID, Polygon ID, Disco.xyz, Human Bound, WIW) are the most numerous and most developed in terms of DID functionalities. Most of them work best if installed with their wallets, but can work with other wallets as well. The majority of them run on multiple chains. Basic features for those apps are identity verification, authorization of different dApps, receiving claims, creating claims, and holding them in your ID. Most of them have the entire portfolio of other dApps for other players of DID ecosystem for issuing claims, verifying claims, etc. Main USPs these solutions focus on are having control over your data you can monetize and transferable reputation (Web 2 - Web3).</p></li>
+<li><p><strong>Web3 Passports</strong> (Civic Pass, GitCoin Passport, HashKey) as identity record solutions. They are there to prove claims about you and enable access to some communities, products, etc. Even though they have the same purpose, each differs a bit - Gitcoin serves as a Web3 pass that is simply connected with Web2 and Web3 apps and can claim things on your behalf. HashKey offers the possibility of centralized storage and privacy and you can mint your passport, as well as Civic Pass, does. Therefore, even though most of these solutions are b2c focused, some of them segment businesses and future VC issuers. The main value those solutions focus on is to personalize your Web3 appearance. Web3 Passports are strictly b2c focused.</p></li>
+<li><p><strong>ID wallets</strong> (SelfKey, Vendible Labs, Dock Wallet, ONT ID) are the least developed DID solution. Most of them have DID as an optionality and their main product focus remains with wallet features. DID features they support are mostly multiple wallet management therefore possible to create and manage several DIDs, with some of them offering solutions such as issuing VC, verifying VC, scan QR codes to receive VC. However, in many of these solutions, some of these functionalities are promised and developed, but couldn’t work at the time of testing. Also, one of the interesting solutions was SelfKey with the feature to go on the marketplace to apply for and buy a secondary passport or residence for a specific country that offers this possibility under certain conditions. Those solutions are mostly both, b2b and b2c focused.</p></li>
+<li><p>Another solution analyzed that is not covered in the previous three categories is <a href="https://proofofhumanity.eth.limo/index.html">Proof of Humanity</a>. This is a verified human network building social identity network on Web3 proving you are human. It works by simply uploading <a href="https://www.youtube.com/watch?v=WH83_Fad7E4">a video</a> and photo and your wallet address and waiting for others to vouch for you and vote if you are human or not. Once approved you have the claim you can use with any dApp that needs proof of humanity. However, the process takes too long (more than 7 days to be verified).</p></li>
+<li><p><strong>Verification</strong> and <strong>privacy</strong> matter a lot in those dApps as they promise data safety first of all. The majority of dApps do not save data users provide them to prove identity or other. Usually, it’s only saved on the user’s device or simply process data over a third party or their protocols but does not store it. The most common case was that upon the installation of a dApp or registration DID was automatically created. Sometimes it happened enough that some of the applications didn’t verify their users at all (identity, humanity, personhood, etc.). Three main things required upon registration were: name, wallet, and email. In some specific cases, to verify more details things required were location, ID or passport, other documents, company, and industry. However, to prove your identity in the Web3 world the biggest challenge is to prove you are a unique human being without revealing who you are. Proofs that are possible to make are:</p>
+<ul>
+<li><p><strong>Proof of Identity</strong> - this was mostly done through passport/ID upload and selfie video.</p></li>
+<li><p><strong>Proof of Address / Location</strong> - the location on your device, addressed docs to that location, and your name no older than 6 months (bank statement, confirmation from your company that you live there, etc.), in some cases it was done only through IP check, VPN Check.</p></li>
+<li><p><strong>Proof of Humanity</strong> - photo, wallet address, video in which the user is claiming that you are not previously registered in that registry.</p></li>
+<li><p><strong>Proof of Human</strong> - selfie video and captcha.</p></li>
+<li><p><strong>Proof of uniqueness</strong> (BrightID) - verification through stages. First, you join the zoom call for the verification party and you are verified as a human by the meeting’s host. After that, you achieve the first level of verification and that is how you start building your social graph. It’s important to connect with other people you know that are using the same app and to integrate this solution with other dApps you are using. Then the user is required to set the social recovery to get completely verified.</p></li>
+<li><p><strong>Proof of personhood</strong> - Proving ownership over various accounts and data provides proof of personhood. Also in some cases, this is done through Multi-factor Authentication (MFA) - wallet ID, mobile number, ID doc, and liveness check.</p></li>
+</ul></li>
+<li><p>The level of adoption of DID solutions is still low. For almost one-third of the solutions analyzed, <strong>beta testing</strong> (or closed beta) was active for a few years now. So a couple of them couldn’t be tried out at all. Besides them, most of the solutions are in the <strong>early development phase</strong> with limited features or features that do not still work properly. Only 5 of 14 solutions were marked as “<strong>Active</strong>” two of them with 1 million active users. However, the average number of users goes <strong>under one hundred thousand users</strong>.</p></li>
+</ul>
+</section>
+<section id="current-state-of-did-dapps-challanges" class="level3">
+<h3 class="anchored" data-anchor-id="current-state-of-did-dapps-challanges">Current state of DID dApps: challanges</h3>
+<p>Analyzing fourteen DID dApps showed that even more of them exist and that this is one of the rising segments of the Web3 industry. However, half of them were very early in their development, and the rest had functionalities that couldn’t be used at this moment. This was mostly because there are <strong>no real use cases active</strong> in which those solutions can be used. There is a lack of other players such as <strong>issuers</strong> and <strong>verifiers</strong> - parties that would require you to claim something regarding your identity and accept for this to be done through some of the DID solutions.</p>
+<p>To get some traction first players to join should probably be Web3 companies, DAOs, and DeFi institutions. It is expected that DeFi helps DID solutions to emerge as it may have many beneficial effects on the financial rating of a person, credit potential, etc. without revealing their sensitive data.</p>
+<p>Also, one big sphere of Web3 that is beneficial for DIDs to work is cryptographical technology, in most of the current cases ZK.</p>
+<p>Even though Soul Bound Tokens (SBTs) appeared recently as a concept of NFTs that can not be transferred to another’s wallet, only one solution was identified using this technology as a core of its Web3 ID.</p>
+<p>Based on the comprehensive analysis done, common challenges analyzed solutions face are:</p>
+<ul>
+<li>Data privacy they are claiming - mostly depends on the protocols they are using.</li>
+<li>Data verification - passport or ID verification in cases of forgery or when issued in the local language can not be easily checked.</li>
+<li>They are not that much easy to navigate and intuitive to find even the core functionalities.</li>
+<li>Most of the Wallet ID solutions does not require ID verification or proof of humanity/personhood.</li>
+<li>Inefficient mechanisms of proving you are a real person - for some verifications, there is a wait of seven or more days.</li>
+</ul>
+<p>If put together, the four main benefits of decentralized identity management include control, security, privacy, and ease of use. However, the main concerns are a low level of adoption, a lack of regulation, and interoperability.</p>
+</section>
+<section id="empowering-user-centric-design-in-web3" class="level3">
+<h3 class="anchored" data-anchor-id="empowering-user-centric-design-in-web3">Empowering user-centric design in web3</h3>
+<p>One of the biggest challenges Web3 is facing now is its timing. Are we at the end of the Inventor era and entering the mass adoption period? How and when this should happen? Led with this, for a few years now, many infrastructural projects that were crucial to enable mass technical and technological ways to mass adoption, finalized. We developed many strong, secure, and fast chains that can answer many of the challenges such as - high gas fees, slow transactions, privacy through ZK, higher decentralization, and scalability. Many of them are still open, but significant achievements have been made.</p>
+<p>However, another big challenge to mass adoption is poor UI/UX design. The roots of this problem lie in the even earlier phase of development - product design. Many factors influenced that users are not the focus when building Web3 products. Most of the reasons come from the nature of the blockchain and its innovativeness. Three factors that influenced the development of products that are far away from the Web3 users we know today are (<a href="https://3327.io/user-decentric-design-in-web3/">12</a>):</p>
+<ul>
+<li>Building solution-centric products inspired by expanding the tech limits lead to inventions. Current Web3 products are often advanced technological solutions, many of which do not have many users at all, leaving a lot of Web3 products with no problem they are solving and by it, no current use case.</li>
+<li>Building smart contracts or tech-oriented products with zero focus on the users and their experience.</li>
+<li>The user dilemma is directly related to the adoption problem. Being early in the market led to the fact that for many years only devs were the actual users of Web3.</li>
+</ul>
+<p>Even though some of these things changed over the past years, or are changing at the moment, this decade-long narrative built a specific framework around Web3 product development, that is not user-centric enough.</p>
+<p>However, striving to the mass adoption of blockchain and its product, bring along way better products for the end users. One of the challenges on this way is tracking data analytics. Web3 adds complexity to tracking accurate customer behavior — making things like attribution and personalization much, much harder for product and marketing teams [<a href="https://www.third.academy/article/the-challenge-with-web3-analytics">13</a>]. The same article brings to the surface the two core challenges of this problem:</p>
+<ul>
+<li>Identity fragmentation - addressing the lack or multiplication of identities caused by no KYCs, decentralized wallets with no identity-related owners, and multiple wallets that can represent multiple identities.</li>
+<li>Interface fragmentation - relating to the Web2 - Web3 gap when tracking data and user actions (Web2 front-end and Web3 back-end).</li>
+</ul>
+<p>Even though Web3 postulates made it technically demanding to create a world of absolute transparency of actions and privacy of users, those are the exact problems we aim to address. Identity fragmentation is exactly where the potential of DID can be of high significance.</p>
+<p>Mapping the product development process it is clear that lack of data is mostly influencing tracking users’ behaviors and building more personalized and specific products. Given the current state of DIDs and their early development, and the technical challenges of data analytics, it seems like this type of involvement in the product building will have to wait until more users join DID ecosystem (addressing more parties entering as the issuers and verifiers that accept this type of identity and its claims). Also, this type of analytics, that is tracking users’ behaviors based on interactions with different products is useful in setting general information about specific segments of the user population.</p>
+<p>However, other product development phases can benefit from DIDs. As is well known, user-centricity needs to be built in, much earlier in the development process. The discovery and research phase of product development are important parts of the Web3 products lifecycle and user-centricity. These two phases of product development are still done the same as in Web2 - through market research.</p>
+<p>Imagining the future in which we will be able to have DIDs that hold information about us in form of VC or claims that are ZKP encrypted, it will be much easier to organize product research with potential users. The most complicated part of the research in Web3 is to get to the right people you want to involve in research, where to find them, and know if they are the people they tell you they are - what they are claiming is true. Having these in mind, there are several benefits DID would bring to this process.</p>
+<ul>
+<li>Preferences/mass user data - passive research through data sharing that people hold on to their DIDs. Using the data stored in verified claims on DIDs. Simply by accepting the request from X company to share its data, valuable statistics on the target audience can be found.</li>
+<li>Reliable eligibility test - simply by verifying or accepting the verified claim contained in the presented DID, a potential interviewee can be recruited for user research.</li>
+<li>Better incentivization of users - any user can earn tokens by sharing their data and keeping their privacy. Also, in the process of user interviewing having in advance users’ DID helps award users with tokens easily.</li>
+<li>Automatisation of the research process - fast eligibility test and automated incentivization process.</li>
+<li>Reaching out to users - this is the most challenging part of the user research process - reach out to the people and get them involved in the research. Even now, in early development, some of the dApps explored have a messaging feature, so they can communicate with others that are using the same dApp. With automatic eligibility tests and messaging features directly to someone’s DID with the request to participate in the research, DIDs can help in getting the right people on board.</li>
+</ul>
+<p>Having all this in mind, it is important to start developing solutions that can accelerate the development of DIDs for product development.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>From everything we explored in this research paper, we can conclude that data analytics and tracking in Web3 while keeping privacy is challenging. However, it is also something that will be resolved in a matter of time.</p>
+<p>In its early development, DIDs at this point can not be used in the process of product development until higher adoption is achieved.</p>
+<p>However, the potential DID bring with them is highly beneficial and can crucially change the way products are being built, and even product decisions are made in Web3.</p>
+<p>Even though the current situation is not ready for DIDs, this time gap should be used, to develop the infrastructure needed to start using it for product development as early as possible.</p>
+<p>Some of the directions for future research on this topic could be:</p>
+<ul>
+<li>Explore technical solutions to tracking data and segmenting claims DIDs hold for product analytic purposes.</li>
+<li>Tracking user interactions with different products through DIDs and when those are used for behavioral data.</li>
+<li>DID aggregator / bridge - in form of dApp or even protocol that can bridge different proofs stored in one DID to any other or any verifier.</li>
+<li>Messaging aggregator for all DIDs - that is not centralized and can replace email from Web2 world for anyone who has DID dApp installed.</li>
+<li>Collecting claims and making general statistics from public data. As all issued claims are publicly available as proofs, the direction of creating summary analytics can be an interesting one to discuss.</li>
+</ul>
+<p>In conclusion, Web3 is experiencing a crisis in user-centric product development. Enabling and supporting DIDs as crucial analytical silos for product development could be major research directions to eventually help overcome it.</p>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+<p>[1] <a href="https://www.pwc.de/de/digitale-transformation/pwc-studie-digital-product-development-2025.pdf">Digital Product Development, PWC</a></p>
+<p>[2] <a href="https://blog.dock.io/verifiable-credentials-changing-user-authentication/?_ga=2.167673726.1510007691.1671541874-186932671.1668070693&amp;_gl=1*14fgd84*_ga*MTg2OTMyNjcxLjE2NjgwNzA2OTM.*_ga_K3WZ1GPZ2C*MTY3MTU0MTg3NS4xNS4xLjE2NzE1NDQ1NDQuMC4wLjA.">How Verifiable Credentials Will Change User Authentication, Dock.io</a></p>
+<p>[3] <a href="https://moralis.io/web3-identity-the-full-guide-to-authentication-identity-and-web3/">Web3 Identity – The Full Guide to Authentication, Identity, and Web3, Moralis.io</a></p>
+<p>[4] <a href="https://stanly-johnson.medium.com/signin-with-decentralised-identity-e030590c140c">SignIn With Decentralised Identity</a></p>
+<p>[5] <a href="https://jonnyfry175.medium.com/decentralised-identity-does-it-need-a-blockchain-64759dd378c3">Decentralised identity: does it need a blockchain, Johny Fry</a></p>
+<p>[6] <a href="https://ethereum.org/en/decentralized-identity/">Decentralized Identity, ethereum.org</a></p>
+<p>[7] <a href="https://mirror.xyz/0x52CEb287BEb81D61eDf413A8B3007b611E8917EA/gBxgOJPaI9pu9GJ2nv4q0bM68jVIuXspAqQ1uDteVHg">What is decentralized identity in blockchain?, Domen</a></p>
+<p>[8] <a href="https://www.dock.io/post/web3-identity#dock%E2%80%99s-web3-id">Web3 Identity, Dock.id</a></p>
+<p>[9] <a href="https://medium.com/9yards/web3-has-an-identity-problem-building-decentralized-identity-7d8219a992db">Web3 has an Identity Problem: Building Decentralized Identity, Jelena Hoffart</a></p>
+<p>[10] <a href="https://www.alchemy.com/best/decentralized-identity-tools">Decentralized Identity Tools, Alchemy</a></p>
+<p>[11] <a href="https://medium.com/amber-group/decentralized-identity-passport-to-web3-d3373479268a">Decentralized Identity passport to Web3, Amber Group</a></p>
+<p>[12] <a href="https://3327.io/user-decentric-design-in-web3/">User (De)Centric Design In Web3</a></p>
+<p>[13] <a href="https://www.third.academy/article/the-challenge-with-web3-analytics">The Challange of Web3 Analytics, Third Academy</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="text/javascript">
+
+// replace cmd keyboard shortcut w/ control on non-Mac platforms
+const kPlatformMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+if (!kPlatformMac) {
+   var kbds = document.querySelectorAll("kbd")
+   kbds.forEach(function(kbd) {
+      kbd.innerHTML = kbd.innerHTML.replace(/⌘/g, '⌃');
+   });
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="0x3327/research" data-repo-id="R_kgDOG-cOHQ" data-category="Research" data-category-id="DIC_kwDOG-cOHc4COB27" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://mvpworkshop.co"><img src="https://mvpworkshop.co/wp-content/uploads/2021/01/mvp-logo.png" class="img-fluid" width="65"></a></div>   
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+      </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/3327_io">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/0x3327/research">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

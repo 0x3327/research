@@ -17,7 +17,232 @@
 <width>144</width>
 </image>
 <generator>quarto-1.1.163</generator>
-<lastBuildDate>Sun, 12 May 2024 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 30 Dec 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>[ERFC - 524] Implementation of decentralized identity in user-centric Web3 product development</title>
+  <dc:creator>Dragana Koprivica</dc:creator>
+  <link>https://3327.io/documents/research/posts/ERFC-524.hugo.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<p>User-centric development proved to be imperative for any successful digital product. Decades of data marketing behind us showed how important is to track, collect insights and examine patterns in user behaviors. Those insights consider the must-have “know-how” of every successful product. According to the PWC digital product Study <a href="https://www.pwc.de/de/digitale-transformation/pwc-studie-digital-product-development-2025.pdf">[1]</a>, data analytics and artificial intelligence (AI) are the new backbones of digital product development. However, unlocking new technology fields like the blockchain industry becomes a problematic question. User-centricity is the subject of many debates as well as the fact of how to achieve it. In a world that lies on high privacy and decentralization, data is strict and is kept to itself. Therefore one of the burning questions is how to find a way to use it and not misuse it and build more user-centered products.</p>
+<p>This paper examines the concept of decentralized identity, as the important integrator of our activities and achievements on-chain and how it can be used for better product development. The first part of the research will be an introduction to basic concepts, then we’ll dive deep into the current state of different decentralized identity solutions, and at the end propose what would be an appreciated approach in the future when it comes to web3 product building <a href="https://blog.dock.io/verifiable-credentials-changing-user-authentication/?_ga=2.167673726.1510007691.1671541874-186932671.1668070693&amp;_gl=1*14fgd84*_ga*MTg2OTMyNjcxLjE2NjgwNzA2OTM.*_ga_K3WZ1GPZ2C*MTY3MTU0MTg3NS4xNS4xLjE2NzE1NDQ1NDQuMC4wLjA.">[2]</a>.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="web-3-identity-ssi" class="level3">
+<h3 class="anchored" data-anchor-id="web-3-identity-ssi">Web 3 Identity (SSI)</h3>
+<p>For almost a decade now, the flow of visiting any standard website looks the same: The first thing are the obnoxious cookie pop-ups urging to allow innumerable third parties to track the visit, so they can sell this information. Then, the pressure to establish yet another password and divulge the email address or phone number. This information flow to the centralized servers that are making all the person who provided this information very vulnerable to phishing attempts and raises the possibility that your personal information is compromised. According to the data from 2021, 1,291 data breaches happened that affected around 281.5 million people <a href="https://blog.dock.io/verifiable-credentials-changing-user-authentication/?_ga=2.167673726.1510007691.1671541874-186932671.1668070693&amp;_gl=1*14fgd84*_ga*MTg2OTMyNjcxLjE2NjgwNzA2OTM.*_ga_K3WZ1GPZ2C*MTY3MTU0MTg3NS4xNS4xLjE2NzE1NDQ1NDQuMC4wLjA.">[2]</a>.</p>
+<p>As a result in Web2, users do not own their user’s data and by it, their online identities. Not to mention malversations and the creation of many users’ identities. As such, they are prone to the risks associated with centralization, including hacking, censorship, manipulation, or even loss of data <a href="https://moralis.io/web3-identity-the-full-guide-to-authentication-identity-and-web3/">[3]</a>. The idea behind the decentralized identity is to store and share your identity on the blockchain. The identity itself is not stored on the blockchain network, instead, DID uses a verification method that lets you verify a claim without actually sharing the identity <a href="https://stanly-johnson.medium.com/signin-with-decentralised-identity-e030590c140c">[4]</a>. Organization-centric approach toward the digital identity we have today helps built data silos we do not own, that are being used without our consent. Rather than this approach, digital identity should be based around the individual (<a href="https://jonnyfry175.medium.com/decentralised-identity-does-it-need-a-blockchain-64759dd378c3">5</a>), and that is how we came to the concept of <strong>self-sovereign identity</strong>.</p>
+<p>Traditional identity management systems have long relied on those centralized intermediaries who issue, hold, and control your identifiers and attestations. This means you cannot control your identity-related information or decide who has access to personally identifiable information (PII) and how much access these parties have (<a href="https://ethereum.org/en/decentralized-identity/">6</a>).</p>
+<p>The real question here is how can we build such a system for handling our most important documents, like driver’s licenses or passports. The ideal system would let a service verify our identity without giving it any access and lets the user remain in complete control of their data. This system became possible with Web3 and the concept of <strong>self-sovereign identity</strong> or <strong>decentralized identity</strong> (<a href="https://stanly-johnson.medium.com/signin-with-decentralised-identity-e030590c140c">4</a>).</p>
+<p>The idea behind <strong>the decentralized identity</strong> is to store and share your identity on the blockchain. The identity itself is not stored on the blockchain network, instead, DID uses a verification method that lets you verify a claim without actually sharing the identity (<a href="https://stanly-johnson.medium.com/signin-with-decentralised-identity-e030590c140c">4</a>).</p>
+<p>Advantages of decentralised identity <a href="https://ethereum.org/en/decentralized-identity/">[6]</a>:</p>
+<ul>
+<li>Decentralized identity increases individual control of identifying information. Decentralized identifiers and attestations can be verified without relying on centralized authorities and third-party services.</li>
+<li>Decentralized identity solutions facilitates a trustless, seamless, and privacy-protecting method for verifying and managing user identity.</li>
+<li>Decentralized identity harnesses blockchain technology, which creates trust between different parties and provides cryptographic guarantees to prove the validity of attestations.</li>
+<li>Decentralized identity makes identity data portable. Users store attestations and identifiers in mobile wallet and can share with any party of their choice. Decentralized identifiers and attestations are not locked into the database of the issuing organization.</li>
+<li>Decentralized identity should work well with emerging zero-knowledge technologies that will enable individuals to prove they own or have done something without revealing what that thing is. This could become a powerful way to combine trust and privacy for applications such as voting.</li>
+<li>Decentralized identity enables anti-Sybil mechanisms to identify when one individual human is pretending to be multiple humans to game or spam some system.</li>
+</ul>
+</section>
+<section id="creating-your-decentralised-identity" class="level3">
+<h3 class="anchored" data-anchor-id="creating-your-decentralised-identity">Creating your decentralised identity</h3>
+<p>Experts distinguish three main components known as the three pillars of SSI: <strong>blockchain, verifiable credentials (VCs)</strong>, and <strong>decentralized identifiers (DIDs)</strong> [<a href="https://mirror.xyz/0x52CEb287BEb81D61eDf413A8B3007b611E8917EA/gBxgOJPaI9pu9GJ2nv4q0bM68jVIuXspAqQ1uDteVHg">7</a>].</p>
+<p><strong>Decentralized identifiers (DIDs)</strong> are globally unique identifiers that can be stored on a blockchain and play an essential role in creating users’ Web3 identity [<a href="https://www.dock.io/post/web3-identity#dock%E2%80%99s-web3-id">8</a>]. For example, centralized digital identifiers like emails, usernames, and phone numbers can be revoked at any time by big organizations. A DID refers to any subject like a person, organization, data model, abstract entity, et cetera, as determined by the controller of the DID. They are created by the user, owned by the user, and independent of any organization. It’s an ID that you generate for yourself. For example, one person can create several identifiers: one for online gaming, one for educational purposes, one with work credentials for business, etc.</p>
+<p><strong>Verifiable credentials</strong> are claims about achievements or attributes that include cryptographic proof of who issued them. For example, it’s your on-chain passport, ID card, or diploma [<a href="https://medium.com/9yards/web3-has-an-identity-problem-building-decentralized-identity-7d8219a992db">9</a>]. A Digital wallet is used to own and manage credentials. When the wallet owner presents these credentials, websites and apps can check that they are valid (with the university, etc.) and grant access accordingly.</p>
+<p>Your wallet holds <strong>all of your DIDs</strong> and <strong>verifiable credentials</strong>. When some dApp needs it, you get the notification and choose if you want to share information with them.</p>
+<p>There are several parties involved in the process of creating a decentralized identity: the <strong>issuer</strong> that issues verifiable credentials to a person, the <strong>prover</strong> that needs that credential and stores it in the wallet, and the <strong>verifier</strong> that can request insight into the credential. Verifier then checks if the issuer issued the credential. So once issued, the prover cares for the credential in its wallet and presents it to the verifier on demand.</p>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://3327.io/documents/research/assets/ERFC-524/first.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">first_picture</figcaption><p></p>
+</figure>
+</div>
+<p><a href="https://medium.com/9yards/web3-has-an-identity-problem-building-decentralized-identity-7d8219a992db">Figure 1, Source: Tykn</a></p>
+</center>
+<p>Zero-knowledge proofs and encryption are critical technologies because distributed ledgers are designed to be readable by anyone. To support decentralized identity, distributed ledgers will instead store decryption keys to validate information while the data itself will be encrypted and stored locally on a user’s device. With DIDs, you don’t even have to share your age, the service will simply query your did with a condition like is age &gt; 18 ? and if that statement is true, the DID returns a success message, the service still does not know about your age, it simply knows if you’re old enough to use their service (<a href="https://stanly-johnson.medium.com/signin-with-decentralised-identity-e030590c140c">4</a>).</p>
+</section>
+</section>
+<section id="goals-methodology" class="level1">
+<h1>Goals &amp; Methodology</h1>
+<p>This research paper will overview the existing Decentralised Identity dApps and their current use cases. Additionally, this data will be examined from the perspective of Web3 product development. Therefore, the main goals of this research are:</p>
+<ul>
+<li>Map out decentralized identity dApps currently in use (exclude beta versions etc.)</li>
+<li>Recognize the use cases and the problems they aim to solve.</li>
+<li>Explore the potential of using these dApps in Web3 product development.</li>
+</ul>
+<section id="methodology" class="level3">
+<h3 class="anchored" data-anchor-id="methodology">Methodology</h3>
+<ul>
+<li>Exploration of the ecosystem by diving deeper into blog posts and articles about DID dApps to map out the relevant solutions.</li>
+<li>Trying out and using existing solutions.</li>
+<li>Comparing and contrasting the current state of DIDs and what they can achieve in future Web3 product development.</li>
+</ul>
+<p>This research wants to validate if the current DID dApps solutions can be used for comprehensive user research in Web3 product development. Based on its findings, we can conclude that it’s time to go deeper into the Web3 product development ideas that can integrate different DID solutions to collect specific data from users without compromising their privacy.</p>
+</section>
+</section>
+<section id="results-discussion" class="level1">
+<h1>Results &amp; Discussion</h1>
+<section id="the-decentralized-identity-ecosystem" class="level3">
+<h3 class="anchored" data-anchor-id="the-decentralized-identity-ecosystem">The decentralized identity ecosystem</h3>
+<p>A decentralised identity ecosystem is comprehensive and complex. There are many solutions covering it from different angles: going from the deep infrastructural level of collecting and processing the data to user-level DIDs and even Web3 social networks. The initial list of the explored solutions was made based on Alchemy’s selection of Decentralised Identity Tools<a href="https://www.alchemy.com/best/decentralized-identity-tools">[10]</a>, desktop research, and several blog posts found on DID ecosystem mapping. Based on a different level of infrastructure and the project’s focus, suggestions proposed by the Amber group have been used (<a href="https://medium.com/amber-group/decentralized-identity-passport-to-web3-d3373479268a">11</a>) to narrow down the initial list of dApps to analyze. These categorizations cover the DID ecosystem from infrastructural to reputational DID use cases. Below is their categorization, just to represent the complexity of leveling the existing solutions (<a href="https://medium.com/amber-group/decentralized-identity-passport-to-web3-d3373479268a">11</a>):</p>
+<ul>
+<li><p>Layer 1: Identifiers &amp; Standards</p>
+<ul>
+<li>Standards, identifiers, and namespaces create the public trust layer, ensuring standardization, portability, and interoperability. They also allow networks to register and govern DID methods, providing developers and users with the rules and context of the network’s ID system.</li>
+</ul></li>
+<li><p>Layer 2: Infrastructure</p>
+<ul>
+<li>Infrastructure and agent frameworks allow applications to interact directly with each other and verifiable data registries. These solutions include communication, storage, and key management.</li>
+</ul></li>
+<li><p>Layer 3: Credentials</p>
+<ul>
+<li>Credentials have to be managed, updated, and exchanged. This layer aims to address how DIDs can negotiate proof of control and authentication, as well as securely passing data between identity owners.</li>
+</ul></li>
+<li><p>Layer 4: Apps, Wallets, Products</p>
+<ul>
+<li>This layer is likely most familiar to readers and intends to provide real-world use cases and value to consumers.</li>
+</ul></li>
+<li><p>Layer X: Transversal</p>
+<ul>
+<li>These projects largely transcend any individual layer and have consequences at multiple levels.</li>
+</ul>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://3327.io/documents/research/assets/ERFC-524/second.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">second_picture</figcaption><p></p>
+</figure>
+</div>
+<p><a href="https://medium.com/9yards/web3-has-an-identity-problem-building-decentralized-identity-7d8219a992db">Figure 2, Source: Amber</a></p>
+</center></li>
+</ul>
+<p>As the subject of this research is decentralized identity and its application in Web3 product development, the focus of this paper will be on Layer 4. The focus will be on solutions that cover user level, more specifically on the dApps that represent DIDs and can help prove your rights and claim your data with VCs.</p>
+</section>
+<section id="decentralized-identity-dapps-in-use" class="level3">
+<h3 class="anchored" data-anchor-id="decentralized-identity-dapps-in-use">Decentralized identity dApps in use</h3>
+<p>The list of dApps analyzed can be found <a href="https://docs.google.com/spreadsheets/d/1_BrB-JxoA9vVS0xkcsgT6zU-9HTio1L_OBSPxoKOYL8/edit?usp=sharing">here</a>. This list only includes the options that are most pertinent to this paper; it does not include all the options available on the market. Fourteen solutions were analyzed in total. The first step of the analysis was understanding the dApp on a conceptual level based on the information from the website, and then each solution was installed and explored from the user perspective. The main elements analyzed were:</p>
+<ul>
+<li><strong>General information</strong> - type of solution, description, blockchain</li>
+<li><strong>Product focus</strong> - features, main value / USP, customer segment</li>
+<li><strong>Level of adoption</strong> - number of users, stage of development</li>
+<li><strong>Privacy</strong> - data collection necessary, verification mechanism, and how is done</li>
+</ul>
+</section>
+<section id="analysis-summary" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-summary">Analysis summary</h3>
+<ul>
+<li><p>The market for DID solutions as a whole is growing rapidly, and this trend will likely continue in the future.</p></li>
+<li><p>The three categories of DID dApps are <strong>ID wallets, Web3 Passports,</strong> and <strong>ID dApps</strong>. Most of them have a product in their portfolio for their own DID protocol solution, upon which their dApps are based.</p></li>
+<li><p>All the solutions are developed on <strong>different blockchains</strong>, most of them still sticking to <strong>Ethereum</strong>, however, there are a lot of dApps supporting multichain options such as <strong>ONT ID, Human Bound, HashKey</strong>, and <strong>WIW</strong>. Chains covered with analyzed solutions are <strong>Ethereum, Arbitrum, Optimism, Polygon, Avalanche,</strong> and <strong>Solana</strong>, and some of them built their own blockchains e.g.&nbsp;<strong>PlatON, Klaytn, Quorum</strong>, and <strong>Dock</strong>.</p></li>
+<li><p><strong>ID dApps</strong> (Fractal ID, Bright ID, Polygon ID, Disco.xyz, Human Bound, WIW) are the most numerous and most developed in terms of DID functionalities. Most of them work best if installed with their wallets, but can work with other wallets as well. The majority of them run on multiple chains. Basic features for those apps are identity verification, authorization of different dApps, receiving claims, creating claims, and holding them in your ID. Most of them have the entire portfolio of other dApps for other players of DID ecosystem for issuing claims, verifying claims, etc. Main USPs these solutions focus on are having control over your data you can monetize and transferable reputation (Web 2 - Web3).</p></li>
+<li><p><strong>Web3 Passports</strong> (Civic Pass, GitCoin Passport, HashKey) as identity record solutions. They are there to prove claims about you and enable access to some communities, products, etc. Even though they have the same purpose, each differs a bit - Gitcoin serves as a Web3 pass that is simply connected with Web2 and Web3 apps and can claim things on your behalf. HashKey offers the possibility of centralized storage and privacy and you can mint your passport, as well as Civic Pass, does. Therefore, even though most of these solutions are b2c focused, some of them segment businesses and future VC issuers. The main value those solutions focus on is to personalize your Web3 appearance. Web3 Passports are strictly b2c focused.</p></li>
+<li><p><strong>ID wallets</strong> (SelfKey, Vendible Labs, Dock Wallet, ONT ID) are the least developed DID solution. Most of them have DID as an optionality and their main product focus remains with wallet features. DID features they support are mostly multiple wallet management therefore possible to create and manage several DIDs, with some of them offering solutions such as issuing VC, verifying VC, scan QR codes to receive VC. However, in many of these solutions, some of these functionalities are promised and developed, but couldn’t work at the time of testing. Also, one of the interesting solutions was SelfKey with the feature to go on the marketplace to apply for and buy a secondary passport or residence for a specific country that offers this possibility under certain conditions. Those solutions are mostly both, b2b and b2c focused.</p></li>
+<li><p>Another solution analyzed that is not covered in the previous three categories is <a href="https://proofofhumanity.eth.limo/index.html">Proof of Humanity</a>. This is a verified human network building social identity network on Web3 proving you are human. It works by simply uploading <a href="https://www.youtube.com/watch?v=WH83_Fad7E4">a video</a> and photo and your wallet address and waiting for others to vouch for you and vote if you are human or not. Once approved you have the claim you can use with any dApp that needs proof of humanity. However, the process takes too long (more than 7 days to be verified).</p></li>
+<li><p><strong>Verification</strong> and <strong>privacy</strong> matter a lot in those dApps as they promise data safety first of all. The majority of dApps do not save data users provide them to prove identity or other. Usually, it’s only saved on the user’s device or simply process data over a third party or their protocols but does not store it. The most common case was that upon the installation of a dApp or registration DID was automatically created. Sometimes it happened enough that some of the applications didn’t verify their users at all (identity, humanity, personhood, etc.). Three main things required upon registration were: name, wallet, and email. In some specific cases, to verify more details things required were location, ID or passport, other documents, company, and industry. However, to prove your identity in the Web3 world the biggest challenge is to prove you are a unique human being without revealing who you are. Proofs that are possible to make are:</p>
+<ul>
+<li><p><strong>Proof of Identity</strong> - this was mostly done through passport/ID upload and selfie video.</p></li>
+<li><p><strong>Proof of Address / Location</strong> - the location on your device, addressed docs to that location, and your name no older than 6 months (bank statement, confirmation from your company that you live there, etc.), in some cases it was done only through IP check, VPN Check.</p></li>
+<li><p><strong>Proof of Humanity</strong> - photo, wallet address, video in which the user is claiming that you are not previously registered in that registry.</p></li>
+<li><p><strong>Proof of Human</strong> - selfie video and captcha.</p></li>
+<li><p><strong>Proof of uniqueness</strong> (BrightID) - verification through stages. First, you join the zoom call for the verification party and you are verified as a human by the meeting’s host. After that, you achieve the first level of verification and that is how you start building your social graph. It’s important to connect with other people you know that are using the same app and to integrate this solution with other dApps you are using. Then the user is required to set the social recovery to get completely verified.</p></li>
+<li><p><strong>Proof of personhood</strong> - Proving ownership over various accounts and data provides proof of personhood. Also in some cases, this is done through Multi-factor Authentication (MFA) - wallet ID, mobile number, ID doc, and liveness check.</p></li>
+</ul></li>
+<li><p>The level of adoption of DID solutions is still low. For almost one-third of the solutions analyzed, <strong>beta testing</strong> (or closed beta) was active for a few years now. So a couple of them couldn’t be tried out at all. Besides them, most of the solutions are in the <strong>early development phase</strong> with limited features or features that do not still work properly. Only 5 of 14 solutions were marked as “<strong>Active</strong>” two of them with 1 million active users. However, the average number of users goes <strong>under one hundred thousand users</strong>.</p></li>
+</ul>
+</section>
+<section id="current-state-of-did-dapps-challanges" class="level3">
+<h3 class="anchored" data-anchor-id="current-state-of-did-dapps-challanges">Current state of DID dApps: challanges</h3>
+<p>Analyzing fourteen DID dApps showed that even more of them exist and that this is one of the rising segments of the Web3 industry. However, half of them were very early in their development, and the rest had functionalities that couldn’t be used at this moment. This was mostly because there are <strong>no real use cases active</strong> in which those solutions can be used. There is a lack of other players such as <strong>issuers</strong> and <strong>verifiers</strong> - parties that would require you to claim something regarding your identity and accept for this to be done through some of the DID solutions.</p>
+<p>To get some traction first players to join should probably be Web3 companies, DAOs, and DeFi institutions. It is expected that DeFi helps DID solutions to emerge as it may have many beneficial effects on the financial rating of a person, credit potential, etc. without revealing their sensitive data.</p>
+<p>Also, one big sphere of Web3 that is beneficial for DIDs to work is cryptographical technology, in most of the current cases ZK.</p>
+<p>Even though Soul Bound Tokens (SBTs) appeared recently as a concept of NFTs that can not be transferred to another’s wallet, only one solution was identified using this technology as a core of its Web3 ID.</p>
+<p>Based on the comprehensive analysis done, common challenges analyzed solutions face are:</p>
+<ul>
+<li>Data privacy they are claiming - mostly depends on the protocols they are using.</li>
+<li>Data verification - passport or ID verification in cases of forgery or when issued in the local language can not be easily checked.</li>
+<li>They are not that much easy to navigate and intuitive to find even the core functionalities.</li>
+<li>Most of the Wallet ID solutions does not require ID verification or proof of humanity/personhood.</li>
+<li>Inefficient mechanisms of proving you are a real person - for some verifications, there is a wait of seven or more days.</li>
+</ul>
+<p>If put together, the four main benefits of decentralized identity management include control, security, privacy, and ease of use. However, the main concerns are a low level of adoption, a lack of regulation, and interoperability.</p>
+</section>
+<section id="empowering-user-centric-design-in-web3" class="level3">
+<h3 class="anchored" data-anchor-id="empowering-user-centric-design-in-web3">Empowering user-centric design in web3</h3>
+<p>One of the biggest challenges Web3 is facing now is its timing. Are we at the end of the Inventor era and entering the mass adoption period? How and when this should happen? Led with this, for a few years now, many infrastructural projects that were crucial to enable mass technical and technological ways to mass adoption, finalized. We developed many strong, secure, and fast chains that can answer many of the challenges such as - high gas fees, slow transactions, privacy through ZK, higher decentralization, and scalability. Many of them are still open, but significant achievements have been made.</p>
+<p>However, another big challenge to mass adoption is poor UI/UX design. The roots of this problem lie in the even earlier phase of development - product design. Many factors influenced that users are not the focus when building Web3 products. Most of the reasons come from the nature of the blockchain and its innovativeness. Three factors that influenced the development of products that are far away from the Web3 users we know today are (<a href="https://3327.io/user-decentric-design-in-web3/">12</a>):</p>
+<ul>
+<li>Building solution-centric products inspired by expanding the tech limits lead to inventions. Current Web3 products are often advanced technological solutions, many of which do not have many users at all, leaving a lot of Web3 products with no problem they are solving and by it, no current use case.</li>
+<li>Building smart contracts or tech-oriented products with zero focus on the users and their experience.</li>
+<li>The user dilemma is directly related to the adoption problem. Being early in the market led to the fact that for many years only devs were the actual users of Web3.</li>
+</ul>
+<p>Even though some of these things changed over the past years, or are changing at the moment, this decade-long narrative built a specific framework around Web3 product development, that is not user-centric enough.</p>
+<p>However, striving to the mass adoption of blockchain and its product, bring along way better products for the end users. One of the challenges on this way is tracking data analytics. Web3 adds complexity to tracking accurate customer behavior — making things like attribution and personalization much, much harder for product and marketing teams [<a href="https://www.third.academy/article/the-challenge-with-web3-analytics">13</a>]. The same article brings to the surface the two core challenges of this problem:</p>
+<ul>
+<li>Identity fragmentation - addressing the lack or multiplication of identities caused by no KYCs, decentralized wallets with no identity-related owners, and multiple wallets that can represent multiple identities.</li>
+<li>Interface fragmentation - relating to the Web2 - Web3 gap when tracking data and user actions (Web2 front-end and Web3 back-end).</li>
+</ul>
+<p>Even though Web3 postulates made it technically demanding to create a world of absolute transparency of actions and privacy of users, those are the exact problems we aim to address. Identity fragmentation is exactly where the potential of DID can be of high significance.</p>
+<p>Mapping the product development process it is clear that lack of data is mostly influencing tracking users’ behaviors and building more personalized and specific products. Given the current state of DIDs and their early development, and the technical challenges of data analytics, it seems like this type of involvement in the product building will have to wait until more users join DID ecosystem (addressing more parties entering as the issuers and verifiers that accept this type of identity and its claims). Also, this type of analytics, that is tracking users’ behaviors based on interactions with different products is useful in setting general information about specific segments of the user population.</p>
+<p>However, other product development phases can benefit from DIDs. As is well known, user-centricity needs to be built in, much earlier in the development process. The discovery and research phase of product development are important parts of the Web3 products lifecycle and user-centricity. These two phases of product development are still done the same as in Web2 - through market research.</p>
+<p>Imagining the future in which we will be able to have DIDs that hold information about us in form of VC or claims that are ZKP encrypted, it will be much easier to organize product research with potential users. The most complicated part of the research in Web3 is to get to the right people you want to involve in research, where to find them, and know if they are the people they tell you they are - what they are claiming is true. Having these in mind, there are several benefits DID would bring to this process.</p>
+<ul>
+<li>Preferences/mass user data - passive research through data sharing that people hold on to their DIDs. Using the data stored in verified claims on DIDs. Simply by accepting the request from X company to share its data, valuable statistics on the target audience can be found.</li>
+<li>Reliable eligibility test - simply by verifying or accepting the verified claim contained in the presented DID, a potential interviewee can be recruited for user research.</li>
+<li>Better incentivization of users - any user can earn tokens by sharing their data and keeping their privacy. Also, in the process of user interviewing having in advance users’ DID helps award users with tokens easily.</li>
+<li>Automatisation of the research process - fast eligibility test and automated incentivization process.</li>
+<li>Reaching out to users - this is the most challenging part of the user research process - reach out to the people and get them involved in the research. Even now, in early development, some of the dApps explored have a messaging feature, so they can communicate with others that are using the same dApp. With automatic eligibility tests and messaging features directly to someone’s DID with the request to participate in the research, DIDs can help in getting the right people on board.</li>
+</ul>
+<p>Having all this in mind, it is important to start developing solutions that can accelerate the development of DIDs for product development.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>From everything we explored in this research paper, we can conclude that data analytics and tracking in Web3 while keeping privacy is challenging. However, it is also something that will be resolved in a matter of time.</p>
+<p>In its early development, DIDs at this point can not be used in the process of product development until higher adoption is achieved.</p>
+<p>However, the potential DID bring with them is highly beneficial and can crucially change the way products are being built, and even product decisions are made in Web3.</p>
+<p>Even though the current situation is not ready for DIDs, this time gap should be used, to develop the infrastructure needed to start using it for product development as early as possible.</p>
+<p>Some of the directions for future research on this topic could be:</p>
+<ul>
+<li>Explore technical solutions to tracking data and segmenting claims DIDs hold for product analytic purposes.</li>
+<li>Tracking user interactions with different products through DIDs and when those are used for behavioral data.</li>
+<li>DID aggregator / bridge - in form of dApp or even protocol that can bridge different proofs stored in one DID to any other or any verifier.</li>
+<li>Messaging aggregator for all DIDs - that is not centralized and can replace email from Web2 world for anyone who has DID dApp installed.</li>
+<li>Collecting claims and making general statistics from public data. As all issued claims are publicly available as proofs, the direction of creating summary analytics can be an interesting one to discuss.</li>
+</ul>
+<p>In conclusion, Web3 is experiencing a crisis in user-centric product development. Enabling and supporting DIDs as crucial analytical silos for product development could be major research directions to eventually help overcome it.</p>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+<p>[1] <a href="https://www.pwc.de/de/digitale-transformation/pwc-studie-digital-product-development-2025.pdf">Digital Product Development, PWC</a></p>
+<p>[2] <a href="https://blog.dock.io/verifiable-credentials-changing-user-authentication/?_ga=2.167673726.1510007691.1671541874-186932671.1668070693&amp;_gl=1*14fgd84*_ga*MTg2OTMyNjcxLjE2NjgwNzA2OTM.*_ga_K3WZ1GPZ2C*MTY3MTU0MTg3NS4xNS4xLjE2NzE1NDQ1NDQuMC4wLjA.">How Verifiable Credentials Will Change User Authentication, Dock.io</a></p>
+<p>[3] <a href="https://moralis.io/web3-identity-the-full-guide-to-authentication-identity-and-web3/">Web3 Identity – The Full Guide to Authentication, Identity, and Web3, Moralis.io</a></p>
+<p>[4] <a href="https://stanly-johnson.medium.com/signin-with-decentralised-identity-e030590c140c">SignIn With Decentralised Identity</a></p>
+<p>[5] <a href="https://jonnyfry175.medium.com/decentralised-identity-does-it-need-a-blockchain-64759dd378c3">Decentralised identity: does it need a blockchain, Johny Fry</a></p>
+<p>[6] <a href="https://ethereum.org/en/decentralized-identity/">Decentralized Identity, ethereum.org</a></p>
+<p>[7] <a href="https://mirror.xyz/0x52CEb287BEb81D61eDf413A8B3007b611E8917EA/gBxgOJPaI9pu9GJ2nv4q0bM68jVIuXspAqQ1uDteVHg">What is decentralized identity in blockchain?, Domen</a></p>
+<p>[8] <a href="https://www.dock.io/post/web3-identity#dock%E2%80%99s-web3-id">Web3 Identity, Dock.id</a></p>
+<p>[9] <a href="https://medium.com/9yards/web3-has-an-identity-problem-building-decentralized-identity-7d8219a992db">Web3 has an Identity Problem: Building Decentralized Identity, Jelena Hoffart</a></p>
+<p>[10] <a href="https://www.alchemy.com/best/decentralized-identity-tools">Decentralized Identity Tools, Alchemy</a></p>
+<p>[11] <a href="https://medium.com/amber-group/decentralized-identity-passport-to-web3-d3373479268a">Decentralized Identity passport to Web3, Amber Group</a></p>
+<p>[12] <a href="https://3327.io/user-decentric-design-in-web3/">User (De)Centric Design In Web3</a></p>
+<p>[13] <a href="https://www.third.academy/article/the-challenge-with-web3-analytics">The Challange of Web3 Analytics, Third Academy</a></p>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://3327.io/documents/research/posts/ERFC-524.hugo.html</guid>
+  <pubDate>Fri, 30 Dec 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://3327.io/documents/research/assets/ERFC-524/first.png" medium="image" type="image/png" height="69" width="144"/>
+</item>
 <item>
   <title>[ERFC - 520] Deep Dive: DeFi Derivatives</title>
   <dc:creator>Andrija Raičević</dc:creator>
@@ -49,7 +274,12 @@
 <li>Derivatives</li>
 </ul>
 <p>The market is growing, and the protocols are creating niches in which they operate. However, these categories remain broad, and the borders between them remain blurred.</p>
-<p><img src="https://3327.io/documents/research/posts/https:/lh3.googleusercontent.com/dMN57r8t97l1T1eQUqSA2yH-sGlmiCZ3PD3j_MyGCL0QDoswmPf6wW8ker9Wb1RQopGhfOfbCN_QkxYg6wAl7nuJ4KJRvgu4MyMWBnBd_FkRM3Kd5rruI6SsvbWAlfok-81_fXPUfKx1kSKu8dllfFzvBst21b8tghE7Jl4mqjhJ-QPvUEBrTHEvJkHKVw.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://3327.io/documents/research/assets/ERFC-520/1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">1</figcaption><p></p>
+</figure>
+</div>
 <p>Source: Cryptorank.io</p>
 <p>In this research, we will focus on DeFi derivatives as one of the new and unconquered niches. However, before we do that, let’s start small and explain what derivatives are and how they are used in DeFi, the current state of DeFi derivatives, the challenges they face, and progress to exploring possible improvements and new ideas.</p>
 <section id="derivatives-and-defi" class="level2">
@@ -90,12 +320,27 @@
 <h3 class="anchored" data-anchor-id="opyn">Opyn</h3>
 <p>Opyn is a DeFi options trading platform operating on Ethereum, Polygon, and Avalanche with $56.8M in Total Value Locked. It allows users to create, buy and sell options. It is also the first options trading platform in DeFi.</p>
 <p>Its primary token is OSQTH (OpynSqueeth) which acts as the index that follows the price of ETH-squared (ETH^2). OSQTH is a mix of options, and perpetual swaps called power perpetual. It follows the squared price of an underlying asset without an expiry date, limiting the downside risk while offering a better return than a 2x leveraged Eth position. [6]</p>
-<p><img src="https://3327.io/documents/research/posts/https:/lh6.googleusercontent.com/FzQZ0n7bkPlB0urHghfKRj-rjZTDIvbQyZgR6nt_dQ89OjPHqO3w8Y-VLVlSfTzYeiPUjh8ghTQuw2R5Io0-EVl-XVRBz5A4vp5oEiJ1V3q1OTkCr9hBil-SsdoGud4oLA1PAaxy0C7L3kI1PruRQYMBHhFjk4TaoZpR5tcbQVXky8YbfXAUBaYPasst4w.png" class="img-fluid"></p>
-<p><img src="https://3327.io/documents/research/posts/https:/lh5.googleusercontent.com/ClZr6OOyTBvFKoH4PycLuvwqceXACwoXDs8vDu1fqbyycj_KmA4g5HNL7J52aSP4Zx7lMs6liuR3UqjY213ze2pcOctN8ErY84fVjnwl_iKNFRO3H57Ioo4uaSFnb7tUlgwmMEcKt4I1CiHyDPedCfYe8IASzwxB7486sNnJlhFOegsFdCaFyWajYA3-ag.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://3327.io/documents/research/assets/ERFC-520/2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">2</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://3327.io/documents/research/assets/ERFC-520/3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">3</figcaption><p></p>
+</figure>
+</div>
 <p>Source: Opyn.co</p>
 <p>Generally, DeFi platforms require collateral for entering the position. The cool thing about Opyn is that their collateral ratio is 0% for the Long Squeeth position, which means that the investors have downside protection with unlimited upside. However, shorting Squeeth requires a collateral ratio of 150%, which is an average in DeFi.</p>
 <p>Aside from Long and Short Squeeth, Opyn offers a ‘Crab’ strategy: A position betting on the ETH price moving inside a proposed interval. This is an excellent way of short-term investing during market stagnation since this is a <a href="https://www.investopedia.com/terms/d/deltaneutral.asp#:~:text=Delta%20neutral%20is%20a%20portfolio,of%20the%20position%20to%20zero.">delta-neutral</a> position. Something between Bull and Bear, as it seems.</p>
-<p><img src="https://3327.io/documents/research/posts/https:/lh6.googleusercontent.com/2Yda8WXSCnWrg3KigHubX_A78QHBTK14y0lDev8wr-1QKhHi_ag1eR4sZvCiJ8on6nlpqZAuUQ9tgU1sVEKH-OqAs7h18y4mrV95ZlVX6JTCWYF2mgVna-McEx-LmwrhST4EmB3cz7UilGDT5WTFctFE-u4cdUe1L8uu71Zn_RbWUEFuT_91jAhHoswCuA.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://3327.io/documents/research/assets/ERFC-520/4.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">4</figcaption><p></p>
+</figure>
+</div>
 <p>Source: Opyn.co</p>
 <p>Our opinion:</p>
 <p>Opyn is the most prominent options trading protocol in DeFi. However, Opyn and the rest of the options trading platforms need more options than they offer their traders. As of now, Opyn offers long and short positions on OSQTH as well as Crab strategy.</p>
@@ -122,7 +367,12 @@
 <h3 class="anchored" data-anchor-id="gmx">GMX</h3>
 <p>The largest Decentralized Perpetuals platform, operating on Arbitrum and Avalanche with over $466M TVL, is GMX. Unlike dYdX, GMX is an AMM that offers its users 50x leveraged trading.</p>
 <p>What also makes this platform competitive is its low fees, pool transparency, and native tokens GMX and GLP. GMX is used for governance, and holders earn 30% of protocol fees. GLP is the liquidity provider token, generating lenders 70% of protocol fees. It is also an index of pooled assets that serve as the protocol’s <a href="https://portfolio.nansen.ai/dashboard/gmx?chain=ARBITRUM">Proof of Reserves</a>. [12]</p>
-<p><img src="https://3327.io/documents/research/posts/https:/lh3.googleusercontent.com/-qx5CefkGl3e31dV2p0ko9__rlSrM9svnWzomTVew2k0I7Xfmf5ZgGsypjelbI-1MF-cI001YesuMdgQcGmJsAPl_37O380CVaxJD39ToNi01yoHYXfj683k1VB8KP_8ef0CJP_GdP1byvuOzrvrCynwRFtH_dPYnDsg_eg0AFb9SpYHHPWztIKFX39g4w.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://3327.io/documents/research/assets/ERFC-520/5.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">5</figcaption><p></p>
+</figure>
+</div>
 <p>Our opinion:</p>
 <p>Perpetual swaps are the most popular and developed derivatives in DeFi as they are not constrained by the maturity date and offer good terms in the sense of leverage. These protocols have greatly captured the market share by offering low transaction fees, high leverage, and transparency. One thing that gives GMX the edge over dYdX is that GMX is</p>
 <p>AMM-based and not Order Book. Liquidity is essential for users that want exposure to assets with low trading volumes. While Order Book is still better when there is liquidity as users match each other’s trades, AMMs are a better way of providing liquidity to otherwise illiquid pairs. [13]</p>
@@ -160,7 +410,12 @@
 <p>In case of not meeting the refinancing requirements of the forward contract (carried out in stablecoins), the buyer faces liquidation. The interest he paid is kept and split between the protocol and the staker, acting as protocol revenues and the staker’s rewards.</p>
 <p>Part of the revenue is stored in a reserve pool, which is used to buy and compensate liquidity providers until their NFTs find a match. This is where the community comes into play. Following the successful models of previous protocols, we would issue our governance tokens so that the users can vote on improvement proposals, fees, staking rewards, etc.</p>
 <p>Here is the visual representation of the architecture behind Fast Forwards done in Machinations with the help of our fellow researcher Aleksandar Damjanovic. Moreover, here is the <a href="https://my.machinations.io/d/fast-forwards/96cbeb63804d11eda2330626ff1c9bc8">link</a> to the full simulation.</p>
-<p><img src="https://3327.io/documents/research/posts/https:/lh6.googleusercontent.com/7R3hCTYC83y19vv89o8CYpo9aY9zQdCHw-9L01IbrUsj6vCQIXss1UMNpx6DUQgq7UoPdvRBvoeg-pLNUr6gQ75u5rZr7FR_IRhziX2j-3myh1oCwbZtcrg0wszXTEkVbl-Qr3PU-UqyXvQle8IisU-VPzoZ3B8H1LcaKwUvAf7bwbun954jvmz1ic7B4w.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://3327.io/documents/research/assets/ERFC-520/6.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">6</figcaption><p></p>
+</figure>
+</div>
 <p>In the short term, the focus is to allow buyers to acquire NFTs through installed payments while sellers earn yield. The concept is based on the Order Book matching system, and this way, we are solving the counterparty default risk by limiting the default possibilities only to the buyers’ side. If the buyer defaults, the sellers still profit and get their NFTs unstaked, making their expected losses equal to zero. This is how DeFi solves the main problem TradFi forwards face.</p>
 <p>Looking long term, we expect NFTs to be adopted globally as proof of ownership. This would open the possibility of our platform providing real-asset trading services, such as buying and selling real estate through installed payments on the blockchain with minimal risk.</p>
 <p>This is the way to make DeFi permissionless and trustless, and accessible to everyone without even using the over-collateralization as the rest of DeFi Derivatives protocols.</p>
@@ -206,8 +461,8 @@
 
  ]]></description>
   <guid>https://3327.io/documents/research/posts/ERFC-520.hugo.html</guid>
-  <pubDate>Sun, 12 May 2024 00:00:00 GMT</pubDate>
-  <media:content url="https://lh3.googleusercontent.com/dMN57r8t97l1T1eQUqSA2yH-sGlmiCZ3PD3j_MyGCL0QDoswmPf6wW8ker9Wb1RQopGhfOfbCN_QkxYg6wAl7nuJ4KJRvgu4MyMWBnBd_FkRM3Kd5rruI6SsvbWAlfok-81_fXPUfKx1kSKu8dllfFzvBst21b8tghE7Jl4mqjhJ-QPvUEBrTHEvJkHKVw.png" medium="image" type="image/png"/>
+  <pubDate>Thu, 29 Dec 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://3327.io/documents/research/assets/ERFC-520/1.png" medium="image" type="image/png" height="81" width="144"/>
 </item>
 <item>
   <title>[ERFC - 409] Minty - Massive off-chain minting with verifiable on-chain commitments</title>
@@ -3650,385 +3905,6 @@ Browne, Ryan, ‘Trading in NFTs Spiked 21,000% to More Than $17 Billion in 2021
 </section></div> ]]></description>
   <guid>https://3327.io/documents/research/posts/ERFC-101.hugo.html</guid>
   <pubDate>Mon, 14 Mar 2022 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Detect NFT Wash Trading</title>
-  <dc:creator>Milos Bojinovic</dc:creator>
-  <link>https://3327.io/documents/research/posts/ERFC-90.hugo.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<section id="executive-summary" class="level1">
-<h1>Executive Summary</h1>
-<p>With the monthly trading volume of the <strong>Non-Fungible Token (NFT)</strong> marketplace <a href="https://opensea.io">OpenSea</a> reaching 5 billion dollars in January 2022<sup>1</sup> it is clear that NFTs are gaining popularity and with that grows the importance of having a transparent trading activity.</p>
-<p><strong>Wash trading</strong> is a form of market manipulation where a single entity or a group of colluding entities buy and sell the same asset with the goal of feeding the marketplace misleading information<sup>2</sup>. There are at least two possible benefits to wash trading, the first being that a single asset can be wash traded multiple times, continually increasing the price, thus making the asset appear more sought after than it actually is. This chain of wash trades is broken when an unsuspecting victim buys the asset. The second potential benefit is that the trading can be incentivized by the platform, with rewards being tied to the volume traded. Trading rewards can, at least for a limited time period, be higher than the fees, which makes this process worthwhile.</p>
-<p>In the case of NFTs, wash trading is additionally enabled by the associated user anonymity. One single entity can control a large number of addresses without a way of reliably determining who is behind them. Those addresses, however, need to be somehow funded to make them usable, which leads to a money trail that can be followed to detect connections between them and to flag suspicious NFT trades.</p>
-</section>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>Currently, only <a href="https://nansen.ai">Nansen</a>, a blockchain analytics platform that requires a paid subscription, offers a feature called “Wash Trading Filter” where users can see the metrics (volume, average price, etc.) for an NFT collection with and without the filter but cannot browse through the individual NFTs. Another drawback is that Nansen doesn’t disclose how the filter works, and so the question of why some trades were flagged remains.</p>
-<p>Data on the blockchain is public, but it is hard to extract specific pieces of information from it. Detecting if a particular NFT was wash traded would require collecting every single trade that was made on all of the marketplaces and checking if the addresses involved in it are connected in some way. This data would need to be safely stored and effectively parsed to enable answering if any arbitrarily chosen NFT has been wash traded. The detection algorithm should also provide adequate reasoning on why a specific trade has been flagged. Developing and publicly disclosing the inner workings of such an algorithm would add more transparency to NFT trading, but it would inevitably lead to the creation of more intricate patterns that would not get caught if the algorithm is not regularly updated.</p>
-</section>
-<section id="goals-methodology" class="level1">
-<h1>Goals &amp; Methodology</h1>
-<p><strong>The goals</strong> of this research are to :</p>
-<ul>
-<li>define what transaction patterns classify as a wash trade</li>
-<li>develop ways of extracting the necessary information needed for the detection:
-<ul>
-<li>trades on two of the largest NFT marketplaces (OpenSea and <a href="https://looksrare.org/">LooksRare</a>)</li>
-<li>Ether transfers for each of the accounts involved in the trade</li>
-</ul></li>
-<li>serve as a starting point for the creation of detection algorithms</li>
-</ul>
-<p><strong>Methodology</strong> for accomplishing those goals consists of</p>
-<ul>
-<li>taking into account only Ethereum’s on-chain transactions when discussing ways a wash trade can be made</li>
-<li>using <a href="https://docs.etherscan.io/">Etherscan</a> and <a href="https://docs.alchemy.com/alchemy/">Alchemy</a> APIs to enable the data collection process</li>
-<li>using Python programming language for the implementation part</li>
-</ul>
-</section>
-<section id="results-discussion" class="level1">
-<h1>Results &amp; Discussion</h1>
-<section id="wash-trading-patterns" class="level3">
-<h3 class="anchored" data-anchor-id="wash-trading-patterns">Wash Trading Patterns</h3>
-<p>The explanation for the diagrams used in this paper is the following:</p>
-<ul>
-<li>White circles with a letter inside them are addresses that are considered</li>
-<li>Address can be connected with multiple lines</li>
-<li>The line that has the <strong>NFT</strong> written on it signals that those two addresses were involved in an NFT trade</li>
-<li>The line containing a number <strong>n</strong> on it signals that exists an Ether transfer trail between those addresses through <strong>n</strong> intermediaries
-<ul>
-<li>if <strong>n</strong> = 0 that is a direct transfer</li>
-<li>if <strong>n</strong> = 1 there is a transfer trail involving one intermediary address</li>
-</ul></li>
-<li>Lines with an arrow care about the direction of a transfer and point to the new owner’s address</li>
-<li>Lines without an arrow do not care about the direction</li>
-</ul>
-<p>Shown on <em>Figure 1</em> there are two “meta-patterns” that this paper considers.</p>
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://3327.io/documents/research/assets/ERFC-90/images/meta-patterns.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">meta-patterns</figcaption><p></p>
-</figure>
-</div>
-<p><em>Figure 1 - Considered Meta-patterns</em></p>
-</center>
-<p>Meta-patterns can be expanded into specific patterns that care about the direction of those transfers (<em>Figure 2</em>). While some patterns may be more suspicious than others, all of them can be used for the purpose of wash trading. For example <em>pattern 2.2</em> can mean that after making a wash trade and selling the NFT to someone else, addresses <strong>A</strong> and <strong>B</strong> send all of their funds to address <strong>C</strong>.</p>
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://3327.io/documents/research/assets/ERFC-90/images/expanded-patterns.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">expanded-patterns</figcaption><p></p>
-</figure>
-</div>
-<p><em>Figure 2 - Expanded patterns</em></p>
-</center>
-<p>The reason that all of these patterns do not take the time order of transfers into account is that it doesn’t matter - they need to detect only the connections between addresses.</p>
-</section>
-<section id="collecting-and-parsing-of-data" class="level2">
-<h2 class="anchored" data-anchor-id="collecting-and-parsing-of-data">Collecting and Parsing of Data</h2>
-<p>This research takes into account only trades of NFTs that follow the ERC721 standard. The same principles can be applied to the trades involving the ERC1155 standard, with the only difference being the collection and parsing of trades.</p>
-<p>When an NFT trade is executed, the ERC721 compliant contracts emit a <strong>Transfer event</strong> that contains three fields: previous owner, new owner, and the token id. Using the combination of Etherscan and Alchemy APIs, it is possible to get all the events that were emitted by the transaction and to extract the needed event based on its topic along with all of its fields.</p>
-<p>Not every Transfer event corresponds to a trade, so there needs to be an extra processing step that will eliminate all transfers that were not made through a marketplace. To do this, one needs to go through all of the marketplace’s contract’s transactions and select only those that have the right <strong>methodID</strong>.</p>
-<p>After the seller’s (previous owner’s) and buyer’s (new owner’s) addresses are known, the last step is collecting and parsing of all of their transactions searching for Ether transfers and all the addresses they have interacted with - in this paper referred to as “associates”.</p>
-</section>
-<section id="wash-trading-detectors" class="level2">
-<h2 class="anchored" data-anchor-id="wash-trading-detectors">Wash Trading Detectors</h2>
-<p>Having a set of all of the buyer’s and seller’s associates enables the creation of <strong>Wash Trading Detectors (WTD)</strong>. This paper proposes and implements two basic algorithms:</p>
-<ul>
-<li><strong>WTD0</strong> that detects a direct transfer by checking if the seller’s address belongs to the set of buyer’s associates</li>
-<li><strong>WTD1*</strong> that detects a set of common associates that are Externally Owned Accounts (EOAs)</li>
-</ul>
-<p>*WTD1 is incomplete because the detected common associate can be a Centralized Exchange’s (CEX) address which would give a false positive. The only way to make the WTD1 fully functional is to manually keep a list of all the addresses that should be ignored.</p>
-</section>
-<section id="implementation" class="level2">
-<h2 class="anchored" data-anchor-id="implementation">Implementation</h2>
-<p>Using the proposed ways of getting the data and reasoning on it, it is possible to extract suspicious wash trading patterns, flag those trades, and perform an analysis of the results. The code shown bellow is capable of getting the count of detected wash trades performed through a marketplace in a given block range :</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;">import</span> utils</span>
-<span id="cb1-2"></span>
-<span id="cb1-3"><span class="kw" style="color: #003B4F;">def</span> run(contract, methodIds, start_block, end_block):</span>
-<span id="cb1-4">    <span class="co" style="color: #5E5E5E;">'''Detects potential Wash trades for a marketplace's contract'''</span></span>
-<span id="cb1-5"></span>
-<span id="cb1-6">    transactions <span class="op" style="color: #5E5E5E;">=</span> utils.get_all_transactions(</span>
-<span id="cb1-7">        contract,</span>
-<span id="cb1-8">        start_block,</span>
-<span id="cb1-9">        end_block</span>
-<span id="cb1-10">    )</span>
-<span id="cb1-11"></span>
-<span id="cb1-12">    wtd0_count, wtd1_count, total <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">0</span>, <span class="dv" style="color: #AD0000;">0</span>, <span class="dv" style="color: #AD0000;">0</span></span>
-<span id="cb1-13"></span>
-<span id="cb1-14">    <span class="cf" style="color: #003B4F;">for</span>  tx <span class="kw" style="color: #003B4F;">in</span> transactions:</span>
-<span id="cb1-15"></span>
-<span id="cb1-16">        <span class="cf" style="color: #003B4F;">if</span> tx[<span class="st" style="color: #20794D;">'input'</span>][:<span class="dv" style="color: #AD0000;">10</span>] <span class="kw" style="color: #003B4F;">in</span> methodIds:</span>
-<span id="cb1-17"></span>
-<span id="cb1-18">            status, logs <span class="op" style="color: #5E5E5E;">=</span> utils.get_logs(tx[<span class="st" style="color: #20794D;">'hash'</span>])</span>
-<span id="cb1-19"></span>
-<span id="cb1-20">            <span class="cf" style="color: #003B4F;">if</span> status <span class="op" style="color: #5E5E5E;">!=</span> <span class="dv" style="color: #AD0000;">1</span>: <span class="co" style="color: #5E5E5E;"># Reverted transaction</span></span>
-<span id="cb1-21">                <span class="cf" style="color: #003B4F;">continue</span></span>
-<span id="cb1-22"></span>
-<span id="cb1-23">            nft_contract, token_id, A, B <span class="op" style="color: #5E5E5E;">=</span> utils.parse_logs(logs)</span>
-<span id="cb1-24"></span>
-<span id="cb1-25">            <span class="cf" style="color: #003B4F;">if</span> A <span class="op" style="color: #5E5E5E;">==</span> <span class="va" style="color: #111111;">None</span> <span class="kw" style="color: #003B4F;">or</span> B <span class="op" style="color: #5E5E5E;">==</span> <span class="va" style="color: #111111;">None</span>: <span class="co" style="color: #5E5E5E;"># not a standard ERC721</span></span>
-<span id="cb1-26">                <span class="cf" style="color: #003B4F;">continue</span></span>
-<span id="cb1-27"></span>
-<span id="cb1-28">            associates_A <span class="op" style="color: #5E5E5E;">=</span> utils.get_associates(A)</span>
-<span id="cb1-29">            associates_B <span class="op" style="color: #5E5E5E;">=</span> utils.get_associates(B)</span>
-<span id="cb1-30"></span>
-<span id="cb1-31">            wtd0_count <span class="op" style="color: #5E5E5E;">+=</span> <span class="bu" style="color: null;">int</span>(</span>
-<span id="cb1-32">                utils.wtd0(A, B, associates_A, associates_B)</span>
-<span id="cb1-33">            )</span>
-<span id="cb1-34">            wtd1_count <span class="op" style="color: #5E5E5E;">+=</span> <span class="bu" style="color: null;">int</span>(</span>
-<span id="cb1-35">                <span class="bu" style="color: null;">len</span>(utils.wtd1(A, B, associates_A, associates_B)) <span class="op" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">0</span></span>
-<span id="cb1-36">            )</span>
-<span id="cb1-37"></span>
-<span id="cb1-38">            total <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
-<span id="cb1-39"></span>
-<span id="cb1-40">    <span class="cf" style="color: #003B4F;">return</span> (wtd0_count, wtd1_count, total)</span></code></pre></div>
-<p>The <code>run</code> function consists of getting all transaction data for a marketplace’s contract starting from the <code>start_block</code> up to the <code>end_block</code> and considering only those that are in the provided list of <code>methodIds</code>. These transactions are then parsed, and values are extracted that will be passed to the <code>utils.wtd0</code> and <code>utils.wtd1</code> functions which will perform detection.</p>
-<p>For the full implementation of all of the used helper methods from <code>utils</code> module see Appendix A.</p>
-<section id="example" class="level3">
-<h3 class="anchored" data-anchor-id="example">Example</h3>
-<p>For example, let us take the <a href="https://etherscan.io/address/0x7Be8076f4EA4A4AD08075C2508e481d6C946D12b">OpenSea’s Wyvern V1 contract</a> and pass three different block ranges. The <code>['0xab834bab']</code> argument corresponds to the <code>methodID</code> of the contract’s method that gets called when there is a trade.</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1">WYVERN_V1 <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">'0x7Be8076f4EA4A4AD08075C2508e481d6C946D12b'</span></span>
-<span id="cb2-2"></span>
-<span id="cb2-3">ranges <span class="op" style="color: #5E5E5E;">=</span> [</span>
-<span id="cb2-4">    [<span class="dv" style="color: #AD0000;">6652089</span>, <span class="dv" style="color: #AD0000;">6652239</span>],</span>
-<span id="cb2-5">    [<span class="dv" style="color: #AD0000;">7486211</span>, <span class="dv" style="color: #AD0000;">7486311</span>],</span>
-<span id="cb2-6">    [<span class="dv" style="color: #AD0000;">7704798</span>, <span class="dv" style="color: #AD0000;">7704898</span>],</span>
-<span id="cb2-7">]</span>
-<span id="cb2-8"></span>
-<span id="cb2-9"><span class="cf" style="color: #003B4F;">for</span> start_block, end_block <span class="kw" style="color: #003B4F;">in</span> ranges:</span>
-<span id="cb2-10"></span>
-<span id="cb2-11">    <span class="bu" style="color: null;">print</span>(run(WYVERN_V1, [<span class="st" style="color: #20794D;">'0xab834bab'</span>], start_block, end_block))</span></code></pre></div>
-<p>From the total of <strong>23</strong> trades that were made during the provided ranges :</p>
-<ul>
-<li>WTD0 flags <strong>8</strong> trades</li>
-<li>WTD1 flags <strong>11**</strong> trades</li>
-</ul>
-<p>**WTD1 returns a list of associate addresses; these lists were manually checked through Etherscan to see if they belong to a CEX. The list of ignored addresses is available in Appendix B.</p>
-</section>
-<section id="implications" class="level3">
-<h3 class="anchored" data-anchor-id="implications">Implications</h3>
-<p>The sample size of <strong>23</strong> is too small to discuss how the reported numbers relate to all of the NFT trades since the marketplace’s contract deployment. The code itself can, however, serve as a starting point for the development of a service capable of extracting the data from all of the NFT marketplaces since their creation. In that data lies the key to answering not only what trades are a wash trade but also who performed them, how many times was an address linked to a wash trade, whether one NFT has been wash traded multiple times, etc. Such a service would need to effectively manage its resources such as the collection of data and the computation needed in the detection - in the example above, set of associates is always computed from scratch (there is no storing of the result and checking if those values have already been computed). The full specification for the development of this service is out of the scope of this paper and should be a topic of a separate research.</p>
-<section id="complex-patterns" class="level4">
-<h4 class="anchored" data-anchor-id="complex-patterns">Complex Patterns</h4>
-<p>Due to current non-negligible transaction fees on Ethereum and the fact that not many people are deeply looking into each trade, it is unlikely that there are complex patterns present in NFT wash trading. As the fees get lower and as the adoption grows, it’s almost certain that they will emerge. On the <em>Figure 3</em> is shown one pattern that could be used in the process of wash trading.</p>
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://3327.io/documents/research/assets/ERFC-90/images/complex-pattern.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">complex-pattern</figcaption><p></p>
-</figure>
-</div>
-<p><em>Figure 3 - Complex pattern</em></p>
-</center>
-<p>There are two NFT wash trades present (marked by the black and blue colored arrows). The sequence of transfers is the following:</p>
-<ol type="1">
-<li><strong>A</strong> finances <strong>B</strong> and <strong>C</strong> through 3 and 2 intermediaries, respectively</li>
-<li><strong>B</strong> finances <strong>D</strong> through 3 intermediaries</li>
-<li><strong>D</strong> buys an NFT from some non-associated address</li>
-<li><strong>D</strong> sells the NFT to <strong>C</strong></li>
-<li><strong>D</strong> sends the funds to <strong>B</strong> through the same 3 intermediaries that were used before</li>
-<li><strong>B</strong> finances <strong>E</strong> through 2 intermediaries</li>
-<li><strong>E</strong> buys the NFT from <strong>C</strong></li>
-</ol>
-<p>After the last step, <strong>E</strong> can sell the NFT to an unsuspecting victim. It is important to note that addresses used do not have to be discarded after each wash trade - i.e.&nbsp;<strong>B</strong> can be used just for routing of the funds. Furthermore, a malevolent entity can inflate the prices of not just a single NFT but for a complete collection, making it look like the collection is very popular, which attracts victims.</p>
-</section>
-</section>
-</section>
-</section>
-<section id="conclusion" class="level1">
-<h1>Conclusion</h1>
-<p>This research shows that it is possible to flag a specific trade as being a wash trade. The proposed algorithms can serve as a starting point in this process. To flag a specific NFT as being wash traded there would need to exist a list of all the trades of that NFT. This could be done via a service that would enable the users to browse the history of trades of any NFT on every marketplace and see all of the connections between the addresses that once owned it. If the service is built and popularized while keeping its inner workings public, the malevolent parties would try to evade detection which would lead to the need to constantly improve the algorithm.</p>
-</section>
-<section id="appendices" class="level1">
-<h1>Appendices</h1>
-<section id="appendix-a" class="level2">
-<h2 class="anchored" data-anchor-id="appendix-a">Appendix A</h2>
-<p>Implementation of the <code>utils</code> module.</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;">import</span> time, json, requests</span>
-<span id="cb3-2"><span class="im" style="color: #00769E;">from</span> web3 <span class="im" style="color: #00769E;">import</span> Web3</span>
-<span id="cb3-3"></span>
-<span id="cb3-4">config <span class="op" style="color: #5E5E5E;">=</span> {</span>
-<span id="cb3-5">    <span class="st" style="color: #20794D;">"alchemy-url"</span> : <span class="st" style="color: #20794D;">""</span>,</span>
-<span id="cb3-6">    <span class="st" style="color: #20794D;">"etherscan-api-key"</span>: <span class="st" style="color: #20794D;">""</span>,</span>
-<span id="cb3-7">}</span>
-<span id="cb3-8"></span>
-<span id="cb3-9">web3 <span class="op" style="color: #5E5E5E;">=</span> Web3(Web3.HTTPProvider(config[<span class="st" style="color: #20794D;">'alchemy-url'</span>]))</span>
-<span id="cb3-10"></span>
-<span id="cb3-11"><span class="kw" style="color: #003B4F;">def</span> get_all_transactions(address, start_block <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">0</span>, end_block <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">19999999</span>):</span>
-<span id="cb3-12">    <span class="co" style="color: #5E5E5E;">'''Gets all transactions using Etherscan API for the provided address'''</span></span>
-<span id="cb3-13">    transactions <span class="op" style="color: #5E5E5E;">=</span> []</span>
-<span id="cb3-14"></span>
-<span id="cb3-15">    <span class="cf" style="color: #003B4F;">while</span> <span class="va" style="color: #111111;">True</span>:</span>
-<span id="cb3-16">        time.sleep(<span class="dv" style="color: #AD0000;">5</span>)</span>
-<span id="cb3-17">        result <span class="op" style="color: #5E5E5E;">=</span> requests.get(</span>
-<span id="cb3-18">            <span class="st" style="color: #20794D;">'https://api.etherscan.io/api?module=account&amp;action=txlist'</span> <span class="op" style="color: #5E5E5E;">+</span></span>
-<span id="cb3-19">            <span class="ss" style="color: #20794D;">f'&amp;address=</span><span class="sc" style="color: #5E5E5E;">{</span>address<span class="sc" style="color: #5E5E5E;">}</span><span class="ss" style="color: #20794D;">'</span> <span class="op" style="color: #5E5E5E;">+</span></span>
-<span id="cb3-20">            <span class="ss" style="color: #20794D;">f'&amp;startblock=</span><span class="sc" style="color: #5E5E5E;">{</span>start_block<span class="sc" style="color: #5E5E5E;">}</span><span class="ss" style="color: #20794D;">'</span> <span class="op" style="color: #5E5E5E;">+</span></span>
-<span id="cb3-21">            <span class="ss" style="color: #20794D;">f'&amp;endblock=</span><span class="sc" style="color: #5E5E5E;">{</span>end_block<span class="sc" style="color: #5E5E5E;">}</span><span class="ss" style="color: #20794D;">'</span> <span class="op" style="color: #5E5E5E;">+</span></span>
-<span id="cb3-22">            <span class="ss" style="color: #20794D;">f'&amp;offset=</span><span class="sc" style="color: #5E5E5E;">{</span><span class="dv" style="color: #AD0000;">1_000</span><span class="sc" style="color: #5E5E5E;">}</span><span class="ss" style="color: #20794D;">'</span> <span class="op" style="color: #5E5E5E;">+</span></span>
-<span id="cb3-23">            <span class="ss" style="color: #20794D;">f'&amp;sort=</span><span class="sc" style="color: #5E5E5E;">{</span><span class="st" style="color: #20794D;">"asc"</span><span class="sc" style="color: #5E5E5E;">}</span><span class="ss" style="color: #20794D;">'</span> <span class="op" style="color: #5E5E5E;">+</span></span>
-<span id="cb3-24">            <span class="ss" style="color: #20794D;">f'apikey=</span><span class="sc" style="color: #5E5E5E;">{</span>config[<span class="st" style="color: #20794D;">"etherscan-api-key"</span>]<span class="sc" style="color: #5E5E5E;">}</span><span class="ss" style="color: #20794D;">'</span></span>
-<span id="cb3-25">        ).json()[<span class="st" style="color: #20794D;">'result'</span>]</span>
-<span id="cb3-26"></span>
-<span id="cb3-27">        transactions <span class="op" style="color: #5E5E5E;">+=</span> result</span>
-<span id="cb3-28"></span>
-<span id="cb3-29">        <span class="cf" style="color: #003B4F;">if</span> <span class="bu" style="color: null;">len</span>(result) <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="dv" style="color: #AD0000;">1_000</span>:</span>
-<span id="cb3-30">            <span class="cf" style="color: #003B4F;">break</span></span>
-<span id="cb3-31"></span>
-<span id="cb3-32">        start_block <span class="op" style="color: #5E5E5E;">=</span> <span class="bu" style="color: null;">int</span>(result[<span class="op" style="color: #5E5E5E;">-</span><span class="dv" style="color: #AD0000;">1</span>][<span class="st" style="color: #20794D;">"blockNumber"</span>]) <span class="op" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span></span>
-<span id="cb3-33"></span>
-<span id="cb3-34"></span>
-<span id="cb3-35">    <span class="cf" style="color: #003B4F;">return</span> transactions</span>
-<span id="cb3-36"></span>
-<span id="cb3-37"><span class="kw" style="color: #003B4F;">def</span> is_EOA(address):</span>
-<span id="cb3-38">    <span class="co" style="color: #5E5E5E;">'''Returns true if the address belongs to an Externally Owned Account'''</span></span>
-<span id="cb3-39"></span>
-<span id="cb3-40">    <span class="cf" style="color: #003B4F;">try</span>:</span>
-<span id="cb3-41">        _address <span class="op" style="color: #5E5E5E;">=</span> Web3.toChecksumAddress(address)</span>
-<span id="cb3-42">        <span class="cf" style="color: #003B4F;">return</span> web3.eth.getCode(_address) <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">b""</span></span>
-<span id="cb3-43">    <span class="cf" style="color: #003B4F;">except</span>:</span>
-<span id="cb3-44">        <span class="cf" style="color: #003B4F;">return</span> <span class="va" style="color: #111111;">False</span></span>
-<span id="cb3-45"></span>
-<span id="cb3-46"><span class="kw" style="color: #003B4F;">def</span> get_associates(address):</span>
-<span id="cb3-47">    <span class="co" style="color: #5E5E5E;">'''Returns a set of all account with which the provided addresses interacted with'''</span></span>
-<span id="cb3-48"></span>
-<span id="cb3-49">    transactions <span class="op" style="color: #5E5E5E;">=</span> get_all_transactions(address)</span>
-<span id="cb3-50"></span>
-<span id="cb3-51">    associates <span class="op" style="color: #5E5E5E;">=</span> <span class="bu" style="color: null;">set</span>()</span>
-<span id="cb3-52">    <span class="cf" style="color: #003B4F;">for</span> tx <span class="kw" style="color: #003B4F;">in</span> transactions:</span>
-<span id="cb3-53">        <span class="cf" style="color: #003B4F;">if</span> tx[<span class="st" style="color: #20794D;">'from'</span>] <span class="op" style="color: #5E5E5E;">!=</span> address:</span>
-<span id="cb3-54">            associates.update([tx[<span class="st" style="color: #20794D;">'from'</span>]])</span>
-<span id="cb3-55">        <span class="cf" style="color: #003B4F;">if</span> tx[<span class="st" style="color: #20794D;">'to'</span>] <span class="op" style="color: #5E5E5E;">!=</span> address:</span>
-<span id="cb3-56">            associates.update([tx[<span class="st" style="color: #20794D;">'to'</span>]])</span>
-<span id="cb3-57"></span>
-<span id="cb3-58">    <span class="cf" style="color: #003B4F;">return</span> associates</span>
-<span id="cb3-59"></span>
-<span id="cb3-60"><span class="kw" style="color: #003B4F;">def</span> get_logs(tx_hash):</span>
-<span id="cb3-61">    <span class="co" style="color: #5E5E5E;">'''Gets the logs from the transaction receipt of the tx_hash'''</span></span>
-<span id="cb3-62"></span>
-<span id="cb3-63">    tx_receipt <span class="op" style="color: #5E5E5E;">=</span> web3.eth.get_transaction_receipt(tx_hash)</span>
-<span id="cb3-64"></span>
-<span id="cb3-65">    <span class="cf" style="color: #003B4F;">return</span> tx_receipt[<span class="st" style="color: #20794D;">'status'</span>], tx_receipt[<span class="st" style="color: #20794D;">'logs'</span>]</span>
-<span id="cb3-66"></span>
-<span id="cb3-67"><span class="kw" style="color: #003B4F;">def</span> parse_logs(logs):</span>
-<span id="cb3-68">    <span class="co" style="color: #5E5E5E;">'''Returns the NFT contract's address, token id and addresses involved in the trade'''</span></span>
-<span id="cb3-69"></span>
-<span id="cb3-70">    TRANSFER_TOPIC <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"</span></span>
-<span id="cb3-71">    WRAPPED_ETH <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"</span></span>
-<span id="cb3-72"></span>
-<span id="cb3-73">    nft_contracts, token_ids, _from, _to <span class="op" style="color: #5E5E5E;">=</span> [], [], <span class="va" style="color: #111111;">None</span>, <span class="va" style="color: #111111;">None</span></span>
-<span id="cb3-74"></span>
-<span id="cb3-75">    <span class="cf" style="color: #003B4F;">for</span> ev <span class="kw" style="color: #003B4F;">in</span> logs:</span>
-<span id="cb3-76"></span>
-<span id="cb3-77">        <span class="cf" style="color: #003B4F;">if</span> TRANSFER_TOPIC <span class="op" style="color: #5E5E5E;">==</span> ev[<span class="st" style="color: #20794D;">"topics"</span>][<span class="dv" style="color: #AD0000;">0</span>].<span class="bu" style="color: null;">hex</span>() <span class="kw" style="color: #003B4F;">and</span> ev[<span class="st" style="color: #20794D;">"address"</span>] <span class="op" style="color: #5E5E5E;">!=</span> WRAPPED_ETH:</span>
-<span id="cb3-78"></span>
-<span id="cb3-79">            nft_contracts.append(ev[<span class="st" style="color: #20794D;">"address"</span>])</span>
-<span id="cb3-80"></span>
-<span id="cb3-81">            bytecode <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">""</span>.join([x.<span class="bu" style="color: null;">hex</span>() <span class="cf" style="color: #003B4F;">for</span> x <span class="kw" style="color: #003B4F;">in</span> ev[<span class="st" style="color: #20794D;">"topics"</span>]]) <span class="op" style="color: #5E5E5E;">+</span> <span class="st" style="color: #20794D;">""</span>.join(ev[<span class="st" style="color: #20794D;">"data"</span>])</span>
-<span id="cb3-82">            _from <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"0x"</span> <span class="op" style="color: #5E5E5E;">+</span> bytecode[<span class="dv" style="color: #AD0000;">66</span> : <span class="dv" style="color: #AD0000;">66</span> <span class="op" style="color: #5E5E5E;">*</span> <span class="dv" style="color: #AD0000;">2</span>][<span class="op" style="color: #5E5E5E;">-</span><span class="dv" style="color: #AD0000;">40</span>:]</span>
-<span id="cb3-83">            _to <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"0x"</span> <span class="op" style="color: #5E5E5E;">+</span> bytecode[<span class="dv" style="color: #AD0000;">66</span> <span class="op" style="color: #5E5E5E;">*</span> <span class="dv" style="color: #AD0000;">2</span> : <span class="dv" style="color: #AD0000;">66</span> <span class="op" style="color: #5E5E5E;">*</span> <span class="dv" style="color: #AD0000;">3</span>][<span class="op" style="color: #5E5E5E;">-</span><span class="dv" style="color: #AD0000;">40</span>:]</span>
-<span id="cb3-84">            token_ids.append(<span class="bu" style="color: null;">int</span>(bytecode[<span class="dv" style="color: #AD0000;">66</span> <span class="op" style="color: #5E5E5E;">*</span> <span class="dv" style="color: #AD0000;">3</span> : <span class="dv" style="color: #AD0000;">66</span> <span class="op" style="color: #5E5E5E;">*</span> <span class="dv" style="color: #AD0000;">4</span>][<span class="dv" style="color: #AD0000;">2</span>:<span class="dv" style="color: #AD0000;">66</span>], base<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">16</span>))</span>
-<span id="cb3-85"></span>
-<span id="cb3-86">    <span class="cf" style="color: #003B4F;">return</span> nft_contracts, token_ids, _from, _to</span>
-<span id="cb3-87"></span>
-<span id="cb3-88"></span>
-<span id="cb3-89"><span class="kw" style="color: #003B4F;">def</span> wtd0(A, B, associates_A, associates_B):</span>
-<span id="cb3-90">    <span class="co" style="color: #5E5E5E;">'''WTD0 implementation'''</span></span>
-<span id="cb3-91"></span>
-<span id="cb3-92">    <span class="cf" style="color: #003B4F;">return</span> (A <span class="kw" style="color: #003B4F;">in</span> associates_B) <span class="kw" style="color: #003B4F;">or</span> (B <span class="kw" style="color: #003B4F;">in</span> associates_A)</span>
-<span id="cb3-93"></span>
-<span id="cb3-94"><span class="kw" style="color: #003B4F;">def</span> wtd1(A, B, associates_A, associates_B):</span>
-<span id="cb3-95">    <span class="co" style="color: #5E5E5E;">'''WTD1 implementation'''</span></span>
-<span id="cb3-96"></span>
-<span id="cb3-97">    EOA_associates <span class="op" style="color: #5E5E5E;">=</span> []</span>
-<span id="cb3-98"></span>
-<span id="cb3-99">    common_associates <span class="op" style="color: #5E5E5E;">=</span> associates_A.intersection(associates_B)</span>
-<span id="cb3-100">    <span class="cf" style="color: #003B4F;">for</span> ca <span class="kw" style="color: #003B4F;">in</span> common_associates:</span>
-<span id="cb3-101">        <span class="cf" style="color: #003B4F;">if</span> is_EOA(ca):</span>
-<span id="cb3-102">            EOA_associates.append(ca)</span>
-<span id="cb3-103"></span>
-<span id="cb3-104">    <span class="cf" style="color: #003B4F;">return</span> EOA_associates</span></code></pre></div>
-</section>
-<section id="appendix-b" class="level2">
-<h2 class="anchored" data-anchor-id="appendix-b">Appendix B</h2>
-<p>Following is the list of all the addresses that were ignored by WTD1 due to the fact that they belong to CEXs</p>
-<center>
-<table class="table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Address</th>
-<th style="text-align: center;">CEX</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">0x564286362092d8e7936f0549571a803b203aaced</td>
-<td style="text-align: center;">Binance3</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0x59a5208b32e627891c389ebafc644145224006e8</td>
-<td style="text-align: center;">HitBTC2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0x56eddb7aa87536c09ccc2793473599fd21a8b17f</td>
-<td style="text-align: center;">Binance17</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0xeb2629a2734e272bcc07bda959863f316f4bd4cf</td>
-<td style="text-align: center;">Coinbase6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0xd551234ae421e3bcba99a0da6d736074f22192ff</td>
-<td style="text-align: center;">Binance2</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0xb5d85cbf7cb3ee0d56b3bb207d5fc4b82f43f511</td>
-<td style="text-align: center;">Coinbase5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0x0681d8db095565fe8a346fa0277bffde9c0edbbf</td>
-<td style="text-align: center;">Binance4</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be</td>
-<td style="text-align: center;">Binance</td>
-</tr>
-</tbody>
-</table>
-</center>
-</section>
-</section>
-<section id="bibliography" class="level1">
-
-
-
-
-</section>
-
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-haywardOpenSeaHitsRecord2022" class="csl-entry">
-Hayward, Decrypt / Andrew, ‘OpenSea Hits Record $5b in Monthly Sales as Ethereum NFT Market Swells’, <em>Decrypt</em>, 2022 &lt;<a href="https://decrypt.co/91748/opensea-record-5b-ethereum-nft-market-swells" class="uri">https://decrypt.co/91748/opensea-record-5b-ethereum-nft-market-swells</a>&gt; [accessed 13 March 2022]
-</div>
-<div id="ref-WashTradingDefinition" class="csl-entry">
-‘Wash Trading Definition’, <em>Investopedia</em> &lt;<a href="https://www.investopedia.com/terms/w/washtrading.asp" class="uri">https://www.investopedia.com/terms/w/washtrading.asp</a>&gt; [accessed 21 March 2022]
-</div>
-</div></section><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Decrypt / Andrew Hayward, ‘OpenSea Hits Record $5b in Monthly Sales as Ethereum NFT Market Swells’, <em>Decrypt</em>, 2022 &lt;&lt;https://decrypt.co/91748/opensea-record-5b-ethereum-nft-market-swells&gt;&gt; [accessed 13 March 2022].↩︎</p></li>
-<li id="fn2"><p>‘Wash Trading Definition’, <em>Investopedia</em> &lt;&lt;https://www.investopedia.com/terms/w/washtrading.asp&gt;&gt; [accessed 21 March 2022].↩︎</p></li>
-</ol>
-</section></div> ]]></description>
-  <guid>https://3327.io/documents/research/posts/ERFC-90.hugo.html</guid>
-  <pubDate>Sat, 12 Mar 2022 00:00:00 GMT</pubDate>
-  <media:content url="https://3327.io/documents/research/assets/ERFC-90/images/meta-patterns.png" medium="image" type="image/png" height="35" width="144"/>
 </item>
 </channel>
 </rss>
